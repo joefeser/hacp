@@ -1,0 +1,9 @@
+{"hacp_event":"packet.created","pyrapide_event":"hacp.packet.created","caused_by":[]}
+{"hacp_event":"decision.recorded","decision":"approve_next_packet","pyrapide_event":"hacp.decision.approve_next_packet","caused_by":["hacp.packet.created"]}
+{"hacp_event":"packet.approved","pyrapide_event":"hacp.packet.approved","caused_by":["hacp.decision.approve_next_packet"]}
+{"hacp_event":"decision.recorded","decision":"start_work","pyrapide_event":"hacp.decision.start_work","caused_by":["hacp.packet.approved"]}
+{"hacp_event":"transport.rendered","pyrapide_event":"hacp.transport.rendered","caused_by":["hacp.packet.approved"]}
+{"hacp_event":"report.imported","pyrapide_event":"hacp.report.imported","caused_by":["hacp.transport.rendered"]}
+{"hacp_event":"finding.created","pyrapide_event":"hacp.finding.created","caused_by":["hacp.report.imported"]}
+{"hacp_event":"decision.recorded","decision":"mark_complete","pyrapide_event":"hacp.decision.mark_complete","caused_by":["hacp.finding.created"]}
+{"hacp_event":"session.closed","pyrapide_event":"hacp.session.closed","caused_by":["hacp.decision.mark_complete"]}

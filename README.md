@@ -135,6 +135,12 @@ relationships. The decision-matrix diagram is generated from
 [decision-matrix-base-v0.1.yaml](decision-matrix-base-v0.1.yaml) with
 [scripts/generate_decision_matrix_mermaid.py](scripts/generate_decision_matrix_mermaid.py).
 
+## Integration Sketches
+
+Use [examples/integrations/pyrapide/README.md](examples/integrations/pyrapide/README.md)
+for a non-normative sketch of how HACP audit events could map into a
+PyRapide-style causal event graph for invariant checking.
+
 ## Contributing
 
 HACP is still pre-standardisation work. The most useful contributions are:

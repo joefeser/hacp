@@ -5,3 +5,6 @@ coverage/
 *.log
 !.gitignore
 !examples/**/*.log
+
+__pycache__/
+*.py[cod]

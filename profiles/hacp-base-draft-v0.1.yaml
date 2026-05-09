@@ -1,0 +1,99 @@
+profile_id: hacp-base-draft
+profile_version: v0.1-draft
+profile_status: active
+hacp_version: v0.1-draft
+owner: HACP working draft maintainers
+summary: Base HACP v0.1 draft profile.
+
+record_kinds:
+  - hacp.task_packet
+  - hacp.agent_report
+  - hacp.review_finding
+  - hacp.human_decision_gate
+  - hacp.audit_event
+
+authority_values:
+  propose_only:
+    authority_impact: produces_proposal
+    forbidden_effects:
+      releases_to_users: false
+      accepts_risk: false
+      bypasses_ship_decision: false
+      widens_scope_silently: false
+      converts_review_to_approval: false
+  implement_bounded:
+    authority_impact: modifies_allowed_surfaces
+    forbidden_effects:
+      releases_to_users: false
+      accepts_risk: false
+      bypasses_ship_decision: false
+      widens_scope_silently: false
+      converts_review_to_approval: false
+  review_only:
+    authority_impact: returns_findings_only
+    forbidden_effects:
+      releases_to_users: false
+      accepts_risk: false
+      bypasses_ship_decision: false
+      widens_scope_silently: false
+      converts_review_to_approval: false
+  verify_only:
+    authority_impact: returns_verification_only
+    forbidden_effects:
+      releases_to_users: false
+      accepts_risk: false
+      bypasses_ship_decision: false
+      widens_scope_silently: false
+      converts_review_to_approval: false
+  observe_only:
+    authority_impact: observes_state_only
+    forbidden_effects:
+      releases_to_users: false
+      accepts_risk: false
+      bypasses_ship_decision: false
+      widens_scope_silently: false
+      converts_review_to_approval: false
+  audit_only:
+    authority_impact: audits_evidence_only
+    forbidden_effects:
+      releases_to_users: false
+      accepts_risk: false
+      bypasses_ship_decision: false
+      widens_scope_silently: false
+      converts_review_to_approval: false
+
+actor_kind_values:
+  - human
+
+actor_verification_source_values:
+  - server_session_with_human_interaction
+  - platform_oauth_with_human_interaction
+  - signed_human_attestation
+
+evidence_visibility_values:
+  - internal_only
+  - reviewer_only
+  - external_shareable
+
+review_finding_severity_values:
+  - blocker
+  - high
+  - medium
+  - low
+
+review_finding_classification_values:
+  - real_blocker
+  - follow_up
+  - noise
+  - needs_human_decision
+  - confirmation
+
+profile_status_values:
+  - active
+  - deprecated
+  - revoked
+
+conformance_notes:
+  - Base profile does not include delegated approval, standing approval, or template pre-approval.
+  - Base profile does not include automated transport.
+  - Base profile does not include ship, deploy, publish, merge-to-main, or risk-acceptance authority.

@@ -127,6 +127,12 @@ finding, and one JSON Lines audit export. It is intentionally tiny, so protocol
 reviewers can test the RFC contracts without inheriting an implementation's
 non-public evidence tree.
 
+## Diagrams
+
+Use [diagrams.md](diagrams.md) for non-normative visual aids covering the
+minimal lifecycle, authority boundary, base decision matrix, and core record
+relationships.
+
 ## Contributing
 
 HACP is still pre-standardisation work. The most useful contributions are:

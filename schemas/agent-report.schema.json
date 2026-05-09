@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.1-draft/agent-report.schema.json",
+  "title": "HACP v0.1 Draft Agent Report",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "hacp_version",
+    "record_kind",
+    "report_id",
+    "packet_id",
+    "profile_id",
+    "profile_version",
+    "created_at",
+    "created_by",
+    "behaviour_implemented",
+    "verification_performed",
+    "blockers",
+    "residual_risks",
+    "requested_next_step",
+    "boundaries_preserved",
+    "evidence"
+  ],
+  "anyOf": [
+    { "required": ["files_changed"] },
+    { "required": ["surfaces_changed"] }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "boundaries_preserved": { "const": true } },
+        "required": ["boundaries_preserved"]
+      },
+      "then": {
+        "properties": {
+          "boundary_crossed_reason": {
+            "anyOf": [
+              { "type": "null" },
+              { "type": "string", "maxLength": 0 },
+              { "type": "array", "maxItems": 0 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "boundaries_preserved": { "const": false } },
+        "required": ["boundaries_preserved"]
+      },
+      "then": {
+        "required": ["boundary_crossed_reason"],
+        "properties": {
+          "boundary_crossed_reason": {
+            "anyOf": [
+              { "type": "string", "minLength": 1 },
+              {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 },
+                "minItems": 1
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.agent_report" },
+    "report_id": { "type": "string", "minLength": 1 },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "profile_id": { "const": "hacp-base-draft" },
+    "profile_version": { "const": "v0.1-draft" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "created_by": { "type": "string", "minLength": 1 },
+    "surfaces_changed": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "files_changed": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "behaviour_implemented": { "type": "string" },
+    "verification_performed": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "blockers": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "residual_risks": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "requested_next_step": { "type": "string", "minLength": 1 },
+    "boundaries_preserved": { "type": "boolean" },
+    "boundary_crossed_reason": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      ]
+    },
+    "evidence": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  }
+}

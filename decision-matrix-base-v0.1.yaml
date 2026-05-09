@@ -1,0 +1,108 @@
+matrix_id: hacp-base-decision-matrix
+decision_matrix_version: v0.1-draft
+profile_id: hacp-base-draft
+profile_version: v0.1-draft
+hacp_version: v0.1-draft
+
+status_values:
+  - draft
+  - approved
+  - in_progress
+  - waiting_for_review
+  - needs_human_decision
+  - blocked
+  - completed
+  - canceled
+
+decision_values:
+  - approve_next_packet
+  - start_work
+  - request_review
+  - request_human_decision
+  - mark_blocked
+  - accept_follow_up
+  - cancel_session
+  - mark_complete
+
+terminal_status_values:
+  - completed
+  - canceled
+
+transitions:
+  - from_status: draft
+    decision: approve_next_packet
+    to_status: approved
+  - from_status: draft
+    decision: cancel_session
+    to_status: canceled
+
+  - from_status: approved
+    decision: start_work
+    to_status: in_progress
+  - from_status: approved
+    decision: request_review
+    to_status: waiting_for_review
+  - from_status: approved
+    decision: request_human_decision
+    to_status: needs_human_decision
+  - from_status: approved
+    decision: mark_blocked
+    to_status: blocked
+  - from_status: approved
+    decision: cancel_session
+    to_status: canceled
+
+  - from_status: in_progress
+    decision: request_review
+    to_status: waiting_for_review
+  - from_status: in_progress
+    decision: request_human_decision
+    to_status: needs_human_decision
+  - from_status: in_progress
+    decision: mark_blocked
+    to_status: blocked
+  - from_status: in_progress
+    decision: mark_complete
+    to_status: completed
+  - from_status: in_progress
+    decision: cancel_session
+    to_status: canceled
+
+  - from_status: waiting_for_review
+    decision: accept_follow_up
+    to_status: in_progress
+  - from_status: waiting_for_review
+    decision: approve_next_packet
+    to_status: approved
+  - from_status: waiting_for_review
+    decision: request_human_decision
+    to_status: needs_human_decision
+  - from_status: waiting_for_review
+    decision: mark_blocked
+    to_status: blocked
+  - from_status: waiting_for_review
+    decision: cancel_session
+    to_status: canceled
+
+  - from_status: needs_human_decision
+    decision: accept_follow_up
+    to_status: in_progress
+  - from_status: needs_human_decision
+    decision: mark_blocked
+    to_status: blocked
+  - from_status: needs_human_decision
+    decision: mark_complete
+    to_status: completed
+  - from_status: needs_human_decision
+    decision: cancel_session
+    to_status: canceled
+
+  - from_status: blocked
+    decision: request_human_decision
+    to_status: needs_human_decision
+  - from_status: blocked
+    decision: accept_follow_up
+    to_status: in_progress
+  - from_status: blocked
+    decision: cancel_session
+    to_status: canceled

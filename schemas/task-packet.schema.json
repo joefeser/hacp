@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.1-draft/task-packet.schema.json",
+  "title": "HACP v0.1 Draft Task Packet",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "hacp_version",
+    "record_kind",
+    "packet_id",
+    "profile_id",
+    "profile_version",
+    "packet_state",
+    "created_at",
+    "created_by",
+    "approval",
+    "target_label",
+    "mode",
+    "authority",
+    "authority_impact",
+    "scope",
+    "allowed_surfaces",
+    "forbidden_surfaces",
+    "stop_conditions",
+    "verification_requirements",
+    "required_report_shape",
+    "evidence_visibility"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "packet_state": { "const": "draft" } },
+        "required": ["packet_state"]
+      },
+      "then": {
+        "properties": { "approval": { "type": "null" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "packet_state": { "const": "approved" } },
+        "required": ["packet_state"]
+      },
+      "then": {
+        "properties": { "approval": { "type": "object" } },
+        "required": ["approval"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "authority": { "const": "propose_only" } },
+        "required": ["authority"]
+      },
+      "then": {
+        "properties": { "authority_impact": { "const": "produces_proposal" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "authority": { "const": "implement_bounded" } },
+        "required": ["authority"]
+      },
+      "then": {
+        "properties": { "authority_impact": { "const": "modifies_allowed_surfaces" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "authority": { "const": "review_only" } },
+        "required": ["authority"]
+      },
+      "then": {
+        "properties": { "authority_impact": { "const": "returns_findings_only" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "authority": { "const": "verify_only" } },
+        "required": ["authority"]
+      },
+      "then": {
+        "properties": { "authority_impact": { "const": "returns_verification_only" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "authority": { "const": "observe_only" } },
+        "required": ["authority"]
+      },
+      "then": {
+        "properties": { "authority_impact": { "const": "observes_state_only" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "authority": { "const": "audit_only" } },
+        "required": ["authority"]
+      },
+      "then": {
+        "properties": { "authority_impact": { "const": "audits_evidence_only" } }
+      }
+    }
+  ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.task_packet" },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "profile_id": { "const": "hacp-base-draft" },
+    "profile_version": { "const": "v0.1-draft" },
+    "packet_state": { "enum": ["draft", "approved"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "created_by": { "type": "string", "minLength": 1 },
+    "approval": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["decision_id", "actor_id", "actor_kind", "approved_at", "approved_body_hash"],
+          "properties": {
+            "decision_id": { "type": "string", "minLength": 1 },
+            "actor_id": { "type": "string", "minLength": 1 },
+            "actor_kind": { "const": "human" },
+            "approved_at": { "type": "string", "format": "date-time" },
+            "approved_body_hash": {
+              "type": "object",
+              "required": ["algorithm", "canonicalization", "digest"],
+              "properties": {
+                "algorithm": { "type": "string", "minLength": 1 },
+                "canonicalization": { "type": "string", "minLength": 1 },
+                "digest": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "target_label": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "minLength": 1 },
+    "authority": {
+      "enum": ["propose_only", "implement_bounded", "review_only", "verify_only", "observe_only", "audit_only"]
+    },
+    "authority_impact": {
+      "enum": [
+        "produces_proposal",
+        "modifies_allowed_surfaces",
+        "returns_findings_only",
+        "returns_verification_only",
+        "observes_state_only",
+        "audits_evidence_only"
+      ]
+    },
+    "scope": { "type": "string", "minLength": 1 },
+    "allowed_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "forbidden_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "stop_conditions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+    "verification_requirements": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "required_report_shape": { "type": "string", "minLength": 1 },
+    "evidence_visibility": { "enum": ["internal_only", "reviewer_only", "external_shareable"] },
+    "loop_ceiling": { "type": "integer", "minimum": 0 }
+  }
+}

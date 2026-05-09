@@ -51,6 +51,7 @@
       "then": {
         "required": ["boundary_crossed_reason"],
         "properties": {
+          "requested_next_step": { "const": "request_human_decision" },
           "boundary_crossed_reason": {
             "anyOf": [
               { "type": "string", "minLength": 1 },

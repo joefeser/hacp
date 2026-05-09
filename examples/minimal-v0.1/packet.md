@@ -22,9 +22,9 @@ target_label: example-agent
 mode: implement
 authority: implement_bounded
 authority_impact: modifies_allowed_surfaces
-scope: Correct one stale sentence in docs/example.md without changing source code.
+scope: Correct one stale sentence in examples/minimal-v0.1/example.md without changing source code.
 allowed_surfaces:
-  - docs/example.md
+  - examples/minimal-v0.1/example.md
 forbidden_surfaces:
   - app/**
   - lib/**
@@ -34,7 +34,7 @@ stop_conditions:
   - Stop if the correction requires source code changes.
   - Stop if any requested action would exceed implement_bounded authority.
 verification_requirements:
-  - git diff -- docs/example.md
+  - git diff -- examples/minimal-v0.1/example.md
 required_report_shape: hacp-agent-report-draft
 evidence_visibility: internal_only
 loop_ceiling: 0
@@ -44,8 +44,8 @@ loop_ceiling: 0
 
 ```yaml
 manualTransport:
-  transport_profile_id: manual_transport_v1
-  version: manual_transport_v1
+  transport_profile_id: hacp.manual_transport
+  transport_profile_version: v0.1-draft
   productAction: render_only
   deliveryBoundary: human_owner_outside_product_runtime
   outboundTransport: none

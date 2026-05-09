@@ -19,6 +19,7 @@
     "residual_risks",
     "requested_next_step",
     "boundaries_preserved",
+    "boundary_crossed_reason",
     "evidence"
   ],
   "anyOf": [
@@ -36,7 +37,6 @@
           "boundary_crossed_reason": {
             "anyOf": [
               { "type": "null" },
-              { "type": "string", "maxLength": 0 },
               { "type": "array", "maxItems": 0 }
             ]
           }
@@ -84,7 +84,7 @@
       "items": { "type": "string", "minLength": 1 },
       "minItems": 1
     },
-    "behaviour_implemented": { "type": "string" },
+    "behaviour_implemented": { "type": "string", "minLength": 1 },
     "verification_performed": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "blockers": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "residual_risks": { "type": "array", "items": { "type": "string", "minLength": 1 } },

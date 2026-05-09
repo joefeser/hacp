@@ -1,7 +1,7 @@
-$ git diff -- docs/example.md
-diff --git a/docs/example.md b/docs/example.md
---- a/docs/example.md
-+++ b/docs/example.md
+$ git diff -- examples/minimal-v0.1/example.md
+diff --git a/examples/minimal-v0.1/example.md b/examples/minimal-v0.1/example.md
+--- a/examples/minimal-v0.1/example.md
++++ b/examples/minimal-v0.1/example.md
 @@
 -This sentence described the prior phase as future work.
 +This sentence describes the current approved behaviour.

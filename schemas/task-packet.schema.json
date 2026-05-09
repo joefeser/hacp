@@ -24,7 +24,8 @@
     "stop_conditions",
     "verification_requirements",
     "required_report_shape",
-    "evidence_visibility"
+    "evidence_visibility",
+    "loop_ceiling"
   ],
   "allOf": [
     {
@@ -151,7 +152,7 @@
       ]
     },
     "scope": { "type": "string", "minLength": 1 },
-    "allowed_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "allowed_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
     "forbidden_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 } },
     "stop_conditions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
     "verification_requirements": { "type": "array", "items": { "type": "string", "minLength": 1 } },

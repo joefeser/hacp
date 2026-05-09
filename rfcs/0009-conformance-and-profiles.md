@@ -82,6 +82,12 @@ warn on deprecated profiles unless the local policy requires rejection.
 The base profile declaration is published at
 `profiles/hacp-base-draft-v0.1.yaml`.
 
+For base-profile machine validation, vocabulary declarations in
+`profiles/hacp-base-draft-v0.1.yaml` and status transitions in
+`decision-matrix-base-v0.1.yaml` are the canonical machine-readable sources.
+The RFC prose describes their semantics. Drift between those artefacts, schemas,
+examples, and prose is a draft defect.
+
 The base draft includes minimal JSON Schemas for Task Packet and Agent Report
 records in `schemas/`. These schemas are companion artefacts, not a
 replacement for the human-readable RFCs.

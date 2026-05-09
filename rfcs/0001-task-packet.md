@@ -163,10 +163,11 @@ Profiles MAY extend this vocabulary only through RFC-0009 profile declarations.
 
 If a coordination session permits iterative review/fix work, the Task Packet
 rendering MUST show the effective loop ceiling that applies at approval time.
-The value MAY be stored on the session rather than the packet, but it MUST be
-visible in the packet approval surface or exported packet rendering. If a
-service default is used, the rendered packet MUST show the resolved default, not
-only the word `default`.
+An implementation MAY manage the source value on the coordination session, but
+the effective value MUST be materialized as `loop_ceiling` in the Task Packet
+record and visible in the packet approval surface or exported packet rendering.
+If a service default is used, the rendered packet MUST show the resolved
+default, not only the word `default`.
 
 The rendered value is the effective ceiling at approval time and MUST NOT change
 retroactively if a later session default changes.

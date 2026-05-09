@@ -91,6 +91,20 @@ This state diagram mirrors the base Human Decision Gate transition matrix in
 [decision-matrix-base-v0.1.yaml](decision-matrix-base-v0.1.yaml). The YAML file
 is the canonical machine-readable source.
 
+This block is generated from the YAML matrix. After editing
+`decision-matrix-base-v0.1.yaml`, run:
+
+```bash
+python3 scripts/generate_decision_matrix_mermaid.py
+```
+
+To check for drift without modifying files, run:
+
+```bash
+python3 scripts/generate_decision_matrix_mermaid.py --check
+```
+
+<!-- BEGIN GENERATED DECISION MATRIX -->
 ```mermaid
 stateDiagram-v2
   [*] --> draft
@@ -128,6 +142,7 @@ stateDiagram-v2
   completed --> [*]
   canceled --> [*]
 ```
+<!-- END GENERATED DECISION MATRIX -->
 
 ## Core Record Relationships
 

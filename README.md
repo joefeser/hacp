@@ -131,7 +131,9 @@ non-public evidence tree.
 
 Use [diagrams.md](diagrams.md) for non-normative visual aids covering the
 minimal lifecycle, authority boundary, base decision matrix, and core record
-relationships.
+relationships. The decision-matrix diagram is generated from
+[decision-matrix-base-v0.1.yaml](decision-matrix-base-v0.1.yaml) with
+[scripts/generate_decision_matrix_mermaid.py](scripts/generate_decision_matrix_mermaid.py).
 
 ## Contributing
 

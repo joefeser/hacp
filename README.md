@@ -127,6 +127,12 @@ finding, and one JSON Lines audit export. It is intentionally tiny, so protocol
 reviewers can test the RFC contracts without inheriting an implementation's
 non-public evidence tree.
 
+## Integration Sketches
+
+Use [examples/integrations/pyrapide/README.md](examples/integrations/pyrapide/README.md)
+for a non-normative sketch of how HACP audit events could map into a
+PyRapide-style causal event graph for invariant checking.
+
 ## Contributing
 
 HACP is still pre-standardisation work. The most useful contributions are:

@@ -97,6 +97,13 @@ honest. Profiles MAY define more specific automatic routes into
 `needs_human_decision`, such as loop-ceiling breach handling, but those routes
 MUST still be audited.
 
+The base matrix intentionally does not define direct `blocked` to `approved` or
+`blocked` to `waiting_for_review` transitions. Once blocked, recovery either
+resumes work with `accept_follow_up`, routes ambiguity through
+`request_human_decision`, or ends with `cancel_session`. A dependency that is
+resolved without further work still needs an auditable resume decision before
+the session can continue.
+
 User interfaces MUST NOT present rejected decisions as available. If a decision
 is visible but unavailable, the interface MUST explain why.
 
@@ -111,6 +118,11 @@ Automated systems, service accounts, CI jobs, and unattended watchers are not
 approved actors unless a delegated-approval profile explicitly defines them.
 
 The base `actor_kind` vocabulary contains only `human`.
+
+Human Decision Gate `actor_id` and `actor_kind` fields identify who exercised
+approval or routing authority. They are distinct from `created_by` fields on
+packets, reports, findings, and audit records, which identify artefact authorship
+or record creation.
 
 The actor MUST be recorded server-side or by another profile-defined trusted
 mechanism. Clients MUST NOT be able to assert arbitrary approver identity.

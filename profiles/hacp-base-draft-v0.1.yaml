@@ -15,52 +15,28 @@ record_kinds:
 authority_values:
   propose_only:
     authority_impact: produces_proposal
-    forbidden_effects:
+    forbidden_effects: &base_forbidden_effects
       releases_to_users: false
+      deploys_without_gate: false
       accepts_risk: false
       bypasses_ship_decision: false
       widens_scope_silently: false
       converts_review_to_approval: false
   implement_bounded:
     authority_impact: modifies_allowed_surfaces
-    forbidden_effects:
-      releases_to_users: false
-      accepts_risk: false
-      bypasses_ship_decision: false
-      widens_scope_silently: false
-      converts_review_to_approval: false
+    forbidden_effects: *base_forbidden_effects
   review_only:
     authority_impact: returns_findings_only
-    forbidden_effects:
-      releases_to_users: false
-      accepts_risk: false
-      bypasses_ship_decision: false
-      widens_scope_silently: false
-      converts_review_to_approval: false
+    forbidden_effects: *base_forbidden_effects
   verify_only:
     authority_impact: returns_verification_only
-    forbidden_effects:
-      releases_to_users: false
-      accepts_risk: false
-      bypasses_ship_decision: false
-      widens_scope_silently: false
-      converts_review_to_approval: false
+    forbidden_effects: *base_forbidden_effects
   observe_only:
     authority_impact: observes_state_only
-    forbidden_effects:
-      releases_to_users: false
-      accepts_risk: false
-      bypasses_ship_decision: false
-      widens_scope_silently: false
-      converts_review_to_approval: false
+    forbidden_effects: *base_forbidden_effects
   audit_only:
     authority_impact: audits_evidence_only
-    forbidden_effects:
-      releases_to_users: false
-      accepts_risk: false
-      bypasses_ship_decision: false
-      widens_scope_silently: false
-      converts_review_to_approval: false
+    forbidden_effects: *base_forbidden_effects
 
 actor_kind_values:
   - human

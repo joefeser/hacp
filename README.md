@@ -156,3 +156,19 @@ Apache-2.0 unless a file states otherwise.
   JSON Schema for base Task Packet records.
 - [schemas/agent-report.schema.json](schemas/agent-report.schema.json): minimal
   JSON Schema for base Agent Report records.
+
+## Canonical Vocabulary Sources
+
+The draft prose explains the contracts, but machine-readable vocabulary should
+come from the companion artefacts:
+
+- profile, record-kind, authority, impact, evidence-visibility, actor, finding,
+  and profile-status vocabularies come from
+  [profiles/hacp-base-draft-v0.1.yaml](profiles/hacp-base-draft-v0.1.yaml);
+- status and decision-transition vocabularies come from
+  [decision-matrix-base-v0.1.yaml](decision-matrix-base-v0.1.yaml);
+- structural packet/report validation starts from
+  [schemas/](schemas/).
+
+If prose, examples, schemas, profile declarations, or the decision matrix
+disagree, treat that as a draft defect and report it.

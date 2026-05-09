@@ -46,7 +46,8 @@ Every Task Packet MUST include:
 - `stop_conditions`;
 - `verification_requirements`;
 - `required_report_shape`;
-- `evidence_visibility`.
+- `evidence_visibility`;
+- `loop_ceiling`.
 
 The HACP base profile uses `profile_id: hacp-base-draft` and
 `profile_version: v0.1-draft`. Profile identity fields are required even when no
@@ -59,6 +60,11 @@ defining RFC number.
 
 The base Task Packet `record_kind` is `hacp.task_packet`. Consumers MUST reject
 unknown `record_kind` values unless a declared profile extends the vocabulary.
+
+The `created_by` field records the artefact author or system that created the
+packet record. It is not an approval authority field. Approval authority is
+recorded only by the `approval` reference and the Human Decision Gate actor
+fields defined in RFC-0005.
 
 ### Approval Reference
 
@@ -100,9 +106,9 @@ human-readable form.
 
 The `scope` field MUST describe the intended work in bounded language.
 
-The `allowed_surfaces` field MUST identify where work may occur. Surfaces MAY be
-file paths, repository paths, API surfaces, documents, systems, or other
-profile-defined targets.
+The `allowed_surfaces` field MUST identify where work may occur and MUST NOT be
+empty. Surfaces MAY be file paths, repository paths, API surfaces, documents,
+systems, or other profile-defined targets.
 
 The `forbidden_surfaces` field MUST identify explicitly excluded areas when
 exclusion is needed to preserve authority boundaries.
@@ -157,10 +163,11 @@ Profiles MAY extend this vocabulary only through RFC-0009 profile declarations.
 
 If a coordination session permits iterative review/fix work, the Task Packet
 rendering MUST show the effective loop ceiling that applies at approval time.
-The value MAY be stored on the session rather than the packet, but it MUST be
-visible in the packet approval surface or exported packet rendering. If a
-service default is used, the rendered packet MUST show the resolved default, not
-only the word `default`.
+An implementation MAY manage the source value on the coordination session, but
+the effective value MUST be materialized as `loop_ceiling` in the Task Packet
+record and visible in the packet approval surface or exported packet rendering.
+If a service default is used, the rendered packet MUST show the resolved
+default, not only the word `default`.
 
 The rendered value is the effective ceiling at approval time and MUST NOT change
 retroactively if a later session default changes.
@@ -189,9 +196,9 @@ target_label: codex-cli
 mode: implement
 authority: implement_bounded
 authority_impact: modifies_allowed_surfaces
-scope: Correct stale wording in docs/example.md.
+scope: Correct stale wording in examples/minimal-v0.1/example.md.
 allowed_surfaces:
-  - docs/example.md
+  - examples/minimal-v0.1/example.md
 forbidden_surfaces:
   - app/**
   - prisma/**
@@ -199,7 +206,7 @@ stop_conditions:
   - Stop after the documentation correction and verification transcript.
   - Stop if the correction requires source code changes.
 verification_requirements:
-  - git diff -- docs/example.md
+  - git diff -- examples/minimal-v0.1/example.md
 required_report_shape: hacp-agent-report-draft
 evidence_visibility: internal_only
 loop_ceiling: 3

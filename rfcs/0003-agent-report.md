@@ -44,6 +44,10 @@ them to the base semantics.
 
 The base Agent Report `record_kind` is `hacp.agent_report`.
 
+The `created_by` field records the artefact author or system that created the
+report record. It does not record approval authority. Approval authority is
+recorded only by Human Decision Gate records.
+
 ## Boundary Preservation
 
 The `boundaries_preserved` field MUST be a boolean in the base profile.
@@ -104,10 +108,10 @@ profile_version: v0.1-draft
 created_at: 2026-05-09T09:00:00Z
 created_by: codex-cli
 surfaces_changed:
-  - docs/example.md
+  - examples/minimal-v0.1/example.md
 behaviour_implemented: Updated stale phase wording.
 verification_performed:
-  - git diff -- docs/example.md
+  - git diff -- examples/minimal-v0.1/example.md
 blockers: []
 residual_risks:
   - No docs lint command exists.

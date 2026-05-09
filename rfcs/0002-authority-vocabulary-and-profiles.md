@@ -83,6 +83,7 @@ declaration:
 ```yaml
 forbidden_effects:
   releases_to_users: false
+  deploys_without_gate: false
   accepts_risk: false
   bypasses_ship_decision: false
   widens_scope_silently: false
@@ -92,6 +93,10 @@ forbidden_effects:
 Consumers MUST reject a profiled authority value if the declaration is missing
 or if any forbidden-effect field is missing or true. Missing forbidden-effect
 fields MUST be treated as forbidden, not as false.
+
+The base forbidden-effect field names are the canonical machine-readable names
+for the effects listed above. For example, `deploys_without_gate` covers merge,
+deploy, publish, or ship effects that occur without a Human Decision Gate.
 
 ## Modes Are Not Authority
 

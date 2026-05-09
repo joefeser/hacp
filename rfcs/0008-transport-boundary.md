@@ -88,13 +88,20 @@ The rendering MUST include a transport contract block. A minimal block has:
 
 ```yaml
 manualTransport:
-  transport_profile_id: manual_transport_v1
-  version: manual_transport_v1
+  transport_profile_id: hacp.manual_transport
+  transport_profile_version: v0.1-draft
   productAction: render_only
   deliveryBoundary: human_owner_outside_product_runtime
   outboundTransport: none
   renderAuthenticationContext: browser_session  # one of: browser_session, api_header
 ```
+
+The `transport_profile_id` and `transport_profile_version` fields follow the
+same identifier/version split as HACP profile records. In the base draft,
+`hacp.manual_transport` is a built-in render-only transport declaration rather
+than an automated bridge profile. Automated transport profiles MUST publish
+their own identifiers, versions, discovery locations, and validation rules under
+RFC-0009.
 
 The `renderAuthenticationContext` value is required diagnostic metadata in the
 base profile. It describes how the product authenticated the export request and

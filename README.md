@@ -29,9 +29,11 @@ The preferred place for early feedback is
 [Discussion #2: HACP v0.1 public review](../../discussions/2).
 
 Please use that thread for broad feedback, protocol risks, implementation
-questions, and "does this framing work?" reactions. Use issues for concrete
-defects such as contradictions between RFCs, schema bugs, broken examples, or
-unclear conformance requirements.
+questions, and "does this framing work?" reactions. For structured protocol
+reviews, consider using the [review-packet.md](review-packet.md) template.
+
+Use issues for concrete defects such as contradictions between RFCs, schema
+bugs, broken examples, or unclear conformance requirements.
 
 ## Draft RFC Index
 

@@ -1,6 +1,6 @@
 # License
 
-Copyright 2026 Joseph Feser.
+Copyright (c) 2026 Joe Feser.
 
 The HACP draft text in this repository is licensed under the Creative Commons
 Attribution 4.0 International License (CC BY 4.0).

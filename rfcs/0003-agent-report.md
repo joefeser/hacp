@@ -2,6 +2,8 @@
 
 Status: Draft
 
+Copyright (c) 2026 Joe Feser. Licensed under CC BY 4.0.
+
 This draft uses normative keywords to express design intent. These requirements
 are not yet validated by independent implementations and may change before a
 v1.0 protocol release.

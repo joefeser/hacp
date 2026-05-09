@@ -4,7 +4,7 @@ Use this before making the repository public.
 
 - [ ] Confirm the repository name and description are public-safe.
 - [ ] Confirm the license choice in [LICENSE.md](LICENSE.md).
-- [ ] Confirm no implementation-private paths are required for review.
+- [ ] Confirm no implementation-specific paths are required for review.
 - [ ] Confirm README links resolve from the repository root.
 - [ ] Confirm RFC drafts still say HACP is a working draft, not a standard.
 - [ ] Confirm schemas and examples validate against the current draft intent.

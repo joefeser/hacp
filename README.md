@@ -1,5 +1,7 @@
 # Human-Approved Coordination Protocol (HACP)
 
+Copyright (c) 2026 Joe Feser.
+
 HACP is a working-draft protocol for accountable delegation among humans,
 agents, and tools.
 
@@ -111,7 +113,7 @@ Use [examples/minimal-v0.1/README.md](examples/minimal-v0.1/README.md) for a
 small end-to-end fixture: one approved packet, one returned report, one review
 finding, and one JSON Lines audit export. It is intentionally tiny, so protocol
 reviewers can test the RFC contracts without inheriting an implementation's
-private evidence tree.
+non-public evidence tree.
 
 ## Contributing
 

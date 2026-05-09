@@ -23,6 +23,16 @@ describe an implementation as "HACP compliant" yet; use narrower labels such as
 "implements the HACP v0.1 draft base profile" and cite the evidence that was
 checked.
 
+## Public Review
+
+The preferred place for early feedback is
+[Discussion #2: HACP v0.1 public review](https://github.com/joefeser/hacp/discussions/2).
+
+Please use that thread for broad feedback, protocol risks, implementation
+questions, and "does this framing work?" reactions. Use issues for concrete
+defects such as contradictions between RFCs, schema bugs, broken examples, or
+unclear conformance requirements.
+
 ## Draft RFC Index
 
 | RFC | Title | Status |

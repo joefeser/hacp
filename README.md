@@ -26,7 +26,7 @@ checked.
 ## Public Review
 
 The preferred place for early feedback is
-[Discussion #2: HACP v0.1 public review](https://github.com/joefeser/hacp/discussions/2).
+[Discussion #2: HACP v0.1 public review](../../discussions/2).
 
 Please use that thread for broad feedback, protocol risks, implementation
 questions, and "does this framing work?" reactions. Use issues for concrete

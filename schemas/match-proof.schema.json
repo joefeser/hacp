@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.2-draft/match-proof.schema.json",
+  "title": "HACP 0.2 Draft Match Proof",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordKind",
+    "matchProofId",
+    "createdAt",
+    "authorityPacketId",
+    "handoffPackageId",
+    "adapterReportId",
+    "authorityPacketDigest",
+    "handoffPackageDigest",
+    "adapterReportDigest",
+    "matchMethod",
+    "reviewConditions",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "hacp-0.2-draft" },
+    "recordKind": { "const": "hacp.match_proof" },
+    "matchProofId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "authorityPacketId": { "type": "string", "minLength": 1 },
+    "handoffPackageId": { "type": "string", "minLength": 1 },
+    "adapterReportId": { "type": "string", "minLength": 1 },
+    "authorityPacketDigest": {
+      "allOf": [
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "authority_packet_v0.2" } } }
+      ]
+    },
+    "handoffPackageDigest": {
+      "allOf": [
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "handoff_package_v0.2" } } }
+      ]
+    },
+    "adapterReportDigest": {
+      "allOf": [
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "adapter_report_v0.2" } } }
+      ]
+    },
+    "matchMethod": { "enum": ["handoff_package_digest", "manual_override"] },
+    "overrideActor": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["actorId", "actorKind"],
+          "properties": {
+            "actorId": { "type": "string", "minLength": 1 },
+            "actorKind": { "const": "human" }
+          }
+        }
+      ]
+    },
+    "overrideReason": {
+      "type": ["string", "null"]
+    },
+    "reviewConditions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": ["stale_handoff", "matrix_drift", "boundary_breach", "stop_blocked", "residual_risk"]
+      }
+    },
+    "decisionRuleComparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capturedAtHandoff", "currentAtReview"],
+      "properties": {
+        "capturedAtHandoff": {
+          "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/decisionRuleReference"
+        },
+        "capturedAtReport": {
+          "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/decisionRuleReference"
+        },
+        "currentAtReview": {
+          "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/decisionRuleReference"
+        }
+      }
+    },
+    "digest": {
+      "allOf": [
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "match_proof_v0.2" } } }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "matchMethod": { "const": "manual_override" } },
+        "required": ["matchMethod"]
+      },
+      "then": {
+        "required": ["overrideActor", "overrideReason"],
+        "properties": {
+          "overrideActor": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["actorId", "actorKind"],
+            "properties": {
+              "actorId": { "type": "string", "minLength": 1 },
+              "actorKind": { "const": "human" }
+            }
+          },
+          "overrideReason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            { "required": ["overrideActor"] },
+            { "required": ["overrideReason"] }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reviewConditions": {
+            "contains": { "const": "matrix_drift" }
+          }
+        },
+        "required": ["reviewConditions"]
+      },
+      "then": {
+        "required": ["decisionRuleComparison"]
+      }
+    }
+  ]
+}

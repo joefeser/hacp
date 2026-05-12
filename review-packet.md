@@ -1,5 +1,7 @@
 # HACP v0.1 Reviewer Packet
 
+For HACP 0.2 review, use [`docs/review-packet.md`](docs/review-packet.md).
+
 Use this packet when asking another model, reviewer, or tool owner to review the
 HACP v0.1 draft set. The goal is protocol risk review, not implementation
 review.

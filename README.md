@@ -23,14 +23,41 @@ describe an implementation as "HACP compliant" yet; use narrower labels such as
 "implements the HACP v0.1 draft base profile" and cite the evidence that was
 checked.
 
+## HACP 0.2 Draft
+
+HACP 0.2 is a new experimental protocol draft that frames HACP as a
+chain-of-custody protocol for human-authorized agent work. It adds handoff
+packages, match proofs, human decision records, digest domains, and explicit
+transport/execution profile separation.
+
+Start here:
+
+- [docs/hacp-0.2.md](docs/hacp-0.2.md): core vocabulary, lifecycle, record
+  model, digest domains, and audit/replay posture.
+- [docs/profiles.md](docs/profiles.md): transport profiles and execution
+  profiles, with registry values in
+  [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml).
+- [docs/security-boundaries.md](docs/security-boundaries.md): authority,
+  report, match-proof, human-decision, digest-domain, and fail-closed
+  boundaries.
+- [docs/non-goals.md](docs/non-goals.md): what HACP 0.2 does not define.
+- [docs/review-packet.md](docs/review-packet.md): severity-ordered review
+  packet for the 0.2 draft.
+
+HACP 0.2 is not 1.0. It is a draft vocabulary and fixture set for review and
+independent implementation feedback.
+
 ## Public Review
 
-The preferred place for early feedback is
-[Discussion #2: HACP v0.1 public review](../../discussions/2).
+The preferred place for early v0.1 feedback is
+[Discussion #2: HACP v0.1 public review](../../discussions/2). HACP 0.2 is a
+newer experimental draft; use [docs/review-packet.md](docs/review-packet.md)
+when asking for focused 0.2 protocol review.
 
 Please use that thread for broad feedback, protocol risks, implementation
-questions, and "does this framing work?" reactions. For structured protocol
-reviews, consider using the [review-packet.md](review-packet.md) template.
+questions, and "does this framing work?" reactions. For structured v0.1
+protocol reviews, consider using the [review-packet.md](review-packet.md)
+template.
 
 Use issues for concrete defects such as contradictions between RFCs, schema
 bugs, broken examples, or unclear conformance requirements.
@@ -98,7 +125,7 @@ RFC-0008 transport-boundary checks.
 
 ## Public Review Scope
 
-The public review surface is intentionally small:
+The v0.1 public review surface is intentionally small:
 
 - the RFC drafts in [rfcs/](rfcs/);
 - the base profile declaration in
@@ -109,6 +136,17 @@ The public review surface is intentionally small:
 - the minimal end-to-end example in
   [examples/minimal-v0.1/](examples/minimal-v0.1/).
 
+The v0.2 public review surface is the draft chain-of-custody packet:
+
+- [docs/hacp-0.2.md](docs/hacp-0.2.md);
+- [docs/profiles.md](docs/profiles.md);
+- [docs/security-boundaries.md](docs/security-boundaries.md);
+- [docs/non-goals.md](docs/non-goals.md);
+- [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml);
+- the v0.2 schemas in [schemas/](schemas/);
+- the v0.2 fixtures in [fixtures/happy-path/](fixtures/happy-path/) and
+  [fixtures/risk-cases/](fixtures/risk-cases/).
+
 Implementation-specific trial artefacts are not required to review this public
 draft. Future releases may add public evidence bundles, conformance test
 fixtures, and independent implementation reports.
@@ -116,8 +154,9 @@ fixtures, and independent implementation reports.
 ## Reviewer Packet
 
 Use [review-packet.md](review-packet.md) when asking another model, reviewer, or
-tool owner to assess the v0.1 draft set. It keeps the review focused on
-protocol risks instead of wording polish.
+tool owner to assess the v0.1 draft set. Use
+[docs/review-packet.md](docs/review-packet.md) for HACP 0.2. Both keep the
+review focused on protocol risks instead of wording polish.
 
 ## Reference Example
 
@@ -150,8 +189,9 @@ HACP is still pre-standardisation work. The most useful contributions are:
 - evidence that a contract is not independently implementable;
 - small interoperability fixtures or schema-validation cases.
 
-Use [review-packet.md](review-packet.md) for a focused review prompt, and see
-[CONTRIBUTING.md](CONTRIBUTING.md) for contribution expectations.
+Use [review-packet.md](review-packet.md) for a focused v0.1 review prompt,
+[docs/review-packet.md](docs/review-packet.md) for a focused v0.2 review prompt,
+and see [CONTRIBUTING.md](CONTRIBUTING.md) for contribution expectations.
 
 ## License
 
@@ -160,6 +200,8 @@ machine-readable artefacts, examples, and validation fixtures are offered under
 Apache-2.0 unless a file states otherwise.
 
 ## Machine-Readable Draft Artefacts
+
+v0.1 artefacts:
 
 - [profiles/hacp-base-draft-v0.1.yaml](profiles/hacp-base-draft-v0.1.yaml):
   base profile declaration, authority mappings, and forbidden-effect
@@ -171,6 +213,21 @@ Apache-2.0 unless a file states otherwise.
 - [schemas/agent-report.schema.json](schemas/agent-report.schema.json): minimal
   JSON Schema for base Agent Report records.
 
+v0.2 artefacts:
+
+- [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml):
+  base registry for record kinds, profiles, digest domains, report shapes, and
+  decisions.
+- [schemas/common-defs.schema.json](schemas/common-defs.schema.json): shared
+  v0.2 digest and decision-rule reference definitions.
+- [schemas/authority-packet.schema.json](schemas/authority-packet.schema.json)
+- [schemas/handoff-package.schema.json](schemas/handoff-package.schema.json)
+- [schemas/adapter-report.schema.json](schemas/adapter-report.schema.json)
+- [schemas/match-proof.schema.json](schemas/match-proof.schema.json)
+- [schemas/human-decision-record.schema.json](schemas/human-decision-record.schema.json)
+- [fixtures/happy-path/](fixtures/happy-path/)
+- [fixtures/risk-cases/](fixtures/risk-cases/)
+
 ## Canonical Vocabulary Sources
 
 The draft prose explains the contracts, but machine-readable vocabulary should
@@ -181,6 +238,9 @@ come from the companion artefacts:
   [profiles/hacp-base-draft-v0.1.yaml](profiles/hacp-base-draft-v0.1.yaml);
 - status and decision-transition vocabularies come from
   [decision-matrix-base-v0.1.yaml](decision-matrix-base-v0.1.yaml);
+- HACP 0.2 profile, record-kind, digest-domain, requested-report-shape,
+  review-condition, and decision vocabularies come from
+  [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml);
 - structural packet/report validation starts from
   [schemas/](schemas/).
 

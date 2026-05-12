@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.2-draft/adapter-report.schema.json",
+  "title": "HACP 0.2 Draft Adapter Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordKind",
+    "adapterReportId",
+    "handoffPackageId",
+    "handoffPackageDigest",
+    "authorityPacketId",
+    "createdAt",
+    "adapter",
+    "changedArtifacts",
+    "verificationEvidence",
+    "residualRisks",
+    "boundariesPreserved",
+    "boundaryCrossedReason",
+    "stopConditionStatus",
+    "requestedNextStep",
+    "digest"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "boundariesPreserved": { "const": true } },
+        "required": ["boundariesPreserved"]
+      },
+      "then": {
+        "properties": {
+          "boundaryCrossedReason": {
+            "type": "array",
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "boundariesPreserved": { "const": false } },
+        "required": ["boundariesPreserved"]
+      },
+      "then": {
+        "properties": {
+          "requestedNextStep": { "const": "request_human_decision" },
+          "boundaryCrossedReason": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "schemaVersion": { "const": "hacp-0.2-draft" },
+    "recordKind": { "const": "hacp.adapter_report" },
+    "adapterReportId": { "type": "string", "minLength": 1 },
+    "handoffPackageId": { "type": "string", "minLength": 1 },
+    "handoffPackageDigest": {
+      "allOf": [
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "handoff_package_v0.2" } } }
+      ]
+    },
+    "authorityPacketId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapterKind", "workspaceLabel"],
+      "properties": {
+        "adapterKind": { "type": "string", "minLength": 1 },
+        "workspaceLabel": { "type": "string", "minLength": 1 }
+      }
+    },
+    "changedArtifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "changeKind"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "changeKind": { "enum": ["created", "modified", "deleted", "unchanged"] }
+        }
+      }
+    },
+    "verificationEvidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "outcome", "summary"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1 },
+          "outcome": { "enum": ["passed", "failed", "blocked", "not_run"] },
+          "summary": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "residualRisks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "boundariesPreserved": { "type": "boolean" },
+    "boundaryCrossedReason": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "stopConditionStatus": { "enum": ["met", "not_met", "blocked", "unknown"] },
+    "requestedNextStep": {
+      "enum": ["accept_follow_up", "mark_complete", "request_human_decision", "cancel_session", "request_revision"]
+    },
+    "decisionRuleSnapshot": {
+      "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/decisionRuleReference"
+    },
+    "digest": {
+      "allOf": [
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "adapter_report_v0.2" } } }
+      ]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.adapter_report",
+  "adapterReportId": "report_example_0001",
+  "handoffPackageId": "handoff_example_0001",
+  "handoffPackageDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "handoff_package_v0.2",
+    "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "authorityPacketId": "packet_example_0001",
+  "createdAt": "2026-05-11T12:10:00Z",
+  "adapter": {
+    "adapterKind": "codex_cli_manual_example",
+    "workspaceLabel": "example_workspace"
+  },
+  "changedArtifacts": [
+    {
+      "path": "docs/example.md",
+      "changeKind": "modified"
+    }
+  ],
+  "verificationEvidence": [
+    {
+      "label": "example_review",
+      "outcome": "passed",
+      "summary": "Example documentation change reviewed."
+    }
+  ],
+  "residualRisks": [],
+  "boundariesPreserved": true,
+  "boundaryCrossedReason": [],
+  "stopConditionStatus": "met",
+  "requestedNextStep": "accept_follow_up",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "adapter_report_v0.2",
+    "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  }
+}

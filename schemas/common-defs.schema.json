@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json",
+  "title": "HACP 0.2 Draft Common Definitions",
+  "$defs": {
+    "digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "digestDomain", "value"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "canonicalization": { "const": "json-rfc8785-jcs" },
+        "digestDomain": {
+          "enum": [
+            "authority_packet_approval_v0.2",
+            "authority_packet_v0.2",
+            "handoff_package_v0.2",
+            "adapter_report_v0.2",
+            "match_proof_v0.2",
+            "human_decision_record_v0.2",
+            "decision_rule_v0.2",
+            "legacy_free_text_report"
+          ]
+        },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "decisionRuleReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ruleSetId", "ruleVersion"],
+      "properties": {
+        "ruleSetId": { "type": "string", "minLength": 1 },
+        "ruleVersion": { "type": "string", "minLength": 1 },
+        "digest": {
+          "allOf": [
+            { "$ref": "#/$defs/digest" },
+            { "properties": { "digestDomain": { "const": "decision_rule_v0.2" } } }
+          ]
+        }
+      }
+    }
+  }
+}

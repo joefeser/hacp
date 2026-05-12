@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.human_decision_record",
+  "humanDecisionRecordId": "decision_boundary_breach_example_0001",
+  "createdAt": "2026-05-11T12:35:00Z",
+  "actor": {
+    "actorId": "human_owner_example",
+    "actorKind": "human"
+  },
+  "matchProofId": "match_proof_boundary_breach_example_0001",
+  "adapterReportId": "report_example_boundary_breach_0001",
+  "decision": "request_revision",
+  "decisionReason": "Boundary breach, blocked stop condition, and residual risk require a revised report before follow-up can be accepted.",
+  "confirmationText": "Human reviewed the boundary breach and requested revision.",
+  "handoffPackageDigestPrefix": "bbbbbbbbbbbbbbbb",
+  "adapterReportDigestPrefix": "1717171717171717",
+  "reviewConditions": ["boundary_breach", "stop_blocked", "residual_risk"],
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "human_decision_record_v0.2",
+    "value": "2121212121212121212121212121212121212121212121212121212121212121"
+  }
+}

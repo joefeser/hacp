@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.adapter_report",
+  "adapterReportId": "report_example_manual_override_0001",
+  "handoffPackageId": "handoff_example_0001",
+  "handoffPackageDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "handoff_package_v0.2",
+    "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "authorityPacketId": "packet_example_0001",
+  "createdAt": "2026-05-11T12:33:30Z",
+  "adapter": {
+    "adapterKind": "codex_cli_manual_example",
+    "workspaceLabel": "example_workspace"
+  },
+  "changedArtifacts": [],
+  "verificationEvidence": [
+    {
+      "label": "manual_override_review",
+      "outcome": "blocked",
+      "summary": "Report requires manual owner-side linkage outside the normal digest path."
+    }
+  ],
+  "residualRisks": [],
+  "boundariesPreserved": true,
+  "boundaryCrossedReason": [],
+  "stopConditionStatus": "blocked",
+  "requestedNextStep": "request_human_decision",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "adapter_report_v0.2",
+    "value": "1919191919191919191919191919191919191919191919191919191919191919"
+  }
+}

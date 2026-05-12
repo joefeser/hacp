@@ -77,7 +77,14 @@ bugs, broken examples, or unclear conformance requirements.
 | [RFC-0008](rfcs/0008-transport-boundary.md) | Transport Boundary | Draft |
 | [RFC-0009](rfcs/0009-conformance-and-profiles.md) | Conformance and Profiles | Draft |
 
-## v0.1 Completeness
+## HACP 0.2 Draft Status
+
+HACP 0.2 is an experimental public draft, not a stable conformance target. It
+is reviewable through the 0.2 docs, schemas, profile registry, and fixtures
+listed above. It should not be described as HACP 1.0 or as generally compliant
+until independent implementations and conformance fixtures exist.
+
+## HACP v0.1 Draft Completeness
 
 The current draft set is minimally reviewable as a v0.1 protocol sketch. It is
 not a standard, and it should not be described as vendor-neutral until at least

@@ -13,7 +13,7 @@ HACP 0.1 covered bounded task packets, agent reports, decision gates, audit
 evidence, and transport boundaries. HACP 0.2 adds the records needed to close a
 non-executing local-adapter loop:
 
-1. A human or owner system approves bounded work.
+1. A human approves bounded work.
 2. A handoff package carries that authority to a tool boundary.
 3. An adapter returns a structured report.
 4. A match proof links the report to exactly one authorized chain.
@@ -22,6 +22,11 @@ non-executing local-adapter loop:
 This draft is informed by implementation experiments, but it deliberately avoids
 implementation-specific table names, routes, framework details, and private
 workflow terms.
+
+Owner-system approval is not part of the HACP 0.2 core authority path. A future
+profile may define owner-system approval only when it is traceable to a prior
+human-approved policy record. Consumers must reject untraceable non-human
+authority origins.
 
 ## Core Lifecycle
 
@@ -51,13 +56,18 @@ boundary. It is the origin of bounded authority.
 The transportable envelope that carries an authority packet to a tool or agent
 boundary. It references the authority packet digest and declares transport,
 expiry, target label, and boundary notices. It does not create new authority.
+Consumers must treat a handoff package past `expiresAt` as a `stale_handoff`
+review condition and route it to human decision rather than silently accepting
+it.
 
 ### Adapter Report
 
 The structured return record from an adapter. It describes what happened,
 changed surfaces, verification evidence, residual risks, boundary status, stop
 condition status, and the adapter's requested next step. The requested next step
-is advisory only.
+is advisory only. This includes `cancel_session`: an adapter may request
+cancellation, but nothing is canceled unless a human decision record confirms
+that decision.
 
 ### Match Proof
 
@@ -127,6 +137,17 @@ HACP 0.2 uses five primary record kinds:
 Each record includes `schemaVersion`. Digest fields use lowercase hex strings.
 Records that compare digests must also identify the digest domain.
 
+## Canonicalization
+
+HACP 0.2 base records use RFC 8785 JSON Canonicalization Scheme (JCS) as the
+normative canonicalization algorithm, identified as `json-rfc8785-jcs`.
+Implementations claiming HACP 0.2 base support must be able to compute SHA-256
+digests over UTF-8 encoded JCS output for the five core record kinds.
+
+Draft fixtures use placeholder digest values even when they name
+`json-rfc8785-jcs`. They demonstrate structure and digest domains; they are not
+conformance vectors.
+
 ## Digest Domains
 
 Digest domains are first-class in HACP 0.2.
@@ -145,6 +166,13 @@ Examples:
 A consumer must not treat two digests as equal proof unless both digest value
 and digest domain match.
 
+## Manual Override
+
+`manual_override` is a permitted match method only when the proof also records
+who overrode the normal match path and why. Implementations must preserve the
+override actor and reason in the match proof or an equivalent linked audit
+record.
+
 ## Review Conditions
 
 HACP 0.2 names these review conditions:
@@ -159,6 +187,10 @@ HACP 0.2 names these review conditions:
 
 Profiles may add review conditions, but unknown conditions must be treated as
 requiring human review.
+
+The canonical clean state is an empty `reviewConditions` array. Earlier drafts
+and examples may use `["none"]`; consumers should tolerate it during draft
+review, but new 0.2 fixtures should prefer `[]`.
 
 ## Idempotency and Replay
 
@@ -175,6 +207,21 @@ HACP 0.2 expects explicit idempotency rules:
 
 Replay must not create duplicate authority, duplicate proof, or duplicate
 decision state. Conflicting replay must be rejected or routed to human review.
+
+## Human Decision Confirmation
+
+`confirmationText` is optional by default. Profiles may require it for decisions
+that cancel work, accept boundary-breached reports, accept matrix-drift reports,
+or otherwise acknowledge elevated risk. A confirmation text is an attestation,
+not an execution instruction.
+
+## v0.1 Compatibility
+
+HACP 0.2 is a clean draft layer, not a backwards-compatible schema revision of
+the v0.1 JSON records. v0.1 uses `snake_case` fields such as `hacp_version`;
+v0.2 uses camelCase fields such as `schemaVersion`. v0.1 records may be used as
+historical evidence or translated by a profile-specific adapter, but they are
+not valid v0.2 records without translation.
 
 ## Audit Fail-Closed
 

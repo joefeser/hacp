@@ -8,27 +8,27 @@
   "adapterReportId": "report_example_0001",
   "authorityPacketDigest": {
     "algorithm": "sha256",
-    "canonicalization": "example-placeholder-c14n-v0",
+    "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "authority_packet_v0.2",
     "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
   },
   "handoffPackageDigest": {
     "algorithm": "sha256",
-    "canonicalization": "example-placeholder-c14n-v0",
+    "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "handoff_package_v0.2",
     "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
   },
   "adapterReportDigest": {
     "algorithm": "sha256",
-    "canonicalization": "example-placeholder-c14n-v0",
+    "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "adapter_report_v0.2",
     "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
   },
   "matchMethod": "handoff_package_digest",
-  "reviewConditions": ["none"],
+  "reviewConditions": [],
   "digest": {
     "algorithm": "sha256",
-    "canonicalization": "example-placeholder-c14n-v0",
+    "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "match_proof_v0.2",
     "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
   }

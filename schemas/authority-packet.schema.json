@@ -32,7 +32,7 @@
       "required": ["actorId", "actorKind", "approvedAt", "approvalDigest"],
       "properties": {
         "actorId": { "type": "string", "minLength": 1 },
-        "actorKind": { "enum": ["human", "owner_system"] },
+        "actorKind": { "const": "human" },
         "approvedAt": { "type": "string", "format": "date-time" },
         "approvalDigest": { "$ref": "#/$defs/digest" }
       }

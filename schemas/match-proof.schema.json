@@ -31,14 +31,51 @@
     "handoffPackageDigest": { "$ref": "#/$defs/digest" },
     "adapterReportDigest": { "$ref": "#/$defs/digest" },
     "matchMethod": { "enum": ["handoff_package_digest", "manual_override"] },
+    "overrideActor": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["actorId", "actorKind"],
+          "properties": {
+            "actorId": { "type": "string", "minLength": 1 },
+            "actorKind": { "const": "human" }
+          }
+        }
+      ]
+    },
+    "overrideReason": {
+      "type": ["string", "null"]
+    },
     "reviewConditions": {
       "type": "array",
       "items": {
-        "enum": ["none", "stale_handoff", "matrix_drift", "boundary_breach", "stop_blocked", "residual_risk"]
+        "enum": ["stale_handoff", "matrix_drift", "boundary_breach", "stop_blocked", "residual_risk"]
       }
     },
     "digest": { "$ref": "#/$defs/digest" }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "matchMethod": { "const": "manual_override" } },
+        "required": ["matchMethod"]
+      },
+      "then": {
+        "required": ["overrideActor", "overrideReason"],
+        "properties": {
+          "overrideActor": {
+            "type": "object"
+          },
+          "overrideReason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
     "digest": {
       "type": "object",

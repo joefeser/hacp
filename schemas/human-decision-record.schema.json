@@ -45,7 +45,7 @@
     "reviewConditions": {
       "type": "array",
       "items": {
-        "enum": ["none", "stale_handoff", "matrix_drift", "boundary_breach", "stop_blocked", "residual_risk"]
+        "enum": ["stale_handoff", "matrix_drift", "boundary_breach", "stop_blocked", "residual_risk"]
       }
     },
     "digest": { "$ref": "#/$defs/digest" }

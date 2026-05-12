@@ -5,7 +5,7 @@
   "handoffPackageId": "handoff_example_0001",
   "handoffPackageDigest": {
     "algorithm": "sha256",
-    "canonicalization": "example-placeholder-c14n-v0",
+    "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "handoff_package_v0.2",
     "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
   },
@@ -30,7 +30,7 @@
   "requestedNextStep": "request_human_decision",
   "digest": {
     "algorithm": "sha256",
-    "canonicalization": "example-placeholder-c14n-v0",
+    "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "adapter_report_v0.2",
     "value": "1717171717171717171717171717171717171717171717171717171717171717"
   }

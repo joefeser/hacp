@@ -218,6 +218,8 @@ v0.2 artefacts:
 - [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml):
   base registry for record kinds, profiles, digest domains, report shapes, and
   decisions.
+- [schemas/common-defs.schema.json](schemas/common-defs.schema.json): shared
+  v0.2 digest and decision-rule reference definitions.
 - [schemas/authority-packet.schema.json](schemas/authority-packet.schema.json)
 - [schemas/handoff-package.schema.json](schemas/handoff-package.schema.json)
 - [schemas/adapter-report.schema.json](schemas/adapter-report.schema.json)

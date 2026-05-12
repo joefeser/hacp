@@ -5,9 +5,15 @@ Profiles declare how a HACP implementation uses the core records.
 The machine-readable draft registry is
 [`profiles/hacp-base-draft-v0.2.yaml`](../profiles/hacp-base-draft-v0.2.yaml).
 It is the base source for v0.2 profile IDs, digest domains, requested report
-shapes, review conditions, and decision values. Consumers that receive an
-unknown profile ID must reject the record or route it to human review unless a
-trusted extension profile declares the ID.
+shapes, review conditions, and decision values. A base-schema validator may
+reject unknown profile IDs. Extension-aware consumers may validate those records
+with trusted extension schemas and then reject or route unknown profiles to
+human review unless an accepted extension profile declares the ID.
+
+The base JSON Schemas intentionally validate the base registry, not arbitrary
+extensions. Profiles that add profile IDs, review conditions, fields, or digest
+domains must publish extension schemas or a compatibility validation layer; a
+base-only validator may reject those records before protocol routing.
 
 ## Base Draft Conformance
 
@@ -61,6 +67,10 @@ Execution-capable profiles must declare:
 - evidence obligations;
 - whether verification commands may run;
 - how boundary breach is reported.
+
+The base registry includes these declarations for the draft profiles. Richer
+execution-capable profiles should define separate profile specs rather than
+relying only on the registry summary.
 
 Adapter kind values are intentionally profile-owned. The base schemas require a
 non-empty `adapterKind` for evidence, but they do not prescribe a global adapter

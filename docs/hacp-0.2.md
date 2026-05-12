@@ -229,6 +229,8 @@ Examples:
 - `adapter_report_v0.2`: canonical structured adapter report.
 - `match_proof_v0.2`: canonical match proof record.
 - `human_decision_record_v0.2`: canonical human decision record.
+- `decision_rule_v0.2`: canonical decision-rule or matrix snapshot referenced
+  for matrix-drift evidence.
 - `legacy_free_text_report`: free-text report digest. Not comparable with
   structured adapter report digests unless a profile defines a shared digest
   basis.
@@ -262,12 +264,15 @@ HACP 0.2 names these review conditions:
 - `stop_blocked`: a stop condition is blocked or unresolved.
 - `residual_risk`: the report carries residual risks.
 
-Profiles may add review conditions, but unknown conditions must be treated as
-requiring human review.
+The base schema validates the review-condition registry above. Profiles may add
+review conditions only by publishing an extension registry and extension schema.
+Extension-aware consumers must treat unknown extension conditions as requiring
+human review.
 
 The canonical clean state is an empty `reviewConditions` array. HACP 0.2 schemas
-reject `["none"]`. Non-schema draft readers may tolerate older `["none"]`
-examples during review, but v0.2 records should use `[]`.
+reject `["none"]` and duplicate condition values. Non-schema draft readers may
+tolerate older `["none"]` examples during review, but v0.2 records should use
+`[]`.
 
 Human decision records must preserve the review conditions surfaced by their
 referenced match proof, either as the same set or as a profile-defined superset.
@@ -296,6 +301,11 @@ matrix identifier captured at handoff/report time and compared at review time.
 Implementations that do not track such a rule identifier should not claim they
 can prove the absence of matrix drift.
 
+Base schemas provide `decisionRuleSnapshot` on handoff packages and adapter
+reports, plus `decisionRuleComparison` on match proofs. When a match proof
+contains `matrix_drift`, it must include `decisionRuleComparison` with the
+handoff-time rule reference and the current-at-review rule reference.
+
 HACP 0.2 base does not define a full session-status decision matrix. Decision
 values are closed in the base registry, while status transitions and
 matrix-drift evidence are profile-defined.
@@ -312,13 +322,13 @@ does not match the authority packet's requested shape.
 HACP 0.2 expects explicit idempotency rules:
 
 - A handoff package is idempotent within `(authorityPacketId,
-  transportProfileId, targetLabel, handoffDigest)`.
+  transportProfile.profileId, targetLabel, digest.value)`.
 - A structured adapter report is idempotent within `(handoffPackageId,
-  reportDigest, digestDomain)`.
-- A match proof is idempotent within `(handoffPackageId, reportId,
-  reportDigest, digestDomain)`.
-- A human decision record is idempotent within `(matchProofId, decisionRecordId)`
-  or a profile-defined unique report-decision key.
+  digest.value, digest.digestDomain)`.
+- A match proof is idempotent within `(handoffPackageId, adapterReportId,
+  adapterReportDigest.value, adapterReportDigest.digestDomain)`.
+- A human decision record is idempotent within `(matchProofId,
+  humanDecisionRecordId)` or a profile-defined unique report-decision key.
 
 Replay must not create duplicate authority, duplicate proof, or duplicate
 decision state. Conflicting replay must be rejected or routed to human review.

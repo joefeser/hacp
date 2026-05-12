@@ -28,6 +28,16 @@
   "boundaryCrossedReason": [],
   "stopConditionStatus": "blocked",
   "requestedNextStep": "request_human_decision",
+  "decisionRuleSnapshot": {
+    "ruleSetId": "example_decision_rules",
+    "ruleVersion": "2026-05-11.1",
+    "digest": {
+      "algorithm": "sha256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "decision_rule_v0.2",
+      "value": "2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  },
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",

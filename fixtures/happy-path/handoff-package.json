@@ -14,11 +14,11 @@
   "targetLabel": "codex_cli_manual_example",
   "transportProfile": {
     "profileId": "manual_filesystem_carry_v0.2",
-    "profileVersion": "0.2-draft"
+    "profileVersion": "v0.2-draft"
   },
   "executionProfile": {
     "profileId": "no_execution_passthrough_v0.2",
-    "profileVersion": "0.2-draft"
+    "profileVersion": "v0.2-draft"
   },
   "boundaryNotice": {
     "handoffDoesNotCreateAuthority": true,

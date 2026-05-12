@@ -1,6 +1,6 @@
 profile_id: hacp-base-draft
 profile_version: v0.2-draft
-status: experimental
+profile_status: experimental
 
 record_kinds:
   - hacp.authority_packet
@@ -11,43 +11,90 @@ record_kinds:
 
 transport_profiles:
   - profile_id: manual_browser_upload_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: Human carries records through a browser upload or form.
     executes_work: false
   - profile_id: manual_filesystem_carry_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: Human carries records through local files.
     executes_work: false
   - profile_id: owner_controlled_cli_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: Human invokes a local adapter CLI.
     executes_work: false
     note: Execution requires a separate execution profile.
   - profile_id: automated_transport_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: A watcher, queue, webhook, or bus moves already-approved records.
     executes_work: false
 
 execution_profiles:
   - profile_id: no_execution_passthrough_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: Adapter validates and reports without doing task work.
     allowed_effects: []
+    forbidden_effects:
+      - modify_surfaces
+      - run_commands
+      - call_models
+      - outbound_transport
+    stop_conditions:
+      - Stop if any task-work execution would be required.
+    credential_handling: no_credentials
+    evidence_obligations:
+      - Report validation outcome.
+    verification_commands_may_run: false
+    boundary_breach_reporting: Report as boundary_breach and request human decision.
   - profile_id: review_only_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: Adapter reads allowed surfaces and returns findings only.
     allowed_effects:
       - read_allowed_surfaces
+    forbidden_effects:
+      - modify_surfaces
+      - run_commands
+      - call_models
+      - outbound_transport
+    stop_conditions:
+      - Stop if review requires a forbidden or undeclared surface.
+    credential_handling: profile_declared_read_only
+    evidence_obligations:
+      - Report reviewed surfaces and findings.
+    verification_commands_may_run: false
+    boundary_breach_reporting: Report as boundary_breach and request human decision.
   - profile_id: verify_only_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: Adapter runs explicitly approved verification only.
     allowed_effects:
       - run_approved_verification
+    forbidden_effects:
+      - modify_surfaces
+      - call_models
+      - outbound_transport
+      - run_unapproved_commands
+    stop_conditions:
+      - Stop if verification command is absent from the authority packet.
+    credential_handling: profile_declared_verification_only
+    evidence_obligations:
+      - Report verification command labels and outcomes.
+    verification_commands_may_run: true
+    boundary_breach_reporting: Report as boundary_breach and request human decision.
   - profile_id: local_workspace_bounded_v0.2
-    profile_version: 0.2-draft
+    profile_version: v0.2-draft
     description: Adapter may modify allowed local workspace surfaces.
     allowed_effects:
       - modify_allowed_surfaces
+    forbidden_effects:
+      - modify_forbidden_surfaces
+      - call_models_without_profile
+      - outbound_transport_without_profile
+    stop_conditions:
+      - Stop if requested work exceeds allowed surfaces or authority impact.
+    credential_handling: profile_declared_local_only
+    evidence_obligations:
+      - Report changed artifacts, verification evidence, and residual risks.
+    verification_commands_may_run: true
+    boundary_breach_reporting: Report as boundary_breach and request human decision.
 
 digest_domains:
   - authority_packet_approval_v0.2
@@ -56,6 +103,7 @@ digest_domains:
   - adapter_report_v0.2
   - match_proof_v0.2
   - human_decision_record_v0.2
+  - decision_rule_v0.2
   - legacy_free_text_report
 
 canonicalization:

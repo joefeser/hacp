@@ -25,7 +25,7 @@
     "authorityPacketId": { "type": "string", "minLength": 1 },
     "authorityPacketDigest": {
       "allOf": [
-        { "$ref": "#/$defs/digest" },
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
         { "properties": { "digestDomain": { "const": "authority_packet_v0.2" } } }
       ]
     },
@@ -34,6 +34,9 @@
     "targetLabel": { "type": "string", "minLength": 1 },
     "transportProfile": { "$ref": "#/$defs/transportProfileRef" },
     "executionProfile": { "$ref": "#/$defs/executionProfileRef" },
+    "decisionRuleSnapshot": {
+      "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/decisionRuleReference"
+    },
     "boundaryNotice": {
       "type": "object",
       "additionalProperties": false,
@@ -50,7 +53,7 @@
     },
     "digest": {
       "allOf": [
-        { "$ref": "#/$defs/digest" },
+        { "$ref": "https://hacp.example/schemas/v0.2-draft/common-defs.schema.json#/$defs/digest" },
         { "properties": { "digestDomain": { "const": "handoff_package_v0.2" } } }
       ]
     }
@@ -69,7 +72,7 @@
             "automated_transport_v0.2"
           ]
         },
-        "profileVersion": { "const": "0.2-draft" }
+        "profileVersion": { "const": "v0.2-draft" }
       }
     },
     "executionProfileRef": {
@@ -85,28 +88,7 @@
             "local_workspace_bounded_v0.2"
           ]
         },
-        "profileVersion": { "const": "0.2-draft" }
-      }
-    },
-    "digest": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["algorithm", "canonicalization", "digestDomain", "value"],
-      "properties": {
-        "algorithm": { "const": "sha256" },
-        "canonicalization": { "const": "json-rfc8785-jcs" },
-        "digestDomain": {
-          "enum": [
-            "authority_packet_approval_v0.2",
-            "authority_packet_v0.2",
-            "handoff_package_v0.2",
-            "adapter_report_v0.2",
-            "match_proof_v0.2",
-            "human_decision_record_v0.2",
-            "legacy_free_text_report"
-          ]
-        },
-        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        "profileVersion": { "const": "v0.2-draft" }
       }
     }
   }

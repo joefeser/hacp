@@ -26,6 +26,38 @@
   },
   "matchMethod": "handoff_package_digest",
   "reviewConditions": ["matrix_drift"],
+  "decisionRuleComparison": {
+    "capturedAtHandoff": {
+      "ruleSetId": "example_decision_rules",
+      "ruleVersion": "2026-05-11.1",
+      "digest": {
+        "algorithm": "sha256",
+        "canonicalization": "json-rfc8785-jcs",
+        "digestDomain": "decision_rule_v0.2",
+        "value": "2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    },
+    "capturedAtReport": {
+      "ruleSetId": "example_decision_rules",
+      "ruleVersion": "2026-05-11.1",
+      "digest": {
+        "algorithm": "sha256",
+        "canonicalization": "json-rfc8785-jcs",
+        "digestDomain": "decision_rule_v0.2",
+        "value": "2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    },
+    "currentAtReview": {
+      "ruleSetId": "example_decision_rules",
+      "ruleVersion": "2026-05-11.2",
+      "digest": {
+        "algorithm": "sha256",
+        "canonicalization": "json-rfc8785-jcs",
+        "digestDomain": "decision_rule_v0.2",
+        "value": "2323232323232323232323232323232323232323232323232323232323232323"
+      }
+    }
+  },
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",

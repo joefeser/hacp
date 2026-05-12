@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.adapter_report",
+  "adapterReportId": "report_example_boundary_breach_0001",
+  "handoffPackageId": "handoff_example_0001",
+  "handoffPackageDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "handoff_package_v0.2",
+    "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "authorityPacketId": "packet_example_0001",
+  "createdAt": "2026-05-11T12:32:00Z",
+  "adapter": {
+    "adapterKind": "codex_cli_manual_example",
+    "workspaceLabel": "example_workspace"
+  },
+  "changedArtifacts": [],
+  "verificationEvidence": [
+    {
+      "label": "boundary_check",
+      "outcome": "blocked",
+      "summary": "Adapter reported a boundary breach and requested human decision."
+    }
+  ],
+  "residualRisks": ["Boundary breach requires human review."],
+  "boundariesPreserved": false,
+  "boundaryCrossedReason": ["Adapter attempted to inspect a forbidden surface."],
+  "stopConditionStatus": "blocked",
+  "requestedNextStep": "request_human_decision",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "adapter_report_v0.2",
+    "value": "1717171717171717171717171717171717171717171717171717171717171717"
+  }
+}

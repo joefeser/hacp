@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.2-draft/match-proof.schema.json",
+  "title": "HACP 0.2 Draft Match Proof",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordKind",
+    "matchProofId",
+    "createdAt",
+    "authorityPacketId",
+    "handoffPackageId",
+    "adapterReportId",
+    "authorityPacketDigest",
+    "handoffPackageDigest",
+    "adapterReportDigest",
+    "matchMethod",
+    "reviewConditions",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "hacp-0.2-draft" },
+    "recordKind": { "const": "hacp.match_proof" },
+    "matchProofId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "authorityPacketId": { "type": "string", "minLength": 1 },
+    "handoffPackageId": { "type": "string", "minLength": 1 },
+    "adapterReportId": { "type": "string", "minLength": 1 },
+    "authorityPacketDigest": { "$ref": "#/$defs/digest" },
+    "handoffPackageDigest": { "$ref": "#/$defs/digest" },
+    "adapterReportDigest": { "$ref": "#/$defs/digest" },
+    "matchMethod": { "enum": ["handoff_package_digest", "manual_override"] },
+    "reviewConditions": {
+      "type": "array",
+      "items": {
+        "enum": ["none", "stale_handoff", "matrix_drift", "boundary_breach", "stop_blocked", "residual_risk"]
+      }
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "digestDomain", "value"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "canonicalization": { "type": "string", "minLength": 1 },
+        "digestDomain": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{16,64}$" }
+      }
+    }
+  }
+}

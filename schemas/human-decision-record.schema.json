@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.2-draft/human-decision-record.schema.json",
+  "title": "HACP 0.2 Draft Human Decision Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordKind",
+    "humanDecisionRecordId",
+    "createdAt",
+    "actor",
+    "matchProofId",
+    "adapterReportId",
+    "decision",
+    "decisionReason",
+    "handoffPackageDigestPrefix",
+    "adapterReportDigestPrefix",
+    "reviewConditions",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "hacp-0.2-draft" },
+    "recordKind": { "const": "hacp.human_decision_record" },
+    "humanDecisionRecordId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actorId", "actorKind"],
+      "properties": {
+        "actorId": { "type": "string", "minLength": 1 },
+        "actorKind": { "const": "human" }
+      }
+    },
+    "matchProofId": { "type": "string", "minLength": 1 },
+    "adapterReportId": { "type": "string", "minLength": 1 },
+    "decision": {
+      "enum": ["accept_follow_up", "mark_complete", "request_human_decision", "cancel_session", "reject_report", "request_revision"]
+    },
+    "decisionReason": { "type": "string", "minLength": 1 },
+    "confirmationText": { "type": ["string", "null"] },
+    "handoffPackageDigestPrefix": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+    "adapterReportDigestPrefix": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+    "reviewConditions": {
+      "type": "array",
+      "items": {
+        "enum": ["none", "stale_handoff", "matrix_drift", "boundary_breach", "stop_blocked", "residual_risk"]
+      }
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "digestDomain", "value"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "canonicalization": { "type": "string", "minLength": 1 },
+        "digestDomain": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{16,64}$" }
+      }
+    }
+  }
+}

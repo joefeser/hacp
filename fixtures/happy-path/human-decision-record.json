@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.human_decision_record",
+  "humanDecisionRecordId": "decision_example_0001",
+  "createdAt": "2026-05-11T12:15:00Z",
+  "actor": {
+    "actorId": "human_owner_example",
+    "actorKind": "human"
+  },
+  "matchProofId": "match_proof_example_0001",
+  "adapterReportId": "report_example_0001",
+  "decision": "accept_follow_up",
+  "decisionReason": "Example report reviewed; follow-up accepted for demonstration.",
+  "confirmationText": null,
+  "handoffPackageDigestPrefix": "bbbbbbbbbbbbbbbb",
+  "adapterReportDigestPrefix": "cccccccccccccccc",
+  "reviewConditions": ["none"],
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "human_decision_record_v0.2",
+    "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+}

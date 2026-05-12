@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.2-draft/handoff-package.schema.json",
+  "title": "HACP 0.2 Draft Handoff Package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordKind",
+    "handoffPackageId",
+    "authorityPacketId",
+    "authorityPacketDigest",
+    "createdAt",
+    "expiresAt",
+    "targetLabel",
+    "transportProfile",
+    "executionProfile",
+    "boundaryNotice",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "hacp-0.2-draft" },
+    "recordKind": { "const": "hacp.handoff_package" },
+    "handoffPackageId": { "type": "string", "minLength": 1 },
+    "authorityPacketId": { "type": "string", "minLength": 1 },
+    "authorityPacketDigest": { "$ref": "#/$defs/digest" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "targetLabel": { "type": "string", "minLength": 1 },
+    "transportProfile": { "$ref": "#/$defs/profileRef" },
+    "executionProfile": { "$ref": "#/$defs/profileRef" },
+    "boundaryNotice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "handoffDoesNotCreateAuthority",
+        "requestedNextStepIsAdvisory",
+        "humanDecisionRequiredForConsequentialChange"
+      ],
+      "properties": {
+        "handoffDoesNotCreateAuthority": { "const": true },
+        "requestedNextStepIsAdvisory": { "const": true },
+        "humanDecisionRequiredForConsequentialChange": { "const": true }
+      }
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "profileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profileId", "profileVersion"],
+      "properties": {
+        "profileId": { "type": "string", "minLength": 1 },
+        "profileVersion": { "type": "string", "minLength": 1 }
+      }
+    },
+    "digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "digestDomain", "value"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "canonicalization": { "type": "string", "minLength": 1 },
+        "digestDomain": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{16,64}$" }
+      }
+    }
+  }
+}

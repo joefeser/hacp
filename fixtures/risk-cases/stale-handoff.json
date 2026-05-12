@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.match_proof",
+  "matchProofId": "match_proof_stale_example_0001",
+  "createdAt": "2026-05-11T12:30:00Z",
+  "authorityPacketId": "packet_example_0001",
+  "handoffPackageId": "handoff_example_old_0001",
+  "adapterReportId": "report_example_stale_0001",
+  "authorityPacketDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "authority_packet_v0.2",
+    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "handoffPackageDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "handoff_package_v0.2",
+    "value": "1212121212121212121212121212121212121212121212121212121212121212"
+  },
+  "adapterReportDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "adapter_report_v0.2",
+    "value": "1313131313131313131313131313131313131313131313131313131313131313"
+  },
+  "matchMethod": "handoff_package_digest",
+  "reviewConditions": ["stale_handoff"],
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "match_proof_v0.2",
+    "value": "1414141414141414141414141414141414141414141414141414141414141414"
+  }
+}

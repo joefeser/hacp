@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.handoff_package",
+  "handoffPackageId": "handoff_example_0001",
+  "authorityPacketId": "packet_example_0001",
+  "authorityPacketDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "authority_packet_v0.2",
+    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "createdAt": "2026-05-11T12:02:00Z",
+  "expiresAt": "2026-05-11T13:02:00Z",
+  "targetLabel": "codex_cli_manual_example",
+  "transportProfile": {
+    "profileId": "manual_filesystem_carry_v0.2",
+    "profileVersion": "0.2-draft"
+  },
+  "executionProfile": {
+    "profileId": "no_execution_passthrough_v0.2",
+    "profileVersion": "0.2-draft"
+  },
+  "boundaryNotice": {
+    "handoffDoesNotCreateAuthority": true,
+    "requestedNextStepIsAdvisory": true,
+    "humanDecisionRequiredForConsequentialChange": true
+  },
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "handoff_package_v0.2",
+    "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.authority_packet",
+  "authorityPacketId": "packet_example_0001",
+  "createdAt": "2026-05-11T12:00:00Z",
+  "createdBy": "human_owner_example",
+  "approval": {
+    "actorId": "human_owner_example",
+    "actorKind": "human",
+    "approvedAt": "2026-05-11T12:01:00Z",
+    "approvalDigest": {
+      "algorithm": "sha256",
+      "canonicalization": "example-placeholder-c14n-v0",
+      "digestDomain": "authority_packet_approval_v0.2",
+      "value": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  },
+  "scope": "Update documentation wording for an example bounded task.",
+  "authority": {
+    "mode": "implement_bounded",
+    "impact": "modifies_allowed_surfaces",
+    "decisionBoundary": "Human owner must decide whether to accept the report."
+  },
+  "allowedSurfaces": ["docs/example.md"],
+  "forbiddenSurfaces": ["secrets/**", "production/**"],
+  "stopConditions": ["Stop if requested change needs production credentials."],
+  "verificationExpectations": ["Summarize changed files and residual risks."],
+  "requestedReportShape": "hacp.adapter_report",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "example-placeholder-c14n-v0",
+    "digestDomain": "authority_packet_v0.2",
+    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+}

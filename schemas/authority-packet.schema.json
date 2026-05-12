@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.2-draft/authority-packet.schema.json",
+  "title": "HACP 0.2 Draft Authority Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordKind",
+    "authorityPacketId",
+    "createdAt",
+    "createdBy",
+    "approval",
+    "scope",
+    "authority",
+    "allowedSurfaces",
+    "forbiddenSurfaces",
+    "stopConditions",
+    "verificationExpectations",
+    "requestedReportShape",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "hacp-0.2-draft" },
+    "recordKind": { "const": "hacp.authority_packet" },
+    "authorityPacketId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "createdBy": { "type": "string", "minLength": 1 },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actorId", "actorKind", "approvedAt", "approvalDigest"],
+      "properties": {
+        "actorId": { "type": "string", "minLength": 1 },
+        "actorKind": { "enum": ["human", "owner_system"] },
+        "approvedAt": { "type": "string", "format": "date-time" },
+        "approvalDigest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "scope": { "type": "string", "minLength": 1 },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "impact", "decisionBoundary"],
+      "properties": {
+        "mode": {
+          "enum": ["observe_only", "review_only", "verify_only", "propose_only", "implement_bounded"]
+        },
+        "impact": {
+          "enum": [
+            "observes_state_only",
+            "returns_findings_only",
+            "returns_verification_only",
+            "produces_proposal",
+            "modifies_allowed_surfaces"
+          ]
+        },
+        "decisionBoundary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-only decisions that remain outside adapter authority."
+        }
+      }
+    },
+    "allowedSurfaces": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "forbiddenSurfaces": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "stopConditions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "verificationExpectations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "requestedReportShape": { "type": "string", "minLength": 1 },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "digestDomain", "value"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "canonicalization": { "type": "string", "minLength": 1 },
+        "digestDomain": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{16,64}$" }
+      }
+    }
+  }
+}

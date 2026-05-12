@@ -23,6 +23,29 @@ describe an implementation as "HACP compliant" yet; use narrower labels such as
 "implements the HACP v0.1 draft base profile" and cite the evidence that was
 checked.
 
+## HACP 0.2 Draft
+
+HACP 0.2 is a new experimental protocol draft that frames HACP as a
+chain-of-custody protocol for human-authorized agent work. It adds handoff
+packages, match proofs, human decision records, digest domains, and explicit
+transport/execution profile separation.
+
+Start here:
+
+- [docs/hacp-0.2.md](docs/hacp-0.2.md): core vocabulary, lifecycle, record
+  model, digest domains, and audit/replay posture.
+- [docs/profiles.md](docs/profiles.md): transport profiles and execution
+  profiles.
+- [docs/security-boundaries.md](docs/security-boundaries.md): authority,
+  report, match-proof, human-decision, digest-domain, and fail-closed
+  boundaries.
+- [docs/non-goals.md](docs/non-goals.md): what HACP 0.2 does not define.
+- [docs/review-packet.md](docs/review-packet.md): severity-ordered review
+  packet for the 0.2 draft.
+
+HACP 0.2 is not 1.0. It is a draft vocabulary and fixture set for review and
+independent implementation feedback.
+
 ## Public Review
 
 The preferred place for early feedback is
@@ -170,6 +193,15 @@ Apache-2.0 unless a file states otherwise.
   JSON Schema for base Task Packet records.
 - [schemas/agent-report.schema.json](schemas/agent-report.schema.json): minimal
   JSON Schema for base Agent Report records.
+- HACP 0.2 schemas:
+  - [schemas/authority-packet.schema.json](schemas/authority-packet.schema.json)
+  - [schemas/handoff-package.schema.json](schemas/handoff-package.schema.json)
+  - [schemas/adapter-report.schema.json](schemas/adapter-report.schema.json)
+  - [schemas/match-proof.schema.json](schemas/match-proof.schema.json)
+  - [schemas/human-decision-record.schema.json](schemas/human-decision-record.schema.json)
+- HACP 0.2 fixtures:
+  - [fixtures/happy-path/](fixtures/happy-path/)
+  - [fixtures/risk-cases/](fixtures/risk-cases/)
 
 ## Canonical Vocabulary Sources
 

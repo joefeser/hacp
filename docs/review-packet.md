@@ -20,6 +20,7 @@ Core invariant:
 - `docs/non-goals.md`
 - `docs/profiles.md`
 - `docs/security-boundaries.md`
+- `profiles/hacp-base-draft-v0.2.yaml`
 - `schemas/authority-packet.schema.json`
 - `schemas/handoff-package.schema.json`
 - `schemas/adapter-report.schema.json`
@@ -40,11 +41,13 @@ Core invariant:
 
 - Can a match proof link a report to exactly one authorized chain?
 - Are required digests and record references sufficient?
+- Is the match-proof creator/owner-side verifier role clear enough?
 - Are stale or mismatched reports distinguishable from valid reports?
 
 ### 3. Digest Domain Correctness
 
 - Are digest domains explicit enough?
+- Is the relationship between canonicalization and digest domains clear?
 - Could consumers accidentally compare structured and free-text report digests?
 - Do fixtures make placeholder digests obvious?
 
@@ -59,6 +62,8 @@ Core invariant:
 - Are transport and execution separated cleanly?
 - Does any transport profile imply execution?
 - Are execution-capable profiles explicitly human-approved?
+- Is the v0.2 profile registry sufficient for a first independent
+  implementation?
 
 ### 6. Security and No-Execution Boundary
 

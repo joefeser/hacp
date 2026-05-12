@@ -34,7 +34,12 @@
         "actorId": { "type": "string", "minLength": 1 },
         "actorKind": { "const": "human" },
         "approvedAt": { "type": "string", "format": "date-time" },
-        "approvalDigest": { "$ref": "#/$defs/digest" }
+        "approvalDigest": {
+          "allOf": [
+            { "$ref": "#/$defs/digest" },
+            { "properties": { "digestDomain": { "const": "authority_packet_approval_v0.2" } } }
+          ]
+        }
       }
     },
     "scope": { "type": "string", "minLength": 1 },
@@ -80,8 +85,13 @@
       "type": "array",
       "items": { "type": "string", "minLength": 1 }
     },
-    "requestedReportShape": { "type": "string", "minLength": 1 },
-    "digest": { "$ref": "#/$defs/digest" }
+    "requestedReportShape": { "enum": ["hacp.adapter_report"] },
+    "digest": {
+      "allOf": [
+        { "$ref": "#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "authority_packet_v0.2" } } }
+      ]
+    }
   },
   "$defs": {
     "digest": {
@@ -90,9 +100,19 @@
       "required": ["algorithm", "canonicalization", "digestDomain", "value"],
       "properties": {
         "algorithm": { "const": "sha256" },
-        "canonicalization": { "type": "string", "minLength": 1 },
-        "digestDomain": { "type": "string", "minLength": 1 },
-        "value": { "type": "string", "pattern": "^[0-9a-f]{16,64}$" }
+        "canonicalization": { "const": "json-rfc8785-jcs" },
+        "digestDomain": {
+          "enum": [
+            "authority_packet_approval_v0.2",
+            "authority_packet_v0.2",
+            "handoff_package_v0.2",
+            "adapter_report_v0.2",
+            "match_proof_v0.2",
+            "human_decision_record_v0.2",
+            "legacy_free_text_report"
+          ]
+        },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
       }
     }
   }

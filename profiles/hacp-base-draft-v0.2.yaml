@@ -1,0 +1,87 @@
+profile_id: hacp-base-draft
+profile_version: v0.2-draft
+status: experimental
+
+record_kinds:
+  - hacp.authority_packet
+  - hacp.handoff_package
+  - hacp.adapter_report
+  - hacp.match_proof
+  - hacp.human_decision_record
+
+transport_profiles:
+  - profile_id: manual_browser_upload_v0.2
+    profile_version: 0.2-draft
+    description: Human carries records through a browser upload or form.
+    executes_work: false
+  - profile_id: manual_filesystem_carry_v0.2
+    profile_version: 0.2-draft
+    description: Human carries records through local files.
+    executes_work: false
+  - profile_id: owner_controlled_cli_v0.2
+    profile_version: 0.2-draft
+    description: Human invokes a local adapter CLI.
+    executes_work: false
+    note: Execution requires a separate execution profile.
+  - profile_id: automated_transport_v0.2
+    profile_version: 0.2-draft
+    description: A watcher, queue, webhook, or bus moves already-approved records.
+    executes_work: false
+
+execution_profiles:
+  - profile_id: no_execution_passthrough_v0.2
+    profile_version: 0.2-draft
+    description: Adapter validates and reports without doing task work.
+    allowed_effects: []
+  - profile_id: review_only_v0.2
+    profile_version: 0.2-draft
+    description: Adapter reads allowed surfaces and returns findings only.
+    allowed_effects:
+      - read_allowed_surfaces
+  - profile_id: verify_only_v0.2
+    profile_version: 0.2-draft
+    description: Adapter runs explicitly approved verification only.
+    allowed_effects:
+      - run_approved_verification
+  - profile_id: local_workspace_bounded_v0.2
+    profile_version: 0.2-draft
+    description: Adapter may modify allowed local workspace surfaces.
+    allowed_effects:
+      - modify_allowed_surfaces
+
+digest_domains:
+  - authority_packet_approval_v0.2
+  - authority_packet_v0.2
+  - handoff_package_v0.2
+  - adapter_report_v0.2
+  - match_proof_v0.2
+  - human_decision_record_v0.2
+  - legacy_free_text_report
+
+canonicalization:
+  base_algorithm: json-rfc8785-jcs
+  digest_algorithm: sha256
+
+requested_report_shapes:
+  - hacp.adapter_report
+
+review_conditions:
+  - stale_handoff
+  - matrix_drift
+  - boundary_breach
+  - stop_blocked
+  - residual_risk
+
+human_decisions:
+  - accept_follow_up
+  - mark_complete
+  - request_human_decision
+  - cancel_session
+  - reject_report
+  - request_revision
+
+no_execution_boundary:
+  core_executes_tools: false
+  core_calls_models: false
+  core_automates_transport: false
+  requested_next_step_is_advisory: true

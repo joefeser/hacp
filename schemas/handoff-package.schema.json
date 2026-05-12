@@ -23,12 +23,17 @@
     "recordKind": { "const": "hacp.handoff_package" },
     "handoffPackageId": { "type": "string", "minLength": 1 },
     "authorityPacketId": { "type": "string", "minLength": 1 },
-    "authorityPacketDigest": { "$ref": "#/$defs/digest" },
+    "authorityPacketDigest": {
+      "allOf": [
+        { "$ref": "#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "authority_packet_v0.2" } } }
+      ]
+    },
     "createdAt": { "type": "string", "format": "date-time" },
     "expiresAt": { "type": "string", "format": "date-time" },
     "targetLabel": { "type": "string", "minLength": 1 },
-    "transportProfile": { "$ref": "#/$defs/profileRef" },
-    "executionProfile": { "$ref": "#/$defs/profileRef" },
+    "transportProfile": { "$ref": "#/$defs/transportProfileRef" },
+    "executionProfile": { "$ref": "#/$defs/executionProfileRef" },
     "boundaryNotice": {
       "type": "object",
       "additionalProperties": false,
@@ -43,16 +48,44 @@
         "humanDecisionRequiredForConsequentialChange": { "const": true }
       }
     },
-    "digest": { "$ref": "#/$defs/digest" }
+    "digest": {
+      "allOf": [
+        { "$ref": "#/$defs/digest" },
+        { "properties": { "digestDomain": { "const": "handoff_package_v0.2" } } }
+      ]
+    }
   },
   "$defs": {
-    "profileRef": {
+    "transportProfileRef": {
       "type": "object",
       "additionalProperties": false,
       "required": ["profileId", "profileVersion"],
       "properties": {
-        "profileId": { "type": "string", "minLength": 1 },
-        "profileVersion": { "type": "string", "minLength": 1 }
+        "profileId": {
+          "enum": [
+            "manual_browser_upload_v0.2",
+            "manual_filesystem_carry_v0.2",
+            "owner_controlled_cli_v0.2",
+            "automated_transport_v0.2"
+          ]
+        },
+        "profileVersion": { "const": "0.2-draft" }
+      }
+    },
+    "executionProfileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profileId", "profileVersion"],
+      "properties": {
+        "profileId": {
+          "enum": [
+            "no_execution_passthrough_v0.2",
+            "review_only_v0.2",
+            "verify_only_v0.2",
+            "local_workspace_bounded_v0.2"
+          ]
+        },
+        "profileVersion": { "const": "0.2-draft" }
       }
     },
     "digest": {
@@ -61,9 +94,19 @@
       "required": ["algorithm", "canonicalization", "digestDomain", "value"],
       "properties": {
         "algorithm": { "const": "sha256" },
-        "canonicalization": { "type": "string", "minLength": 1 },
-        "digestDomain": { "type": "string", "minLength": 1 },
-        "value": { "type": "string", "pattern": "^[0-9a-f]{16,64}$" }
+        "canonicalization": { "const": "json-rfc8785-jcs" },
+        "digestDomain": {
+          "enum": [
+            "authority_packet_approval_v0.2",
+            "authority_packet_v0.2",
+            "handoff_package_v0.2",
+            "adapter_report_v0.2",
+            "match_proof_v0.2",
+            "human_decision_record_v0.2",
+            "legacy_free_text_report"
+          ]
+        },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
       }
     }
   }

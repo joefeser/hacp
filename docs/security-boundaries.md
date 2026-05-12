@@ -16,7 +16,10 @@ the request remains advisory until a human decision record exists.
 ## Match-Proof Boundary
 
 A match proof links a report to one authorized chain. It does not judge whether
-the work should be accepted.
+the work should be accepted. The report-producing adapter should not be the sole
+author of the proof for its own report; proof creation belongs to the receiving
+owner system, verifier, or review service unless a profile explicitly separates
+a trusted verifier role.
 
 ## Human Decision Boundary
 
@@ -24,11 +27,17 @@ Only the human decision record converts reviewed evidence into a recorded
 decision. Implementations must reject or route to review when decision evidence
 is incomplete, stale, drifted, or boundary-breached.
 
+A consequential state change includes accepting work, marking work complete,
+canceling work, requesting revision, granting additional authority, or changing
+the human review posture. Profiles may add to this set, but they must not narrow
+it.
+
 ## Digest-Domain Boundary
 
 Digest equality is meaningful only inside a declared digest domain. Structured
 adapter report digests and free-text report digests are not automatically
-comparable.
+comparable. Unknown digest domains must be rejected or routed to human review
+unless an accepted profile declares them.
 
 ## Transport Boundary
 

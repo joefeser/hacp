@@ -2,6 +2,27 @@
 
 Profiles declare how a HACP implementation uses the core records.
 
+The machine-readable draft registry is
+[`profiles/hacp-base-draft-v0.2.yaml`](../profiles/hacp-base-draft-v0.2.yaml).
+It is the base source for v0.2 profile IDs, digest domains, requested report
+shapes, review conditions, and decision values. Consumers that receive an
+unknown profile ID must reject the record or route it to human review unless a
+trusted extension profile declares the ID.
+
+## Base Draft Conformance
+
+An implementation should only claim "HACP 0.2 draft base" support when it can:
+
+- parse and validate the five core v0.2 record kinds;
+- recognize the base profile registry values;
+- compute SHA-256 digests over RFC 8785 JCS canonical JSON for core records;
+- preserve the no-execution boundary unless an execution profile explicitly
+  says otherwise;
+- keep requested next steps advisory until a human decision record exists.
+
+This is not a stable 1.0 conformance program. It is a draft interoperability
+target for review and fixture-building.
+
 ## Transport Profiles
 
 A transport profile describes how records move between systems.
@@ -40,6 +61,10 @@ Execution-capable profiles must declare:
 - evidence obligations;
 - whether verification commands may run;
 - how boundary breach is reported.
+
+Adapter kind values are intentionally profile-owned. The base schemas require a
+non-empty `adapterKind` for evidence, but they do not prescribe a global adapter
+registry yet.
 
 ## Profile Separation Rule
 

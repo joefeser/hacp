@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "hacp-0.2-draft",
+  "recordKind": "hacp.match_proof",
+  "matchProofId": "match_proof_manual_override_example_0001",
+  "createdAt": "2026-05-11T12:34:00Z",
+  "authorityPacketId": "packet_example_0001",
+  "handoffPackageId": "handoff_example_0001",
+  "adapterReportId": "report_example_manual_override_0001",
+  "authorityPacketDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "authority_packet_v0.2",
+    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "handoffPackageDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "handoff_package_v0.2",
+    "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "adapterReportDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "adapter_report_v0.2",
+    "value": "1919191919191919191919191919191919191919191919191919191919191919"
+  },
+  "matchMethod": "manual_override",
+  "overrideActor": {
+    "actorId": "human_owner_example",
+    "actorKind": "human"
+  },
+  "overrideReason": "Owner manually linked the report after verifying the handoff and report evidence outside the normal digest path.",
+  "reviewConditions": ["stale_handoff"],
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "match_proof_v0.2",
+    "value": "2020202020202020202020202020202020202020202020202020202020202020"
+  }
+}

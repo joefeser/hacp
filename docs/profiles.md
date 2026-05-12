@@ -33,7 +33,7 @@ Examples:
 | --- | --- | --- |
 | `manual_browser_upload_v0.2` | Human copies or uploads records through a browser session. | No |
 | `manual_filesystem_carry_v0.2` | Human carries records through a local file. | No |
-| `owner_controlled_cli_v0.2` | Human invokes a local adapter CLI. | Only if paired with an execution profile |
+| `owner_controlled_cli_v0.2` | Human invokes a local adapter CLI to carry the handoff package; the transport profile itself does not execute task work. | Only if paired with an execution profile |
 | `automated_transport_v0.2` | A watcher, queue, webhook, or bus moves records. | No by itself |
 
 Transport profiles must not widen authority. A successful transport event only
@@ -65,6 +65,12 @@ Execution-capable profiles must declare:
 Adapter kind values are intentionally profile-owned. The base schemas require a
 non-empty `adapterKind` for evidence, but they do not prescribe a global adapter
 registry yet.
+
+Consumers must reject or route to human review when an execution profile exceeds
+the authority packet's declared `mode`/`impact` or allowed surfaces. For example,
+`local_workspace_bounded_v0.2` is not compatible with an authority packet that
+only authorizes `review_only`, unless an accepted extension profile explicitly
+defines a narrower safe interpretation.
 
 ## Profile Separation Rule
 

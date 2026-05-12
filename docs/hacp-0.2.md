@@ -158,6 +158,9 @@ must remain visible to the human decision gate.
 
 A condition that should stop or block work when reached. Reports must state
 whether stop conditions were met, blocked, unknown, or otherwise unresolved.
+Authority packets must include at least one stop condition. For simple work, a
+baseline condition such as "stop if scope or authority boundary is exceeded" is
+still expected.
 
 ### Requested Next Step
 
@@ -199,6 +202,12 @@ normative canonicalization algorithm, identified as `json-rfc8785-jcs`.
 Implementations claiming HACP 0.2 base support must be able to compute SHA-256
 digests over UTF-8 encoded JCS output for the five core record kinds.
 
+For a core record's own `digest`, the digest input is the canonical record
+object with the top-level `digest` field omitted. For embedded reference
+digests, the digest input is the referenced record in its own digest domain.
+`approval.approvalDigest` is the special approval sub-record digest described in
+the Authority Packet section.
+
 Draft fixtures use placeholder digest values even when they name
 `json-rfc8785-jcs`. They demonstrate structure and digest domains; they are not
 conformance vectors.
@@ -238,7 +247,8 @@ display and audit correlation.
 `manual_override` is a permitted match method only when the proof also records
 who overrode the normal match path and why. Implementations must preserve the
 override actor and reason in the match proof or an equivalent linked audit
-record.
+record. Draft fixtures include a minimal manual-override proof shape for this
+escape hatch.
 
 ## Review Conditions
 
@@ -258,6 +268,11 @@ requiring human review.
 The canonical clean state is an empty `reviewConditions` array. HACP 0.2 schemas
 reject `["none"]`. Non-schema draft readers may tolerate older `["none"]`
 examples during review, but v0.2 records should use `[]`.
+
+Human decision records must preserve the review conditions surfaced by their
+referenced match proof, either as the same set or as a profile-defined superset.
+A decision record must not silently drop `boundary_breach`, `stale_handoff`,
+`matrix_drift`, `stop_blocked`, or `residual_risk` from the proof it decides.
 
 Review condition derivation is profile-specific, but the base profile uses these
 minimum rules:
@@ -281,11 +296,15 @@ matrix identifier captured at handoff/report time and compared at review time.
 Implementations that do not track such a rule identifier should not claim they
 can prove the absence of matrix drift.
 
+HACP 0.2 base does not define a full session-status decision matrix. Decision
+values are closed in the base registry, while status transitions and
+matrix-drift evidence are profile-defined.
+
 ### Requested Report Shape
 
 `requestedReportShape` names the report record kind expected by the authority
 packet. The HACP 0.2 base profile currently defines `hacp.adapter_report`.
-Consumers should reject or route to human review when the returned report shape
+Consumers must reject or route to human review when the returned report shape
 does not match the authority packet's requested shape.
 
 ## Idempotency and Replay
@@ -315,6 +334,9 @@ the durable record, both must commit together.
 that cancel work, accept boundary-breached reports, accept matrix-drift reports,
 or otherwise acknowledge elevated risk. A confirmation text is an attestation,
 not an execution instruction.
+
+`reject_report` is human-only. Adapter reports can request a next step, but an
+adapter cannot reject its own report on behalf of the human owner.
 
 Human decision records use 16-character digest prefixes for human-readable
 cross-reference only. They are not full integrity checks. Full digest comparison

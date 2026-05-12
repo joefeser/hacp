@@ -125,7 +125,7 @@ RFC-0008 transport-boundary checks.
 
 ## Public Review Scope
 
-The public review surface is intentionally small:
+The v0.1 public review surface is intentionally small:
 
 - the RFC drafts in [rfcs/](rfcs/);
 - the base profile declaration in
@@ -135,6 +135,17 @@ The public review surface is intentionally small:
 - the draft schemas in [schemas/](schemas/);
 - the minimal end-to-end example in
   [examples/minimal-v0.1/](examples/minimal-v0.1/).
+
+The v0.2 public review surface is the draft chain-of-custody packet:
+
+- [docs/hacp-0.2.md](docs/hacp-0.2.md);
+- [docs/profiles.md](docs/profiles.md);
+- [docs/security-boundaries.md](docs/security-boundaries.md);
+- [docs/non-goals.md](docs/non-goals.md);
+- [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml);
+- the v0.2 schemas in [schemas/](schemas/);
+- the v0.2 fixtures in [fixtures/happy-path/](fixtures/happy-path/) and
+  [fixtures/risk-cases/](fixtures/risk-cases/).
 
 Implementation-specific trial artefacts are not required to review this public
 draft. Future releases may add public evidence bundles, conformance test

@@ -69,9 +69,12 @@ chain-of-custody protocol for human-authorized agent work. It adds handoff
 packages, match proofs, human decision records, digest domains, and explicit
 transport/execution profile separation.
 
+Here, chain of custody means each report can be traced back to the exact
+human-approved work boundary it claims to answer.
+
 Start here:
 
-- [docs/use-cases.md](docs/use-cases.md): non-normative human-facing examples
+- [docs/use-cases.md](docs/use-cases.md): explanatory human-facing examples
   of where HACP can help and how ordinary workflows map to protocol records.
 - [docs/hacp-0.2.md](docs/hacp-0.2.md): core vocabulary, lifecycle, record
   model, digest domains, and audit/replay posture.

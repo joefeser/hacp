@@ -46,7 +46,7 @@ flowchart TB
   end
   A --> B
   B --> C
-  C --> D["Owner system verifies custody"]
+  C --> D["Human review surface checks report matches approved work"]
   D --> E
   E --> F
 ```
@@ -155,9 +155,9 @@ A product team needs to verify that UPCs, vendor specifications, ordered
 quantities, marketplace attributes, and listing data match before a product goes
 live or an order proceeds.
 
-Without a custody record, the team may know a tool produced a comparison, but
-not whether it checked the exact approved SKU batch or whether exceptions were
-visible when the listing moved forward.
+Without HACP, the team may know a tool produced a comparison, but not whether it
+checked the exact approved SKU batch or whether exceptions were visible when the
+listing moved forward.
 
 An agent or tool can compare the data and return matches, mismatches, missing
 fields, confidence notes, and residual risk. A human reviewer still decides

@@ -7,13 +7,30 @@ not a conformance target, schema extension, runtime requirement, or prompt
 standard.
 
 HACP is useful when agents, tools, or humans can do bounded work, but a
-consequential next step still needs explicit human approval. Bounded work means
-work with an explicit, human-approved scope that the participant is not allowed
-to exceed.
+consequential next step still needs explicit human approval.
 
 The core idea is simple:
 
 > Reports are evidence, not authorization.
+
+## Terms Used In These Examples
+
+- **Bounded work** means work with an explicit, human-approved scope that the
+  participant is not allowed to exceed.
+- **Owner system** means the human owner's receiving system or review surface
+  that verifies custody and records decisions. It is distinct from the adapter
+  or participant that performed the bounded work.
+- **Authority** means the approved scope of work. It does not mean the adapter
+  has runtime permission to take consequential action.
+- **Consequential state change** means accepting work, marking work complete,
+  canceling work, requesting revision, granting additional authority, changing
+  review posture, or another profile-defined action that should require human
+  approval.
+- **Matrix drift** means the decision rules visible at review time differ from
+  the decision rules captured when the handoff or report was created.
+
+HACP records the decision. A separate product, workflow, or human-controlled
+process may act on that decision.
 
 ## The Short Version
 
@@ -46,7 +63,7 @@ flowchart TB
   end
   A --> B
   B --> C
-  C --> D["Human review surface checks report matches approved work"]
+  C --> D["Owner system checks that the report matches the approved work"]
   D --> E
   E --> F
 ```
@@ -90,21 +107,6 @@ HACP is probably not needed when:
 - no human approval boundary is required;
 - the team only needs a model API, command runner, queue, or prompt template.
 
-## Terms Used In These Examples
-
-- **Owner system** means the human owner's receiving system or review surface
-  that verifies custody and records decisions. It is distinct from the adapter
-  or participant that performed the bounded work.
-- **Authority** means the approved scope of work. It does not mean the adapter
-  has runtime permission to take consequential action.
-- **Consequential state change** means accepting work, marking work complete,
-  canceling work, requesting revision, granting additional authority, changing
-  review posture, or another profile-defined action that should require human
-  approval.
-
-HACP records the decision. A separate product, workflow, or human-controlled
-process may act on that decision.
-
 An adapter may compare data, draft a recommendation, verify a change, or request
 a next step. HACP records the approved work boundary, the returned evidence, the
 match between report and authority, and the human decision. It does not make the
@@ -126,8 +128,8 @@ The examples below map ordinary workflow language to HACP 0.2 records. They do
 not require a specific model, queue, database, user interface, prompt format, or
 transport mechanism.
 
-In these examples, HACP 0.2 core does not give an owner system independent
-approval authority; consequential next steps still require human decision
+In these examples, HACP 0.2 core does not let the owner system approve
+consequential next steps on its own; those steps still require human decision
 records.
 
 ```mermaid
@@ -281,7 +283,7 @@ flowchart LR
   B --> C["Report returns findings, evidence, and requested next step"]
   C --> D{"Review condition?"}
   D -- "Boundary breach, stale handoff, drift, blocker, risk" --> E["Human review required"]
-  D -- "No review condition" --> F["Human may record decision"]
+  D -- "No review condition" --> F["Human records decision"]
   E --> F
   F --> G["Separate workflow may merge, revise, or stop"]
 ```

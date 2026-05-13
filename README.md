@@ -28,7 +28,7 @@ needs to know:
 - whether the work stayed inside scope;
 - which human accepted, rejected, revised, canceled, or completed the work.
 
-In HACP, bounded work means work with an explicit, human-approved scope that the
+Bounded work means work with an explicit, human-approved scope that the
 participant is not allowed to exceed.
 
 HACP provides a record model for accountable delegation:
@@ -45,10 +45,13 @@ The goal is not unchecked autonomy. The goal is useful automation with explicit
 human gates where risk, authority, customer impact, cost, or organizational
 policy requires review. In HACP, reports are evidence, not authorization.
 
-For concrete examples, start with the non-normative
+For concrete examples, start with the explanatory
 [HACP use cases](docs/use-cases.md).
 If you are asking "what problem does this solve?", that page is the best first
-read before the protocol vocabulary.
+read before the protocol vocabulary. Its
+[terms section](docs/use-cases.md#terms-used-in-these-examples) defines
+reader-facing terms such as owner system, authority, consequential state change,
+and matrix drift.
 
 ## Status
 
@@ -189,7 +192,7 @@ The v0.1 public review surface is intentionally small:
 
 The v0.2 public review surface is the draft chain-of-custody packet:
 
-- [docs/use-cases.md](docs/use-cases.md) as non-normative explanatory context;
+- [docs/use-cases.md](docs/use-cases.md) as explanatory context;
 - [docs/hacp-0.2.md](docs/hacp-0.2.md);
 - [docs/profiles.md](docs/profiles.md);
 - [docs/security-boundaries.md](docs/security-boundaries.md);

@@ -20,13 +20,13 @@ deployments, business records, or other authority-bearing workflows.
 
 HACP provides a record model for accountable delegation:
 
-1. A human approves bounded work.
-2. The approved boundary is carried to an agent, tool, adapter, or human
-   workflow participant.
-3. The participant returns evidence.
-4. The returned work is matched to the authorized boundary.
-5. A human records the decision to accept, reject, revise, continue, escalate,
-   or stop.
+1. A human approves a bounded work packet.
+2. The packet is carried to an agent, tool, adapter, or human workflow
+   participant.
+3. The participant returns structured evidence.
+4. The returned work is matched to the approved packet.
+5. A human records a decision such as accept follow-up, mark complete, request
+   revision, reject report, cancel session, or request continued human review.
 
 The goal is not unchecked autonomy. The goal is useful automation with explicit
 human gates where risk, authority, customer impact, cost, or organizational

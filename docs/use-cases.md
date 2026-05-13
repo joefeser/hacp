@@ -26,18 +26,24 @@ Most HACP workflows follow the same shape:
    participant.
 3. The participant returns structured evidence.
 4. The returned work is matched to the approved packet.
-5. A human records the decision to accept, reject, revise, escalate, continue,
-   or stop.
+5. A human records a decision such as accept follow-up, mark complete, request
+   revision, reject report, cancel session, or request continued human review.
 
 The examples below map ordinary workflow language to HACP 0.2 records. They do
 not require a specific model, queue, database, user interface, prompt format, or
 transport mechanism.
 
+In these examples, "owner system" means the human owner's receiving system or
+review surface that verifies custody and records decisions. It is distinct from
+the adapter or participant that performed the bounded work. HACP 0.2 core does
+not give an owner system independent approval authority; consequential next
+steps still require human decision records.
+
 ```mermaid
 flowchart LR
   A["Human approves bounded work"] --> B["Work is carried to a participant"]
   B --> C["Participant returns evidence"]
-  C --> D["System matches evidence to the approved work"]
+  C --> D["Owner system matches evidence to the approved work"]
   D --> E["Human records decision"]
   E --> F["Only then may a consequential next step proceed"]
 ```
@@ -59,7 +65,7 @@ escalate the issue.
 | Handoff package | The approved work boundary is made available to a product-verification adapter. |
 | Adapter report | The adapter returns matched fields, mismatches, evidence, unresolved risks, and an advisory requested next step. |
 | Match proof | The owner system proves the report belongs to the exact approved SKU batch and handoff. |
-| Human decision record | A product team member approves, rejects, requests revision, or escalates. |
+| Human decision record | A product team member accepts follow-up, marks complete, requests revision, rejects the report, cancels the session, or requests continued human review. |
 | Consequential state change | Only after approval does the product move toward listing, order approval, synchronization, or another downstream business state. |
 
 HACP is useful here because one human can review evidence and exceptions instead
@@ -72,7 +78,7 @@ flowchart LR
   B --> C["Adapter compares UPCs, specs, purchase order, and listing fields"]
   C --> D["Report shows matches, mismatches, and risks"]
   D --> E["Match proof links report to approved batch"]
-  E --> F["Human approves, rejects, revises, or escalates"]
+  E --> F["Human records decision"]
   F --> G["Listing or order workflow may proceed if approved"]
 ```
 
@@ -89,7 +95,7 @@ or carries authority.
 | Handoff package | The approved packet is carried to a summarization or triage participant. |
 | Adapter report | The participant returns the proposed summary, routing reason, risk notes, and requested next step. |
 | Match proof | The owner system links the summary back to the exact approved packet. |
-| Human decision record | A human approves routing, rejects it, redirects it, or asks for more information. |
+| Human decision record | A human accepts follow-up, rejects the report, requests revision, cancels the session, or requests continued human review. |
 | Consequential state change | Only after approval does the workflow route the work to the executive or change its escalation posture. |
 
 HACP is useful here because the preparation work can be assisted, while the
@@ -107,14 +113,14 @@ evidence, review conditions, and handoffs between participants.
 | Handoff package | The approved task boundary is made available to the next participant. |
 | Adapter report | The participant returns findings, status, blockers, residual risks, and a requested next step. |
 | Match proof | The owner system proves the report belongs to the approved task and handoff. |
-| Human decision record | The assistant or owner marks complete, requests revision, cancels, escalates, or continues. |
+| Human decision record | The assistant or owner accepts follow-up, marks complete, requests revision, rejects the report, cancels the session, or requests continued human review. |
 | Consequential state change | Only after approval does the task become complete, escalate, change ownership, or move to another review posture. |
 
 HACP is useful here because AI can complete bounded work inside the queue, but
 the human remains the decision gate for completion, escalation, and authority
 changes.
 
-## Marketing Or Competitive Analysis
+## Marketing or Competitive Analysis
 
 An agent can gather competitor research, summarize changes, draft options, and
 recommend follow-up actions. Those outputs may be useful, but they should not by
@@ -127,13 +133,13 @@ asset.
 | Handoff package | The approved research boundary is carried to a research adapter. |
 | Adapter report | The adapter returns evidence, sources, summary, risks, and advisory recommendations. |
 | Match proof | The owner system links the report to the exact approved research request. |
-| Human decision record | A human accepts follow-up, requests revision, rejects the report, or marks the work complete. |
+| Human decision record | A human accepts follow-up, marks complete, requests revision, rejects the report, cancels the session, or requests continued human review. |
 | Consequential state change | Only after approval does a separate workflow proceed toward outreach, publishing, campaign changes, or business-record updates. |
 
 HACP is useful here because research and recommendation can scale without
 turning recommendations into automatic action.
 
-## Software Review And Change Gates
+## Software Review and Change Gates
 
 An agent can review a pull request, inspect tests, summarize risks, or propose a
 bounded fix. The report can help a developer decide what to do next, but it
@@ -145,7 +151,7 @@ should not silently widen authority or approve a consequential change by itself.
 | Handoff package | The approved review boundary is carried to a reviewer, tool, or agent. |
 | Adapter report | The participant returns findings, evidence, suggested fixes, verification notes, and residual risks. |
 | Match proof | The owner system links the report to the exact approved review request. |
-| Human decision record | A human accepts follow-up, requests revision, rejects the report, or marks review complete. |
+| Human decision record | A human accepts follow-up, marks complete, requests revision, rejects the report, cancels the session, or requests continued human review. |
 | Consequential state change | Only after approval does a separate implementation, merge, release, or follow-up workflow proceed. |
 
 HACP is useful here because agents can help with review and remediation while

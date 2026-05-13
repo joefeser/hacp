@@ -17,6 +17,9 @@ The core idea is simple:
 
 - **Bounded work** means work with an explicit, human-approved scope that the
   participant is not allowed to exceed.
+- **Human-in-the-loop (HITL)** means a workflow pattern where human review or
+  decision is required before selected actions proceed. HACP uses this pattern,
+  but focuses specifically on authority, evidence, and custody.
 - **Owner system** means the human owner's receiving system or review surface
   that verifies custody and records decisions. It is distinct from the adapter
   or participant that performed the bounded work.
@@ -149,6 +152,7 @@ flowchart LR
 | Executive routing gate | Assistants can draft summaries, but routing something to an executive can consume attention or imply priority. | The summary can be prepared without automatically escalating the issue. |
 | Assistant task queue | Tasks move between people, tools, and agents, but completion and escalation can drift across notes. | The queue can show what was delegated, what came back, and which human decision changed the task state. |
 | Marketing or competitive analysis | Research recommendations can accidentally become action pressure: publish, contact, update, or campaign-change. | Research stays useful but advisory until a human accepts follow-up. |
+| Final story or opinion | A polished answer can be mistaken for the settled view, even when it is only one synthesis of evidence. | The opinion can carry sources, uncertainty, dissent, and an explicit acceptance decision. |
 | Software review and change gates | Agents can review or propose fixes, but the human needs proof of scope, risks, and exact work reviewed. | A reviewer can see what was approved, what was inspected, and what risks were visible before deciding. |
 
 ## Product Listing Verification
@@ -255,6 +259,29 @@ the recommendation.
 
 HACP is useful here because research and recommendation can scale without
 turning recommendations into automatic action.
+
+## Final Story or Opinion
+
+An agent can synthesize evidence, draft a final narrative, summarize an
+incident, propose an executive opinion, or answer "what should we believe?" That
+may be mostly a prompting, evaluation, or product-quality problem when the
+output is only a draft.
+
+It becomes a HACP-shaped problem when people may treat the polished output as
+authoritative. A final-looking story can hide uncertainty, dissent, stale
+context, missing evidence, or scope drift.
+
+| HACP concept | Final story or opinion example |
+| --- | --- |
+| Authority packet | "Synthesize these sources into an advisory opinion; include uncertainty, dissenting evidence, and assumptions." |
+| Handoff package | The approved synthesis boundary is carried to a writing, research, or analysis participant. |
+| Adapter report | The participant returns the proposed story, cited evidence, uncertainty, unresolved questions, and requested next step. |
+| Match proof | The owner system links the opinion back to the exact approved source set and synthesis request. |
+| Human decision record | A human accepts the opinion as ready to share, requests revision, rejects the report, cancels the session, or requests continued human review. |
+| Consequential state change | Only after approval does a separate workflow publish, route, brief, decide, or treat the opinion as an accepted position. |
+
+HACP does not replace better prompting or evaluation here. It wraps the moment
+where a high-quality answer might otherwise be mistaken for accepted authority.
 
 ## Software Review and Change Gates
 

@@ -33,6 +33,15 @@ The examples below map ordinary workflow language to HACP 0.2 records. They do
 not require a specific model, queue, database, user interface, prompt format, or
 transport mechanism.
 
+```mermaid
+flowchart LR
+  A["Human approves bounded work"] --> B["Work is carried to a participant"]
+  B --> C["Participant returns evidence"]
+  C --> D["System matches evidence to the approved work"]
+  D --> E["Human records decision"]
+  E --> F["Only then may a consequential next step proceed"]
+```
+
 ## Product Listing Verification
 
 A product team needs to verify that UPCs, vendor specifications, ordered
@@ -56,6 +65,16 @@ escalate the issue.
 HACP is useful here because one human can review evidence and exceptions instead
 of manually rechecking every field from scratch, while the product still does
 not move forward without a recorded human decision.
+
+```mermaid
+flowchart LR
+  A["SKU batch needs verification"] --> B["Human approves verification boundary"]
+  B --> C["Adapter compares UPCs, specs, purchase order, and listing fields"]
+  C --> D["Report shows matches, mismatches, and risks"]
+  D --> E["Match proof links report to approved batch"]
+  E --> F["Human approves, rejects, revises, or escalates"]
+  F --> G["Listing or order workflow may proceed if approved"]
+```
 
 ## Executive Routing Gate
 

@@ -13,10 +13,23 @@ scope.
 
 ## Why HACP Exists
 
-AI agents and automation tools can perform useful bounded work, but
-organizations often need a human to approve consequential next steps before the
-work affects customers, executives, orders, listings, communications,
-deployments, business records, or other authority-bearing workflows.
+Teams are starting to use agents and automation for real work, but the approval
+trail is often still a mix of chat history, screenshots, ticket comments, and
+human memory. That is fragile when the work can affect customers, executives,
+orders, listings, communications, deployments, business records, or other
+authority-bearing workflows.
+
+HACP is for the moment when a human wants help from agents or tools, but still
+needs to know:
+
+- what was approved;
+- who or what received the work;
+- what evidence came back;
+- whether the work stayed inside scope;
+- which human accepted, rejected, revised, canceled, or completed the work.
+
+In HACP, bounded work means work with an explicit, human-approved scope that the
+participant is not allowed to exceed.
 
 HACP provides a record model for accountable delegation:
 
@@ -34,6 +47,8 @@ policy requires review. In HACP, reports are evidence, not authorization.
 
 For concrete examples, start with the non-normative
 [HACP use cases](docs/use-cases.md).
+If you are asking "what problem does this solve?", that page is the best first
+read before the protocol vocabulary.
 
 ## Status
 

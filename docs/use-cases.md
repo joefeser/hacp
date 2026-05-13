@@ -1,16 +1,111 @@
 # HACP Use Cases
 
-Status: non-normative explanatory material.
+Status: explanatory material. This page is not a conformance requirement.
 
 This page explains why HACP exists before introducing protocol details. It is
 not a conformance target, schema extension, runtime requirement, or prompt
 standard.
 
 HACP is useful when agents, tools, or humans can do bounded work, but a
-consequential next step still needs explicit human approval. The core idea is
-simple:
+consequential next step still needs explicit human approval.
+
+The core idea is simple:
 
 > Reports are evidence, not authorization.
+
+## Terms Used In These Examples
+
+- **Bounded work** means work with an explicit, human-approved scope that the
+  participant is not allowed to exceed.
+- **Owner system** means the human owner's receiving system or review surface
+  that verifies custody and records decisions. It is distinct from the adapter
+  or participant that performed the bounded work.
+- **Authority** means the approved scope of work. It does not mean the adapter
+  has runtime permission to take consequential action.
+- **Consequential state change** means accepting work, marking work complete,
+  canceling work, requesting revision, granting additional authority, changing
+  review posture, or another profile-defined action that should require human
+  approval.
+- **Matrix drift** means the decision rules visible at review time differ from
+  the decision rules captured when the handoff or report was created.
+
+HACP records the decision. A separate product, workflow, or human-controlled
+process may act on that decision.
+
+## The Short Version
+
+HACP is for teams that want help from agents and tools without turning every
+agent recommendation into automatic authority.
+
+Without HACP, a human may be left asking:
+
+- What exactly did I approve?
+- Which agent, tool, or person received that approved work?
+- Is this report tied to the approved work, or to a stale chat/thread/file?
+- Did the participant stay inside the approved boundary?
+- What risks, boundary breaches, stale handoffs, or rule drift were visible
+  when the human made the decision?
+- Who accepted, rejected, revised, canceled, or completed the work?
+
+HACP answers those questions with records instead of memory, screenshots, or
+trust in a chat transcript.
+
+```mermaid
+flowchart TB
+  subgraph Human["Human owner"]
+    A["Approves bounded work"]
+    E["Reviews evidence"]
+    F["Records decision"]
+  end
+  subgraph Participant["Agent, tool, adapter, or person"]
+    B["Receives approved boundary"]
+    C["Returns evidence"]
+  end
+  A --> B
+  B --> C
+  C --> D["Owner system checks that the report matches the approved work"]
+  D --> E
+  E --> F
+```
+
+## The Human Problem
+
+Most teams do not only need an agent to do work. They need a reliable way for a
+human to approve boundaries, review evidence, and decide what happens next.
+
+Today that coordination is often spread across prompts, chat logs, pull request
+comments, spreadsheets, ticket notes, screenshots, and memory. That works for a
+small demo. It gets fragile when the work affects customers, money, product
+records, executive attention, production systems, or compliance-sensitive
+decisions.
+
+HACP gives that coordination a small, checkable shape:
+
+```mermaid
+flowchart TB
+  P["Problem: useful work can be prepared by agents"] --> R["Risk: prepared work is mistaken for approval"]
+  R --> H["HACP records custody and decision evidence"]
+  H --> O["Outcome: humans review evidence and record decisions explicitly"]
+```
+
+## When HACP Fits
+
+HACP is a good fit when all of these are true:
+
+- a human wants to delegate bounded work;
+- the work may be performed by an agent, tool, adapter, or human participant;
+- the output may influence a consequential next step;
+- the organization needs evidence of what was approved, what came back, and who
+  decided;
+- stale work, boundary breaches, matrix drift, blocked stop conditions, or
+  residual risk should route back to human review.
+
+HACP is probably not needed when:
+
+- the work has no consequence beyond a local draft or throwaway experiment;
+- a normal log line is enough evidence;
+- no human approval boundary is required;
+- the team only needs a model API, command runner, queue, or prompt template.
 
 An adapter may compare data, draft a recommendation, verify a change, or request
 a next step. HACP records the approved work boundary, the returned evidence, the
@@ -33,11 +128,9 @@ The examples below map ordinary workflow language to HACP 0.2 records. They do
 not require a specific model, queue, database, user interface, prompt format, or
 transport mechanism.
 
-In these examples, "owner system" means the human owner's receiving system or
-review surface that verifies custody and records decisions. It is distinct from
-the adapter or participant that performed the bounded work. HACP 0.2 core does
-not give an owner system independent approval authority; consequential next
-steps still require human decision records.
+In these examples, HACP 0.2 core does not let the owner system approve
+consequential next steps on its own; those steps still require human decision
+records.
 
 ```mermaid
 flowchart LR
@@ -48,11 +141,25 @@ flowchart LR
   E --> F["Only then may a consequential next step proceed"]
 ```
 
+## Use Case Summary
+
+| Use case | Human pain without HACP | How HACP helps |
+| --- | --- | --- |
+| Product listing verification | A tool can find mismatches, but humans still need to know whether the exact approved SKU batch was checked before a listing or order proceeds. | You can prove which SKUs were checked, what exceptions were found, and who approved the next step. |
+| Executive routing gate | Assistants can draft summaries, but routing something to an executive can consume attention or imply priority. | The summary can be prepared without automatically escalating the issue. |
+| Assistant task queue | Tasks move between people, tools, and agents, but completion and escalation can drift across notes. | The queue can show what was delegated, what came back, and which human decision changed the task state. |
+| Marketing or competitive analysis | Research recommendations can accidentally become action pressure: publish, contact, update, or campaign-change. | Research stays useful but advisory until a human accepts follow-up. |
+| Software review and change gates | Agents can review or propose fixes, but the human needs proof of scope, risks, and exact work reviewed. | A reviewer can see what was approved, what was inspected, and what risks were visible before deciding. |
+
 ## Product Listing Verification
 
 A product team needs to verify that UPCs, vendor specifications, ordered
 quantities, marketplace attributes, and listing data match before a product goes
 live or an order proceeds.
+
+Without HACP, the team may know a tool produced a comparison, but not whether it
+checked the exact approved SKU batch or whether exceptions were visible when the
+listing moved forward.
 
 An agent or tool can compare the data and return matches, mismatches, missing
 fields, confidence notes, and residual risk. A human reviewer still decides
@@ -89,6 +196,9 @@ an executive or high-value reviewer should not be automatic. The organization
 may need a human gate before the request consumes attention, changes priority,
 or carries authority.
 
+Without HACP, a polished summary can look like an approved escalation even when
+the human only asked for preparation.
+
 | HACP concept | Executive routing example |
 | --- | --- |
 | Authority packet | "Prepare a concise routing packet for this issue, limited to these facts and requested decision options." |
@@ -106,6 +216,10 @@ attention-routing decision remains explicit and reviewable.
 An assistant may manage a queue of tasks where some work is handled by people,
 some by tools, and some by AI. The queue may include due dates, priority, risk,
 evidence, review conditions, and handoffs between participants.
+
+Without a recorded decision boundary, "done," "blocked," "needs revision," and
+"send to the next participant" can become ambiguous status labels instead of
+explicit human decisions.
 
 | HACP concept | Assistant queue example |
 | --- | --- |
@@ -127,6 +241,9 @@ recommend follow-up actions. Those outputs may be useful, but they should not by
 themselves publish content, contact customers, email vendors, or change a live
 asset.
 
+Without HACP, a research recommendation can be mistaken for approval to act on
+the recommendation.
+
 | HACP concept | Marketing or research example |
 | --- | --- |
 | Authority packet | "Analyze these competitors and identify notable changes; do not contact anyone or change live assets." |
@@ -145,6 +262,9 @@ An agent can review a pull request, inspect tests, summarize risks, or propose a
 bounded fix. The report can help a developer decide what to do next, but it
 should not silently widen authority or approve a consequential change by itself.
 
+Without HACP, it can be hard to prove which scope was approved, which change was
+reviewed, and which risks the human saw before accepting follow-up work.
+
 | HACP concept | Software review example |
 | --- | --- |
 | Authority packet | "Review this change for the listed risks and propose bounded fixes; do not modify unrelated areas." |
@@ -156,6 +276,38 @@ should not silently widen authority or approve a consequential change by itself.
 
 HACP is useful here because agents can help with review and remediation while
 the human still owns scope, risk acceptance, and ship/no-ship decisions.
+
+```mermaid
+flowchart LR
+  A["Human approves PR review scope"] --> B["Reviewer or adapter inspects exact change"]
+  B --> C["Report returns findings, evidence, and requested next step"]
+  C --> D{"Review condition?"}
+  D -- "Boundary breach, stale handoff, drift, blocker, risk" --> E["Human review required"]
+  D -- "No review condition" --> F["Human records decision"]
+  E --> F
+  F --> G["Separate workflow may merge, revise, or stop"]
+```
+
+## What HACP Changes in Practice
+
+HACP makes delegation more accountable.
+
+Before HACP, a team may have:
+
+- a chat prompt that says what the human wanted;
+- a tool output that says what happened;
+- a reviewer comment that says whether it looked okay;
+- a human memory of whether this was approved.
+
+With HACP, the same workflow can preserve:
+
+- the approved authority packet;
+- the handoff package that carried that authority;
+- the adapter report that returned evidence;
+- the match proof tying the report to the approved handoff;
+- the human decision record that authorizes the next consequential step.
+
+That does not remove human judgment. It gives human judgment a durable trail.
 
 ## What These Examples Do Not Mean
 

@@ -13,10 +13,23 @@ scope.
 
 ## Why HACP Exists
 
-AI agents and automation tools can perform useful bounded work, but
-organizations often need a human to approve consequential next steps before the
-work affects customers, executives, orders, listings, communications,
-deployments, business records, or other authority-bearing workflows.
+Teams are starting to use agents and automation for real work, but the approval
+trail is often still a mix of chat history, screenshots, ticket comments, and
+human memory. That is fragile when the work can affect customers, executives,
+orders, listings, communications, deployments, business records, or other
+authority-bearing workflows.
+
+HACP is for the moment when a human wants help from agents or tools, but still
+needs to know:
+
+- what was approved;
+- who or what received the work;
+- what evidence came back;
+- whether the work stayed inside scope;
+- which human accepted, rejected, revised, canceled, or completed the work.
+
+Bounded work means work with an explicit, human-approved scope that the
+participant is not allowed to exceed.
 
 HACP provides a record model for accountable delegation:
 
@@ -32,8 +45,13 @@ The goal is not unchecked autonomy. The goal is useful automation with explicit
 human gates where risk, authority, customer impact, cost, or organizational
 policy requires review. In HACP, reports are evidence, not authorization.
 
-For concrete examples, start with the non-normative
+For concrete examples, start with the explanatory
 [HACP use cases](docs/use-cases.md).
+If you are asking "what problem does this solve?", that page is the best first
+read before the protocol vocabulary. Its
+[terms section](docs/use-cases.md#terms-used-in-these-examples) defines
+reader-facing terms such as owner system, authority, consequential state change,
+and matrix drift.
 
 ## Status
 
@@ -54,9 +72,12 @@ chain-of-custody protocol for human-authorized agent work. It adds handoff
 packages, match proofs, human decision records, digest domains, and explicit
 transport/execution profile separation.
 
+Here, chain of custody means each report can be traced back to the exact
+human-approved work boundary it claims to answer.
+
 Start here:
 
-- [docs/use-cases.md](docs/use-cases.md): non-normative human-facing examples
+- [docs/use-cases.md](docs/use-cases.md): explanatory human-facing examples
   of where HACP can help and how ordinary workflows map to protocol records.
 - [docs/hacp-0.2.md](docs/hacp-0.2.md): core vocabulary, lifecycle, record
   model, digest domains, and audit/replay posture.
@@ -171,7 +192,7 @@ The v0.1 public review surface is intentionally small:
 
 The v0.2 public review surface is the draft chain-of-custody packet:
 
-- [docs/use-cases.md](docs/use-cases.md) as non-normative explanatory context;
+- [docs/use-cases.md](docs/use-cases.md) as explanatory context;
 - [docs/hacp-0.2.md](docs/hacp-0.2.md);
 - [docs/profiles.md](docs/profiles.md);
 - [docs/security-boundaries.md](docs/security-boundaries.md);

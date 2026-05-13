@@ -11,6 +11,30 @@ gates, bounded iteration, and audit evidence. The public draft keeps the
 reusable contracts and leaves product-specific implementation details out of
 scope.
 
+## Why HACP Exists
+
+AI agents and automation tools can perform useful bounded work, but
+organizations often need a human to approve consequential next steps before the
+work affects customers, executives, orders, listings, communications,
+deployments, business records, or other authority-bearing workflows.
+
+HACP provides a record model for accountable delegation:
+
+1. A human approves bounded work.
+2. The approved boundary is carried to an agent, tool, adapter, or human
+   workflow participant.
+3. The participant returns evidence.
+4. The returned work is matched to the authorized boundary.
+5. A human records the decision to accept, reject, revise, continue, escalate,
+   or stop.
+
+The goal is not unchecked autonomy. The goal is useful automation with explicit
+human gates where risk, authority, customer impact, cost, or organizational
+policy requires review. In HACP, reports are evidence, not authorization.
+
+For concrete examples, start with the non-normative
+[HACP use cases](docs/use-cases.md).
+
 ## Status
 
 HACP is not a standard yet. It is a working draft based on practical experience
@@ -32,6 +56,8 @@ transport/execution profile separation.
 
 Start here:
 
+- [docs/use-cases.md](docs/use-cases.md): non-normative human-facing examples
+  of where HACP can help and how ordinary workflows map to protocol records.
 - [docs/hacp-0.2.md](docs/hacp-0.2.md): core vocabulary, lifecycle, record
   model, digest domains, and audit/replay posture.
 - [docs/profiles.md](docs/profiles.md): transport profiles and execution
@@ -145,6 +171,7 @@ The v0.1 public review surface is intentionally small:
 
 The v0.2 public review surface is the draft chain-of-custody packet:
 
+- [docs/use-cases.md](docs/use-cases.md) as non-normative explanatory context;
 - [docs/hacp-0.2.md](docs/hacp-0.2.md);
 - [docs/profiles.md](docs/profiles.md);
 - [docs/security-boundaries.md](docs/security-boundaries.md);

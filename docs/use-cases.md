@@ -269,7 +269,7 @@ output is only a draft.
 
 It becomes a HACP-shaped problem when people may treat the polished output as
 authoritative. A final-looking story can hide uncertainty, dissent, stale
-context, missing evidence, or scope drift.
+context, missing evidence, or boundary breach.
 
 | HACP concept | Final story or opinion example |
 | --- | --- |

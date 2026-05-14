@@ -45,6 +45,24 @@ The goal is not unchecked autonomy. The goal is useful automation with explicit
 human gates where risk, authority, customer impact, cost, or organizational
 policy requires review. In HACP, reports are evidence, not authorization.
 
+## HACP and Human-in-the-Loop
+
+Human-in-the-loop (HITL) is the broad workflow pattern: a human reviews,
+approves, rejects, escalates, or accepts responsibility at selected points in an
+automated or AI-assisted workflow.
+
+HACP is narrower. It is a protocol-shaped approach inside the broader HITL
+family, focused on accountable delegation and chain of custody. HACP records
+what a human approved, who or what received the work, what evidence came back,
+whether that evidence matched the approved boundary, and which human decision
+followed.
+
+Not every HITL workflow needs HACP. HACP is most useful when an output might be
+mistaken for authority: a report may look final, a recommendation may create
+action pressure, or a pre-flight check may be treated as a go/no-go decision. In
+HACP, those outputs remain evidence until a human decision record accepts,
+rejects, revises, cancels, or completes the next step.
+
 For concrete examples, start with the explanatory
 [HACP use cases](docs/use-cases.md).
 If you are asking "what problem does this solve?", that page is the best first

@@ -114,10 +114,10 @@ packet chain. A profile may define a trusted verifier role, but that role must
 be distinct from merely returning the adapter report.
 
 **Normative note:** A match proof is evidence of custody linkage, not approval.
-A verifier, owner system, or review service that creates a match proof proves
-that a report belongs to an authorized chain. It does not accept completion,
-approve risk, ship, merge, or widen authority. Those actions require a human
-decision record.
+A verifier, owner system, or review service that creates a match proof MUST
+prove only that a report belongs to an authorized chain. It MUST NOT accept
+completion, approve risk, ship, merge, or widen authority. Those actions require
+a human decision record.
 
 ### Human Decision Record
 
@@ -241,21 +241,22 @@ Examples:
   structured adapter report digests unless a profile defines a shared digest
   basis.
 
-A consumer must not treat two digests as equal proof unless both digest value
+A consumer MUST NOT treat two digests as equal proof unless both digest value
 and digest domain match.
 
 **Never do this:**
 
-- Do not compare digest prefixes as proof of identity or custody. The
-  16-character prefixes in human decision records are for human-readable
+- Consumers MUST NOT compare digest prefixes as proof of identity or custody.
+  The 16-character prefixes in human decision records are for human-readable
   cross-reference only.
-- Do not compare digests across different digest domains. A
+- Consumers MUST NOT compare digests across different digest domains. A
   `handoff_package_v0.2` digest and an `adapter_report_v0.2` digest are not
   comparable even if their values happen to match.
-- Do not treat a `legacy_free_text_report` digest as equivalent to a structured
-  `adapter_report_v0.2` digest. They cover different canonicalization inputs.
-- Do not treat a displayed 16-character prefix as authorization or custody
-  proof. Full digest comparison is required for integrity checks.
+- Consumers MUST NOT treat a `legacy_free_text_report` digest as equivalent to a
+  structured `adapter_report_v0.2` digest. They cover different canonicalization
+  inputs.
+- Consumers MUST NOT treat a displayed 16-character prefix as authorization or
+  custody proof. Full digest comparison is required for integrity checks.
 
 The machine-readable draft registry for base 0.2 profile values is
 `profiles/hacp-base-draft-v0.2.yaml`. The base JSON Schemas constrain core
@@ -266,23 +267,31 @@ display and audit correlation.
 ## Manual Override
 
 `manual_override` is a permitted match method for establishing or repairing
-custody matching only. It is not a mechanism for approving report content,
-accepting risk, authorizing shipping or merging, or widening next-step
-authority.
+custody matching only. It MUST NOT be used to approve report content, accept
+risk, authorize shipping or merging, or widen next-step authority.
 
-A manual override match proof must record:
+A manual override match proof MUST record:
 
 - the override actor (`actorId`, `actorKind`);
 - the reason the normal match path was not used;
 - the timestamp (`createdAt`);
-- the normal match path that was bypassed (implicit in the `matchMethod` field
-  and the presence of `overrideActor`/`overrideReason`).
+- the overridden base match path.
 
-A manual override must create a review condition or audit flag. Implementations
-must treat a `manual_override` match proof as requiring human review before any
-consequential state change is applied. Draft fixtures include a minimal
-manual-override proof shape (`fixtures/risk-cases/manual-override-match-proof.json`)
-for this escape hatch.
+In base v0.2, the overridden base match path for `manual_override` is the
+standard `handoff_package_digest` match method. The base schema does not include
+a dedicated `overriddenMatchMethod` field, so `overrideReason` MUST state that
+the standard `handoff_package_digest` match could not be used and why. Profiles
+that add a dedicated audit record MAY carry the bypassed method there instead,
+but the base record MUST still be understandable without private context.
+
+A manual override match proof MUST remain visible to human review. In base v0.2,
+the audit flag is the combination of `matchMethod: "manual_override"`,
+`overrideActor`, and `overrideReason`; profiles MAY also add a profile-defined
+review condition or audit field. Implementations MUST treat a
+`manual_override` match proof as requiring human review before any consequential
+state change is applied. Draft fixtures include a minimal manual-override proof
+shape (`fixtures/risk-cases/manual-override-match-proof.json`) for this escape
+hatch.
 
 ## Review Conditions
 

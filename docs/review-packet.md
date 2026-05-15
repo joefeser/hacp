@@ -45,12 +45,12 @@ Happy-path fixture set: `fixtures/happy-path/` — contains
 `match-proof.json`, and `human-decision-record.json`.
 
 Risk-case fixture set: `fixtures/risk-cases/` — contains stale-handoff,
-matrix-drift, boundary-breach, manual-override, and boundary-breach decision
-examples. See `fixtures/risk-cases/README.md` for the full list.
+matrix-drift, boundary-breach, and manual-override examples. See
+`fixtures/risk-cases/README.md` for the full list.
 
-Confirm: can a reviewer trace the full chain (authority → handoff → report →
-match proof → decision) using only the fixture files and schemas, with no
-private implementation context?
+Confirm: can a reviewer trace the full chain (Authority Packet → Handoff
+Package → Adapter Report → Match Proof → Human Decision Record) using only the
+fixture files and schemas, with no private implementation context?
 
 ## Severity-Ordered Review Questions
 
@@ -65,7 +65,7 @@ private implementation context?
 - Does the verifier prove custody only, without becoming a silent approval
   authority?
 - Verifier, owner-system, and review-service records may establish match proof
-  or custody evidence. They must not accept completion, approve risk, ship,
+  or custody evidence. They MUST NOT accept completion, approve risk, ship,
   merge, or widen authority. Is this boundary clear in the prose and schemas?
 - Is the match-proof creator/owner-side verifier role distinct from the
   adapter that produced the report?
@@ -75,7 +75,8 @@ private implementation context?
 
 ### 3. Match Proof Exactness
 
-- Can a match proof link a report to exactly one authorized chain?
+- Can a Match Proof link an Adapter Report to exactly one Authority Packet →
+  Handoff Package chain?
 - Are required digests and record references sufficient?
 - Are stale or mismatched reports distinguishable from valid reports?
 
@@ -83,10 +84,12 @@ private implementation context?
 
 - Does the manual override language make clear that override may establish or
   repair custody matching only?
-- Does a manual override record the actor, reason, timestamp, and the normal
-  match path that was overridden?
-- Does a manual override create a review condition or audit flag?
-- Does the draft make clear that manual override must not approve report
+- Does a manual override record the actor, reason, timestamp, and clearly state
+  that the standard `handoff_package_digest` match path was bypassed?
+- Does a manual override remain visible to human review through the base audit
+  flag (`matchMethod: "manual_override"` plus `overrideActor` and
+  `overrideReason`) or a profile-defined review condition/audit field?
+- Does the draft make clear that manual override MUST NOT approve report
   acceptance, risk acceptance, shipping, merging, or next-step authority?
 - Is the distinction between "repairing a custody link" and "approving the
   report's outcome" unambiguous?

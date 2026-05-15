@@ -1,6 +1,8 @@
 # HACP 0.2 Review Packet
 
-Use this packet to review the HACP 0.2 draft for protocol risk.
+Use this packet to review the HACP 0.2 draft for protocol risk. Prioritize
+authority, custody, evidence, and execution-boundary failures over wording,
+formatting, or prose polish.
 
 ## Context
 

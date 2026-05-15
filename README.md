@@ -2,6 +2,8 @@
 
 Copyright (c) 2026 Joe Feser.
 
+Website: [hacp.io](https://www.hacp.io/)
+
 HACP is a working-draft protocol for accountable delegation among humans,
 agents, and tools.
 

@@ -29,7 +29,7 @@
     "actorId": "human_owner_example",
     "actorKind": "human"
   },
-  "overrideReason": "Owner manually linked the report after verifying the handoff and report evidence because the standard handoff_package_digest match path could not be used.",
+  "overrideReason": "Owner manually linked the report after verifying the handoff and report evidence because the standard handoff_package_digest match could not be established from the available artifacts; the handoff was also reviewed as stale.",
   "reviewConditions": ["stale_handoff"],
   "digest": {
     "algorithm": "sha256",

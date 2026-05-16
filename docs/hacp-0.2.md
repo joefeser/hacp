@@ -266,23 +266,26 @@ display and audit correlation.
 
 ## Manual Override
 
-`manual_override` is a permitted match method for establishing or repairing
-custody matching only. It MUST NOT be used to approve report content, accept
-risk, authorize shipping or merging, or widen next-step authority.
+A manual override repairs custody matching only. It does not approve report
+content, risk acceptance, shipping, merging, execution, deployment,
+cancellation, or any next-step authority; those require an explicit Human
+Decision Record.
 
 A manual override match proof MUST record:
 
-- the override actor (`actorId`, `actorKind`);
-- the reason the normal match path was not used;
-- the timestamp (`createdAt`);
-- the overridden base match path.
+- the override actor in `overrideActor` (`actorId`, `actorKind`);
+- the reason in `overrideReason` that the standard
+  `handoff_package_digest` match path was not used;
+- the bypassed base match path in `overrideReason`;
+- the timestamp in `createdAt`.
 
-In base v0.2, the overridden base match path for `manual_override` is the
-standard `handoff_package_digest` match method. The base schema does not include
-a dedicated `overriddenMatchMethod` field, so `overrideReason` MUST state that
-the standard `handoff_package_digest` match could not be used and why. Profiles
-that add a dedicated audit record MAY carry the bypassed method there instead,
-but the base record MUST still be understandable without private context.
+For base v0.2, `manual_override` bypasses the standard
+`handoff_package_digest` match method. The base schema does not include a
+separate field for the bypassed method; the bypassed path MUST be explained in
+`overrideReason`. `manual_override` is permitted only when the Match Proof
+itself records `overrideActor` and `overrideReason`. Profiles may define
+additional linked audit records, but they do not replace the base Match Proof
+fields.
 
 A manual override match proof MUST remain visible to human review. In base v0.2,
 the audit flag is the combination of `matchMethod: "manual_override"`,

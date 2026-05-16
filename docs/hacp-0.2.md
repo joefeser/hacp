@@ -273,20 +273,19 @@ Decision Record.
 
 A manual override match proof MUST record:
 
-- the override actor (`actorId`, `actorKind`);
-- the reason the standard `handoff_package_digest` match path was not used;
-- the timestamp (`createdAt`);
-- the bypassed base match path in `overrideReason`.
+- the override actor in `overrideActor` (`actorId`, `actorKind`);
+- the reason in `overrideReason` that the standard
+  `handoff_package_digest` match path was not used;
+- the bypassed base match path in `overrideReason`;
+- the timestamp in `createdAt`.
 
-In base v0.2, the overridden base match path for `manual_override` is the
-standard `handoff_package_digest` match method. The base schema does not include
-a dedicated `overriddenMatchMethod` field. In base v0.2, `manual_override`
-bypasses the standard `handoff_package_digest` match method; the bypassed path
-is not represented by a separate schema field and MUST be explained in
-`overrideReason`. In base v0.2, `manual_override` is a permitted match method
-only when the Match Proof itself records `overrideActor` and `overrideReason`.
-Profiles may define additional linked audit records, but they do not replace
-the base Match Proof fields.
+For base v0.2, `manual_override` bypasses the standard
+`handoff_package_digest` match method. The base schema does not include a
+separate field for the bypassed method; the bypassed path MUST be explained in
+`overrideReason`. `manual_override` is permitted only when the Match Proof
+itself records `overrideActor` and `overrideReason`. Profiles may define
+additional linked audit records, but they do not replace the base Match Proof
+fields.
 
 A manual override match proof MUST remain visible to human review. In base v0.2,
 the audit flag is the combination of `matchMethod: "manual_override"`,

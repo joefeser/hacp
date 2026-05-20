@@ -89,8 +89,8 @@ checked.
 
 ### Stable Enough To Use Now
 
-- draft artifact vocabulary for packets, reports, stops, findings, and
-  decisions;
+- draft artifact vocabulary for packets, reports, stops, findings, decisions,
+  evidence sets, and loop policies;
 - draft JSON Schema pack for machine-checkable artifact shape and vocabulary;
 - valid/invalid example corpus with manifest expectations;
 - local `hacp:doctor` validation flow for repeatable draft checks;

@@ -2,8 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://hacp.example/schemas/v0.1-draft/task-packet.schema.json",
   "title": "HACP v0.1 Draft Task Packet",
+  "description": "Draft record shape for bounded HACP task delegation. Declarative only; non-executing.",
   "type": "object",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "required": [
     "hacp_version",
     "record_kind",
@@ -16,37 +17,146 @@
     "approval",
     "target_label",
     "mode",
+    "scope",
     "authority",
     "authority_impact",
-    "scope",
     "allowed_surfaces",
     "forbidden_surfaces",
     "stop_conditions",
     "verification_requirements",
     "required_report_shape",
-    "evidence_visibility",
-    "loop_ceiling"
+    "evidence_visibility"
   ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.task_packet" },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "profile_id": { "const": "hacp-base-draft" },
+    "profile_version": { "const": "v0.1-draft" },
+    "packet_state": { "enum": ["draft", "approved"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "created_by": { "type": "string", "minLength": 1 },
+    "approval": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "decision_id",
+            "actor_id",
+            "actor_kind",
+            "approved_at",
+            "approved_body_hash"
+          ],
+          "properties": {
+            "decision_id": { "type": "string", "minLength": 1 },
+            "actor_id": { "type": "string", "minLength": 1 },
+            "actor_kind": { "const": "human" },
+            "approved_at": { "type": "string", "format": "date-time" },
+            "approved_body_hash": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["algorithm", "canonicalization", "digest"],
+              "properties": {
+                "algorithm": { "type": "string", "minLength": 1 },
+                "canonicalization": { "type": "string", "minLength": 1 },
+                "digest": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "mode": { "type": "string", "minLength": 1 },
+    "target_label": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "authority": {
+      "enum": [
+        "propose_only",
+        "implement_bounded",
+        "review_only",
+        "verify_only",
+        "observe_only",
+        "audit_only"
+      ]
+    },
+    "authority_impact": {
+      "enum": [
+        "produces_proposal",
+        "modifies_allowed_surfaces",
+        "returns_findings_only",
+        "returns_verification_only",
+        "observes_state_only",
+        "audits_evidence_only"
+      ]
+    },
+    "allowed_tools": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "allowed_surfaces": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "forbidden_surfaces": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "forbidden_effects": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "releases_to_users",
+          "accepts_risk",
+          "bypasses_ship_decision",
+          "widens_scope_silently",
+          "converts_review_to_approval"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "verification_requirements": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "required_report_shape": { "type": "string", "minLength": 1 },
+    "required_report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_kind", "required_sections"],
+      "properties": {
+        "record_kind": { "const": "hacp.agent_report" },
+        "required_sections": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        }
+      }
+    },
+    "evidence_visibility": {
+      "enum": ["internal_only", "reviewer_only", "external_shareable"]
+    },
+    "provenance_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "loop_ceiling": { "type": "integer", "minimum": 0 },
+    "loop_policy_ref": { "type": "string", "minLength": 1 },
+    "authority_boundary_notice": { "type": "string", "minLength": 1 }
+  },
   "allOf": [
-    {
-      "if": {
-        "properties": { "packet_state": { "const": "draft" } },
-        "required": ["packet_state"]
-      },
-      "then": {
-        "properties": { "approval": { "type": "null" } }
-      }
-    },
-    {
-      "if": {
-        "properties": { "packet_state": { "const": "approved" } },
-        "required": ["packet_state"]
-      },
-      "then": {
-        "properties": { "approval": { "type": "object" } },
-        "required": ["approval"]
-      }
-    },
     {
       "if": {
         "properties": { "authority": { "const": "propose_only" } },
@@ -100,64 +210,25 @@
       "then": {
         "properties": { "authority_impact": { "const": "audits_evidence_only" } }
       }
+    },
+    {
+      "if": {
+        "properties": { "packet_state": { "const": "draft" } },
+        "required": ["packet_state"]
+      },
+      "then": {
+        "properties": { "approval": { "type": "null" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "packet_state": { "const": "approved" } },
+        "required": ["packet_state"]
+      },
+      "then": {
+        "properties": { "approval": { "type": "object" } },
+        "required": ["approval"]
+      }
     }
-  ],
-  "properties": {
-    "hacp_version": { "const": "v0.1-draft" },
-    "record_kind": { "const": "hacp.task_packet" },
-    "packet_id": { "type": "string", "minLength": 1 },
-    "profile_id": { "const": "hacp-base-draft" },
-    "profile_version": { "const": "v0.1-draft" },
-    "packet_state": { "enum": ["draft", "approved"] },
-    "created_at": { "type": "string", "format": "date-time" },
-    "created_by": { "type": "string", "minLength": 1 },
-    "approval": {
-      "anyOf": [
-        { "type": "null" },
-        {
-          "type": "object",
-          "additionalProperties": true,
-          "required": ["decision_id", "actor_id", "actor_kind", "approved_at", "approved_body_hash"],
-          "properties": {
-            "decision_id": { "type": "string", "minLength": 1 },
-            "actor_id": { "type": "string", "minLength": 1 },
-            "actor_kind": { "const": "human" },
-            "approved_at": { "type": "string", "format": "date-time" },
-            "approved_body_hash": {
-              "type": "object",
-              "required": ["algorithm", "canonicalization", "digest"],
-              "properties": {
-                "algorithm": { "type": "string", "minLength": 1 },
-                "canonicalization": { "type": "string", "minLength": 1 },
-                "digest": { "type": "string", "minLength": 1 }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "target_label": { "type": "string", "minLength": 1 },
-    "mode": { "type": "string", "minLength": 1 },
-    "authority": {
-      "enum": ["propose_only", "implement_bounded", "review_only", "verify_only", "observe_only", "audit_only"]
-    },
-    "authority_impact": {
-      "enum": [
-        "produces_proposal",
-        "modifies_allowed_surfaces",
-        "returns_findings_only",
-        "returns_verification_only",
-        "observes_state_only",
-        "audits_evidence_only"
-      ]
-    },
-    "scope": { "type": "string", "minLength": 1 },
-    "allowed_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
-    "forbidden_surfaces": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-    "stop_conditions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
-    "verification_requirements": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-    "required_report_shape": { "type": "string", "minLength": 1 },
-    "evidence_visibility": { "enum": ["internal_only", "reviewer_only", "external_shareable"] },
-    "loop_ceiling": { "type": "integer", "minimum": 0 }
-  }
+  ]
 }

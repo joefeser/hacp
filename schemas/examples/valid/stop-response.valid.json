@@ -1,0 +1,15 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-2026-05-19-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-2026-05-19-001",
+  "stop_reason": "HUMAN_DECISION_REQUIRED",
+  "what_does_not_line_up": "Requested change requires authority outside implement_bounded scope.",
+  "evidence_refs": ["review/finding-2026-05-19-002.md"],
+  "minimal_correction": "Provide explicit human decision granting or denying requested scope change.",
+  "authority_context": {
+    "authority": "implement_bounded",
+    "forbidden_effects_triggered": ["widens_scope_silently"]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.review_finding",
+  "finding_id": "finding-2026-05-19-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-2026-05-19-001",
+  "profile_id": "hacp-base-draft",
+  "profile_version": "v0.1-draft",
+  "severity": "medium",
+  "classification": "follow_up",
+  "title_text": "Boundary explanation should remain explicit in README examples section.",
+  "scope": "schemas/README.md",
+  "impact": "Ambiguous wording could imply execution semantics if unstated.",
+  "recommendation": "Keep explicit non-executing and draft framing near fixture links.",
+  "requires_human_decision": false,
+  "evidence_refs": ["schemas/README.md"]
+}

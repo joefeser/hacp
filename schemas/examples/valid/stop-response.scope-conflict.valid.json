@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-scope-conflict-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-example-scope-conflict-001",
+  "stop_reason": "SCOPE_CONFLICT",
+  "what_does_not_line_up": "The requested fix touches authentication behavior, but the packet scope is limited to public documentation fixtures.",
+  "evidence_refs": [
+    "packet/path-scope",
+    "requested-change/authentication"
+  ],
+  "minimal_correction": "Provide a new packet that includes authentication scope or reduce the request to documentation-only changes.",
+  "authority_context": {
+    "authority": "implement_bounded",
+    "forbidden_effects_triggered": ["widens_scope_silently"]
+  }
+}

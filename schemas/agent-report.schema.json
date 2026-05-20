@@ -2,8 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://hacp.example/schemas/v0.1-draft/agent-report.schema.json",
   "title": "HACP v0.1 Draft Agent Report",
+  "description": "Draft record shape for agent-returned outcomes and evidence under bounded authority.",
   "type": "object",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "required": [
     "hacp_version",
     "record_kind",
@@ -22,11 +23,153 @@
     "boundary_crossed_reason",
     "evidence"
   ],
-  "anyOf": [
-    { "required": ["files_changed"] },
-    { "required": ["surfaces_changed"] }
-  ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.agent_report" },
+    "report_id": { "type": "string", "minLength": 1 },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "profile_id": { "const": "hacp-base-draft" },
+    "profile_version": { "const": "v0.1-draft" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "created_by": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["completed", "blocked", "rejected"] },
+    "files_changed": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "surfaces_changed": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "behaviour_implemented": { "type": "string", "minLength": 1 },
+    "verification_performed": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "scope_confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_preserved",
+        "forbidden_effects_confirmed",
+        "out_of_scope_requests"
+      ],
+      "properties": {
+        "scope_preserved": { "type": "boolean" },
+        "forbidden_effects_confirmed": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "releases_to_users",
+              "accepts_risk",
+              "bypasses_ship_decision",
+              "widens_scope_silently",
+              "converts_review_to_approval"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "out_of_scope_requests": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["files_changed", "surfaces_changed"],
+      "properties": {
+        "files_changed": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "surfaces_changed": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "verification_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["command", "outcome", "summary"],
+        "properties": {
+          "command": { "type": "string", "minLength": 1 },
+          "outcome": { "enum": ["pass", "fail", "not_run"] },
+          "summary": { "type": "string", "minLength": 1 },
+          "confidence_note": { "type": "string", "minLength": 1 }
+        }
+      },
+      "minItems": 1
+    },
+    "linked_finding_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "requested_next_human_decision": { "type": "string", "minLength": 1 },
+    "requested_next_step": { "type": "string", "minLength": 1 },
+    "boundaries_preserved": { "type": "boolean" },
+    "boundary_crossed_reason": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string" },
+        {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref", "kind"],
+        "properties": {
+          "ref": { "type": "string", "minLength": 1 },
+          "kind": {
+            "enum": [
+              "command_output",
+              "file_diff",
+              "review_comment",
+              "decision_record",
+              "evidence_index",
+              "other"
+            ]
+          },
+          "summary": { "type": "string", "minLength": 1 }
+        }
+      },
+      "minItems": 1
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    }
+  },
   "allOf": [
+    {
+      "anyOf": [
+        { "required": ["files_changed"] },
+        { "required": ["surfaces_changed"] }
+      ]
+    },
     {
       "if": {
         "properties": { "boundaries_preserved": { "const": true } },
@@ -37,7 +180,8 @@
           "boundary_crossed_reason": {
             "anyOf": [
               { "type": "null" },
-              { "type": "array", "maxItems": 0 }
+              { "type": "array", "maxItems": 0 },
+              { "type": "string", "maxLength": 0 }
             ]
           }
         }
@@ -51,7 +195,6 @@
       "then": {
         "required": ["boundary_crossed_reason"],
         "properties": {
-          "requested_next_step": { "const": "request_human_decision" },
           "boundary_crossed_reason": {
             "anyOf": [
               { "type": "string", "minLength": 1 },
@@ -65,39 +208,5 @@
         }
       }
     }
-  ],
-  "properties": {
-    "hacp_version": { "const": "v0.1-draft" },
-    "record_kind": { "const": "hacp.agent_report" },
-    "report_id": { "type": "string", "minLength": 1 },
-    "packet_id": { "type": "string", "minLength": 1 },
-    "profile_id": { "const": "hacp-base-draft" },
-    "profile_version": { "const": "v0.1-draft" },
-    "created_at": { "type": "string", "format": "date-time" },
-    "created_by": { "type": "string", "minLength": 1 },
-    "surfaces_changed": {
-      "type": "array",
-      "items": { "type": "string", "minLength": 1 },
-      "minItems": 1
-    },
-    "files_changed": {
-      "type": "array",
-      "items": { "type": "string", "minLength": 1 },
-      "minItems": 1
-    },
-    "behaviour_implemented": { "type": "string", "minLength": 1 },
-    "verification_performed": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-    "blockers": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-    "residual_risks": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-    "requested_next_step": { "type": "string", "minLength": 1 },
-    "boundaries_preserved": { "type": "boolean" },
-    "boundary_crossed_reason": {
-      "anyOf": [
-        { "type": "null" },
-        { "type": "string" },
-        { "type": "array", "items": { "type": "string", "minLength": 1 } }
-      ]
-    },
-    "evidence": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-  }
+  ]
 }

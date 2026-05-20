@@ -1,0 +1,37 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.evidence_set",
+  "evidence_set_id": "evidence-set-2026-05-19-001",
+  "profile_id": "hacp-base-draft",
+  "profile_version": "v0.1-draft",
+  "created_at": "2026-05-19T15:10:00Z",
+  "created_by": "codex-cli",
+  "packet_id": "packet-2026-05-19-001",
+  "linked_records": {
+    "report_ids": ["report-2026-05-19-001"],
+    "decision_ids": ["decision-2026-05-19-001"],
+    "finding_ids": ["finding-2026-05-19-001"]
+  },
+  "evidence_items": [
+    {
+      "evidence_ref": "tests/unit/docs/hacp-schema-draft.test.ts",
+      "kind": "command_output",
+      "summary": "Focused fixture/schema validation test output.",
+      "digest": {
+        "algorithm": "sha256",
+        "value": "5890bcf0ec0f9d95e4f3e0b8e96592df35f659ec3f0bc26255a42b6d42aeecb1"
+      }
+    }
+  ],
+  "provenance": [
+    {
+      "source_ref": "phase-139-fixture-harness",
+      "captured_at": "2026-05-19T15:11:00Z",
+      "note": "Generated from static schema/example validation run."
+    }
+  ],
+  "redaction": {
+    "contains_sensitive_content": false,
+    "redaction_note": "No sensitive content present."
+  }
+}

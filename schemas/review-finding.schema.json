@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.1-draft/review-finding.schema.json",
+  "title": "HACP v0.1 Draft Review Finding",
+  "description": "Draft record shape for severity-ordered review findings linked to evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "hacp_version",
+    "record_kind",
+    "finding_id",
+    "packet_id",
+    "profile_id",
+    "profile_version",
+    "severity",
+    "classification",
+    "title_text",
+    "scope",
+    "impact",
+    "recommendation",
+    "evidence_refs"
+  ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.review_finding" },
+    "finding_id": { "type": "string", "minLength": 1 },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "report_id": { "type": "string", "minLength": 1 },
+    "profile_id": { "const": "hacp-base-draft" },
+    "profile_version": { "const": "v0.1-draft" },
+    "severity": { "enum": ["blocker", "high", "medium", "low"] },
+    "classification": {
+      "enum": [
+        "real_blocker",
+        "follow_up",
+        "noise",
+        "needs_human_decision",
+        "confirmation"
+      ]
+    },
+    "title_text": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "impact": { "type": "string", "minLength": 1 },
+    "recommendation": { "type": "string", "minLength": 1 },
+    "requires_human_decision": { "type": "boolean" },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    }
+  }
+}

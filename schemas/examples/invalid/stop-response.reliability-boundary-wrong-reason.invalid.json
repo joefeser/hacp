@@ -1,0 +1,35 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-2026-05-19-reliability-wrong-reason-001",
+  "packet_id": "packet-2026-05-19-quickstart-001",
+  "report_id": "report-2026-05-19-quickstart-001",
+  "stop_reason": "ENVIRONMENT_BLOCKED",
+  "what_does_not_line_up": "The local environment cannot reach the required review service.",
+  "evidence_refs": [
+    "local/runtime/kiro-review"
+  ],
+  "minimal_correction": "Restore review service credentials and retry the blocked step.",
+  "authority_context": {
+    "authority": "verify_only",
+    "forbidden_effects_triggered": []
+  },
+  "reliability_boundary": {
+    "verified_state": [
+      "The review command failed before producing an artifact."
+    ],
+    "unverified_state": [
+      "No reviewer findings were produced."
+    ],
+    "last_safe_state": {
+      "branch": "feat/example",
+      "commit": "abc1234",
+      "pull_request": "https://github.com/example/repo/pull/42"
+    },
+    "pending_external_state": [
+      "Kiro review service"
+    ],
+    "recommended_next_action": "Restore review service credentials and retry the blocked step.",
+    "do_not_continue_based_on_incomplete_readback": true
+  }
+}

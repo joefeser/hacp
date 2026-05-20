@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-context-mismatch-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-example-context-mismatch-001",
+  "stop_reason": "CONTEXT_MISMATCH",
+  "what_does_not_line_up": "The task packet names branch feat/example-correct, but the local workspace is on feat/example-other.",
+  "evidence_refs": [
+    "git/branch-readback",
+    "packet/target-branch"
+  ],
+  "minimal_correction": "Provide a packet that matches the active branch or switch the workspace to the packet branch before continuing.",
+  "authority_context": {
+    "authority": "observe_only",
+    "forbidden_effects_triggered": []
+  }
+}

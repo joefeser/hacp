@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-unverified-assumption-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-example-unverified-assumption-001",
+  "stop_reason": "UNVERIFIED_ASSUMPTION",
+  "what_does_not_line_up": "The report says the reviewer evaluated the latest head, but the review evidence does not include the current commit identifier.",
+  "evidence_refs": [
+    "review/report-summary",
+    "git/current-head"
+  ],
+  "minimal_correction": "Harvest review evidence for the current head or mark the existing finding stale before using it in a decision.",
+  "authority_context": {
+    "authority": "review_only",
+    "forbidden_effects_triggered": []
+  }
+}

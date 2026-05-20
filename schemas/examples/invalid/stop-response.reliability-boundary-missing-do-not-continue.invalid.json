@@ -1,0 +1,26 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-2026-05-19-reliability-invalid-001",
+  "packet_id": "packet-2026-05-19-quickstart-001",
+  "report_id": "report-2026-05-19-quickstart-001",
+  "stop_reason": "RELIABILITY_LIMIT_REACHED",
+  "what_does_not_line_up": "The agent cannot prove final PR readiness because the last thread-aware readback is incomplete.",
+  "evidence_refs": ["pr/160/checks"],
+  "minimal_correction": "Re-run live PR readback before merge.",
+  "authority_context": {
+    "authority": "verify_only",
+    "forbidden_effects_triggered": []
+  },
+  "reliability_boundary": {
+    "verified_state": ["Local validation passed."],
+    "unverified_state": ["Final bot state is unknown."],
+    "last_safe_state": {
+      "branch": "feat/phase-143",
+      "commit": "ec0c328d",
+      "pull_request": "https://github.com/example/repo/pull/42"
+    },
+    "pending_external_state": ["Sourcery review"],
+    "recommended_next_action": "Re-run live PR readback before merge."
+  }
+}

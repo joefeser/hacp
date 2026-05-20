@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.agent_report",
+  "report_id": "report-2026-05-19-invalid-001",
+  "packet_id": "packet-2026-05-19-001",
+  "profile_id": "hacp-base-draft",
+  "profile_version": "v0.1-draft",
+  "created_at": "2026-05-19T16:15:00Z",
+  "created_by": "codex-cli",
+  "files_changed": ["schemas/examples/valid/agent-report.valid.json"],
+  "behaviour_implemented": "Invalid fixture sets boundaries_preserved false but omits reason.",
+  "verification_performed": ["npx vitest run tests/unit/docs/hacp-schema-draft.test.ts"],
+  "blockers": [],
+  "residual_risks": [],
+  "requested_next_step": "request_human_decision",
+  "boundaries_preserved": false,
+  "evidence": ["tests/unit/docs/hacp-schema-draft.test.ts"]
+}

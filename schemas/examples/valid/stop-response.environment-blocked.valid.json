@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-environment-blocked-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-example-environment-blocked-001",
+  "stop_reason": "ENVIRONMENT_BLOCKED",
+  "what_does_not_line_up": "The validation packet requires browser QA, but the local app server cannot bind to the configured localhost port.",
+  "evidence_refs": [
+    "validation/browser-qa-required",
+    "runtime/local-server-startup"
+  ],
+  "minimal_correction": "Restore the local app runtime or approve a different validation environment before claiming browser QA.",
+  "authority_context": {
+    "authority": "verify_only",
+    "forbidden_effects_triggered": []
+  }
+}

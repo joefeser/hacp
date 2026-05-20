@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-stale-packet-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-example-stale-packet-001",
+  "stop_reason": "STALE_PACKET",
+  "what_does_not_line_up": "The packet was approved for an older commit, and the current branch head has changed since approval.",
+  "evidence_refs": [
+    "packet/approved-commit",
+    "git/current-head"
+  ],
+  "minimal_correction": "Re-render or reapprove the packet against the current branch head before continuing.",
+  "authority_context": {
+    "authority": "observe_only",
+    "forbidden_effects_triggered": []
+  }
+}

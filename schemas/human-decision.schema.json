@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.1-draft/human-decision.schema.json",
+  "title": "HACP v0.1 Draft Human Decision Gate",
+  "description": "Draft record shape for explicit human-owned decisions that change coordination status.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "hacp_version",
+    "record_kind",
+    "decision_id",
+    "profile_id",
+    "profile_version",
+    "decision_matrix_version",
+    "from_status",
+    "to_status",
+    "decision",
+    "reason",
+    "decided_at",
+    "actor",
+    "forbidden_effects_confirmed",
+    "evidence_refs"
+  ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.human_decision_gate" },
+    "decision_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "report_id": { "type": "string", "minLength": 1 },
+    "profile_id": { "const": "hacp-base-draft" },
+    "profile_version": { "const": "v0.1-draft" },
+    "decision_matrix_version": { "type": "string", "minLength": 1 },
+    "from_status": {
+      "enum": [
+        "draft",
+        "approved",
+        "in_progress",
+        "waiting_for_review",
+        "needs_human_decision",
+        "blocked",
+        "completed",
+        "canceled"
+      ]
+    },
+    "to_status": {
+      "enum": [
+        "draft",
+        "approved",
+        "in_progress",
+        "waiting_for_review",
+        "needs_human_decision",
+        "blocked",
+        "completed",
+        "canceled"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "approve_next_packet",
+        "start_work",
+        "request_review",
+        "request_human_decision",
+        "mark_blocked",
+        "accept_follow_up",
+        "cancel_session",
+        "mark_complete"
+      ]
+    },
+    "reason": { "type": "string", "minLength": 1 },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_id", "actor_kind", "actor_verification_source", "authentication_context"],
+      "properties": {
+        "actor_id": { "type": "string", "minLength": 1 },
+        "actor_kind": { "const": "human" },
+        "actor_verification_source": {
+          "enum": [
+            "server_session_with_human_interaction",
+            "platform_oauth_with_human_interaction",
+            "signed_human_attestation"
+          ]
+        },
+        "authentication_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["interaction_channel", "secret_material_present"],
+          "properties": {
+            "interaction_channel": {
+              "enum": ["web_ui", "cli", "api", "other"]
+            },
+            "session_reference": { "type": "string", "minLength": 1 },
+            "auth_event_ref": { "type": "string", "minLength": 1 },
+            "secret_material_present": { "const": false }
+          }
+        }
+      }
+    },
+    "forbidden_effects_confirmed": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "releases_to_users",
+          "accepts_risk",
+          "bypasses_ship_decision",
+          "widens_scope_silently",
+          "converts_review_to_approval"
+        ]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    }
+  },
+  "oneOf": [
+    {
+      "required": ["session_id"],
+      "not": {
+        "required": ["packet_id"]
+      }
+    },
+    {
+      "required": ["packet_id"],
+      "not": {
+        "required": ["session_id"]
+      }
+    }
+  ]
+}

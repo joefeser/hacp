@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "corpus_root": "schemas/examples",
+  "expected_valid": [
+    {
+      "path": "valid/task-packet.valid.json",
+      "record_kind": "hacp.task_packet",
+      "schema": "task-packet.schema.json",
+      "purpose": "Canonical valid task packet contract example"
+    },
+    {
+      "path": "valid/agent-report.valid.json",
+      "record_kind": "hacp.agent_report",
+      "schema": "agent-report.schema.json",
+      "purpose": "Canonical valid agent report contract example"
+    },
+    {
+      "path": "valid/human-decision.valid.json",
+      "record_kind": "hacp.human_decision_gate",
+      "schema": "human-decision.schema.json",
+      "purpose": "Canonical valid human decision gate contract example"
+    },
+    {
+      "path": "valid/evidence-set.valid.json",
+      "record_kind": "hacp.evidence_set",
+      "schema": "evidence-set.schema.json",
+      "purpose": "Canonical valid evidence set contract example"
+    },
+    {
+      "path": "valid/stop-response.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Canonical valid stop response contract example"
+    },
+    {
+      "path": "valid/stop-response.reliability-boundary.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Canonical valid reliability boundary stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/stop-response.context-mismatch.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Valid context mismatch stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/stop-response.environment-blocked.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Valid environment blocked stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/stop-response.unverified-assumption.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Valid unverified assumption stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/stop-response.wrong-tool-or-mode.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Valid wrong tool or mode stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/stop-response.missing-authority.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Valid missing authority stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/stop-response.scope-conflict.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Valid scope conflict stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/stop-response.stale-packet.valid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Valid stale packet stop response example",
+      "reference_policy": "standalone"
+    },
+    {
+      "path": "valid/review-finding.valid.json",
+      "record_kind": "hacp.review_finding",
+      "schema": "review-finding.schema.json",
+      "purpose": "Canonical valid review finding contract example"
+    },
+    {
+      "path": "valid/loop-policy.valid.json",
+      "record_kind": "hacp.loop_policy",
+      "schema": "loop-policy.schema.json",
+      "purpose": "Canonical valid loop policy contract example"
+    }
+  ],
+  "expected_invalid": [
+    {
+      "path": "invalid/task-packet.missing-authority.invalid.json",
+      "record_kind": "hacp.task_packet",
+      "schema": "task-packet.schema.json",
+      "purpose": "Contract boundary test for missing required authority"
+    },
+    {
+      "path": "invalid/human-decision.missing-target.invalid.json",
+      "record_kind": "hacp.human_decision_gate",
+      "schema": "human-decision.schema.json",
+      "purpose": "Contract boundary test for missing human decision target"
+    },
+    {
+      "path": "invalid/agent-report.missing-boundary-reason.invalid.json",
+      "record_kind": "hacp.agent_report",
+      "schema": "agent-report.schema.json",
+      "purpose": "Contract boundary test for missing boundary crossed reason"
+    },
+    {
+      "path": "invalid/task-packet.unknown-forbidden-effect.invalid.json",
+      "record_kind": "hacp.task_packet",
+      "schema": "task-packet.schema.json",
+      "purpose": "Contract boundary test for forbidden effects enum enforcement"
+    },
+    {
+      "path": "invalid/stop-response.missing-unblock-path.invalid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Contract boundary test for missing minimal correction guidance"
+    },
+    {
+      "path": "invalid/stop-response.reliability-boundary-missing-do-not-continue.invalid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Contract boundary test for reliability boundary do-not-continue assertion"
+    },
+    {
+      "path": "invalid/stop-response.reliability-boundary-wrong-reason.invalid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Contract boundary test for reliability boundary payload on non-reliability stop reason"
+    },
+    {
+      "path": "invalid/stop-response.missing-evidence.invalid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Contract boundary test for missing required stop-response evidence"
+    },
+    {
+      "path": "invalid/stop-response.hidden-dispatch-claim.invalid.json",
+      "record_kind": "hacp.stop_response",
+      "schema": "stop-response.schema.json",
+      "purpose": "Contract boundary test proving unsupported dispatch metadata is rejected structurally by additionalProperties: false"
+    }
+  ]
+}

@@ -117,7 +117,7 @@ independent implementation feedback.
 ## Public Review
 
 The preferred place for early v0.1 feedback is
-[Discussion #2: HACP v0.1 public review](../../discussions/2). HACP 0.2 is a
+[Discussion #2: HACP v0.1 public review](https://github.com/joefeser/hacp/discussions/2). HACP 0.2 is a
 newer experimental draft; use [docs/review-packet.md](docs/review-packet.md)
 when asking for focused 0.2 protocol review.
 
@@ -233,6 +233,54 @@ tool owner to assess the v0.1 draft set. Use
 [docs/review-packet.md](docs/review-packet.md) for HACP 0.2. Both keep the
 review focused on protocol risks instead of wording polish.
 
+## Public Site Content Spine
+
+Use [site/README.md](site/README.md) as the plain-language HACP public
+explainer. It summarizes the value, lifecycle, artifacts, validation story, and
+authority boundaries before readers move into the full spec.
+
+Use [site/navigation.md](site/navigation.md) for role-based paths:
+
+- New to HACP
+- Enterprise/governance
+- Implementing
+- Reviewing protocol
+- Validating examples
+
+Use [site/faq.md](site/faq.md) for public objection handling, including:
+
+- "We already have PR reviews and CI"
+- "We do not want another agent platform"
+- "We need auditability, not more chat"
+- "We cannot let agents approve work"
+
+## Public Spec Draft
+
+Use [spec/README.md](spec/README.md) as the public-facing HACP spec draft. It
+explains the artifact model, authority boundaries, stop semantics, loop policy,
+and validation story.
+
+## Adoption Primer
+
+Use [adoption-primer.md](adoption-primer.md) for a concise, public-facing
+enterprise explainer covering HACP scope boundaries, governance language, and
+ecosystem mapping across GitHub, Azure DevOps, agent CLIs, and CI/CD policy
+surfaces.
+
+## Implementer Quickstart
+
+Use [quickstart.md](quickstart.md) for the smallest useful local loop using the
+draft schema examples and expected exit-code behavior.
+
+## Authority Boundary Reminder
+
+HACP is not an agent runtime.
+HACP is not a transport protocol.
+HACP is not a replacement for human approval.
+HACP does not execute work, dispatch packets, call models, write GitHub, merge,
+deploy, ship, or accept risk.
+Validation output is evidence for review, not approval.
+
 ## Reference Example
 
 Use [examples/minimal-v0.1/README.md](examples/minimal-v0.1/README.md) for a
@@ -283,10 +331,18 @@ v0.1 artefacts:
   declarations.
 - [decision-matrix-base-v0.1.yaml](decision-matrix-base-v0.1.yaml): base Human
   Decision Gate status-transition matrix.
-- [schemas/task-packet.schema.json](schemas/task-packet.schema.json): minimal
-  JSON Schema for base Task Packet records.
-- [schemas/agent-report.schema.json](schemas/agent-report.schema.json): minimal
-  JSON Schema for base Agent Report records.
+- [schemas/README.md](schemas/README.md): draft schema pack index and
+  limitations.
+- [schemas/task-packet.schema.json](schemas/task-packet.schema.json)
+- [schemas/agent-report.schema.json](schemas/agent-report.schema.json)
+- [schemas/human-decision.schema.json](schemas/human-decision.schema.json)
+- [schemas/evidence-set.schema.json](schemas/evidence-set.schema.json)
+- [schemas/stop-response.schema.json](schemas/stop-response.schema.json)
+- [schemas/review-finding.schema.json](schemas/review-finding.schema.json)
+- [schemas/loop-policy.schema.json](schemas/loop-policy.schema.json)
+- [schemas/examples/manifest.json](schemas/examples/manifest.json)
+- [schemas/examples/valid/](schemas/examples/valid/)
+- [schemas/examples/invalid/](schemas/examples/invalid/)
 
 v0.2 artefacts:
 

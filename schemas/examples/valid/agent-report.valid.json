@@ -33,8 +33,8 @@
   "evidence_refs": [
     {
       "ref": "schemas/examples/manifest.json",
-      "kind": "command_output",
-      "summary": "Fixture validation test results"
+      "kind": "evidence_index",
+      "summary": "Fixture corpus inventory used for manifest-mode validation."
     }
   ],
   "evidence": ["schemas/examples/manifest.json"]

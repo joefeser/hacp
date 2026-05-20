@@ -15,8 +15,8 @@
   "evidence_items": [
     {
       "evidence_ref": "schemas/examples/manifest.json",
-      "kind": "command_output",
-      "summary": "Focused fixture/schema validation test output.",
+      "kind": "evidence_index",
+      "summary": "Fixture corpus inventory used for manifest-mode validation.",
       "digest": {
         "algorithm": "sha256",
         "value": "5890bcf0ec0f9d95e4f3e0b8e96592df35f659ec3f0bc26255a42b6d42aeecb1"

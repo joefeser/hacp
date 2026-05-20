@@ -17,7 +17,7 @@
   "forbidden_surfaces": ["app/api"],
   "forbidden_effects": ["releases_to_users"],
   "stop_conditions": ["Stop if authority is missing."],
-  "verification_requirements": ["npx vitest run tests/unit/docs/hacp-schema-draft.test.ts"],
+  "verification_requirements": ["npm run hacp:doctor -- schemas/examples --manifest schemas/examples/manifest.json"],
   "required_report_shape": "hacp.agent_report",
   "evidence_visibility": "internal_only",
   "loop_ceiling": 1

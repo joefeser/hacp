@@ -1,0 +1,14 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.loop_policy",
+  "loop_policy_id": "loop-policy-2026-05-19-001",
+  "profile_id": "hacp-base-draft",
+  "profile_version": "v0.1-draft",
+  "default_loop_ceiling": 2,
+  "single_pass_only": false,
+  "counter_increment_trigger": "human_decision_accept_follow_up",
+  "breach_behavior": "request_human_decision",
+  "breach_stop_reason": "HUMAN_DECISION_REQUIRED",
+  "forbidden_effects": ["releases_to_users", "accepts_risk", "bypasses_ship_decision"],
+  "notes": "Loop ceilings govern bounded review/fix cycles only."
+}

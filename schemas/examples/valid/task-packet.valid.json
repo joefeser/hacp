@@ -1,0 +1,45 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.task_packet",
+  "packet_id": "packet-2026-05-19-001",
+  "profile_id": "hacp-base-draft",
+  "profile_version": "v0.1-draft",
+  "packet_state": "approved",
+  "created_at": "2026-05-19T14:00:00Z",
+  "created_by": "human-operator-1",
+  "approval": {
+    "decision_id": "decision-2026-05-19-001",
+    "actor_id": "human-operator-1",
+    "actor_kind": "human",
+    "approved_at": "2026-05-19T14:05:00Z",
+    "approved_body_hash": {
+      "algorithm": "sha256",
+      "canonicalization": "json-c14n",
+      "digest": "a4f16eb7a7d4e6155ca00ec4f16ee6dc0c919e1f9f45a6e4f486df2808a3d7c0"
+    }
+  },
+  "mode": "implementation_review",
+  "target_label": "schemas",
+  "scope": "Add fixture-only schema examples and harness validation for draft contracts.",
+  "authority": "implement_bounded",
+  "authority_impact": "modifies_allowed_surfaces",
+  "allowed_tools": ["git", "node", "vitest"],
+  "allowed_surfaces": ["schemas/examples", "tests/unit/docs"],
+  "forbidden_surfaces": ["app/api", "prisma"],
+  "forbidden_effects": ["releases_to_users", "accepts_risk"],
+  "stop_conditions": ["If schema boundary invariants are violated, stop with explicit reason."],
+  "verification_requirements": [
+    "npx vitest run tests/unit/docs/hacp-schema-draft.test.ts",
+    "npx tsc --noEmit"
+  ],
+  "required_report_shape": "hacp.agent_report",
+  "required_report": {
+    "record_kind": "hacp.agent_report",
+    "required_sections": ["behaviour_implemented", "verification_results", "scope_confirmation"]
+  },
+  "evidence_visibility": "internal_only",
+  "provenance_refs": ["phase-139/spec/requirements"],
+  "loop_ceiling": 1,
+  "loop_policy_ref": "loop-policy-2026-05-19-001",
+  "authority_boundary_notice": "No packet dispatch, model calls, or external writes permitted."
+}

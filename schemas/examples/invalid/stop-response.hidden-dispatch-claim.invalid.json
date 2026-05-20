@@ -1,0 +1,19 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-hidden-dispatch-invalid-001",
+  "packet_id": "packet-example-hidden-dispatch-invalid-001",
+  "report_id": "report-example-hidden-dispatch-invalid-001",
+  "stop_reason": "MISSING_AUTHORITY",
+  "what_does_not_line_up": "The request tries to continue by dispatching another agent without packet authority.",
+  "evidence_refs": [
+    "packet/authority",
+    "requested-change/dispatch"
+  ],
+  "minimal_correction": "Human owner must approve a new packet or perform manual transport outside this stop response.",
+  "authority_context": {
+    "authority": "propose_only",
+    "forbidden_effects_triggered": []
+  },
+  "dispatch_attempted": true
+}

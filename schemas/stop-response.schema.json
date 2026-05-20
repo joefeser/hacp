@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.1-draft/stop-response.schema.json",
+  "title": "HACP v0.1 Draft Stop Response",
+  "description": "Draft record shape for a valid reject/stop response when work cannot proceed safely.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "hacp_version",
+    "record_kind",
+    "stop_id",
+    "stop_reason",
+    "what_does_not_line_up",
+    "evidence_refs",
+    "minimal_correction",
+    "authority_context"
+  ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.stop_response" },
+    "stop_id": { "type": "string", "minLength": 1 },
+    "packet_id": { "type": "string", "minLength": 1 },
+    "report_id": { "type": "string", "minLength": 1 },
+    "stop_reason": {
+      "enum": [
+        "CONTEXT_MISMATCH",
+        "WRONG_TOOL_OR_MODE",
+        "MISSING_AUTHORITY",
+        "SCOPE_CONFLICT",
+        "STALE_PACKET",
+        "UNVERIFIED_ASSUMPTION",
+        "ENVIRONMENT_BLOCKED",
+        "RELIABILITY_LIMIT_REACHED",
+        "HUMAN_DECISION_REQUIRED"
+      ]
+    },
+    "what_does_not_line_up": { "type": "string", "minLength": 1 },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "minimal_correction": { "type": "string", "minLength": 1 },
+    "authority_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority", "forbidden_effects_triggered"],
+      "properties": {
+        "authority": {
+          "enum": [
+            "propose_only",
+            "implement_bounded",
+            "review_only",
+            "verify_only",
+            "observe_only",
+            "audit_only"
+          ]
+        },
+        "forbidden_effects_triggered": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "releases_to_users",
+              "accepts_risk",
+              "bypasses_ship_decision",
+              "widens_scope_silently",
+              "converts_review_to_approval"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "reliability_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_state",
+        "unverified_state",
+        "last_safe_state",
+        "pending_external_state",
+        "recommended_next_action",
+        "do_not_continue_based_on_incomplete_readback"
+      ],
+      "properties": {
+        "verified_state": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "unverified_state": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "last_safe_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["branch", "commit", "pull_request"],
+          "properties": {
+            "branch": { "type": "string", "minLength": 1 },
+            "commit": { "type": "string", "minLength": 1 },
+            "pull_request": { "type": "string", "minLength": 1 }
+          }
+        },
+        "pending_external_state": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "recommended_next_action": { "type": "string", "minLength": 1 },
+        "do_not_continue_based_on_incomplete_readback": { "const": true }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "stop_reason": { "const": "RELIABILITY_LIMIT_REACHED" }
+        },
+        "required": ["stop_reason"]
+      },
+      "then": {
+        "required": ["reliability_boundary"]
+      },
+      "else": {
+        "not": {
+          "required": ["reliability_boundary"]
+        }
+      }
+    }
+  ]
+}

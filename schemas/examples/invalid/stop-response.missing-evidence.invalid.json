@@ -1,0 +1,14 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-missing-evidence-invalid-001",
+  "packet_id": "packet-example-missing-evidence-invalid-001",
+  "report_id": "report-example-missing-evidence-invalid-001",
+  "stop_reason": "UNVERIFIED_ASSUMPTION",
+  "what_does_not_line_up": "The report makes an unverified claim without citing the missing proof.",
+  "minimal_correction": "Provide the missing readback or remove the unverified claim.",
+  "authority_context": {
+    "authority": "observe_only",
+    "forbidden_effects_triggered": []
+  }
+}

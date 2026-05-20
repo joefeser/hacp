@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-missing-authority-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-example-missing-authority-001",
+  "stop_reason": "MISSING_AUTHORITY",
+  "what_does_not_line_up": "The requested action would resolve review threads, but the approved packet only grants propose-only authority.",
+  "evidence_refs": [
+    "packet/authority",
+    "review/thread-state"
+  ],
+  "minimal_correction": "Human owner must grant explicit thread-resolution authority or perform the GitHub action manually.",
+  "authority_context": {
+    "authority": "propose_only",
+    "forbidden_effects_triggered": ["converts_review_to_approval"]
+  }
+}

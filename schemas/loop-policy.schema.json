@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.1-draft/loop-policy.schema.json",
+  "title": "HACP v0.1 Draft Loop Policy",
+  "description": "Draft record shape for bounded review/fix loop ceilings and breach handling.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "hacp_version",
+    "record_kind",
+    "loop_policy_id",
+    "profile_id",
+    "profile_version",
+    "default_loop_ceiling",
+    "single_pass_only",
+    "counter_increment_trigger",
+    "breach_behavior",
+    "breach_stop_reason",
+    "forbidden_effects"
+  ],
+  "properties": {
+    "hacp_version": { "const": "v0.1-draft" },
+    "record_kind": { "const": "hacp.loop_policy" },
+    "loop_policy_id": { "type": "string", "minLength": 1 },
+    "profile_id": { "const": "hacp-base-draft" },
+    "profile_version": { "const": "v0.1-draft" },
+    "default_loop_ceiling": { "type": "integer", "minimum": 0 },
+    "single_pass_only": { "type": "boolean" },
+    "counter_increment_trigger": {
+      "enum": [
+        "approved_follow_up_packet",
+        "human_decision_accept_follow_up",
+        "profile_defined"
+      ]
+    },
+    "breach_behavior": {
+      "enum": ["request_human_decision", "terminal_stop"]
+    },
+    "breach_stop_reason": {
+      "enum": [
+        "CONTEXT_MISMATCH",
+        "WRONG_TOOL_OR_MODE",
+        "MISSING_AUTHORITY",
+        "SCOPE_CONFLICT",
+        "STALE_PACKET",
+        "UNVERIFIED_ASSUMPTION",
+        "ENVIRONMENT_BLOCKED",
+        "RELIABILITY_LIMIT_REACHED",
+        "HUMAN_DECISION_REQUIRED"
+      ]
+    },
+    "forbidden_effects": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "releases_to_users",
+          "accepts_risk",
+          "bypasses_ship_decision",
+          "widens_scope_silently",
+          "converts_review_to_approval"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "notes": { "type": "string", "minLength": 1 }
+  }
+}

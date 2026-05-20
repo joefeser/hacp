@@ -1,0 +1,18 @@
+{
+  "hacp_version": "v0.1-draft",
+  "record_kind": "hacp.stop_response",
+  "stop_id": "stop-example-wrong-tool-or-mode-001",
+  "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-example-wrong-tool-or-mode-001",
+  "stop_reason": "WRONG_TOOL_OR_MODE",
+  "what_does_not_line_up": "The packet grants implementation_review authority with implement_bounded scope, but the active tool context is review-only and cannot make bounded edits.",
+  "evidence_refs": [
+    "packet/expected-mode",
+    "tool/active-mode"
+  ],
+  "minimal_correction": "Restart the task in an implementation-capable tool context or provide a review-only packet that asks only for findings.",
+  "authority_context": {
+    "authority": "implement_bounded",
+    "forbidden_effects_triggered": []
+  }
+}

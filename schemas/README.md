@@ -65,6 +65,7 @@ the required base evidence list.
 - Canonical valid examples: [`examples/valid/`](examples/valid/)
 - Intentional invalid contract tests: [`examples/invalid/`](examples/invalid/)
 - Corpus inventory manifest: [`examples/manifest.json`](examples/manifest.json)
+- Corpus guidance and claim boundaries: [`examples/README.md`](examples/README.md)
 - Reliability boundary stop example:
   [`examples/valid/stop-response.reliability-boundary.valid.json`](examples/valid/stop-response.reliability-boundary.valid.json)
 - Stop response fixture pack:

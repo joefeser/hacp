@@ -85,6 +85,28 @@ describe an implementation as "HACP compliant" yet; use narrower labels such as
 "implements the HACP v0.1 draft base profile" and cite the evidence that was
 checked.
 
+## Stability Lanes
+
+### Stable Enough To Use Now
+
+- draft artifact vocabulary for packets, reports, stops, findings, decisions,
+  evidence sets, and loop policies;
+- draft JSON Schema pack for machine-checkable artifact shape and vocabulary;
+- valid/invalid example corpus with manifest expectations;
+- local `hacp:doctor` validation flow for repeatable draft checks;
+- explicit authority boundary language that keeps approval and risk acceptance
+  human-owned.
+
+### Experimental Or Product-Proven But Not Standardized
+
+- product-specific UX/readback and governance workflows;
+- cross-vendor interoperability claims without independent implementations;
+- any claim that schema validation alone proves operational safety;
+- any maturity framing that implies a finalized or ratified standard.
+
+Use these lanes when describing HACP externally: "working draft with proven
+local evidence" is accurate; "formal standard" is not.
+
 ## HACP 0.2 Draft
 
 HACP 0.2 is a new experimental protocol draft that frames HACP as a
@@ -113,6 +135,9 @@ Start here:
 
 HACP 0.2 is not 1.0. It is a draft vocabulary and fixture set for review and
 independent implementation feedback.
+
+For maturity framing across v0.1 and v0.2, see
+[Stability Lanes](#stability-lanes).
 
 ## Public Review
 

@@ -34,5 +34,11 @@ npm run hacp:doctor -- schemas/examples/invalid --json
 npm run hacp:doctor -- schemas/examples --manifest schemas/examples/manifest.json
 ```
 
+Expected exit-code behavior:
+
+- `0`: checks passed for the requested target.
+- `1`: contract diagnostics found (expected when checking `invalid/` directly).
+- `2`: usage, input, schema compile, or environment hard failure.
+
 Validation output is evidence for review. It is not approval and does not grant
 execution authority.

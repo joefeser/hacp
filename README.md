@@ -136,6 +136,9 @@ Start here:
 HACP 0.2 is not 1.0. It is a draft vocabulary and fixture set for review and
 independent implementation feedback.
 
+For maturity framing across v0.1 and v0.2, see
+[Stability Lanes](#stability-lanes).
+
 ## Public Review
 
 The preferred place for early v0.1 feedback is

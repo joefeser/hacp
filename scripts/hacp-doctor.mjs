@@ -257,8 +257,6 @@ async function main() {
 
   const targetPath = path.resolve(repoRoot, parsed.target);
   const ajv = makeAjv();
-  const schemas = await loadSchemas(ajv);
-  const manifestPath = await findManifest(targetPath, parsed.manifest);
 
   const result = {
     ok: true,
@@ -268,6 +266,9 @@ async function main() {
   };
 
   try {
+    const schemas = await loadSchemas(ajv);
+    const manifestPath = await findManifest(targetPath, parsed.manifest);
+
     if (manifestPath) {
       const manifestResult = await validateManifest(ajv, schemas, manifestPath);
       result.diagnostics = manifestResult.diagnostics;

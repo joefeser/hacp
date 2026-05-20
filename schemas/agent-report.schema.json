@@ -79,21 +79,6 @@
         }
       }
     },
-    "changes": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["files_changed", "surfaces_changed"],
-      "properties": {
-        "files_changed": {
-          "type": "array",
-          "items": { "type": "string", "minLength": 1 }
-        },
-        "surfaces_changed": {
-          "type": "array",
-          "items": { "type": "string", "minLength": 1 }
-        }
-      }
-    },
     "verification_results": {
       "type": "array",
       "items": {
@@ -193,8 +178,9 @@
         "required": ["boundaries_preserved"]
       },
       "then": {
-        "required": ["boundary_crossed_reason"],
+        "required": ["boundary_crossed_reason", "requested_next_step"],
         "properties": {
+          "requested_next_step": { "const": "request_human_decision" },
           "boundary_crossed_reason": {
             "anyOf": [
               { "type": "string", "minLength": 1 },

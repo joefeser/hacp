@@ -51,6 +51,15 @@ They do not:
 - [review-finding.schema.json](review-finding.schema.json)
 - [loop-policy.schema.json](loop-policy.schema.json)
 
+## Evidence Field Compatibility
+
+The base RFCs require simple `evidence` arrays so the minimum contract stays
+easy to produce and review. Some draft schemas also allow `evidence_refs` for
+more structured references when an implementation has stable evidence IDs,
+kinds, or summaries. In this draft, `evidence` remains the required portable
+field; `evidence_refs` is optional structured enrichment and must not replace
+the required base evidence list.
+
 ## Examples
 
 - Canonical valid examples: [`examples/valid/`](examples/valid/)
@@ -75,24 +84,12 @@ The manifest is a local corpus inventory. It declares which fixtures are
 expected valid vs expected invalid, plus record-kind/schema metadata and a
 short contract-purpose note per artifact.
 
-Schema-valid examples are not automatically loop-coherent. When manifest
-checking runs, the doctor also checks cross-artifact references between valid
-examples, such as packet, report, decision, finding, evidence-set, and stop
-response IDs. Intentionally standalone stop-response teaching fixtures must
-declare `reference_policy: "standalone"` in the manifest rather than relying on
-filename conventions.
-
-Manifest-mode doctor also validates loop policy binding for expected-valid task
-packets. The packet's `loop_policy_ref` must resolve to a local expected-valid
-`hacp.loop_policy.loop_policy_id`. Missing bindings report
-`LOOP_POLICY_BINDING_MISSING`; unknown policy IDs report `REFERENCE_NOT_FOUND`.
-After binding resolves, doctor runs simple static policy compatibility checks:
-`loop_ceiling` must not exceed policy `default_loop_ceiling`, and packet
-`forbidden_effects[]` must be a subset of policy `forbidden_effects[]`.
-Violations report `LOOP_POLICY_CEILING_EXCEEDED` and
-`LOOP_POLICY_FORBIDDEN_EFFECT_MISMATCH`. The JSON Schema keeps
-`loop_policy_ref` optional for draft/external consumers; the manifest corpus
-contract is intentionally stricter.
+Schema-valid examples are not automatically loop-coherent. In this repository
+snapshot, manifest checking verifies expected-valid and expected-invalid fixture
+outcomes. Cross-artifact reference coherence, loop policy binding, static policy
+compatibility checks, and structured repair hints remain draft conformance goals
+for later doctor tooling rather than behavior implied by the current local
+script.
 
 HACP remains a working draft and vendor-neutral in this phase.
 
@@ -117,16 +114,11 @@ It validates artifact shape and reports diagnostics only. It does not execute ta
 dispatch packets, call models, write GitHub, mutate product records, or imply any real
 coordination action occurred.
 
-When manifest checking runs, invalid fixtures are expected to fail. The doctor reports
-`MANIFEST_EXPECTATION_MISMATCH` only when actual outcomes differ from manifest expectations.
-Manifest checking also reports `REFERENCE_NOT_FOUND` and
-`REFERENCE_DUPLICATE_ID` when expected-valid artifacts do not form a coherent
-local reference graph. Task packets without a manifest-valid loop policy binding
-report `LOOP_POLICY_BINDING_MISSING`.
-Doctor diagnostics are intentionally agent-readable, not prose-only: JSON output
-preserves stable diagnostic codes and can include structured repair metadata such
-as `repair_kind`, `field_path`, `expected_value`, `actual_value`, and
-`unblock_action` to support deterministic triage and repair.
+When manifest checking runs, invalid fixtures are expected to fail. The doctor
+reports a manifest diagnostic only when actual outcomes differ from manifest
+expectations. Doctor diagnostics are intentionally agent-readable, not prose-only:
+JSON output preserves stable diagnostic codes, paths, schema names, field paths,
+keywords, and validator parameters to support deterministic triage.
 
 ## Notes
 
@@ -134,5 +126,5 @@ as `repair_kind`, `field_path`, `expected_value`, `actual_value`, and
   for RFC alignment.
 - `evidence-set.schema.json` covers a single evidence-set record shape, not the
   JSON Lines audit export format.
-- The doctor checks local example-corpus reference coherence; broader semantic
-  conformance across profiles remains draft work.
+- The doctor checks local schema shape and manifest fixture expectations;
+  broader semantic conformance across profiles remains draft work.

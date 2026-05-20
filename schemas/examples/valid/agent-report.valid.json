@@ -16,10 +16,6 @@
     "forbidden_effects_confirmed": ["releases_to_users", "accepts_risk"],
     "out_of_scope_requests": []
   },
-  "changes": {
-    "files_changed": ["schemas/examples/valid/task-packet.valid.json"],
-    "surfaces_changed": ["schemas/examples"]
-  },
   "verification_results": [
     {
       "command": "npx vitest run tests/unit/docs/hacp-schema-draft.test.ts",

@@ -19,5 +19,6 @@
   "stop_conditions": ["Stop if authority is missing."],
   "verification_requirements": ["npx vitest run tests/unit/docs/hacp-schema-draft.test.ts"],
   "required_report_shape": "hacp.agent_report",
-  "evidence_visibility": "internal_only"
+  "evidence_visibility": "internal_only",
+  "loop_ceiling": 1
 }

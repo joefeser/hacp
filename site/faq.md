@@ -87,9 +87,9 @@ HACP should sit above or beside those systems. It should not replace them.
 Short answer: it proves local artifacts match the draft schema and corpus rules
 that the doctor knows how to check.
 
-The local doctor validates shape, vocabulary, manifest expectations, local
-reference coherence, loop-policy binding, simple loop-policy compatibility, and
-structured repair hints.
+The local doctor validates shape, vocabulary, and manifest fixture expectations.
+Reference coherence, loop-policy binding, simple loop-policy compatibility, and
+structured repair hints are draft conformance goals for later tooling.
 
 Doctor output is evidence for review. It is not approval, certification,
 deployment permission, or risk acceptance. Start with the

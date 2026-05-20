@@ -24,7 +24,7 @@ Start with direct boundaries and objection handling:
 
 - [FAQ and enterprise objections](faq.md)
 - [Adoption primer](../adoption-primer.md)
-- [Review packet](../review-packet.md)
+- [Review packet](../docs/review-packet.md)
 
 ### I'm implementing, show schemas/quickstart
 
@@ -40,7 +40,7 @@ Start with protocol semantics and RFC index:
 
 - [Public spec draft](../spec/README.md)
 - [HACP docs index](../README.md)
-- [Review packet](../review-packet.md)
+- [Review packet](../docs/review-packet.md)
 
 ### I'm validating examples, show doctor/manifest
 
@@ -60,7 +60,7 @@ Start with corpus expectations and doctor inputs:
 - [Schema pack](../schemas/README.md)
 - [Schema examples manifest](../schemas/examples/manifest.json)
 - [Minimal example fixture](../examples/minimal-v0.1/README.md)
-- [Review packet](../review-packet.md)
+- [Review packet](../docs/review-packet.md)
 
 ## Authority Boundary Reminder
 

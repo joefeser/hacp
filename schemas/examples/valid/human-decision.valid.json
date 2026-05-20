@@ -11,7 +11,17 @@
   "to_status": "approved",
   "decision": "approve_next_packet",
   "reason": "Schema fixture changes stay within bounded docs/test scope.",
+  "created_at": "2026-05-19T15:00:00Z",
   "decided_at": "2026-05-19T15:00:00Z",
+  "actor_id": "human-operator-1",
+  "actor_kind": "human",
+  "actor_verification_source": "server_session_with_human_interaction",
+  "authentication_context": {
+    "interaction_channel": "web_ui",
+    "session_reference": "session-2026-05-19-001",
+    "auth_event_ref": "auth-event-2026-05-19-001",
+    "secret_material_present": false
+  },
   "actor": {
     "actor_id": "human-operator-1",
     "actor_kind": "human",
@@ -24,5 +34,6 @@
     }
   },
   "forbidden_effects_confirmed": ["bypasses_ship_decision"],
-  "evidence_refs": ["evidence/decision-2026-05-19-001.md"]
+  "evidence_refs": ["evidence/decision-2026-05-19-001.md"],
+  "evidence": ["evidence/decision-2026-05-19-001.md"]
 }

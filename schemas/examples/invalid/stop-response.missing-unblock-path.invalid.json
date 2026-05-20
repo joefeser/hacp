@@ -3,6 +3,7 @@
   "record_kind": "hacp.stop_response",
   "stop_id": "stop-2026-05-19-invalid-001",
   "packet_id": "packet-2026-05-19-001",
+  "report_id": "report-2026-05-19-invalid-001",
   "stop_reason": "MISSING_AUTHORITY",
   "what_does_not_line_up": "Requested action exceeds approved authority.",
   "evidence_refs": ["review/finding-2026-05-19-003.md"],

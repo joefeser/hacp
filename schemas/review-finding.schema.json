@@ -9,25 +9,42 @@
     "hacp_version",
     "record_kind",
     "finding_id",
-    "packet_id",
+    "target_id",
+    "target_kind",
     "profile_id",
     "profile_version",
+    "reviewer_label",
     "severity",
     "classification",
-    "title_text",
-    "scope",
-    "impact",
-    "recommendation",
-    "evidence_refs"
+    "title",
+    "body",
+    "evidence",
+    "created_at",
+    "created_by"
   ],
   "properties": {
     "hacp_version": { "const": "v0.1-draft" },
     "record_kind": { "const": "hacp.review_finding" },
     "finding_id": { "type": "string", "minLength": 1 },
+    "target_id": { "type": "string", "minLength": 1 },
+    "target_kind": {
+      "enum": [
+        "task_packet",
+        "agent_report",
+        "human_decision_gate",
+        "evidence_set",
+        "stop_response",
+        "review_finding",
+        "loop_policy",
+        "protocol_artifact",
+        "other"
+      ]
+    },
     "packet_id": { "type": "string", "minLength": 1 },
     "report_id": { "type": "string", "minLength": 1 },
     "profile_id": { "const": "hacp-base-draft" },
     "profile_version": { "const": "v0.1-draft" },
+    "reviewer_label": { "type": "string", "minLength": 1 },
     "severity": { "enum": ["blocker", "high", "medium", "low"] },
     "classification": {
       "enum": [
@@ -38,15 +55,38 @@
         "confirmation"
       ]
     },
+    "title": { "type": "string", "minLength": 1 },
+    "body": { "type": "string", "minLength": 1 },
     "title_text": { "type": "string", "minLength": 1 },
     "scope": { "type": "string", "minLength": 1 },
     "impact": { "type": "string", "minLength": 1 },
     "recommendation": { "type": "string", "minLength": 1 },
     "requires_human_decision": { "type": "boolean" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "created_by": { "type": "string", "minLength": 1 },
+    "evidence": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
     "evidence_refs": {
       "type": "array",
       "items": { "type": "string", "minLength": 1 },
       "minItems": 1
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "classification": { "const": "needs_human_decision" } },
+        "required": ["classification"]
+      },
+      "then": {
+        "required": ["requires_human_decision"],
+        "properties": {
+          "requires_human_decision": { "const": true }
+        }
+      }
+    }
+  ]
 }

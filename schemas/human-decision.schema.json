@@ -16,10 +16,13 @@
     "to_status",
     "decision",
     "reason",
-    "decided_at",
-    "actor",
+    "created_at",
+    "actor_id",
+    "actor_kind",
+    "actor_verification_source",
+    "authentication_context",
     "forbidden_effects_confirmed",
-    "evidence_refs"
+    "evidence"
   ],
   "properties": {
     "hacp_version": { "const": "v0.1-draft" },
@@ -68,7 +71,30 @@
       ]
     },
     "reason": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
     "decided_at": { "type": "string", "format": "date-time" },
+    "actor_id": { "type": "string", "minLength": 1 },
+    "actor_kind": { "const": "human" },
+    "actor_verification_source": {
+      "enum": [
+        "server_session_with_human_interaction",
+        "platform_oauth_with_human_interaction",
+        "signed_human_attestation"
+      ]
+    },
+    "authentication_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interaction_channel", "secret_material_present"],
+      "properties": {
+        "interaction_channel": {
+          "enum": ["web_ui", "cli", "api", "other"]
+        },
+        "session_reference": { "type": "string", "minLength": 1 },
+        "auth_event_ref": { "type": "string", "minLength": 1 },
+        "secret_material_present": { "const": false }
+      }
+    },
     "actor": {
       "type": "object",
       "additionalProperties": false,
@@ -113,6 +139,11 @@
       "uniqueItems": true
     },
     "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "evidence": {
       "type": "array",
       "items": { "type": "string", "minLength": 1 },
       "minItems": 1

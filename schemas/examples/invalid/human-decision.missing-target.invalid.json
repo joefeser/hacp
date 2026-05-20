@@ -9,7 +9,15 @@
   "to_status": "in_progress",
   "decision": "start_work",
   "reason": "Invalid fixture omits both session and packet target.",
+  "created_at": "2026-05-19T16:10:00Z",
   "decided_at": "2026-05-19T16:10:00Z",
+  "actor_id": "human-operator-1",
+  "actor_kind": "human",
+  "actor_verification_source": "server_session_with_human_interaction",
+  "authentication_context": {
+    "interaction_channel": "web_ui",
+    "secret_material_present": false
+  },
   "actor": {
     "actor_id": "human-operator-1",
     "actor_kind": "human",
@@ -20,5 +28,6 @@
     }
   },
   "forbidden_effects_confirmed": [],
-  "evidence_refs": ["evidence/decision-invalid-001.md"]
+  "evidence_refs": ["evidence/decision-invalid-001.md"],
+  "evidence": ["evidence/decision-invalid-001.md"]
 }

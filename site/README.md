@@ -151,9 +151,9 @@ npm run hacp:doctor -- schemas/examples/invalid --json
 npm run hacp:doctor -- schemas/examples --json
 ```
 
-The doctor validates shape, vocabulary, manifest expectations, local reference
-coherence, loop-policy binding, simple loop-policy compatibility, and
-structured repair hints.
+The doctor validates shape, vocabulary, and manifest fixture expectations.
+Reference coherence, loop-policy binding, simple loop-policy compatibility, and
+structured repair hints are draft conformance goals for later tooling.
 
 The doctor is read-only and non-executing. It validates artifacts and reports
 diagnostics only. It does not execute work, dispatch packets, call models,

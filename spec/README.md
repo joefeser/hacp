@@ -111,6 +111,7 @@ Canonical stop reasons include:
 - `STALE_PACKET`
 - `UNVERIFIED_ASSUMPTION`
 - `ENVIRONMENT_BLOCKED`
+- `RELIABILITY_LIMIT_REACHED`
 - `HUMAN_DECISION_REQUIRED`
 
 Stopping with a clear reason is a protocol success path. It prevents work from
@@ -237,10 +238,10 @@ Exit codes:
 - `1`: schema, manifest, reference, or policy contract diagnostics were found.
 - `2`: input, parse, schema compile, manifest, or environment hard failure.
 
-In manifest mode, the doctor also checks local reference coherence, loop-policy
-binding, simple loop-policy semantics, and structured repair hints. Its JSON
-diagnostics can include stable fields such as `repair_kind`, `field_path`,
-`expected_value`, `actual_value`, `related_artifact`, and `unblock_action`.
+In manifest mode, the doctor checks expected-valid and expected-invalid fixture
+outcomes against the local corpus manifest. Broader reference coherence,
+loop-policy binding, loop-policy semantics, and structured repair hints remain
+draft conformance goals for later tooling.
 
 The doctor is read-only and non-executing. It validates artifacts and reports
 diagnostics only. It does not execute tasks, dispatch packets, call models,
@@ -269,4 +270,4 @@ HACP does not:
 - Schema pack: [`../schemas/README.md`](../schemas/README.md)
 - Example manifest: [`../schemas/examples/manifest.json`](../schemas/examples/manifest.json)
 - Draft RFC index: [`../README.md#draft-rfc-index`](../README.md#draft-rfc-index)
-- Review packet: [`../review-packet.md`](../review-packet.md)
+- Review packet: [`../docs/review-packet.md`](../docs/review-packet.md)

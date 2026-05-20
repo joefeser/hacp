@@ -14,7 +14,7 @@
   },
   "evidence_items": [
     {
-      "evidence_ref": "tests/unit/docs/hacp-schema-draft.test.ts",
+      "evidence_ref": "schemas/examples/manifest.json",
       "kind": "command_output",
       "summary": "Focused fixture/schema validation test output.",
       "digest": {

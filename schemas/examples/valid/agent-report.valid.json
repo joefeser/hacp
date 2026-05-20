@@ -10,7 +10,7 @@
   "status": "completed",
   "files_changed": ["schemas/examples/valid/task-packet.valid.json"],
   "behaviour_implemented": "Added canonical non-executing schema fixtures and validation assertions.",
-  "verification_performed": ["npx vitest run tests/unit/docs/hacp-schema-draft.test.ts"],
+  "verification_performed": ["npm run hacp:doctor -- schemas/examples --manifest schemas/examples/manifest.json"],
   "scope_confirmation": {
     "scope_preserved": true,
     "forbidden_effects_confirmed": ["releases_to_users", "accepts_risk"],
@@ -18,7 +18,7 @@
   },
   "verification_results": [
     {
-      "command": "npx vitest run tests/unit/docs/hacp-schema-draft.test.ts",
+      "command": "npm run hacp:doctor -- schemas/examples --manifest schemas/examples/manifest.json",
       "outcome": "pass",
       "summary": "Schema fixtures validated as expected."
     }
@@ -32,10 +32,10 @@
   "boundary_crossed_reason": null,
   "evidence_refs": [
     {
-      "ref": "tests/unit/docs/hacp-schema-draft.test.ts",
+      "ref": "schemas/examples/manifest.json",
       "kind": "command_output",
       "summary": "Fixture validation test results"
     }
   ],
-  "evidence": ["tests/unit/docs/hacp-schema-draft.test.ts"]
+  "evidence": ["schemas/examples/manifest.json"]
 }

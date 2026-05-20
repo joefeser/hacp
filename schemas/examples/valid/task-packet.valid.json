@@ -23,13 +23,13 @@
   "scope": "Add fixture-only schema examples and harness validation for draft contracts.",
   "authority": "implement_bounded",
   "authority_impact": "modifies_allowed_surfaces",
-  "allowed_tools": ["git", "node", "vitest"],
-  "allowed_surfaces": ["schemas/examples", "tests/unit/docs"],
+  "allowed_tools": ["git", "node", "npm"],
+  "allowed_surfaces": ["schemas/examples", "scripts/hacp-doctor.mjs"],
   "forbidden_surfaces": ["app/api", "prisma"],
   "forbidden_effects": ["releases_to_users", "accepts_risk"],
   "stop_conditions": ["If schema boundary invariants are violated, stop with explicit reason."],
   "verification_requirements": [
-    "npx vitest run tests/unit/docs/hacp-schema-draft.test.ts",
+    "npm run hacp:doctor -- schemas/examples --manifest schemas/examples/manifest.json",
     "npx tsc --noEmit"
   ],
   "required_report_shape": "hacp.agent_report",

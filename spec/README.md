@@ -159,6 +159,10 @@ what they may do:
   fixes.
 - `implement_bounded`: modify only declared allowed surfaces within the packet
   boundary.
+- `verify_only`: run or inspect declared verification surfaces and return
+  verification evidence without applying fixes.
+- `observe_only`: inspect state and return observations without mutating the
+  target.
 - `audit_only`: inspect audit or evidence records and return integrity findings
   without altering underlying work.
 
@@ -174,6 +178,7 @@ examples include:
 - `accepts_risk`
 - `bypasses_ship_decision`
 - `widens_scope_silently`
+- `converts_review_to_approval`
 
 Forbidden effects are not permissions. They are boundary markers that tell the
 participant and reviewer which outcomes remain outside the approved packet.
@@ -182,12 +187,9 @@ participant and reviewer which outcomes remain outside the approved packet.
 
 A loop ceiling limits repeated review/fix or follow-up cycles. In the schema
 examples, a Task Packet references a Loop Policy with `loop_policy_ref`. The
-doctor checks that the referenced policy exists and that simple static policy
-compatibility holds:
-
-- packet `loop_ceiling` must not exceed policy `default_loop_ceiling`;
-- packet `forbidden_effects[]` must be covered by policy
-  `forbidden_effects[]`.
+current local doctor validates schema shape and manifest fixture expectations;
+reference and policy-compatibility checks remain draft conformance goals for
+later tooling.
 
 If a loop would exceed the ceiling or policy boundary, the next correct action
 is a Stop Response or Human Decision Gate record, not silent continuation.

@@ -165,8 +165,7 @@
           "boundary_crossed_reason": {
             "anyOf": [
               { "type": "null" },
-              { "type": "array", "maxItems": 0 },
-              { "type": "string", "maxLength": 0 }
+              { "type": "array", "maxItems": 0 }
             ]
           }
         }

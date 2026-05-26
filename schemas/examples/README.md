@@ -16,6 +16,7 @@ runtime instructions.
 - whether expected-valid and expected-invalid outcomes match manifest
   declarations when manifest-mode checking runs;
 - whether artifact vocabulary and basic structure are machine-checkable.
+- whether custody artifacts can be validated as records.
 
 ## What Fixtures Do Not Prove
 
@@ -23,6 +24,7 @@ runtime instructions.
 - autonomous dispatch or execution authority;
 - human approval, merge, deploy, or risk acceptance decisions;
 - cross-vendor interoperability by themselves.
+- task completion proof by report presence or verification.
 
 ## Validation Flow
 
@@ -42,3 +44,6 @@ Expected exit-code behavior:
 
 Validation output is evidence for review. It is not approval and does not grant
 execution authority.
+
+File and CLI transport can move these fixtures, but transport success does not
+grant authority and does not replace human decision.

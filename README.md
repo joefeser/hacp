@@ -13,6 +13,44 @@ gates, bounded iteration, and audit evidence. The public draft keeps the
 reusable contracts and leaves product-specific implementation details out of
 scope.
 
+## Public Protocol Framing
+
+HACP is a human-approved coordination protocol with a vendor-neutral contract
+design goal. It defines
+packet, report, evidence, decision, stop, and audit contracts for accountable
+AI-assisted workflows.
+
+HACP does not execute shell/model/tool work by itself. File transport, CLI
+transport, and adapter delivery paths move records, but they do not grant
+authority. Report verification confirms custody and integrity checks, not task
+completion proof.
+
+Risky authority transitions remain human-decision gated.
+
+See:
+
+- [docs/glossary.md](docs/glossary.md)
+- [docs/event-lifecycle.md](docs/event-lifecycle.md)
+- [docs/authority-boundaries.md](docs/authority-boundaries.md)
+- [docs/adapters-and-projections.md](docs/adapters-and-projections.md)
+- [docs/workflows/owner-controlled-bridge.md](docs/workflows/owner-controlled-bridge.md)
+
+## HACP Is / Is Not
+
+HACP is:
+
+- a protocol for human-approved coordination
+- a contract for packet/report/evidence/decision custody
+- a way to audit gates, authority, and stop outcomes
+
+HACP is not:
+
+- an autonomous orchestration runtime
+- a hosted shell
+- model/tool routing authority
+- a RabbitMQ replacement
+- completion proof by report presence or verification
+
 ## Why HACP Exists
 
 Teams are starting to use agents and automation for real work, but the approval

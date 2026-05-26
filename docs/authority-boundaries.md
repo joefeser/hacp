@@ -25,5 +25,5 @@ keeping the same authority contracts:
 - `TaskPacket` defines bounded intent and constraints.
 - `AgentReport` and `EvidenceSet` provide reviewable claims.
 - `HumanDecision` records approval/rejection/defer outcomes.
-- `StopReason` records why continuation halted.
+- `StopResponse` records why continuation halted (with a typed `stop_reason`).
 - `AuditEvent` and `Receipt` preserve custody traceability.

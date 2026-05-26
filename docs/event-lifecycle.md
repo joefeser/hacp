@@ -21,7 +21,8 @@ status values.
 
 ## Decision And Stop Lifecycle
 
-- `human_decision_required`
+- `human_decision_required` (projection label; base status is
+  `needs_human_decision`)
 - `stopped`
 - `rejected`
 

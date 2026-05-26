@@ -10,10 +10,10 @@ models never replace those checkpoints.
 
 ## Adapter Examples (Transport Paths)
 
-- `npx hacp` CLI commands
+- implementation CLI commands (for example, owner/operator tooling)
 - file drop/push transport
 - RabbitMQ adapter
-- MCP adapter
+- Model Context Protocol (MCP) adapter
 - webhook adapters
 
 Each adapter may move packets, reports, evidence, and receipts. None of them
@@ -21,7 +21,7 @@ approves risky transitions.
 
 ## Projection Examples (Read Models)
 
-- OTEL projections
+- OpenTelemetry (OTel) projections
 - dashboard/reporting projections
 - derived lifecycle summaries
 

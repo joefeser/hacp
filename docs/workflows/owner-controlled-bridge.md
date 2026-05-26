@@ -11,16 +11,19 @@ while HACP records packet/report/evidence/decision custody.
 4. Runner returns an `AgentReport` with an `EvidenceSet`.
 5. Import verifier checks custody/integrity and emits receipt/audit events.
 6. Workflow enters `human_decision_required`.
-7. Human records a `HumanDecision` or a `StopReason`.
+7. Human records a `HumanDecision` or a `StopResponse`.
 
 ## Example Bridge Paths
 
-CLI:
+Illustrative CLI shape only. This repository does not ship these commands; it
+ships `npm run hacp:doctor` for local schema/fixture validation.
+
+CLI example:
 
 ```bash
-npx hacp packet fetch --packet-id pkt_example_001 --out packet.json
-npx hacp runner execute --packet packet.json --command "npm run test:unit" --out report.json
-npx hacp report submit --packet packet.json --report report.json
+<implementation-cli> packet fetch --packet-id pkt_example_001 --out packet.json
+<implementation-cli> runner execute --packet packet.json --command "npm run test:unit" --out report.json
+<implementation-cli> report submit --packet packet.json --report report.json
 ```
 
 File transport:

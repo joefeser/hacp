@@ -15,7 +15,8 @@ scope.
 
 ## Public Protocol Framing
 
-HACP is a vendor-neutral human-approved coordination protocol. It defines
+HACP is a human-approved coordination protocol with a vendor-neutral contract
+design goal. It defines
 packet, report, evidence, decision, stop, and audit contracts for accountable
 AI-assisted workflows.
 

@@ -28,6 +28,9 @@ rather than rewriting old identifiers.
 
 These schemas validate shape and vocabulary only. They do not execute workflow.
 
+Schema checks are contract-shape checks. They do not grant authority, do not
+replace human approval, and do not prove completion.
+
 They do not:
 
 - execute tasks,
@@ -40,6 +43,13 @@ They do not:
 - import reports,
 - mutate product records,
 - certify external tool compatibility.
+
+## Authority Boundary
+
+- Approval is explicit and human-issued through `HumanDecision` records.
+- Report verification is custody/integrity evidence, not completion proof.
+- File and CLI transport can carry schema-valid artifacts without granting
+  approval authority.
 
 ## Schema Index
 

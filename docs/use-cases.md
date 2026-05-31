@@ -155,6 +155,10 @@ flowchart LR
 | Final story or opinion | A polished answer can be mistaken for the settled view, even when it is only one synthesis of evidence. | The opinion can carry sources, uncertainty, dissent, and an explicit acceptance decision. |
 | Software review and change gates | Agents can review or propose fixes, but the human needs proof of scope, risks, and exact work reviewed. | A reviewer can see what was approved, what was inspected, and what risks were visible before deciding. |
 
+This PR review control-loop framing is where current controlled-trial evidence
+is strongest: bounded delegation, returned evidence, and explicit human
+decision records.
+
 ## Product Listing Verification
 
 A product team needs to verify that UPCs, vendor specifications, ordered

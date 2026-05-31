@@ -13,6 +13,10 @@ HACP is a human-approved coordination protocol for accountable agent delegation.
 It defines portable task packets, authority boundaries, evidence records, stop
 responses, agent reports, and human decision gates.
 
+The current implementation in this repo is a local/product-controlled trial
+slice, with controlled-trial evidence centered on PR review and CLI report
+decision surfaces.
+
 ## What HACP Is Not
 
 HACP is not:

@@ -4,8 +4,8 @@ Copyright (c) 2026 Joe Feser.
 
 Website: [hacp.io](https://www.hacp.io/)
 
-HACP is a working-draft protocol for accountable delegation among humans,
-agents, and tools.
+HACP is a human-approved coordination control layer for agent-assisted
+engineering work.
 
 The draft is evidence-led. It comes from practical implementation experience
 with human-approved task packets, agent reports, review findings, decision
@@ -19,6 +19,10 @@ HACP is a human-approved coordination protocol with a vendor-neutral contract
 design goal. It defines
 packet, report, evidence, decision, stop, and audit contracts for accountable
 AI-assisted workflows.
+
+The current dogfood slice helps preserve evidence, authority boundaries, and
+human merge decisions around PR review workflows. The current implementation is
+a local/product-controlled trial slice, not an autonomous execution platform.
 
 HACP does not execute shell/model/tool work by itself. File transport, CLI
 transport, and adapter delivery paths move records, but they do not grant

@@ -87,7 +87,12 @@ for (const file of expectedFiles) {
     continue;
   }
 
-  if (raw.includes("/Users/") || raw.includes("joefeser/what-is-the-spec")) {
+  if (
+    raw.includes("/Users/") ||
+    raw.includes("/home/") ||
+    raw.includes("C:\\\\Users\\\\") ||
+    raw.includes("joefeser/what-is-the-spec")
+  ) {
     fail(`${file}: example must not contain private local paths or source repo names`);
   }
 

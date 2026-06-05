@@ -227,7 +227,12 @@ Required fields:
 - `importStatus`
 - `primaryReason`
 - `nextHumanDecisionLabel`
-- status fields
+- `status.evidenceAccepted`
+- `status.evidenceOnly`
+- `status.failClosed`
+- `status.acceptedAsCompletion`
+- `status.commandsExecuted`
+- `status.importPerformed`
 - `diagnosticsCount`
 - `diagnostics`
 - `technicalEvidence`
@@ -235,4 +240,5 @@ Required fields:
 - `summaryDigest`
 
 The summary is a human-facing readback artifact. It is not an action execution
-receipt or proof of completed work.
+receipt or proof of completed work. `status.importPerformed` means an evidence
+import/readback step happened; it does not mean product state was mutated.

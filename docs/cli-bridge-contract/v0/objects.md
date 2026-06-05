@@ -141,12 +141,12 @@ profile proof pass.
 
 Required fields:
 
-- parameter name
-- requested parameter value
+- `param`
+- `requestedValue`
 - `requiredApprovalRef`
-- supplied approval refs
-- approval state
-- diagnostic code
+- `suppliedApprovalRefs`
+- `approvalState`
+- `diagnosticCode`
 
 Forbidden assumptions: a risky flag is not approved by flag name alone. The
 exact required approval ref must be present.

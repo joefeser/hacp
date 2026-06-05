@@ -38,20 +38,19 @@ for (const file of expectedFiles) {
 
   const filePath = path.join(exampleDir, file);
   const raw = await readFile(filePath, "utf8");
-  let parsed;
   try {
-    parsed = JSON.parse(raw);
+    JSON.parse(raw);
   } catch (error) {
     fail(`${file}: invalid JSON: ${error.message}`);
     continue;
   }
 
-  if (JSON.stringify(parsed).includes("/Users/") || JSON.stringify(parsed).includes("joefeser/what-is-the-spec")) {
+  if (raw.includes("/Users/") || raw.includes("joefeser/what-is-the-spec")) {
     fail(`${file}: example must not contain private local paths or source repo names`);
   }
 
   for (const key of boundaryChecks) {
-    if (!JSON.stringify(parsed).includes(key)) {
+    if (!raw.includes(key)) {
       fail(`${file}: missing boundary key ${key}`);
     }
   }

@@ -44,7 +44,29 @@ function fail(message) {
   process.exitCode = 1;
 }
 
-const entries = new Set(await readdir(exampleDir));
+async function readExampleEntries() {
+  try {
+    return new Set(await readdir(exampleDir));
+  } catch (error) {
+    fail(`Could not read CLI bridge examples dir ${path.relative(root, exampleDir)}: ${error.message}`);
+    return null;
+  }
+}
+
+async function readExampleFile(filePath, file) {
+  try {
+    return await readFile(filePath, "utf8");
+  } catch (error) {
+    fail(`${file}: could not read file: ${error.message}`);
+    return null;
+  }
+}
+
+const entries = await readExampleEntries();
+
+if (!entries) {
+  process.exit(process.exitCode ?? 1);
+}
 
 for (const file of expectedFiles) {
   if (!entries.has(file)) {
@@ -53,7 +75,10 @@ for (const file of expectedFiles) {
   }
 
   const filePath = path.join(exampleDir, file);
-  const raw = await readFile(filePath, "utf8");
+  const raw = await readExampleFile(filePath, file);
+  if (!raw) {
+    continue;
+  }
   let parsed;
   try {
     parsed = JSON.parse(raw);

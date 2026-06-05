@@ -55,6 +55,8 @@
   "requestedNextStep": "request_human_review",
   "boundary": {
     "reportIsEvidenceOnly": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true,
     "humanDecisionRequiredForCompletion": true
   }
 }

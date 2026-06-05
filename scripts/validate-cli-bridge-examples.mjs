@@ -23,6 +23,22 @@ const boundaryChecks = [
   "noExternalSideEffects"
 ];
 
+function collectBoundaryObjects(value, found = []) {
+  if (!value || typeof value !== "object") {
+    return found;
+  }
+
+  if (!Array.isArray(value) && value.boundary && typeof value.boundary === "object" && !Array.isArray(value.boundary)) {
+    found.push(value.boundary);
+  }
+
+  for (const child of Object.values(value)) {
+    collectBoundaryObjects(child, found);
+  }
+
+  return found;
+}
+
 function fail(message) {
   console.error(message);
   process.exitCode = 1;
@@ -38,8 +54,9 @@ for (const file of expectedFiles) {
 
   const filePath = path.join(exampleDir, file);
   const raw = await readFile(filePath, "utf8");
+  let parsed;
   try {
-    JSON.parse(raw);
+    parsed = JSON.parse(raw);
   } catch (error) {
     fail(`${file}: invalid JSON: ${error.message}`);
     continue;
@@ -49,9 +66,11 @@ for (const file of expectedFiles) {
     fail(`${file}: example must not contain private local paths or source repo names`);
   }
 
+  const boundaryObjects = collectBoundaryObjects(parsed);
   for (const key of boundaryChecks) {
-    if (!raw.includes(key)) {
-      fail(`${file}: missing boundary key ${key}`);
+    const hasExactBooleanBoundary = boundaryObjects.some((boundary) => boundary[key] === true);
+    if (!hasExactBooleanBoundary) {
+      fail(`${file}: missing boundary boolean ${key}=true`);
     }
   }
 }

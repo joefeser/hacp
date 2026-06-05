@@ -1,0 +1,62 @@
+{
+  "recordKind": "hacp.runner_report_with_approved_profile_proof",
+  "schemaVersion": "v0-candidate",
+  "reportId": "rpt_cli_review_001",
+  "packetId": "pkt_cli_review_001",
+  "status": "accepted_as_evidence",
+  "profile": {
+    "profileId": "profile.local-review-cli",
+    "profileVersion": "2026-06-01",
+    "profileDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "checkedRequest": {
+    "command": "review",
+    "tool": {
+      "toolId": "tool.local-review-cli",
+      "version": "1.4.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "runtime": {
+      "image": "oci.example/hacp/local-review-cli:1.4.0",
+      "toolchain": {
+        "node": "24.2.0",
+        "npm": "11.3.0"
+      }
+    },
+    "approvalRefs": [
+      "approval.local-review-cli.2026-06",
+      "approval.work.pkt_cli_review_001"
+    ],
+    "evidenceRefs": [
+      "evidence.policy.local-review-cli.2026-06"
+    ],
+    "riskyFlagApprovalRefs": []
+  },
+  "packetDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "profileCheckResultDigest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+  "profileCheck": {
+    "allowed": true,
+    "diagnosticCodes": [],
+    "boundaryAttestation": {
+      "noHostedExecutionByHacp": true,
+      "noExternalSideEffectsByPreflight": true,
+      "notWorkCompletion": true
+    }
+  },
+  "evidence": {
+    "summary": "Runner returned review evidence for the approved packet boundary.",
+    "outputBundleRef": "bundle_cli_review_001",
+    "changedSurfaces": [
+      "repo://example/project/src"
+    ],
+    "networkAccessPolicy": "forbidden_by_packet",
+    "networkAccessObserved": "unknown"
+  },
+  "requestedNextStep": "request_human_review",
+  "boundary": {
+    "reportIsEvidenceOnly": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true,
+    "humanDecisionRequiredForCompletion": true
+  }
+}

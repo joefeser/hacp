@@ -1,0 +1,74 @@
+{
+  "packetKind": "hacp.corporate_approved_tool_profile",
+  "packetVersion": "v0-candidate",
+  "profileId": "profile.local-review-cli",
+  "profileVersion": "2026-06-01",
+  "owner": {
+    "organizationId": "org.example",
+    "policyId": "policy.hacp.local-review"
+  },
+  "steward": {
+    "actorId": "steward.example",
+    "actorKind": "human"
+  },
+  "approval": {
+    "authority": "human_corporate_policy",
+    "approvalRef": "approval.local-review-cli.2026-06",
+    "approvedAt": "2026-06-01T12:00:00Z",
+    "expiresAt": "2026-09-01T12:00:00Z",
+    "reviewBy": "2026-08-15T12:00:00Z",
+    "riskyFlagApprovalRefs": [
+      {
+        "param": "--write",
+        "requiredApprovalRef": "approval.local-review-cli.write.2026-06"
+      }
+    ]
+  },
+  "approvedPurpose": "Run bounded local review and verification commands inside an owner-approved workspace.",
+  "tool": {
+    "toolId": "tool.local-review-cli",
+    "label": "Local Review CLI",
+    "executable": "review-cli",
+    "version": "1.4.0",
+    "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "runtime": {
+    "image": "oci.example/hacp/local-review-cli:1.4.0",
+    "toolchain": {
+      "node": "24.2.0",
+      "npm": "11.3.0"
+    }
+  },
+  "commands": [
+    {
+      "command": "review",
+      "allowedParams": [
+        "--path",
+        "--format"
+      ],
+      "riskyParams": [
+        {
+          "param": "--write",
+          "requiredApprovalRef": "approval.local-review-cli.write.2026-06"
+        }
+      ],
+      "forbiddenParams": [
+        "--force",
+        "--publish"
+      ]
+    }
+  ],
+  "networkAccessPolicy": "forbidden_by_packet",
+  "networkAccessObserved": "unknown",
+  "evidenceRefs": [
+    "evidence.policy.local-review-cli.2026-06"
+  ],
+  "boundary": {
+    "noHostedExecution": true,
+    "noExternalSideEffects": true,
+    "noAutonomousDispatch": true,
+    "notWorkCompletion": true,
+    "humanDecisionRequiredForRisk": true
+  },
+  "canonicalDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+}

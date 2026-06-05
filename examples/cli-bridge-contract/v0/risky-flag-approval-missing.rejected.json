@@ -1,0 +1,59 @@
+{
+  "recordKind": "hacp.packet_profile_preflight_result",
+  "schemaVersion": "v0-candidate",
+  "packetId": "pkt_cli_review_003",
+  "allowed": false,
+  "diagnostics": [
+    {
+      "code": "RISKY_FLAG_APPROVAL_MISSING",
+      "message": "Requested --write without the required approval reference.",
+      "stopReason": "RISKY_FLAG_NOT_APPROVED"
+    }
+  ],
+  "diagnosticCodes": [
+    "RISKY_FLAG_APPROVAL_MISSING"
+  ],
+  "readback": {
+    "profileRef": {
+      "profileId": "profile.local-review-cli",
+      "profileVersion": "2026-06-01"
+    },
+    "approvalRefs": [
+      "approval.local-review-cli.2026-06"
+    ],
+    "evidenceRefs": [
+      "evidence.policy.local-review-cli.2026-06"
+    ],
+    "tool": {
+      "toolId": "tool.local-review-cli",
+      "version": "1.4.0"
+    },
+    "runtime": {
+      "image": "oci.example/hacp/local-review-cli:1.4.0",
+      "toolchain": {
+        "node": "24.2.0"
+      }
+    },
+    "command": "review",
+    "params": {
+      "--path": "repo://example/project/src",
+      "--write": true
+    },
+    "riskyFlags": [
+      {
+        "param": "--write",
+        "requestedValue": true,
+        "requiredApprovalRef": "approval.local-review-cli.write.2026-06",
+        "suppliedApprovalRefs": [],
+        "approvalState": "missing",
+        "diagnosticCode": "RISKY_FLAG_APPROVAL_MISSING"
+      }
+    ]
+  },
+  "boundary": {
+    "noCommandExecuted": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true,
+    "failClosed": true
+  }
+}

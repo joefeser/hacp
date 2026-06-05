@@ -1,0 +1,31 @@
+{
+  "recordKind": "hacp.cli_bridge_doctor_output",
+  "schemaVersion": "v0-candidate",
+  "status": "blocked",
+  "checkedAt": "2026-06-04T16:15:00Z",
+  "checkedArtifacts": {
+    "profilePacket": "profile.local-review-cli",
+    "requestedWorkPacket": "pkt_cli_review_003"
+  },
+  "diagnostics": [
+    {
+      "code": "RISKY_FLAG_APPROVAL_MISSING",
+      "stopReason": "RISKY_FLAG_NOT_APPROVED",
+      "message": "Requested risky flag lacks the exact approval reference."
+    }
+  ],
+  "minimalCorrection": {
+    "type": "supply_required_approval_ref_or_remove_risky_flag",
+    "requiredApprovalRef": "approval.local-review-cli.write.2026-06"
+  },
+  "nextHumanAction": "provide_missing_approval_or_revise_packet",
+  "stopReason": "RISKY_FLAG_NOT_APPROVED",
+  "boundary": {
+    "noCommandExecutedByDoctor": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true,
+    "notApproval": true,
+    "failClosed": true
+  },
+  "doctorDigest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+}

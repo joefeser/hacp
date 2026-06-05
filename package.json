@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "hacp:doctor": "node scripts/hacp-doctor.mjs"
+    "hacp:doctor": "node scripts/hacp-doctor.mjs",
+    "hacp:cli-bridge-examples": "node scripts/validate-cli-bridge-examples.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",

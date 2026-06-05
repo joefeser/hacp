@@ -1,0 +1,60 @@
+{
+  "recordKind": "hacp.profile_mismatch_waiver_acceptance",
+  "schemaVersion": "v0-candidate",
+  "preflightResult": {
+    "packetId": "pkt_cli_review_004",
+    "allowed": true,
+    "diagnosticCodes": [
+      "RUNTIME_IMAGE_MISMATCH",
+      "PROFILE_MISMATCH_WAIVER_APPLIED"
+    ],
+    "readback": {
+      "profileRef": {
+        "profileId": "profile.local-review-cli",
+        "profileVersion": "2026-06-01"
+      },
+      "runtime": {
+        "expected": {
+          "image": "oci.example/hacp/local-review-cli:1.4.0"
+        },
+        "observed": {
+          "image": "oci.example/hacp/local-review-cli:1.4.0-patched"
+        }
+      },
+      "waiverRef": "waiver.runtime-image.patch-001"
+    }
+  },
+  "waiver": {
+    "recordKind": "hacp.profile_mismatch_waiver",
+    "schemaVersion": "v0-candidate",
+    "waiverId": "waiver.runtime-image.patch-001",
+    "authorityRef": "human-decision.waiver.runtime-image.patch-001",
+    "coveredMismatchType": "runtime_image",
+    "coveredArtifacts": {
+      "packetDigest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+      "profileDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "report": "rpt_cli_review_004"
+    },
+    "allowedScope": {
+      "profileId": "profile.local-review-cli",
+      "profileVersion": "2026-06-01",
+      "allowedRuntimeImage": "oci.example/hacp/local-review-cli:1.4.0-patched",
+      "allowedCommand": "review"
+    },
+    "reason": "Human accepted a patched runtime image for this exact packet/profile/report chain.",
+    "createdAt": "2026-06-04T16:00:00Z",
+    "expiresAt": "2026-06-05T16:00:00Z",
+    "status": "active",
+    "boundaryStatement": {
+      "doesNotExpandScope": true,
+      "doesNotApproveCompletion": true,
+      "humanDecisionRequiredForNextAction": true
+    },
+    "canonicalDigest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+  },
+  "boundary": {
+    "acceptedBecauseExactWaiverCoveredMismatch": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true
+  }
+}

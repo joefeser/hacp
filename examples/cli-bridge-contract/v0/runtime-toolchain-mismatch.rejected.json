@@ -1,0 +1,63 @@
+{
+  "recordKind": "hacp.packet_profile_preflight_result",
+  "schemaVersion": "v0-candidate",
+  "packetId": "pkt_cli_review_002",
+  "allowed": false,
+  "diagnostics": [
+    {
+      "code": "RUNTIME_IMAGE_MISMATCH",
+      "message": "Observed runtime image differs from approved profile.",
+      "stopReason": "RUNTIME_IMAGE_MISMATCH"
+    },
+    {
+      "code": "RUNTIME_TOOLCHAIN_MISMATCH",
+      "message": "Observed Node version differs from approved profile.",
+      "stopReason": "TOOLCHAIN_VERSION_MISMATCH"
+    }
+  ],
+  "diagnosticCodes": [
+    "RUNTIME_IMAGE_MISMATCH",
+    "RUNTIME_TOOLCHAIN_MISMATCH"
+  ],
+  "readback": {
+    "profileRef": {
+      "profileId": "profile.local-review-cli",
+      "profileVersion": "2026-06-01"
+    },
+    "approvalRefs": [
+      "approval.local-review-cli.2026-06"
+    ],
+    "evidenceRefs": [
+      "evidence.policy.local-review-cli.2026-06"
+    ],
+    "tool": {
+      "toolId": "tool.local-review-cli",
+      "version": "1.4.0"
+    },
+    "runtime": {
+      "expected": {
+        "image": "oci.example/hacp/local-review-cli:1.4.0",
+        "toolchain": {
+          "node": "24.2.0"
+        }
+      },
+      "observed": {
+        "image": "oci.example/hacp/local-review-cli:1.5.0",
+        "toolchain": {
+          "node": "24.3.0"
+        }
+      }
+    },
+    "command": "review",
+    "params": {
+      "--path": "repo://example/project/src"
+    },
+    "riskyFlags": []
+  },
+  "boundary": {
+    "noCommandExecuted": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true,
+    "failClosed": true
+  }
+}

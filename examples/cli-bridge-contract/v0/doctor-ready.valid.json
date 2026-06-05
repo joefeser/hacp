@@ -1,0 +1,22 @@
+{
+  "recordKind": "hacp.cli_bridge_doctor_output",
+  "schemaVersion": "v0-candidate",
+  "status": "ready",
+  "checkedAt": "2026-06-04T16:10:00Z",
+  "checkedArtifacts": {
+    "profilePacket": "profile.local-review-cli",
+    "requestedWorkPacket": "pkt_cli_review_001",
+    "runnerReport": "rpt_cli_review_001",
+    "outputBundle": "bundle_cli_review_001"
+  },
+  "diagnostics": [],
+  "minimalCorrection": null,
+  "nextHumanAction": "review_imported_evidence",
+  "boundary": {
+    "noCommandExecutedByDoctor": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true,
+    "notApproval": true
+  },
+  "doctorDigest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+}

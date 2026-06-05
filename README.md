@@ -38,6 +38,7 @@ See:
 - [docs/authority-boundaries.md](docs/authority-boundaries.md)
 - [docs/adapters-and-projections.md](docs/adapters-and-projections.md)
 - [docs/workflows/owner-controlled-bridge.md](docs/workflows/owner-controlled-bridge.md)
+- [docs/cli-bridge-contract/v0/README.md](docs/cli-bridge-contract/v0/README.md)
 
 ## HACP Is / Is Not
 
@@ -168,6 +169,9 @@ Start here:
 - [docs/profiles.md](docs/profiles.md): transport profiles and execution
   profiles, with registry values in
   [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml).
+- [docs/cli-bridge-contract/v0/README.md](docs/cli-bridge-contract/v0/README.md):
+  public candidate package for owner-controlled CLI bridge profile, preflight,
+  runner evidence, waiver, import, digest, doctor, and stop-reason objects.
 - [docs/security-boundaries.md](docs/security-boundaries.md): authority,
   report, match-proof, human-decision, digest-domain, and fail-closed
   boundaries.

@@ -1,0 +1,79 @@
+{
+  "schema": "hacp.requested_cli_work_packet",
+  "schemaVersion": "v0-candidate",
+  "packetId": "pkt_cli_review_001",
+  "approved": {
+    "actorId": "human.requester.example",
+    "actorKind": "human",
+    "approvedAt": "2026-06-04T15:30:00Z",
+    "approvalRef": "approval.work.pkt_cli_review_001"
+  },
+  "authority": {
+    "mode": "review_only",
+    "allowedSurfaces": [
+      "repo://example/project/src/**",
+      "repo://example/project/tests/**"
+    ],
+    "forbiddenSurfaces": [
+      "repo://example/project/.github/secrets/**"
+    ],
+    "forbiddenEffects": [
+      "git_push",
+      "external_network_mutation",
+      "hosted_shell_execution"
+    ]
+  },
+  "task": {
+    "summary": "Review changed source and tests, then return evidence and findings.",
+    "requestedOutcome": "evidence_report"
+  },
+  "verification": {
+    "expectedEvidence": [
+      "changed_file_summary",
+      "test_command_readback"
+    ]
+  },
+  "stopConditions": [
+    "Stop if requested work exceeds review-only authority.",
+    "Stop if runtime or toolchain differs from the approved profile.",
+    "Stop if a risky flag is requested without the exact approval ref."
+  ],
+  "approvedToolProfileRequest": {
+    "profileRef": {
+      "profileId": "profile.local-review-cli",
+      "profileVersion": "2026-06-01"
+    },
+    "approvalRefs": [
+      "approval.local-review-cli.2026-06",
+      "approval.work.pkt_cli_review_001"
+    ],
+    "evidenceRefs": [
+      "evidence.policy.local-review-cli.2026-06"
+    ],
+    "tool": {
+      "toolId": "tool.local-review-cli",
+      "version": "1.4.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "runtime": {
+      "image": "oci.example/hacp/local-review-cli:1.4.0",
+      "toolchain": {
+        "node": "24.2.0",
+        "npm": "11.3.0"
+      }
+    },
+    "command": "review",
+    "params": {
+      "--path": "repo://example/project/src",
+      "--format": "json"
+    },
+    "riskyFlagApprovals": []
+  },
+  "boundary": {
+    "packetIsAuthorityEvidenceOnly": true,
+    "profilePreflightRequiredBeforeTrust": true,
+    "noExternalSideEffects": true,
+    "notWorkCompletion": true
+  },
+  "expectedDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+}

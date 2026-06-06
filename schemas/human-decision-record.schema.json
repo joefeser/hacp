@@ -40,8 +40,16 @@
     },
     "decisionReason": { "type": "string", "minLength": 1 },
     "confirmationText": { "type": ["string", "null"] },
-    "handoffPackageDigestPrefix": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
-    "adapterReportDigestPrefix": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+    "handoffPackageDigestPrefix": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$",
+      "description": "A 16-character human-readable reference and correlation aid only. MUST NOT be used for integrity, custody, or authorization checks."
+    },
+    "adapterReportDigestPrefix": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$",
+      "description": "A 16-character human-readable reference and correlation aid only. MUST NOT be used for integrity, custody, or authorization checks."
+    },
     "reviewConditions": {
       "type": "array",
       "uniqueItems": true,

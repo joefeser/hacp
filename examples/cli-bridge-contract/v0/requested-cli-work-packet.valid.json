@@ -23,6 +23,19 @@
       "hosted_shell_execution"
     ]
   },
+  "sourceContext": {
+    "originalRequest": "Review changed source and tests, then return evidence and findings.",
+    "sourceRefs": [
+      "repo://example/project/pull/17",
+      "spec://example/project/review-guidelines"
+    ],
+    "acceptanceCriteria": [
+      "Keep review-only authority.",
+      "Return evidence refs for changed source and tests.",
+      "Preserve any prior human send-back notes."
+    ],
+    "priorSendBackNotes": []
+  },
   "task": {
     "summary": "Review changed source and tests, then return evidence and findings.",
     "requestedOutcome": "evidence_report"

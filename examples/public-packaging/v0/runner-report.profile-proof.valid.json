@@ -1,0 +1,31 @@
+{
+  "recordKind": "hacp.agent_report",
+  "schemaVersion": "public-packaging-v0",
+  "reportId": "rpt_public_001",
+  "packetId": "pkt_public_001",
+  "status": "returned_for_human_review",
+  "profileProof": {
+    "profileId": "profile.local-review-cli",
+    "profileDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "preflightResult": "passed",
+    "preflightDigest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "evidenceSet": {
+    "summary": "Runner returned evidence for the approved source-context packet.",
+    "evidenceRefs": [
+      "artifact://public/rpt_public_001/source-summary",
+      "artifact://public/rpt_public_001/check-output"
+    ],
+    "importVerification": {
+      "result": "accepted_as_evidence",
+      "checkedDigest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    }
+  },
+  "requestedNextStep": "human_decision",
+  "boundary": {
+    "reportIsEvidenceOnly": true,
+    "notApproval": true,
+    "notWorkCompletion": true,
+    "noExternalSideEffects": true
+  }
+}

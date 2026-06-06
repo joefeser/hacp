@@ -16,14 +16,22 @@ work, or prove work completion.
 | `ENVIRONMENT_BLOCKED` | Required local runtime, token/session, dependency, or toolchain is missing or unusable. | stable |
 | `DIGEST_MISMATCH` | A declared digest differs from the deterministic canonical digest. | stable |
 | `APPROVED_PROFILE_MISSING` | A requested packet cannot be checked against the required approved profile. | stable |
+| `MISSING_AUTHORITY` | The packet, report, or requested next step lacks required human-approved authority evidence. | stable |
 | `APPROVAL_EVIDENCE_REF_MISSING` | Human or corporate approval evidence required by the profile or risky flag is missing. | stable |
 | `RUNTIME_IMAGE_MISMATCH` | Requested or observed runtime image does not match the approved profile. | stable |
 | `TOOLCHAIN_VERSION_MISMATCH` | Requested or observed toolchain version does not match the approved profile. | stable |
+| `WRONG_TOOL_OR_MODE` | The requested tool, command, mode, or adapter path differs from the approved packet/profile boundary. | stable |
+| `SCOPE_CONFLICT` | The requested work conflicts with allowed scope, forbidden surfaces, or forbidden effects. | stable |
+| `UNVERIFIED_ASSUMPTION` | A required claim is not supported by evidence that the human can review. | stable |
+| `PARAM_MISMATCH` | Requested command parameters differ from the approved profile shape or packet boundary. | stable |
 | `RISKY_FLAG_NOT_APPROVED` | Compatibility alias for risky flag approval missing or mismatched. | draft alias |
 | `PROFILE_PROOF_MISSING` | Runner report lacks approved profile proof required before evidence trust. | stable |
+| `PROFILE_PROOF_MISMATCH` | Runner report approved-profile proof differs from packet/profile evidence. | stable |
+| `MISSING_OR_INVALID_REPORT` | Required report evidence is absent, malformed, or cannot be imported for review. | stable |
 | `OUTPUT_CAPTURE_OVERFLOW` | Captured output or artifact size exceeded allowed packet/profile limits. | stable |
 | `WAIVER_EXPIRED` | A supplied waiver is expired or has malformed expiry evidence. | stable |
 | `WAIVER_SCOPE_MISMATCH` | A supplied waiver covers a different artifact, mismatch type, profile, packet, report, or scope. | stable |
+| `PUSH_REJECTED_NEEDS_HUMAN_REBASE` | A publishing path was rejected by the remote and needs human-owned rebase or branch repair. | workflow stop |
 
 ## Diagnostic Mapping
 
@@ -33,7 +41,9 @@ work, or prove work completion.
 | Approved profile | `APPROVED_PROFILE_MISSING`, `CORPORATE_PROFILE_PACKET_MALFORMED`, `CORPORATE_PROFILE_EXPIRED`, `CORPORATE_PROFILE_APPROVAL_AUTHORITY_MISSING` | `APPROVED_PROFILE_MISSING`, `APPROVAL_EVIDENCE_REF_MISSING`, `HUMAN_DECISION_REQUIRED` |
 | Runtime/toolchain | `RUNTIME_IMAGE_MISMATCH`, `RUNTIME_TOOLCHAIN_MISMATCH`, `TOOLCHAIN_REQUIREMENT_MISSING` | `RUNTIME_IMAGE_MISMATCH`, `TOOLCHAIN_VERSION_MISMATCH` |
 | Risky flag | `RISKY_FLAG_APPROVAL_MISSING`, `RISKY_FLAG_APPROVAL_REF_MISMATCH`, `RISKY_FLAG_FORBIDDEN`, `RISKY_FLAG_NOT_APPROVED` | `RISKY_FLAG_NOT_APPROVED`, `APPROVAL_EVIDENCE_REF_MISSING` |
-| Profile proof | `APPROVED_PROFILE_PROOF_MISSING`, `APPROVED_PROFILE_PROOF_MISMATCH`, `APPROVED_PROFILE_CHECK_RESULT_DIGEST_MISMATCH`, `PROFILE_PROOF_MISSING`, `PROFILE_PROOF_MISMATCH` | `PROFILE_PROOF_MISSING`, `DIGEST_MISMATCH` |
+| Profile proof | `APPROVED_PROFILE_PROOF_MISSING`, `APPROVED_PROFILE_PROOF_MISMATCH`, `APPROVED_PROFILE_CHECK_RESULT_DIGEST_MISMATCH`, `PROFILE_PROOF_MISSING`, `PROFILE_PROOF_MISMATCH` | `PROFILE_PROOF_MISSING`, `PROFILE_PROOF_MISMATCH`, `DIGEST_MISMATCH` |
+| Command params | `PARAM_FORBIDDEN`, `PARAM_REQUIRED_MISSING`, `PARAM_VALUE_OUTSIDE_PROFILE`, `WRONG_TOOL_OR_MODE` | `PARAM_MISMATCH`, `WRONG_TOOL_OR_MODE`, `SCOPE_CONFLICT` |
+| Report import | `REPORT_MISSING`, `REPORT_MALFORMED`, `REPORT_IMPORT_VERIFICATION_FAILED` | `MISSING_OR_INVALID_REPORT`, `HUMAN_DECISION_REQUIRED` |
 | Waiver | `PROFILE_MISMATCH_WAIVER_EXPIRED`, `PROFILE_MISMATCH_WAIVER_ALLOWED_SCOPE_MISMATCH`, `PROFILE_MISMATCH_WAIVER_ARTIFACT_SCOPE_MISMATCH` | `WAIVER_EXPIRED`, `WAIVER_SCOPE_MISMATCH` |
 | Output bundle | `RUNNER_OUTPUT_OVERFLOW`, `RUNNER_OUTPUT_BUNDLE_DIGEST_MISMATCH`, `RUNNER_OUTPUT_BOUNDARY_INVALID` | `OUTPUT_CAPTURE_OVERFLOW`, `DIGEST_MISMATCH`, `HUMAN_DECISION_REQUIRED` |
 | Environment/context | local dependency, session, tool, or context mismatch findings | `ENVIRONMENT_BLOCKED`, `CONTEXT_MISMATCH`, `STALE_PACKET` |

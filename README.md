@@ -4,8 +4,10 @@ Copyright (c) 2026 Joe Feser.
 
 Website: [hacp.io](https://www.hacp.io/)
 
-HACP is a human-approved coordination control layer for agent-assisted
-engineering work.
+HACP is Human-Approved Coordination Protocol: a protocol for accountable
+delegation to agents and tools. It preserves the original request, source
+context, evidence, approved boundaries, send-back notes, stop reasons, audit
+trail, and final human decision so delegated work remains reviewable.
 
 The draft is evidence-led. It comes from practical implementation experience
 with human-approved task packets, agent reports, review findings, decision
@@ -16,13 +18,17 @@ scope.
 ## Public Protocol Framing
 
 HACP is a human-approved coordination protocol with a vendor-neutral contract
-design goal. It defines
-packet, report, evidence, decision, stop, and audit contracts for accountable
-AI-assisted workflows.
+design goal. It defines packet, report, evidence, decision, stop, and audit
+contracts for accountable AI-assisted workflows. HACP sits as a control layer
+above tools, queues, CLIs, GitHub bots, agents, and adapters; it does not
+replace those systems or turn them into an autonomous execution engine.
 
 The current dogfood slice helps preserve evidence, authority boundaries, and
-human merge decisions around PR review workflows. The current implementation is
-a local/product-controlled trial slice, not an autonomous execution platform.
+human decisions around delegated review workflows. PR review is one useful
+example, not the whole protocol. The same records can apply to launch change
+approval, local approved-tool checks, compliance evidence review, or agent
+handoff acceptance. The current implementation is a local/product-controlled
+trial slice, not an autonomous execution platform.
 
 HACP does not execute shell/model/tool work by itself. File transport, CLI
 transport, and adapter delivery paths move records, but they do not grant
@@ -30,6 +36,48 @@ authority. Report verification confirms custody and integrity checks, not task
 completion proof.
 
 Risky authority transitions remain human-decision gated.
+
+## Core Public Concepts
+
+- `Task Packet`: the scoped request, source context, authority boundaries,
+  expected evidence, stop conditions, and approved profile references.
+- `Agent Report`: the returned report from a worker, runner, reviewer, or
+  agent. It records what was attempted, what evidence was produced, and which
+  proof binds the report to the packet.
+- `Evidence Set`: source links, summaries, check outputs, review findings,
+  digests, and report artifacts used to support a human decision.
+- `Human Decision`: the explicit approve, hold, reject, revise, send-back, or
+  stop decision made by the accountable human.
+- `Audit Log`: the append-only readback of packets, reports, evidence,
+  decisions, rejects, send-back notes, and stop reasons.
+
+Source context is first-class decision context. It may include the original
+human request, prompt or packet, spec or acceptance criteria, repo/issue/PR
+context, imported report source, and prior send-back notes. A future reader
+should be able to see what the human was deciding before auditing how the
+protocol represented it.
+
+Send-back, or reject-with-notes, is a normal correction path. A human can send
+work back when evidence is stale, unclear, incomplete, mismatched, or outside
+the approved boundary. The decision preserves the original source context, the
+reason, the human notes, the requested correction, the expected next state, and
+the boundary that no automatic execution or mutation follows from the note.
+
+Approved tool profiles describe reviewed tool identity, version, command shape,
+allowed and forbidden parameters, risky flag approval references,
+runtime/toolchain expectations, network/write policy, ownership, expiry,
+evidence references, and profile digest or equivalent proof. A fail-closed
+preflight stops before trusted work proceeds when the packet, profile, command,
+parameter, risky flag, runtime, or report proof does not match, then returns
+diagnostics for a human decision.
+
+Runner report import proof is evidence custody: a scoped Task Packet is
+approved, an owner-controlled runner or agent performs work outside HACP core,
+the runner emits an Agent Report with evidence and digest/profile bindings, a
+verifier imports and checks the report, and a human reviews the evidence before
+deciding the next step. Imported proof supports a Human Decision; it is not
+automatic completion, merge approval, tool authorization, or proof that every
+downstream effect happened correctly.
 
 See:
 
@@ -39,6 +87,7 @@ See:
 - [docs/adapters-and-projections.md](docs/adapters-and-projections.md)
 - [docs/workflows/owner-controlled-bridge.md](docs/workflows/owner-controlled-bridge.md)
 - [docs/cli-bridge-contract/v0/README.md](docs/cli-bridge-contract/v0/README.md)
+- [examples/public-packaging/v0/README.md](examples/public-packaging/v0/README.md)
 
 ## HACP Is / Is Not
 
@@ -53,8 +102,20 @@ HACP is not:
 - an autonomous orchestration runtime
 - a hosted shell
 - model/tool routing authority
+- a GitHub mutation authority
+- a runtime dispatcher
 - a RabbitMQ replacement
+- a replacement for human approval
 - completion proof by report presence or verification
+
+## What HACP Does Not Authorize
+
+HACP records, profiles, reports, and imported proof do not authorize shell
+commands, GitHub mutation, model/tool calls, runtime dispatch, approval
+replacement, automatic completion, merge readiness, risk acceptance, or future
+integrations written as if they are already shipped. Those effects require
+separate owner-approved tools, profiles, runtime boundaries, and explicit human
+decisions.
 
 ## Why HACP Exists
 

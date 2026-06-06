@@ -49,6 +49,22 @@ authority.
 Execution-capable profiles must be explicit. No-execution is the default HACP
 core posture.
 
+Approved tool profiles describe the reviewed boundary for an owner-controlled
+tool path: tool identity, version, command shape, allowed and forbidden
+parameters, risky flag approval references, runtime/toolchain expectations,
+network/write policy, owner, steward, expiry, evidence references, and profile
+digest or equivalent binding proof. The profile is an authority contract, not
+permission for HACP or a hosted app to run tools.
+
+Fail-closed preflight means packet/profile/command/parameter/risky flag/runtime
+or report-proof mismatch stops before evidence is trusted. The stop returns
+diagnostics for a human decision and must not silently widen authority.
+
+Runner report import proof is custody evidence. It can bind a returned report
+to the approved packet/profile chain for review, but it does not complete work,
+approve risk, merge, mutate external systems, or prove every downstream effect
+happened correctly.
+
 ## Sensitive Data Boundary
 
 HACP records should contain only the evidence required for review. Profiles

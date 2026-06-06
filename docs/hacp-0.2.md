@@ -125,6 +125,13 @@ The record of the human owner's decision after reviewing a matched report. It
 captures the decision, reason, actor, digest references, and any required
 confirmation. It does not execute work by itself.
 
+Send-back, or reject-with-notes, is a normal human decision path. Use it when
+evidence is stale, unclear, incomplete, mismatched, or outside the approved
+boundary. A send-back decision should preserve the original request or source
+context, the reason for revision, human notes, the requested correction, the
+expected next state, and the boundary that no automatic execution or mutation
+follows from the note.
+
 ### Digest Domain
 
 The semantic domain in which a digest was computed. Structured adapter reports,
@@ -167,6 +174,15 @@ whether stop conditions were met, blocked, unknown, or otherwise unresolved.
 Authority packets must include at least one stop condition. For simple work, a
 baseline condition such as "stop if scope or authority boundary is exceeded" is
 still expected.
+
+Stop reasons are valid protocol outcomes. A good stop response names what does
+not line up, the evidence that caused the stop, and the minimal human or
+upstream correction that would unblock the work. Public stop reasons include
+`CONTEXT_MISMATCH`, `WRONG_TOOL_OR_MODE`, `MISSING_AUTHORITY`,
+`SCOPE_CONFLICT`, `STALE_PACKET`, `UNVERIFIED_ASSUMPTION`,
+`ENVIRONMENT_BLOCKED`, `PROFILE_PROOF_MISMATCH`, `PARAM_MISMATCH`,
+`MISSING_OR_INVALID_REPORT`, `PUSH_REJECTED_NEEDS_HUMAN_REBASE`, and
+`HUMAN_DECISION_REQUIRED`.
 
 ### Requested Next Step
 

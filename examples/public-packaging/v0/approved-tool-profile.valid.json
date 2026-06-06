@@ -1,0 +1,54 @@
+{
+  "recordKind": "hacp.approved_tool_profile",
+  "schemaVersion": "public-packaging-v0",
+  "profileId": "profile.local-review-cli",
+  "profileVersion": "2026-06-01",
+  "owner": "org.example",
+  "steward": "human.steward.example",
+  "tool": {
+    "toolId": "tool.local-review-cli",
+    "version": "1.4.0",
+    "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "commandShape": {
+    "command": "review",
+    "allowedParams": [
+      "--path",
+      "--format"
+    ],
+    "forbiddenParams": [
+      "--force",
+      "--publish"
+    ],
+    "riskyFlagApprovalRefs": [
+      {
+        "param": "--write",
+        "requiredApprovalRef": "approval.local-review-cli.write.2026-06"
+      }
+    ]
+  },
+  "runtimeExpectations": {
+    "image": "oci.example/hacp/local-review-cli:1.4.0",
+    "toolchain": {
+      "node": "24.2.0"
+    }
+  },
+  "policy": {
+    "networkAccessPolicy": "forbidden_by_packet",
+    "writePolicy": "forbidden_without_risky_flag_approval"
+  },
+  "approval": {
+    "approvalRef": "approval.local-review-cli.2026-06",
+    "expiresAt": "2026-09-01T12:00:00Z",
+    "evidenceRefs": [
+      "evidence.policy.local-review-cli.2026-06"
+    ]
+  },
+  "profileDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "boundary": {
+    "profileIsAuthorityContractOnly": true,
+    "notPermissionForHacpToRunTools": true,
+    "notWorkCompletion": true,
+    "noExternalSideEffects": true
+  }
+}

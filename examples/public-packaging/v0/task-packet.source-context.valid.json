@@ -1,0 +1,64 @@
+{
+  "recordKind": "hacp.task_packet",
+  "schemaVersion": "public-packaging-v0",
+  "packetId": "pkt_public_001",
+  "sourceContext": {
+    "originalRequest": "Review the low-risk launch checklist update and return evidence before approval.",
+    "sourceRefs": [
+      "repo://example/project/docs/launch-checklist.md",
+      "issue://example/project/42"
+    ],
+    "acceptanceCriteria": [
+      "Summarize changed checklist sections.",
+      "Return evidence refs for every claim.",
+      "Stop if requested work exceeds review-only scope."
+    ],
+    "priorSendBackNotes": []
+  },
+  "authorityBoundary": {
+    "allowedScope": [
+      "read docs and tests",
+      "return evidence and findings"
+    ],
+    "forbiddenEffects": [
+      "shell_execution_by_hacp",
+      "github_mutation_by_hacp",
+      "model_or_tool_call_by_hacp",
+      "runtime_dispatch_by_hacp"
+    ],
+    "humanDecisionRequiredFor": [
+      "approval",
+      "revision",
+      "completion",
+      "risk_acceptance"
+    ]
+  },
+  "approvedProfileRefs": [
+    {
+      "profileId": "profile.local-review-cli",
+      "profileDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  ],
+  "expectedEvidence": [
+    "source_summary",
+    "check_output_readback",
+    "profile_preflight_result"
+  ],
+  "stopReasons": [
+    "CONTEXT_MISMATCH",
+    "MISSING_AUTHORITY",
+    "HUMAN_DECISION_REQUIRED"
+  ],
+  "candidateDiagnosticMappings": [
+    {
+      "diagnosticCode": "PROFILE_PROOF_MISMATCH",
+      "canonicalStopReason": "HUMAN_DECISION_REQUIRED"
+    }
+  ],
+  "boundary": {
+    "packetIsDecisionContextOnly": true,
+    "notApproval": true,
+    "notWorkCompletion": true,
+    "noExternalSideEffects": true
+  }
+}

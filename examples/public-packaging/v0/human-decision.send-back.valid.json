@@ -1,0 +1,30 @@
+{
+  "recordKind": "hacp.human_decision",
+  "schemaVersion": "public-packaging-v0",
+  "decisionId": "dec_public_send_back_001",
+  "packetId": "pkt_public_001",
+  "reportId": "rpt_public_001",
+  "decision": "send_back",
+  "decidedBy": {
+    "actorId": "human.owner.example",
+    "actorKind": "human"
+  },
+  "decidedAt": "2026-06-06T12:00:00Z",
+  "sourceContextVisible": true,
+  "reason": "Evidence set is incomplete and one claim is not tied to the original request.",
+  "humanNotes": "Keep the launch checklist source visible and return exact evidence refs for each changed section.",
+  "requestedCorrection": {
+    "type": "revise_report_with_evidence",
+    "expectedNextState": "corrected_agent_report_for_human_review"
+  },
+  "preservedContextRefs": [
+    "pkt_public_001.sourceContext",
+    "issue://example/project/42"
+  ],
+  "boundary": {
+    "sendBackDoesNotRerunWork": true,
+    "notApproval": true,
+    "notWorkCompletion": true,
+    "noExternalSideEffects": true
+  }
+}

@@ -8,6 +8,12 @@ HACP records may describe work, requested next steps, verification evidence, or
 execution-profile permissions. The core protocol does not run commands, invoke
 CLIs, call tools, or execute verification commands.
 
+Approved tool profiles are boundary contracts. They can describe reviewed tool
+identity, version, command shape, allowed and forbidden parameters, risky flag
+approval references, runtime/toolchain expectations, network/write policy,
+ownership, expiry, evidence references, and digest proof. They do not give HACP
+or a hosted app permission to run the tool.
+
 ## HACP Does Not Call Models
 
 HACP is not a model API protocol and does not define prompts, context windows,
@@ -25,11 +31,19 @@ An adapter report can request a next step. A match proof can prove custody. None
 of those records approve consequential decisions. Human decisions remain
 explicit records.
 
+Send-back/reject-with-notes is also a human decision path, not a rerun trigger.
+It records the reason, notes, requested correction, source context, and expected
+next state. It does not automatically execute or dispatch work.
+
 ## HACP Does Not Automatically Merge, Deploy, Ship, or Release
 
 HACP 0.2 has no built-in `ship`, `deploy`, `merge`, `release`, or `accept_risk`
 authority. Profiles that need dangerous effects must declare them outside HACP
 core and preserve explicit human approval.
+
+HACP also does not mutate GitHub, call models, dispatch runtime work, make
+imported runner evidence equal completion, grant authority just because a
+packet/report exists, or make future integrations already built.
 
 ## HACP Does Not Require a Specific Stack
 

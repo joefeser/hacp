@@ -1,0 +1,23 @@
+{
+  "recordKind": "hacp.stop_response",
+  "schemaVersion": "public-packaging-v0",
+  "stopId": "stop_public_001",
+  "packetId": "pkt_public_001",
+  "reportId": "rpt_public_001",
+  "stopReason": "HUMAN_DECISION_REQUIRED",
+  "diagnosticCode": "PROFILE_PROOF_MISMATCH",
+  "whatDoesNotLineUp": "Runner report profile digest does not match the approved profile digest referenced by the task packet.",
+  "evidenceCausingStop": [
+    "pkt_public_001.approvedProfileRefs[0].profileDigest",
+    "rpt_public_001.profileProof.profileDigest"
+  ],
+  "minimalCorrection": "Return a report bound to the approved profile digest or ask the human to approve a corrected packet/profile.",
+  "nextHumanAction": "review_profile_mismatch_diagnostics",
+  "boundary": {
+    "failClosed": true,
+    "doNotContinueAutomatically": true,
+    "notApproval": true,
+    "notWorkCompletion": true,
+    "noExternalSideEffects": true
+  }
+}

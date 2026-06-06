@@ -125,6 +125,13 @@ The record of the human owner's decision after reviewing a matched report. It
 captures the decision, reason, actor, digest references, and any required
 confirmation. It does not execute work by itself.
 
+Send-back, or reject-with-notes, is a normal human decision path. Use it when
+evidence is stale, unclear, incomplete, mismatched, or outside the approved
+boundary. A send-back decision should preserve the original request or source
+context, the reason for revision, human notes, the requested correction, the
+expected next state, and the boundary that no automatic execution or mutation
+follows from the note.
+
 ### Digest Domain
 
 The semantic domain in which a digest was computed. Structured adapter reports,
@@ -167,6 +174,19 @@ whether stop conditions were met, blocked, unknown, or otherwise unresolved.
 Authority packets must include at least one stop condition. For simple work, a
 baseline condition such as "stop if scope or authority boundary is exceeded" is
 still expected.
+
+Canonical stop reasons are valid protocol outcomes. A good stop response names
+what does not line up, the evidence that caused the stop, and the minimal human
+or upstream correction that would unblock the work. The current canonical
+`hacp.stop_response` reasons are `CONTEXT_MISMATCH`, `WRONG_TOOL_OR_MODE`,
+`MISSING_AUTHORITY`, `SCOPE_CONFLICT`, `STALE_PACKET`,
+`UNVERIFIED_ASSUMPTION`, `ENVIRONMENT_BLOCKED`,
+`RELIABILITY_LIMIT_REACHED`, and `HUMAN_DECISION_REQUIRED`.
+
+Profiles may define narrower diagnostic codes, such as profile-proof,
+parameter, report-import, waiver, runtime, or workflow-publish diagnostics.
+Those profile-specific codes must be mapped back to a canonical stop reason
+before a record claims to be a base `hacp.stop_response`.
 
 ### Requested Next Step
 

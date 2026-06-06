@@ -25,8 +25,9 @@ transport_profiles:
     note: Execution requires a separate execution profile.
   - profile_id: automated_transport_v0.2
     profile_version: v0.2-draft
-    description: A watcher, queue, webhook, or bus moves already-approved records.
+    description: A watcher, queue, webhook, or bus moves already-approved records only.
     executes_work: false
+    note: Does not create authority, invoke tools, or approve outcomes.
 
 execution_profiles:
   - profile_id: no_execution_passthrough_v0.2
@@ -81,7 +82,7 @@ execution_profiles:
     boundary_breach_reporting: Report as boundary_breach and request human decision.
   - profile_id: local_workspace_bounded_v0.2
     profile_version: v0.2-draft
-    description: Adapter may modify allowed local workspace surfaces.
+    description: Adapter may modify allowed local workspace surfaces only when explicitly selected inside a human-approved authority packet; it is not core HACP execution authority.
     allowed_effects:
       - modify_allowed_surfaces
     forbidden_effects:

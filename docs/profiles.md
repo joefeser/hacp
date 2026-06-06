@@ -40,7 +40,7 @@ Examples:
 | `manual_browser_upload_v0.2` | Human copies or uploads records through a browser session. | No |
 | `manual_filesystem_carry_v0.2` | Human carries records through a local file. | No |
 | `owner_controlled_cli_v0.2` | Human invokes a local adapter CLI to carry the handoff package; the transport profile itself does not execute task work. | Only if paired with an execution profile |
-| `automated_transport_v0.2` | A watcher, queue, webhook, or bus moves records. | No by itself |
+| `automated_transport_v0.2` | A watcher, queue, webhook, or bus moves already-approved records only; it does not create authority, invoke tools, or approve outcomes. | No by itself |
 
 Transport profiles must not widen authority. A successful transport event only
 means a record moved.
@@ -57,6 +57,10 @@ Examples:
 | `local_workspace_bounded_v0.2` | May modify allowed local workspace surfaces under a human-approved authority packet. |
 | `review_only_v0.2` | Reads allowed surfaces and returns findings only. |
 | `verify_only_v0.2` | Runs declared verification checks only when explicitly approved. |
+
+`local_workspace_bounded_v0.2` is not core HACP execution authority. It is an
+execution-capable profile that must be explicitly selected inside a
+human-approved authority packet. HACP core does not run it.
 
 Execution-capable profiles must declare:
 

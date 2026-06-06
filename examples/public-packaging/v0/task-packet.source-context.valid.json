@@ -46,8 +46,14 @@
   ],
   "stopReasons": [
     "CONTEXT_MISMATCH",
-    "PROFILE_PROOF_MISMATCH",
+    "MISSING_AUTHORITY",
     "HUMAN_DECISION_REQUIRED"
+  ],
+  "candidateDiagnosticMappings": [
+    {
+      "diagnosticCode": "PROFILE_PROOF_MISMATCH",
+      "canonicalStopReason": "HUMAN_DECISION_REQUIRED"
+    }
   ],
   "boundary": {
     "packetIsDecisionContextOnly": true,

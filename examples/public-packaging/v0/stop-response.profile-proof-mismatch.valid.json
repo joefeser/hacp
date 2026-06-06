@@ -4,7 +4,8 @@
   "stopId": "stop_public_001",
   "packetId": "pkt_public_001",
   "reportId": "rpt_public_001",
-  "stopReason": "PROFILE_PROOF_MISMATCH",
+  "stopReason": "HUMAN_DECISION_REQUIRED",
+  "diagnosticCode": "PROFILE_PROOF_MISMATCH",
   "whatDoesNotLineUp": "Runner report profile digest does not match the approved profile digest referenced by the task packet.",
   "evidenceCausingStop": [
     "pkt_public_001.approvedProfileRefs[0].profileDigest",

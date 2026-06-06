@@ -18,13 +18,31 @@ Core invariant:
 HACP is not an agent runtime. It does not run tools, call models, or execute
 work. It defines authority, custody, evidence, and decision records.
 
+## Additional Review Context
+
+Recent public packaging and CLI bridge materials are now supporting review
+context for HACP 0.2. They help reviewers evaluate whether the draft remains
+clear about public positioning, use cases, approved tool profiles,
+fail-closed preflight, CLI bridge and runner report proof, send-back or
+reject-with-notes, source context and original request visibility, stop
+reasons, and non-goals.
+
+These materials are draft support around HACP 0.2. They do not move HACP to a
+new protocol version, and they do not make HACP 0.2 stable, production-ready,
+certified, conformance-complete, or 1.0. If a tooling package version such as
+`package.json` version appears in review, treat it as tooling metadata and not
+as the HACP protocol version.
+
 ## Files To Review
 
 - `README.md`
+- `docs/use-cases.md`
 - `docs/hacp-0.2.md`
 - `docs/non-goals.md`
 - `docs/profiles.md`
 - `docs/security-boundaries.md`
+- `docs/workflows/owner-controlled-bridge.md`
+- `docs/cli-bridge-contract/v0/`
 - `profiles/hacp-base-draft-v0.2.yaml`
 - `schemas/authority-packet.schema.json`
 - `schemas/handoff-package.schema.json`
@@ -33,6 +51,8 @@ work. It defines authority, custody, evidence, and decision records.
 - `schemas/human-decision-record.schema.json`
 - `fixtures/happy-path/`
 - `fixtures/risk-cases/`
+- `examples/cli-bridge-contract/`
+- `examples/public-packaging/`
 
 ## Fixture Review Instruction
 
@@ -51,6 +71,28 @@ matrix-drift, boundary-breach, and manual-override examples. See
 Confirm: can a reviewer trace the full chain (Authority Packet → Handoff
 Package → Adapter Report → Match Proof → Human Decision Record) using only the
 fixture files and schemas, with no private implementation context?
+
+## Supporting Context Checklist
+
+When reviewing the public positioning, use cases, CLI bridge, approved profile,
+and public packaging materials, check for:
+
+- authority confusion: packets, profiles, reports, proof, and diagnostics must
+  remain evidence or boundaries until a human decision record exists;
+- hidden execution claims: HACP must not appear to run shell commands, call
+  models/tools, mutate GitHub, dispatch runtime work, or replace human
+  approval;
+- missing source context: task packets, send-back notes, and human decisions
+  should keep original request visibility clear enough for audit;
+- weak proof or digest wording: runner report proof, profile proof, import
+  proof, and digest references should support custody/review only, not
+  completion or compliance claims;
+- overclaimed maturity: supporting materials must keep HACP at 0.2 draft and
+  avoid stable, production-ready, certified, conformance-complete, or 1.0
+  framing;
+- example/doc mismatch: public examples, CLI bridge diagnostics, stop reasons,
+  non-goals, and schemas should not contradict each other about authority,
+  proof, profile, or fail-closed behavior.
 
 ## Severity-Ordered Review Questions
 

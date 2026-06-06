@@ -51,8 +51,8 @@ as the HACP protocol version.
 - `schemas/human-decision-record.schema.json`
 - `fixtures/happy-path/`
 - `fixtures/risk-cases/`
-- `examples/cli-bridge-contract/`
-- `examples/public-packaging/`
+- `examples/cli-bridge-contract/v0/`
+- `examples/public-packaging/v0/`
 
 ## Fixture Review Instruction
 
@@ -84,9 +84,9 @@ and public packaging materials, check for:
   approval;
 - missing source context: task packets, send-back notes, and human decisions
   should keep original request visibility clear enough for audit;
-- weak proof or digest wording: runner report proof, profile proof, import
-  proof, and digest references should support custody/review only, not
-  completion or compliance claims;
+- weak proof or digest wording: runner report proof, profile proof, match
+  proof, import verification, and digest references should support
+  custody/review only, not completion or compliance claims;
 - overclaimed maturity: supporting materials must keep HACP at 0.2 draft and
   avoid stable, production-ready, certified, conformance-complete, or 1.0
   framing;

@@ -82,7 +82,10 @@ execution_profiles:
     boundary_breach_reporting: Report as boundary_breach and request human decision.
   - profile_id: local_workspace_bounded_v0.2
     profile_version: v0.2-draft
-    description: Adapter may modify allowed local workspace surfaces only when explicitly selected inside a human-approved authority packet; it is not core HACP execution authority.
+    description: >-
+      Adapter may modify allowed local workspace surfaces only when explicitly
+      selected inside a human-approved authority packet; it is not core HACP
+      execution authority.
     allowed_effects:
       - modify_allowed_surfaces
     forbidden_effects:

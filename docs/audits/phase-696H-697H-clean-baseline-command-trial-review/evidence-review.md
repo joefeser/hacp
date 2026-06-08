@@ -5,7 +5,7 @@ Decision token: `no_hacp_update_needed`
 ## Evidence Source
 
 App repo:
-`/Users/josephfeser/src/joefeser/what-is-the-spec`
+`joefeser/what-is-the-spec`
 
 Merged source ref:
 `origin/dev`

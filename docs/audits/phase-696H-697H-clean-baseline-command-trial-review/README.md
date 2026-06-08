@@ -57,7 +57,8 @@ The required live-state gate passed before this packet was created:
   `single_allowlisted_command_trial_clean_baseline_ready`.
 
 If those facts are not true when this packet is reused, stop reuse with
-`CORE_TRIAL_NOT_MERGED`. Do not infer from local dirty app files.
+live-state gate marker `STALE_PACKET`. Do not infer from local dirty app files.
+Do not record `STALE_PACKET` as this packet's decision token.
 
 ## Files In This Packet
 

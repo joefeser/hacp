@@ -14,7 +14,7 @@ Phase 692H/693H watch packet remain accurate.
 ## Evidence Source
 
 App repo:
-`/Users/josephfeser/src/joefeser/what-is-the-spec`
+`joefeser/what-is-the-spec`
 
 Merged source ref:
 `origin/dev`

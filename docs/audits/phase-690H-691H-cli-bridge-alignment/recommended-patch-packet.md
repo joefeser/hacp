@@ -10,6 +10,11 @@ The current public HACP repo is aligned enough with the app-proven
 no-exec CLI bridge chain. The audit did not find concrete public-doc drift
 that requires immediate correction.
 
+The no-exec CLI bridge may remain in public docs as a candidate evidence,
+preflight, and import-readback package. App-specific Phase 690/691 examples or
+execution-capable CLI claims should wait until real command-trial evidence
+exists.
+
 ## Patch Rules Rechecked
 
 Because no public patch is recommended, this phase does not change:
@@ -37,7 +42,8 @@ If later reviewer feedback shows confusion around
 This candidate is intentionally not applied in this phase because the current
 public docs already contain stronger no-exec framing in `README.md`,
 `docs/non-goals.md`, `docs/security-boundaries.md`, `docs/profiles.md`, and
-`docs/cli-bridge-contract/v0/`.
+`docs/cli-bridge-contract/v0/`. It can also wait for real command-trial
+evidence if future phases choose to document execution-capable examples.
 
 ## Issue Recommendation
 

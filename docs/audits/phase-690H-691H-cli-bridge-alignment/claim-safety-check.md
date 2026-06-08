@@ -33,6 +33,10 @@ evidence-only. It does not claim:
 - package publication;
 - public launch readiness.
 
+The current app decision token does not justify a public HACP claim that
+execution-capable owner CLI commands are ready. It supports only the current
+public-candidate no-exec bridge framing.
+
 The public HACP repo already uses matching public-safe language:
 
 - records carry authority and evidence, but only explicit human decisions
@@ -52,7 +56,8 @@ This audit does not recommend a patch because the broader public docs and the
 newer CLI bridge contract already carry the no-exec boundary plainly. If future
 reviewers misread that older workflow page as shipped CLI behavior, a narrow
 wording patch could replace the illustrative `runner execute` command with a
-no-exec readback example.
+no-exec readback example, or that replacement can wait for real command-trial
+evidence.
 
 ## Forbidden Claims Preserved
 

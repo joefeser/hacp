@@ -32,6 +32,9 @@ The expected posture is:
 ## Evidence HACP Should Review
 
 After the app-side trial, HACP should inspect evidence for each step below.
+Use committed, merged, or explicitly handed-off trial artifacts for the final
+HACP-side decision. Do not treat local dirty sibling-worktree artifacts alone as
+completed evidence.
 
 | Evidence area | Expected evidence |
 | --- | --- |

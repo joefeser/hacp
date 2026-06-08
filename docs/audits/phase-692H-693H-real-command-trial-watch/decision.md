@@ -25,6 +25,12 @@ The app repo context was available locally and shows approval for one future
 owner-controlled local command trial only. It does not show Phase 694/695
 execution evidence yet.
 
+During this HACP packet pass, local uncommitted Phase 694/695 files were visible
+in the sibling app worktree, but they were not present on that repo's
+`origin/dev`. They are not treated as completed HACP review evidence for this
+phase. A later HACP decision should inspect committed, merged, or explicitly
+handed-off app trial evidence before changing this defer token.
+
 Approved future command:
 
 ```bash
@@ -52,14 +58,26 @@ required questions in this packet before choosing one of these decision tokens:
 
 ## Review Tooling
 
-`ENVIRONMENT_BLOCKED`: this repo does not currently expose an
-`npm run kiro:review` script. The attempted review command was:
+The repo still does not expose an `npm run kiro:review` script. The attempted
+project-script review command was:
 
 ```bash
 npm run kiro:review -- --phase phase-692H-693H-real-command-trial-watch --kind implementation --model claude-sonnet-4.6 --fresh
 ```
 
-No review findings are claimed from unavailable tooling.
+`claude-sonnet-4.6` review was attempted through the local `claude` CLI, but
+the CLI returned `Not logged in`. No Sonnet findings are claimed.
+
+Fallback `auto` review was run with:
+
+```bash
+codex review --uncommitted
+```
+
+The fallback review reported no issue in the tracked packet edits. Its only
+finding was to remove a generated temporary failed-review artifact that recorded
+the Claude login error. That temporary artifact was removed and is not part of
+this packet.
 
 ## Validation
 

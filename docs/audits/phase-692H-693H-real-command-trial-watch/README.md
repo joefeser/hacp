@@ -14,6 +14,12 @@ No app Phase 694/695 real command trial evidence exists in this HACP phase, so
 this packet does not recommend a HACP schema, protocol, profile, semantic,
 README, or example patch.
 
+For this packet, app trial evidence should be treated as available for a final
+HACP-side update decision only after it is committed, merged, or otherwise
+handed off as a completed review artifact. Local dirty sibling-worktree files
+are useful context, but they are not enough by themselves to replace this
+defer decision.
+
 The public HACP boundaries remain unchanged:
 
 - HACP does not execute shell commands.

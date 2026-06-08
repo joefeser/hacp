@@ -59,10 +59,17 @@ PR readback after creation:
 - Draft state: draft.
 - Checks: CodeRabbit status context `SUCCESS`; Macroscope correctness check
   `SKIPPED`.
-- Review comments: one CodeRabbit bot comment says review was skipped because
-  the PR is a draft; no actionable findings.
-- Review submissions: none.
-- Review threads: none.
+- Review comments: CodeRabbit skipped review because the PR is a draft;
+  Sourcery posted a reviewer guide; Gemini flagged absolute local app evidence
+  paths in the audit README.
+- Review submissions: Gemini submitted a comment review.
+- Review threads: one Gemini thread on portable evidence paths.
+
+Follow-up:
+
+- Patched `README.md` to replace absolute local app evidence paths with paths
+  relative to `joefeser/what-is-the-spec`.
+- The Gemini thread was resolved after the portability patch.
 
 Joe cannot merge while the PR remains draft. Once marked ready, the current
 merge state is clean and there are no unresolved review threads in this

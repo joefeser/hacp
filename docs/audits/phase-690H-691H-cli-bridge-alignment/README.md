@@ -21,12 +21,13 @@ human decision.
 
 ## App Evidence Read
 
-The app-side evidence reviewed was limited to the requested files:
+The app-side evidence reviewed was limited to these files from
+`joefeser/what-is-the-spec`:
 
-- `/Users/josephfeser/src/joefeser/what-is-the-spec/docs/hacp/cli-bridge/phase-690-691/decision.md`
-- `/Users/josephfeser/src/joefeser/what-is-the-spec/docs/hacp/cli-bridge/phase-690-691/no-exec-cli-bridge-e2e-trial.md`
-- `/Users/josephfeser/src/joefeser/what-is-the-spec/docs/hacp/cli-bridge/phase-690-691/evidence-chain-readback.json`
-- `/Users/josephfeser/src/joefeser/what-is-the-spec/docs/coordination-trial/phase-runway.md`
+- `docs/hacp/cli-bridge/phase-690-691/decision.md`
+- `docs/hacp/cli-bridge/phase-690-691/no-exec-cli-bridge-e2e-trial.md`
+- `docs/hacp/cli-bridge/phase-690-691/evidence-chain-readback.json`
+- `docs/coordination-trial/phase-runway.md`
 
 The app decision token was
 `no_exec_cli_bridge_e2e_trial_ready`.

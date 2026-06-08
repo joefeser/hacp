@@ -7,7 +7,8 @@ Date: 2026-06-08
 ## Summary
 
 This audit checked the public HACP repository against the app-proven
-Phase 690/691 no-exec CLI bridge chain from `joefeser/what-is-the-spec`.
+Phase 690/691 no-exec CLI bridge chain from
+[joefeser/what-is-the-spec](https://github.com/joefeser/what-is-the-spec).
 
 No protocol semantic patch, schema change, version bump, or README/docs
 clarification is recommended in this phase. The current public materials
@@ -19,12 +20,12 @@ outcomes, certify completion, or replace human decision.
 ## App Evidence Read
 
 The app-side evidence reviewed was limited to these files from
-`joefeser/what-is-the-spec`:
+[joefeser/what-is-the-spec](https://github.com/joefeser/what-is-the-spec):
 
-- `docs/hacp/cli-bridge/phase-690-691/decision.md`
-- `docs/hacp/cli-bridge/phase-690-691/no-exec-cli-bridge-e2e-trial.md`
-- `docs/hacp/cli-bridge/phase-690-691/evidence-chain-readback.json`
-- `docs/coordination-trial/phase-runway.md`
+- [docs/hacp/cli-bridge/phase-690-691/decision.md](https://github.com/joefeser/what-is-the-spec/blob/main/docs/hacp/cli-bridge/phase-690-691/decision.md)
+- [docs/hacp/cli-bridge/phase-690-691/no-exec-cli-bridge-e2e-trial.md](https://github.com/joefeser/what-is-the-spec/blob/main/docs/hacp/cli-bridge/phase-690-691/no-exec-cli-bridge-e2e-trial.md)
+- [docs/hacp/cli-bridge/phase-690-691/evidence-chain-readback.json](https://github.com/joefeser/what-is-the-spec/blob/main/docs/hacp/cli-bridge/phase-690-691/evidence-chain-readback.json)
+- [docs/coordination-trial/phase-runway.md](https://github.com/joefeser/what-is-the-spec/blob/main/docs/coordination-trial/phase-runway.md)
 
 The app decision token was `no_exec_cli_bridge_e2e_trial_ready`.
 

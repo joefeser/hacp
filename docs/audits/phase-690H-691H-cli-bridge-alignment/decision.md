@@ -33,48 +33,19 @@ service-bus claim is recommended.
 ## Kiro Review
 
 `ENVIRONMENT_BLOCKED`: this repo does not currently expose an
-`npm run kiro:review` script. Prior public package sync work in
-`docs/public-package-sync-phase-462-463.md` recorded the same Kiro review
-blocker for this repository.
+`npm run kiro:review` script.
 
 ## Validation
 
-- `npm run hacp:doctor`: usage-only failure, `Missing path`. This command
-  requires an explicit target in this repo.
+- `npm run` inspected the available package scripts. This repo exposes
+  `hacp:doctor` and `hacp:cli-bridge-examples`; it does not expose
+  `kiro:review`.
 - `npm run hacp:doctor -- schemas/examples --manifest schemas/examples/manifest.json`:
   passed, with 15 expected-valid and 9 expected-invalid fixtures.
 - `npm run hacp:doctor -- schemas/examples/valid`: passed.
 - `npm run hacp:cli-bridge-examples`: passed for 8 files.
 - `git diff --check`: passed.
 
-## Merge Readiness
-
-PR: `https://github.com/joefeser/hacp/pull/29`
-
-PR readback after creation:
-
-- PR body newline check: passed. The body uses real Markdown newlines and does
-  not contain literal `\n` sequences.
-- Merge state: `CLEAN`.
-- Draft state: ready for review.
-- Checks: CodeRabbit status context `SUCCESS`; Macroscope correctness check
-  `SKIPPED`; Sourcery review check `SKIPPED`.
-- Review comments: CodeRabbit skipped review because the PR is a draft;
-  Sourcery posted a reviewer guide; Gemini flagged absolute local app evidence
-  paths in the audit README.
-- Review submissions: Gemini submitted a comment review.
-- Review threads: one Gemini thread on portable evidence paths.
-
-Follow-up:
-
-- Patched `README.md` to replace absolute local app evidence paths with paths
-  relative to `joefeser/what-is-the-spec`.
-- The Gemini thread was resolved after the portability patch.
-- After the PR was marked ready, CodeRabbit reported no actionable comments;
-  Codex reported no major issues; Qodo flagged backticked issue references that
-  prevented GitHub autolinking.
-- Patched `README.md` and `recommended-patch-packet.md` to remove backticks
-  around #9 through #13 issue references.
-
-The current merge state is clean and there are no unresolved review threads in
-this readback.
+PR checks, review comments, and thread state are intentionally not encoded in
+this packet because they are branch/PR-state readbacks rather than audit
+semantics.

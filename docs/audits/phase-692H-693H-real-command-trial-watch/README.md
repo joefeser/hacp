@@ -34,8 +34,9 @@ The required HACP gate passed before this packet was created:
   `docs/audits/phase-690H-691H-cli-bridge-alignment/decision.md`;
 - that decision file records decision token `no_hacp_update_needed`.
 
-If those facts are not true when this packet is reused, stop with
-`STALE_PACKET`.
+If those facts are not true when this packet is reused, stop the reuse with
+live-state gate marker `STALE_PACKET`. Do not record `STALE_PACKET` as this
+packet's decision token.
 
 ## App Context Read
 

@@ -56,7 +56,7 @@ required questions in this packet before choosing one of these decision tokens:
 `npm run kiro:review` script. The attempted review command was:
 
 ```bash
-npm run kiro:review -- --phase phase-692h-693h-real-command-trial-watch --kind implementation --model claude-sonnet-4.6 --fresh
+npm run kiro:review -- --phase phase-692H-693H-real-command-trial-watch --kind implementation --model claude-sonnet-4.6 --fresh
 ```
 
 No review findings are claimed from unavailable tooling.

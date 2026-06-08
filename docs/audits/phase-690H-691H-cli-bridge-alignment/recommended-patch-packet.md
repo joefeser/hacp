@@ -43,11 +43,11 @@ public docs already contain stronger no-exec framing in `README.md`,
 
 No new issue is recommended.
 
-Existing issues `#9` through `#13` cover adjacent future work, but none blocks
+Existing issues #9 through #13 cover adjacent future work, but none blocks
 the current no-exec CLI bridge public alignment:
 
-- `#9`: future real conformance fixtures and JCS digest vectors;
-- `#10`: future multi-human decision policy;
-- `#11`: future 0.1-to-0.2 catch-up guide;
-- `#12`: future reply/correlation/causation identifiers;
-- `#13`: future triage metadata.
+- #9: future real conformance fixtures and JCS digest vectors;
+- #10: future multi-human decision policy;
+- #11: future 0.1-to-0.2 catch-up guide;
+- #12: future reply/correlation/causation identifiers;
+- #13: future triage metadata.

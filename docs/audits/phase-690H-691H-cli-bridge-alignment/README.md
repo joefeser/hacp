@@ -70,11 +70,11 @@ Core public sources:
 
 Issue context:
 
-- `#9` Add HACP 0.2 conformance fixtures with real JCS digests
-- `#10` Explore HACP 0.3 multi-human decision policy
-- `#11` Add HACP 0.2 from 0.1 catch-up guide
-- `#12` Explore reply, correlation, and causation identifiers
-- `#13` Explore priority, severity, due date, and riskClass metadata
+- #9 Add HACP 0.2 conformance fixtures with real JCS digests
+- #10 Explore HACP 0.3 multi-human decision policy
+- #11 Add HACP 0.2 from 0.1 catch-up guide
+- #12 Explore reply, correlation, and causation identifiers
+- #13 Explore priority, severity, due date, and riskClass metadata
 
 ## Audit Answers
 
@@ -172,14 +172,14 @@ The public docs and examples cover:
 - digest-bound authority fields;
 - profile proof and report import diagnostics.
 
-The open conformance-fixture issue `#9` covers future real JCS digest vectors,
+The open conformance-fixture issue #9 covers future real JCS digest vectors,
 but it is not a blocker for this audit because the current examples are
 clearly marked as placeholder/readability fixtures rather than conformance
 vectors.
 
 ### 7. Existing issue coverage
 
-Issues `#9` through `#13` cover future conformance, catch-up, interop,
+Issues #9 through #13 cover future conformance, catch-up, interop,
 multi-human, and triage/profile questions. They do not identify a current
 Phase 690/691 no-exec public wording gap.
 

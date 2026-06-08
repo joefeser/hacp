@@ -56,9 +56,9 @@ PR readback after creation:
 - PR body newline check: passed. The body uses real Markdown newlines and does
   not contain literal `\n` sequences.
 - Merge state: `CLEAN`.
-- Draft state: draft.
+- Draft state: ready for review.
 - Checks: CodeRabbit status context `SUCCESS`; Macroscope correctness check
-  `SKIPPED`.
+  `SKIPPED`; Sourcery review check `SKIPPED`.
 - Review comments: CodeRabbit skipped review because the PR is a draft;
   Sourcery posted a reviewer guide; Gemini flagged absolute local app evidence
   paths in the audit README.
@@ -70,7 +70,11 @@ Follow-up:
 - Patched `README.md` to replace absolute local app evidence paths with paths
   relative to `joefeser/what-is-the-spec`.
 - The Gemini thread was resolved after the portability patch.
+- After the PR was marked ready, CodeRabbit reported no actionable comments;
+  Codex reported no major issues; Qodo flagged backticked issue references that
+  prevented GitHub autolinking.
+- Patched `README.md` and `recommended-patch-packet.md` to remove backticks
+  around #9 through #13 issue references.
 
-Joe cannot merge while the PR remains draft. Once marked ready, the current
-merge state is clean and there are no unresolved review threads in this
-readback.
+The current merge state is clean and there are no unresolved review threads in
+this readback.

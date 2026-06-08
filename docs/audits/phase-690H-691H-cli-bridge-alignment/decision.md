@@ -49,4 +49,21 @@ blocker for this repository.
 
 ## Merge Readiness
 
-Pending PR creation, checks, and review-thread scan.
+PR: `https://github.com/joefeser/hacp/pull/29`
+
+PR readback after creation:
+
+- PR body newline check: passed. The body uses real Markdown newlines and does
+  not contain literal `\n` sequences.
+- Merge state: `CLEAN`.
+- Draft state: draft.
+- Checks: CodeRabbit status context `SUCCESS`; Macroscope correctness check
+  `SKIPPED`.
+- Review comments: one CodeRabbit bot comment says review was skipped because
+  the PR is a draft; no actionable findings.
+- Review submissions: none.
+- Review threads: none.
+
+Joe cannot merge while the PR remains draft. Once marked ready, the current
+merge state is clean and there are no unresolved review threads in this
+readback.

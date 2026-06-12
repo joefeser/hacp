@@ -7,7 +7,11 @@ approval.
 Evidence can inform the decision. Evidence does not approve the next step by
 itself.
 
-## Decision Record Shape
+## Illustrative Decision Gate Sketch
+
+The YAML below is illustrative documentation, not a schema-valid HACP artifact.
+Do not copy it as a base record; use the published schemas for validated
+artifacts.
 
 ```yaml
 decision_gate:

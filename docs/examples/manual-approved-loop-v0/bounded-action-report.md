@@ -4,7 +4,11 @@ A bounded action report is evidence about what happened under approved scope. It
 is not permission to continue, retry, publish, standardize, or execute a new
 lane.
 
-## Example Report
+## Illustrative Report Sketch
+
+The YAML below is illustrative documentation, not a schema-valid HACP artifact.
+Do not copy it as a base record; use the published schemas for validated
+artifacts.
 
 ```yaml
 bounded_action_report:

@@ -6,6 +6,10 @@ approves different authority.
 
 ## Boundary Counters
 
+The YAML below is illustrative documentation, not a schema-valid HACP artifact.
+Do not copy it as a base record; use the published schemas for validated
+artifacts.
+
 ```yaml
 manual_loop_boundary:
   retry_count: 0

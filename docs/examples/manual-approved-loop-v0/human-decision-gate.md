@@ -12,7 +12,7 @@ itself.
 ```yaml
 decision_gate:
   decision_id: hdg_manual_loop_v0_example
-  selected_decision: approve_bounded_docs_followup
+  selected_decision: accept_follow_up
   approved_next_step:
     description: "Apply the approved documentation-only follow-up."
     scope:
@@ -29,7 +29,7 @@ decision_gate:
     - certification claim
     - formal standardization claim
   evidence_refs:
-    - bounded_action_report_manual_loop_v0
+    - bar_manual_loop_v0_example
     - docs_backed_product_readback_manual_loop_v0
   requires_separate_future_approval:
     - any runtime, transport, or self-running implementation

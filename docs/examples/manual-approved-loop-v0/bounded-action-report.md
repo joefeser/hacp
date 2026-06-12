@@ -30,7 +30,7 @@ bounded_action_report:
     - retry
     - second attempt
     - autonomous continuation
-  requested_next_state: human_decision_required
+  requested_next_step: request_human_decision
 ```
 
 ## Boundary

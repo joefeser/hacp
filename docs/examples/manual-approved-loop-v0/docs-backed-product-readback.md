@@ -6,6 +6,8 @@ zero, and what was explicitly not authorized.
 
 ## Readback
 
+Readback id: `docs_backed_product_readback_manual_loop_v0`.
+
 The manual approved-loop v0 chain started with a human-approved task packet. One
 local manual attempt produced one bounded action report under the approved
 scope. The report returned evidence to a human decision gate. A later follow-up

@@ -15,7 +15,7 @@ manual_loop_boundary:
   durable_persistence_count: 0
   hosted_shell_count_for_bounded_action: 0
   model_tool_call_count_for_bounded_action: 0
-  next_state: human_decision_required
+  next_status: needs_human_decision
 ```
 
 ## Stop Rule

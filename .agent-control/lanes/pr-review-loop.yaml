@@ -13,10 +13,10 @@ lane:
   id: hacp-pr-review-loop
   version: 0.1.0
   status: active
-  description: >
-    Repo-local ACK lane for HACP protocol, docs, schemas, examples, and
-    governance changes. Use dev for agent PR loops; keep main promotion
-    human-mediated.
+description: >
+  Repo-local PR-loop policy for joefeser/hacp. This lane keeps protocol,
+  schema, example, and documentation changes behind required reviewer batching
+  and explicit human promotion decisions.
 
 prLoopPacket:
   costProfile: small_team
@@ -129,34 +129,38 @@ prLoopPacket:
 
 operationalNotes:
   laneConfigReadback: >
-    agent-control pr-loop loads this file from the repo-local worktree by
-    default and reports evidence.configSource.laneConfig.status/path.
-  requiredReviewerBatching: >
-    Codex and Qodo are required for this lane. Do not process partial findings
-    until the configured reviewer set has returned or ACK emits a typed bounded
-    handoff.
+    agent-control pr-loop loads .agent-control/lanes/pr-review-loop.yaml from
+    this repo by default and reports the loaded path in compact JSON evidence.
+  reviewerBatching: >
+    Codex and Qodo are required. Workers must not process partial required
+    reviewer findings until the configured reviewer set has returned or ACK
+    emits a typed timeout/owner-decision state.
   reviewQuorumBoundary: >
-    Docs-only dev work may use the trusted reviewer quorum. Protocol, schema,
+    Review quorum is enabled only for this lane's trusted reviewer policy.
+    Docs-only dev work may use the configured fast quorum. Protocol, schema,
     profile, script, package, and ACK config changes require stricter reviewer
     coverage. Returned findings, unresolved review threads, failed checks, and
     unsafe merge state still block.
   qodoLifecycle: >
-    ACK must not post @qodo-code-review review. Missing or delayed Qodo state is
-    handled by bounded wait, quorum, residual-risk, or human-decision readback.
+    pr-loop never posts @qodo-code-review review. Qodo review requests are
+    explicit-only owner/coordinator actions outside the normal worker loop.
   botRetagBoundary: >
     Do not manually retag Codex, Qodo, Gemini, Sourcery, or other review bots.
-  mainPromotion: >
-    main is human-mediated. Clean main promotion owner decisions are not normal
-    overnight auto-merge, and stale or delayed reviewer evidence should be
-    reported plainly.
+  optionalReviewers: >
+    Gemini and Sourcery are optional. Their feedback is residual risk unless
+    ACK returns patch authority or an owner explicitly approves a
+    post-required-review mutation.
+  docsOnlySeparation: >
+    Markdown-only docs and site prose can be treated as docs-only. Schema,
+    script, package, CI, authority-boundary, and runtime-adjacent changes are
+    source/config changes and should not be hidden inside a docs-only lane.
+  integrationBranchPosture: >
+    Agent loops should target dev or integration/** when the work is not a main
+    promotion. Main, master, and release targets remain human-mediated.
+  mainPromotionPosture: >
+    Clean main promotion owner decisions are not normal overnight auto-merge.
+    Stale or delayed reviewer evidence on large main promotions should be
+    reported clearly as owner-mediated evidence, not treated as worker failure.
   mergeMethod: >
-    Use merge commits. Do not recommend squash merges unless a future
+    Use merge commits by default. Do not recommend squash merge unless a future
     owner-approved packet grants that authority.
-
-rules:
-  - Use the repo-local lane YAML.
-  - Run the full ACK loop after opening a PR, not status-only.
-  - Patch only when nextAction is patch_actionable_findings.
-  - Read patchBriefAbsolutePath before fetching GitHub review bodies manually.
-  - Let ACK handle stale bot summary freshness waiting.
-  - Report the final ACK decision, stopReason, nextAction, head SHA, and merge recommendation.

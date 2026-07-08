@@ -18,6 +18,8 @@ The examples cover:
   that fails closed and names the minimal correction.
 - `wits-source-packet.candidate.json`: a public-safe source packet candidate
   that summarizes WITS v0 protocol lessons without adding runtime authority.
+  Its `plannedFixtureCandidates` entries are planned fixture IDs, not file
+  paths in this example set.
 
 These files use placeholder IDs and digests. They are meant for protocol
 readback and documentation, not cryptographic conformance.

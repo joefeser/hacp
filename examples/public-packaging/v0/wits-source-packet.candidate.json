@@ -23,16 +23,40 @@
     "rabbitmq_transport_profile_candidate",
     "conformance_fixture_candidate"
   ],
-  "candidateArtifacts": {
-    "taskPacket": "wits-task-packet-with-source-context.valid.json",
-    "agentReport": "wits-agent-report-with-profile-proof.valid.json",
-    "humanDecision": "wits-human-decision-send-back.valid.json",
-    "reviewFinding": "wits-review-finding-residual-risk.valid.json",
-    "evidenceSet": "wits-evidence-set-import-custody.valid.json",
-    "loopPolicy": "wits-loop-policy-ceiling-breach.valid.json",
-    "stopResponse": "wits-stop-response-context-mismatch.valid.json",
-    "transportEnvelope": "wits-transport-envelope-rabbitmq-custody.valid.json"
-  },
+  "plannedFixtureCandidates": [
+    {
+      "candidateId": "wits-task-packet-with-source-context",
+      "recordKind": "hacp.task_packet"
+    },
+    {
+      "candidateId": "wits-agent-report-with-profile-proof",
+      "recordKind": "hacp.agent_report"
+    },
+    {
+      "candidateId": "wits-human-decision-send-back",
+      "recordKind": "hacp.human_decision"
+    },
+    {
+      "candidateId": "wits-review-finding-residual-risk",
+      "recordKind": "hacp.review_finding"
+    },
+    {
+      "candidateId": "wits-evidence-set-import-custody",
+      "recordKind": "hacp.evidence_set"
+    },
+    {
+      "candidateId": "wits-loop-policy-ceiling-breach",
+      "recordKind": "hacp.loop_policy"
+    },
+    {
+      "candidateId": "wits-stop-response-context-mismatch",
+      "recordKind": "hacp.stop_response"
+    },
+    {
+      "candidateId": "wits-transport-envelope-rabbitmq-custody",
+      "recordKind": "hacp.transport_envelope"
+    }
+  ],
   "forbiddenEffects": [
     "runtime_orchestration_by_hacp",
     "hosted_execution_by_hacp",

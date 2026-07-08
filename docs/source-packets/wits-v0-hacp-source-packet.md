@@ -200,15 +200,15 @@ Useful candidates include:
 
 | Candidate reason | Meaning | Candidate canonical mapping |
 | --- | --- | --- |
-| `STALE_PACKET` | Packet, report, profile, or expected digest no longer matches current evidence. | `stale_packet` |
-| `CONTEXT_MISMATCH` | Work landed in the wrong repo, branch, tool, mode, or source context. | `context_mismatch` |
-| `HUMAN_DECISION_REQUIRED` | Next step changes authority, scope, risk, persistence, or acceptance. | `missing_authority` or profile-specific decision-required stop |
-| `ENVIRONMENT_BLOCKED` | Required local runtime, token/session, dependency, or toolchain is unavailable. | `environment_blocked` |
-| `RELIABILITY_LIMIT_REACHED` | Continuing would require guessing beyond available evidence. | `reliability_boundary` |
-| `MISSING_AUTHORITY` | Required packet/profile/human decision evidence is absent. | `missing_authority` |
-| `WRONG_TOOL_OR_MODE` | Requested tool, command, mode, or adapter path differs from approved boundary. | `wrong_tool_or_mode` |
-| `SCOPE_CONFLICT` | Requested work conflicts with allowed scope or forbidden effects. | `scope_conflict` |
-| `UNVERIFIED_ASSUMPTION` | A required claim is not supported by reviewable evidence. | `unverified_assumption` |
+| `STALE_PACKET` | Packet, report, profile, or expected digest no longer matches current evidence. | `STALE_PACKET` |
+| `CONTEXT_MISMATCH` | Work landed in the wrong repo, branch, tool, mode, or source context. | `CONTEXT_MISMATCH` |
+| `HUMAN_DECISION_REQUIRED` | Next step changes authority, scope, risk, persistence, or acceptance. | `HUMAN_DECISION_REQUIRED` |
+| `ENVIRONMENT_BLOCKED` | Required local runtime, token/session, dependency, or toolchain is unavailable. | `ENVIRONMENT_BLOCKED` |
+| `RELIABILITY_LIMIT_REACHED` | Continuing would require guessing beyond available evidence. | `RELIABILITY_LIMIT_REACHED` |
+| `MISSING_AUTHORITY` | Required packet/profile/human decision evidence is absent. | `MISSING_AUTHORITY` |
+| `WRONG_TOOL_OR_MODE` | Requested tool, command, mode, or adapter path differs from approved boundary. | `WRONG_TOOL_OR_MODE` |
+| `SCOPE_CONFLICT` | Requested work conflicts with allowed scope or forbidden effects. | `SCOPE_CONFLICT` |
+| `UNVERIFIED_ASSUMPTION` | A required claim is not supported by reviewable evidence. | `UNVERIFIED_ASSUMPTION` |
 
 Profile-specific stop codes may be richer, but base consumers need a stable
 mapping and minimal correction.

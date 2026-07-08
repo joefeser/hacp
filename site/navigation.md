@@ -33,6 +33,7 @@ Start with draft artifacts and local validation setup:
 - [Implementer quickstart](../quickstart.md)
 - [Schema pack](../schemas/README.md)
 - [CLI bridge contract candidate](../docs/cli-bridge-contract/v0/README.md)
+- [WITS v0 HACP source packet](../docs/source-packets/wits-v0-hacp-source-packet.md)
 - [Minimal example fixture](../examples/minimal-v0.1/README.md)
 
 ### I'm reviewing protocol, show RFC/spec
@@ -62,6 +63,7 @@ Start with corpus expectations and doctor inputs:
 - [Schema examples manifest](../schemas/examples/manifest.json)
 - [CLI bridge contract candidate](../docs/cli-bridge-contract/v0/README.md)
 - [CLI bridge contract examples](../examples/cli-bridge-contract/v0/README.md)
+- [WITS v0 HACP source packet](../docs/source-packets/wits-v0-hacp-source-packet.md)
 - [Minimal example fixture](../examples/minimal-v0.1/README.md)
 - [Review packet](../docs/review-packet.md)
 

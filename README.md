@@ -237,6 +237,10 @@ Start here:
   repo-local ACK PR-loop worker guidance, including lane loading, reviewer
   batching, stale-summary waiting, handoff artifacts, and human-mediated main
   promotion posture.
+- [docs/source-packets/wits-v0-hacp-source-packet.md](docs/source-packets/wits-v0-hacp-source-packet.md):
+  public-safe WITS v0 source packet for task packets, agent reports, human
+  decision gates, evidence, stop reasons, transport envelopes, and fixture
+  candidates.
 - [docs/security-boundaries.md](docs/security-boundaries.md): authority,
   report, match-proof, human-decision, digest-domain, and fail-closed
   boundaries.
@@ -352,6 +356,7 @@ The v0.2 public review surface is the draft chain-of-custody packet:
 - [docs/hacp-0.2.md](docs/hacp-0.2.md);
 - [docs/profiles.md](docs/profiles.md);
 - [docs/security-boundaries.md](docs/security-boundaries.md);
+- [docs/source-packets/wits-v0-hacp-source-packet.md](docs/source-packets/wits-v0-hacp-source-packet.md);
 - [docs/non-goals.md](docs/non-goals.md);
 - [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml);
 - the v0.2 schemas in [schemas/](schemas/);

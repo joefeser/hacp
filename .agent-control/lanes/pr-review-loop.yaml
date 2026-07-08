@@ -58,9 +58,9 @@ prLoopPacket:
           - examples/**
           - fixtures/**
           - open-playbook-template-pack/**
-        minimumReturned: 1
-        preferAllReturned: false
-        waitForAllTimeoutSeconds: 0
+        minimumReturned: 2
+        preferAllReturned: true
+        waitForAllTimeoutSeconds: 600
       protocolOrConfig:
         include:
           - .agent-control/**
@@ -137,10 +137,11 @@ operationalNotes:
     emits a typed timeout/owner-decision state.
   reviewQuorumBoundary: >
     Review quorum is enabled only for this lane's trusted reviewer policy.
-    Docs-only dev work may use the configured fast quorum. Protocol, schema,
-    profile, script, package, and ACK config changes require stricter reviewer
-    coverage. Returned findings, unresolved review threads, failed checks, and
-    unsafe merge state still block.
+    Docs-only dev work is classified separately for risk readback, but this
+    lane still batches the required Codex and Qodo reviewer set before
+    processing. Protocol, schema, profile, script, package, and ACK config
+    changes require stricter reviewer coverage. Returned findings, unresolved
+    review threads, failed checks, and unsafe merge state still block.
   qodoLifecycle: >
     pr-loop never posts @qodo-code-review review. Qodo review requests are
     explicit-only owner/coordinator actions outside the normal worker loop.

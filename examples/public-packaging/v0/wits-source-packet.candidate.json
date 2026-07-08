@@ -34,7 +34,7 @@
     },
     {
       "candidateId": "wits-human-decision-send-back",
-      "recordKind": "hacp.human_decision"
+      "recordKind": "hacp.human_decision_gate"
     },
     {
       "candidateId": "wits-review-finding-residual-risk",

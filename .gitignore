@@ -6,5 +6,8 @@ coverage/
 !.gitignore
 !examples/**/*.log
 
+.agent-control/pr-loop-handoffs/
+.agent-control/tmp/
+
 __pycache__/
 *.py[cod]

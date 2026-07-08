@@ -1,0 +1,167 @@
+agentControl:
+  requiredVersion: ">=0.2.0"
+  channel: stable
+  allowPrerelease: false
+  requiredCapabilities:
+    - reviewQuorum
+    - requiredReviewerBatching
+    - quietJson
+    - freshnessGate
+    - exceptionHandoff
+
+lane:
+  id: hacp-pr-review-loop
+  version: 0.1.0
+  status: active
+description: >
+  Repo-local PR-loop policy for joefeser/hacp. This lane keeps protocol,
+  schema, example, and documentation changes behind required reviewer batching
+  and explicit human promotion decisions.
+
+prLoopPacket:
+  costProfile: small_team
+  policyProfile: default
+  reviewFreshnessPolicy:
+    maxFreshReviewFixCycles: 2
+    riskyFileGlobs:
+      - .github/workflows/**
+      - .agent-control/**
+      - package.json
+      - package-lock.json
+      - scripts/**
+      - schemas/**
+      - profiles/**
+      - decision-matrix-base-v0.1.yaml
+      - rfcs/**
+  reviewQuorum:
+    enabled: true
+    groups:
+      trustedCodeReview:
+        bots:
+          - codex
+          - qodo
+        minimumReturned: 1
+        preferAllReturned: false
+        waitForAllTimeoutSeconds: 600
+        noneReturnedStopReason: REQUIRED_REVIEW_QUORUM_NOT_MET
+    pathRiskTiers:
+      docsOnly:
+        include:
+          - README.md
+          - adoption-primer.md
+          - quickstart.md
+          - review-packet.md
+          - safe-stop-reliability-boundary.md
+          - stop-response-decision-guide.md
+          - docs/**
+          - site/**
+          - examples/**
+          - fixtures/**
+          - open-playbook-template-pack/**
+        minimumReturned: 2
+        preferAllReturned: true
+        waitForAllTimeoutSeconds: 600
+      protocolOrConfig:
+        include:
+          - .agent-control/**
+          - rfcs/**
+          - schemas/**
+          - profiles/**
+          - scripts/**
+          - package.json
+          - package-lock.json
+          - decision-matrix-base-v0.1.yaml
+        minimumReturned: 2
+        preferAllReturned: true
+        waitForAllTimeoutSeconds: 600
+      mixed:
+        useTier: protocolOrConfig
+      unknown:
+        useTier: protocolOrConfig
+  postRequiredReviewMutationPolicy:
+    optionalReviewerPatches: owner_decision
+  pushPolicy:
+    mode: batch_until_review_settles
+    localFixesPresent: false
+    validationEvidence: []
+    findingUrls: []
+    waitTimeoutSeconds: 600
+  bots:
+    codex:
+      requirement: required
+      waitUntilReturnedBeforeProcessing: true
+      waitTimeoutSeconds: 600
+      acknowledgedWaitTimeoutSeconds: 600
+      requestAllowed: policy
+      requestRetryCeiling: 2
+      retryCooldownSeconds: 120
+    qodo:
+      requirement: required
+      waitUntilReturnedBeforeProcessing: true
+      waitTimeoutSeconds: 600
+      requestAllowed: explicit_only
+      requestRetryCeiling: 0
+      retryCooldownSeconds: 0
+    gemini:
+      requirement: optional
+      waitUntilReturnedBeforeProcessing: false
+    sourcery:
+      requirement: optional
+      waitUntilReturnedBeforeProcessing: false
+  branchPolicy:
+    overnightAllowedMergeTargets:
+      - dev
+      - integration/**
+    overnightForbiddenMergeTargets:
+      - main
+      - master
+      - release/**
+    ownerOverrideEligibleTargets:
+      - dev
+      - integration/**
+    ownerOverrideDeniedTargets:
+      - main
+      - master
+      - release/**
+    mainPromotionRequiresSeparatePr: true
+    mainPromotionOwnerOnly: true
+    mergeMethod: merge_commit
+
+operationalNotes:
+  laneConfigReadback: >
+    agent-control pr-loop loads .agent-control/lanes/pr-review-loop.yaml from
+    this repo by default and reports the loaded path in compact JSON evidence.
+  reviewerBatching: >
+    Codex and Qodo are required. Workers must not process partial required
+    reviewer findings until the configured reviewer set has returned or ACK
+    emits a typed timeout/owner-decision state.
+  reviewQuorumBoundary: >
+    Review quorum is enabled only for this lane's trusted reviewer policy.
+    Docs-only dev work is classified separately for risk readback, but this
+    lane still batches the required Codex and Qodo reviewer set before
+    processing. Protocol, schema, profile, script, package, and ACK config
+    changes require stricter reviewer coverage. Returned findings, unresolved
+    review threads, failed checks, and unsafe merge state still block.
+  qodoLifecycle: >
+    pr-loop never posts @qodo-code-review review. Qodo review requests are
+    explicit-only owner/coordinator actions outside the normal worker loop.
+  botRetagBoundary: >
+    Do not manually retag Codex, Qodo, Gemini, Sourcery, or other review bots.
+  optionalReviewers: >
+    Gemini and Sourcery are optional. Their feedback is residual risk unless
+    ACK returns patch authority or an owner explicitly approves a
+    post-required-review mutation.
+  docsOnlySeparation: >
+    Markdown-only docs and site prose can be treated as docs-only. Schema,
+    script, package, CI, authority-boundary, and runtime-adjacent changes are
+    source/config changes and should not be hidden inside a docs-only lane.
+  integrationBranchPosture: >
+    Agent loops should target dev or integration/** when the work is not a main
+    promotion. Main, master, and release targets remain human-mediated.
+  mainPromotionPosture: >
+    Clean main promotion owner decisions are not normal overnight auto-merge.
+    Stale or delayed reviewer evidence on large main promotions should be
+    reported clearly as owner-mediated evidence, not treated as worker failure.
+  mergeMethod: >
+    Use merge commits by default. Do not recommend squash merge unless a future
+    owner-approved packet grants that authority.

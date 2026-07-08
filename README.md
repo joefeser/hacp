@@ -233,6 +233,10 @@ Start here:
 - [docs/cli-bridge-contract/v0/README.md](docs/cli-bridge-contract/v0/README.md):
   public candidate package for owner-controlled CLI bridge profile, preflight,
   runner evidence, waiver, import, digest, doctor, and stop-reason objects.
+- [docs/workflows/ack-pr-loop-runbook.md](docs/workflows/ack-pr-loop-runbook.md):
+  repo-local ACK PR-loop worker guidance, including lane loading, reviewer
+  batching, stale-summary waiting, handoff artifacts, and human-mediated main
+  promotion posture.
 - [docs/security-boundaries.md](docs/security-boundaries.md): authority,
   report, match-proof, human-decision, digest-domain, and fail-closed
   boundaries.

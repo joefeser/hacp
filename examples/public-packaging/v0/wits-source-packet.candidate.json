@@ -1,0 +1,81 @@
+{
+  "recordKind": "hacp.source_packet",
+  "schemaVersion": "public-packaging-v0-candidate",
+  "sourcePacketId": "src_wits_v0_public_001",
+  "title": "WITS v0 HACP source packet",
+  "sourceRefs": [
+    "https://github.com/joefeser/hacp/issues/39",
+    "https://github.com/joefeser/what-is-the-spec/pull/1107",
+    "https://github.com/joefeser/what-is-the-spec/pull/1113"
+  ],
+  "protocolConcepts": [
+    "task_packet",
+    "approved_packet_readback",
+    "agent_report",
+    "human_decision_gate",
+    "review_finding",
+    "evidence_set",
+    "loop_ceiling",
+    "stop_reason",
+    "cli_report_return",
+    "http_report_return",
+    "transport_envelope",
+    "rabbitmq_transport_profile_candidate",
+    "conformance_fixture_candidate"
+  ],
+  "plannedFixtureCandidates": [
+    {
+      "candidateId": "wits-task-packet-with-source-context",
+      "recordKind": "hacp.task_packet"
+    },
+    {
+      "candidateId": "wits-agent-report-with-profile-proof",
+      "recordKind": "hacp.agent_report"
+    },
+    {
+      "candidateId": "wits-human-decision-send-back",
+      "recordKind": "hacp.human_decision_gate"
+    },
+    {
+      "candidateId": "wits-review-finding-residual-risk",
+      "recordKind": "hacp.review_finding"
+    },
+    {
+      "candidateId": "wits-evidence-set-import-custody",
+      "recordKind": "hacp.evidence_set"
+    },
+    {
+      "candidateId": "wits-loop-policy-ceiling-breach",
+      "recordKind": "hacp.loop_policy"
+    },
+    {
+      "candidateId": "wits-stop-response-context-mismatch",
+      "recordKind": "hacp.stop_response"
+    },
+    {
+      "candidateId": "wits-transport-envelope-rabbitmq-custody",
+      "recordKind": "hacp.transport_envelope"
+    }
+  ],
+  "forbiddenEffects": [
+    "runtime_orchestration_by_hacp",
+    "hosted_execution_by_hacp",
+    "model_or_tool_dispatch_by_hacp",
+    "github_mutation_by_hacp",
+    "billing_by_hacp",
+    "hidden_worker_launch",
+    "hacp_io_hosted_control_plane_claim"
+  ],
+  "boundary": {
+    "sourcePacketIsProtocolMaterialOnly": true,
+    "notRuntimeOrchestration": true,
+    "notHostedExecution": true,
+    "notModelOrToolDispatch": true,
+    "notGitHubMutation": true,
+    "notBilling": true,
+    "notWorkerLaunch": true,
+    "notConformanceClaim": true,
+    "notWorkCompletion": true,
+    "noExternalSideEffects": true
+  }
+}

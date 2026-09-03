@@ -176,6 +176,8 @@ specific decision was claimed, not as proof that execution completed.
 
 A report-return path should preserve:
 
+- the report's own identifier and full content digest, including its digest
+  domain and canonicalization basis;
 - packet or handoff reference;
 - decision reference and digest prefix or full digest as appropriate;
 - consumption receipt id and digest;
@@ -202,6 +204,11 @@ evidence and verify its digest, invocation/receipt bindings, and ordering under
 the approved profile. Missing or unverifiable evidence cannot establish
 claim-before-start. Current expiry/revocation checks remain independently
 required; ordering evidence does not establish current authority.
+
+Importers must verify the returned report's content digest under the selected
+profile before using its contents as evidence. Matching only digests of records
+referenced by the report does not protect the report itself. These sketches use
+placeholder digests; they cannot pass real integrity verification unchanged.
 
 ## RabbitMQ Transport Envelope Posture
 
@@ -236,8 +243,15 @@ use placeholder ids/digests.
 | [review-finding.candidate.json](examples/review-finding.candidate.json) | Finding that requests a human decision before continuation. |
 | [human-decision.candidate.json](examples/human-decision.candidate.json) | Closed base-style human decision that stays immutable. |
 | [consumption-receipt.candidate.json](examples/consumption-receipt.candidate.json) | Separate one-successor admission receipt. |
+| [continuation-context.candidate.json](examples/continuation-context.candidate.json) | Required outer input binding the extension marker, decision, receipt, and invocation. |
 | [agent-report.candidate.json](examples/agent-report.candidate.json) | Evidence return tied to the receipt. |
 | [stop-response.candidate.json](examples/stop-response.candidate.json) | Fail-closed response when continuation cannot be proven. |
+
+The continuation context is the required input to continuation processing;
+the report references its identifier and digest for later audit. The consumer
+must validate the context using its independently trusted profile before
+interpreting the decision or receipt. No example supplies a trust anchor or
+proves current revocation status, and no new base schema is implied.
 
 ## Conformance Fixture Candidates
 

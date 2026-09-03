@@ -2,6 +2,21 @@
   "recordKind": "hacp.v0_3_candidate.agent_report",
   "schemaVersion": "hacp-0.3-candidate",
   "reportId": "report_example_successor_001",
+  "digest": {
+    "algorithm": "sha-256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "agent_report_v0.3_candidate",
+    "value": "6666666666666666666666666666666666666666666666666666666666666666"
+  },
+  "continuationContext": {
+    "id": "context_example_successor_001",
+    "digest": {
+      "algorithm": "sha-256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "continuation_context_v0.3_candidate",
+      "value": "5555555555555555555555555555555555555555555555555555555555555555"
+    }
+  },
   "packetId": "taskpkt_example_continue_review_001",
   "decision": {
     "id": "decision_example_approve_successor_001",

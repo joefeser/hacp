@@ -9,7 +9,7 @@
       "docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md"
     ]
   },
-  "approvedScope": [
+  "requestedScope": [
     "prepare a docs-only patch",
     "return evidence and residual risk"
   ],
@@ -35,5 +35,5 @@
   "profileRefs": [
     "hacp-accountable-continuation-v0.3-candidate"
   ],
-  "boundaryStatement": "The packet records bounded human-approved scope. It does not launch a worker or approve a future result."
+  "boundaryStatement": "This packet records requested bounded scope only. Authority remains inactive until a human decision records approval, and the packet does not launch a worker or approve a future result."
 }

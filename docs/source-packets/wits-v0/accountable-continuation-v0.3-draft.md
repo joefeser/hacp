@@ -167,6 +167,9 @@ A report-return path should preserve:
 - decision-request or finding reference and digest when it controlled the
   continuation boundary;
 - successor invocation id;
+- a digest-bound start-evidence reference tying that invocation and accepted
+  receipt to durable claim-readback and work-start timestamps, with the
+  profile-defined time source used to establish their order;
 - attempted work summary;
 - evidence refs and check output;
 - residual risk;
@@ -177,6 +180,13 @@ CLI and HTTP importers should reject reports that claim completion, merge,
 deployment, billing, customer runtime, worker launch, or GitHub mutation
 authority without a separate human-approved decision/profile that explicitly
 covers that effect.
+
+The start-evidence fields illustrate an auditable ordering record, not proof
+from self-reported timestamps alone. A verifier must read the referenced
+evidence and verify its digest, invocation/receipt bindings, and ordering under
+the approved profile. Missing or unverifiable evidence cannot establish
+claim-before-start. Current expiry/revocation checks remain independently
+required; ordering evidence does not establish current authority.
 
 ## RabbitMQ Transport Envelope Posture
 

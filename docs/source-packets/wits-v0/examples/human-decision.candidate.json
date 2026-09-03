@@ -3,7 +3,16 @@
   "schemaVersion": "hacp-0.3-candidate",
   "decisionId": "decision_example_approve_successor_001",
   "packetId": "taskpkt_example_continue_review_001",
-  "findingId": "finding_example_needs_owner_decision_001",
+  "decisionRequest": {
+    "kind": "review_finding",
+    "id": "finding_example_needs_owner_decision_001",
+    "digest": {
+      "algorithm": "sha-256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "review_finding_v0.3_candidate",
+      "value": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  },
   "actor": {
     "actorId": "human:owner@example.invalid",
     "actorKind": "human",

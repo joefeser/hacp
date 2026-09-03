@@ -30,11 +30,33 @@
     "value": "2222222222222222222222222222222222222222222222222222222222222222"
   },
   "successorInvocationId": "invoke_example_docs_worker_001",
+  "startEvidence": {
+    "recordId": "start_evidence_example_001",
+    "evidenceRef": "evidence://example/successor-start-record",
+    "digest": {
+      "algorithm": "sha-256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "successor_start_evidence_v0.3_candidate",
+      "value": "3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "successorInvocationId": "invoke_example_docs_worker_001",
+    "consumptionReceiptId": "receipt_example_claim_successor_001",
+    "consumptionReceiptDigest": {
+      "algorithm": "sha-256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "consumption_receipt_v0.3_candidate",
+      "value": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "acceptedClaimReadBackAt": "2026-09-03T18:05:01Z",
+    "workStartedAt": "2026-09-03T18:05:02Z",
+    "timeSource": "profile-defined-owner-ledger"
+  },
   "attemptedWork": [
     "prepared docs-only v0.3 candidate text",
     "ran repository validation"
   ],
   "evidenceRefs": [
+    "evidence://example/successor-start-record",
     "evidence://example/git-diff-check",
     "evidence://example/hacp-cli-bridge-examples",
     "evidence://example/ack-pr-loop"

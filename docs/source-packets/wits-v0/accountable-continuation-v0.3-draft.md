@@ -237,17 +237,17 @@ The who-decides spike at `af8dbd7` records the public design intent for
 consumption receipts, extension processing, and the five-artifact demo set. It
 does not, by itself, complete the HACP v0.3 proof gate.
 
-Before this source packet is promoted beyond draft, maintainers should require
+Before this consumption-contract source packet is merged, maintainers must require
 independent readback of pinned code, tests, and receipts showing:
 
 - concurrent claim attempts admit exactly one successor;
 - restart preserves claim/decision evidence;
-- claim-before-start or claim-before-decision fails closed;
+- claim-before-start fails closed;
 - ambiguous execution is reported without pretending completion;
 - expiry and revocation ordering is deterministic and reviewable.
 
 Until that evidence is accepted by the owner, a clean docs review or ACK
-mechanical result is not a merge or release recommendation for v0.3 semantics.
+mechanical result is not a merge or release recommendation for this draft.
 
 ## Related Backlog
 

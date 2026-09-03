@@ -10,8 +10,8 @@ Use this before making the repository public.
 - [ ] Confirm schemas and examples validate against the current draft intent.
 - [ ] For HACP v0.3 candidate material, confirm owner-accepted external proof
       exists for single-consumer admission, restart readback,
-      claim-before-decision failure, ambiguous execution reporting, and
-      expiry/revocation ordering before promoting draft semantics.
+      claim-before-start failure, ambiguous execution reporting, and
+      expiry/revocation ordering before merging the consumption-contract draft.
 - [ ] Confirm issue templates or discussion settings are ready for public
       review.
 - [ ] Decide whether to publish as a personal repo first or move under an

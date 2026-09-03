@@ -92,6 +92,12 @@ admitted under the profile's concurrency rule. It does not prove provider
 execution completed, downstream effects happened exactly once, or external
 systems avoided duplicated side effects.
 
+Claim-before-start means that an accepted claim must be durably recorded and
+read back for the successor invocation before that invocation starts work.
+The failure case is successor start without durable readback of its accepted
+claim; that attempt must fail closed. Claiming before start is the required
+ordering, not the condition to reject.
+
 ## Extension Processing
 
 The current v0.1 and v0.2 base decision schemas are closed. A v0.3 continuation
@@ -121,6 +127,7 @@ receipt as more than source material:
 | Two concurrent claim attempts target the same decision/scope | Exactly one claim is accepted; the loser returns a stop response or rejection receipt. |
 | Restart after decision before successor invocation | The accepted claim remains durable and can be read back. |
 | Claim before human decision exists | Claim is rejected with `MISSING_AUTHORITY`. |
+| Successor attempts to start without durable readback of its accepted claim | Start fails closed; no successor work begins. This is the claim-before-start failure test. |
 | Ambiguous execution after accepted claim | System records admitted claim but does not claim provider completion. |
 | Expired or revoked decision | Claim is rejected; revocation/expiry ordering is visible in evidence. |
 
@@ -242,7 +249,8 @@ independent readback of pinned code, tests, and receipts showing:
 
 - concurrent claim attempts admit exactly one successor;
 - restart preserves claim/decision evidence;
-- claim-before-start fails closed;
+- the claim-before-start failure test rejects successor start without durable
+  readback of its accepted claim;
 - ambiguous execution is reported without pretending completion;
 - expiry and revocation ordering is deterministic and reviewable.
 

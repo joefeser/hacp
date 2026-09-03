@@ -10,7 +10,7 @@
   "decision": {
     "id": "decision_example_approve_successor_001",
     "digest": {
-      "algorithm": "sha-256",
+      "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
       "digestDomain": "human_decision_v0.3_candidate",
       "value": "0000000000000000000000000000000000000000000000000000000000000000"
@@ -19,7 +19,7 @@
   "consumptionReceipt": {
     "id": "receipt_example_claim_successor_001",
     "digest": {
-      "algorithm": "sha-256",
+      "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
       "digestDomain": "consumption_receipt_v0.3_candidate",
       "value": "2222222222222222222222222222222222222222222222222222222222222222"
@@ -27,7 +27,7 @@
   },
   "successorInvocationId": "invoke_example_docs_worker_001",
   "digest": {
-    "algorithm": "sha-256",
+    "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "continuation_context_v0.3_candidate",
     "value": "5555555555555555555555555555555555555555555555555555555555555555"

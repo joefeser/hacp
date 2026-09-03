@@ -4,7 +4,7 @@
   "decisionId": "decision_example_approve_successor_001",
   "packetId": "taskpkt_example_continue_review_001",
   "packetDigest": {
-    "algorithm": "sha-256",
+    "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "task_packet_v0.3_candidate",
     "value": "4444444444444444444444444444444444444444444444444444444444444444"
@@ -13,7 +13,7 @@
     "kind": "review_finding",
     "id": "finding_example_needs_owner_decision_001",
     "digest": {
-      "algorithm": "sha-256",
+      "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
       "digestDomain": "review_finding_v0.3_candidate",
       "value": "1111111111111111111111111111111111111111111111111111111111111111"
@@ -24,6 +24,14 @@
     "actorKind": "human",
     "verificationSource": "signed_human_attestation"
   },
+  "authenticationContext": {
+    "interactionChannel": "cli",
+    "secretMaterialPresent": false,
+    "authEventRef": "evidence://example/human-approval-event"
+  },
+  "evidenceRefs": [
+    "evidence://example/human-approval-attestation"
+  ],
   "decision": "approve_bounded_successor",
   "decisionReason": "The follow-up is docs-only and the expected evidence is explicit.",
   "approvedSuccessorScope": [
@@ -40,7 +48,7 @@
   ],
   "createdAt": "2026-09-03T18:00:00Z",
   "digest": {
-    "algorithm": "sha-256",
+    "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "human_decision_v0.3_candidate",
     "value": "0000000000000000000000000000000000000000000000000000000000000000"

@@ -4,15 +4,14 @@
   "stopId": "stop_example_missing_receipt_001",
   "packetId": "taskpkt_example_continue_review_001",
   "decisionId": "decision_example_approve_successor_001",
+  "profileId": "hacp-accountable-continuation-v0.3-candidate",
+  "successorInvocationId": "invoke_example_docs_worker_001",
   "stopReason": "MISSING_AUTHORITY",
   "whatDoesNotLineUp": "The continuation request requires an accountable-continuation receipt, but no accepted receipt could be read back.",
   "evidenceRefs": [
     "evidence://example/receipt-lookup-empty"
   ],
-  "minimalCorrection": "Provide or create an accepted consumption receipt under the declared continuation profile, or return to the human decision gate.",
-  "doNotContinueBasedOnIncompleteReadback": true,
-  "forbiddenEffectsTriggered": [
-    "worker_launch_authority",
-    "hidden_model_or_tool_dispatch"
-  ]
+  "minimalCorrection": "Return to the human decision gate or verify authentic issuer-side admission and current validity under an approved continuation profile; a claimant-created receipt is insufficient.",
+  "successorWorkBegan": false,
+  "boundaryStatement": "No work began in this hypothetical stop case. This candidate does not assert that any forbidden effect occurred or extend the base forbidden-effects vocabulary."
 }

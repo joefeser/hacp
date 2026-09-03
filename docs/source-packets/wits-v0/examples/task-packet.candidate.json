@@ -3,7 +3,7 @@
   "schemaVersion": "hacp-0.3-candidate",
   "packetId": "taskpkt_example_continue_review_001",
   "digest": {
-    "algorithm": "sha-256",
+    "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "task_packet_v0.3_candidate",
     "value": "4444444444444444444444444444444444444444444444444444444444444444"
@@ -16,9 +16,19 @@
     ]
   },
   "requestedScope": [
-    "prepare a docs-only patch",
-    "return evidence and residual risk"
+    "edit docs/source-packets/",
+    "run docs/config validation",
+    "return ACK and review evidence"
   ],
+  "loopPolicy": {
+    "mode": "single_pass",
+    "ceiling": 0,
+    "counter": 0,
+    "incrementTrigger": "post_return_human_approval_of_another_packet",
+    "claimAttemptLimit": 1,
+    "automaticRetryAllowed": false,
+    "boundaryStatement": "Illustrative single-pass posture, not a universal profile default or permission to reset the same session."
+  },
   "forbiddenEffects": [
     "hosted_execution",
     "hidden_model_or_tool_dispatch",

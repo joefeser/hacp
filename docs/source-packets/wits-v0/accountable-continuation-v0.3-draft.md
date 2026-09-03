@@ -80,7 +80,8 @@ A receipt should bind:
   the decision;
 - the digest domain and canonicalization basis used for comparison;
 - the permitted successor scope;
-- the successor invocation id or claim id;
+- the required successor invocation id; a claim id may additionally identify
+  the admission attempt but must not replace the invocation binding;
 - the claimant identity or stable role label;
 - trusted or profile-defined claim time;
 - expiry and revocation ordering rules;
@@ -108,6 +109,11 @@ Use this pattern instead:
 
 - keep the base human decision unchanged;
 - publish a separately versioned extension envelope or receipt;
+- bind an extension-required profile/version marker and the base decision and
+  required receipt identifiers/digests into an integrity-protected outer
+  continuation context;
+- require consumers of the continuation path to validate that context against
+  their trusted, human-approved profile before interpreting the base decision;
 - require extension-aware processing before continuation;
 - reject records when required extension data is stripped;
 - reject records when the extension profile, version, digest domain, or
@@ -116,6 +122,15 @@ Use this pattern instead:
 
 Base-only replay of an extension-required continuation must fail closed rather
 than treating the old decision as fresh authority.
+
+The outer context is mandatory input for this continuation path, not optional
+metadata inferred from the detached receipt. Removing the context must fail the
+path's required-input check; removing the marker or changing its bindings must
+fail integrity validation. A consumer that cannot process the required profile
+must stop. A bare, unchanged base decision cannot reveal a stripped extension by
+itself: it may remain valid for unrelated base processing, but is insufficient
+authority to enter this continuation path. Profiles must not permit fallback
+from a failed continuation-context check into a base-only successor start.
 
 ## Minimal Consumption Candidate
 

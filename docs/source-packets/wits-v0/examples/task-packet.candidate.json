@@ -2,6 +2,12 @@
   "recordKind": "hacp.v0_3_candidate.task_packet",
   "schemaVersion": "hacp-0.3-candidate",
   "packetId": "taskpkt_example_continue_review_001",
+  "digest": {
+    "algorithm": "sha-256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "task_packet_v0.3_candidate",
+    "value": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
   "sourceContext": {
     "humanRequest": "Review the returned finding and continue only if the owner approves the bounded follow-up.",
     "sourceRefs": [

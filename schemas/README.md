@@ -59,7 +59,12 @@ They do not:
 
 ## Authority Boundary
 
-- Approval is explicit and human-issued through `HumanDecision` records.
+- Approval is explicit and human-issued. In v0.1, the
+  [Human Decision Gate](human-decision.schema.json) records the approval. In
+  v0.2, originating approval is recorded in
+  [AuthorityPacket.approval](authority-packet.schema.json); the later
+  [HumanDecisionRecord](human-decision-record.schema.json) records the human
+  decision after the adapter report and match proof.
 - Report verification is custody/integrity evidence, not completion proof.
 - File and CLI transport can carry schema-valid artifacts without granting
   approval authority.

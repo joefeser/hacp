@@ -1,0 +1,33 @@
+{
+  "recordKind": "hacp.v0_3_candidate.consumption_receipt",
+  "schemaVersion": "hacp-0.3-candidate",
+  "receiptId": "receipt_example_claim_successor_001",
+  "decisionId": "decision_example_approve_successor_001",
+  "decisionDigest": {
+    "algorithm": "sha-256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "human_decision_v0.3_candidate",
+    "value": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "decisionRequestRef": "finding_example_needs_owner_decision_001",
+  "claim": {
+    "claimId": "claim_example_successor_001",
+    "claimant": "agent:docs-worker@example.invalid",
+    "claimedAt": "2026-09-03T18:05:00Z",
+    "successorInvocationId": "invoke_example_docs_worker_001",
+    "permittedScope": [
+      "docs-only edits",
+      "validation and report return"
+    ],
+    "admissionResult": "accepted"
+  },
+  "singleConsumerBasis": {
+    "profileId": "hacp-accountable-continuation-v0.3-candidate",
+    "idempotencyKey": "example:decision:successor:001",
+    "decisionRevision": "rev-example-001",
+    "trustedTimeSource": "profile-defined-owner-ledger",
+    "expiresAt": "2026-09-03T19:00:00Z",
+    "revokedAt": null
+  },
+  "boundaryStatement": "Accepted admission does not prove provider execution, external side effects, merge readiness, or exactly-once downstream completion."
+}

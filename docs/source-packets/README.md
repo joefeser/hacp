@@ -11,6 +11,9 @@ the normal RFC, schema, profile, and fixture process.
 ## Packets
 
 - [WITS v0 HACP source packet](wits-v0-hacp-source-packet.md)
+- [WITS v0 accountable continuation source packet](wits-v0/accountable-continuation-v0.3-draft.md)
+  for HACP v0.3 candidate consumption receipts, successor invocation evidence,
+  and fail-closed continuation boundaries.
 
 ## Boundaries
 

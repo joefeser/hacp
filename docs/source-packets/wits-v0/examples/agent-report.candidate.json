@@ -1,0 +1,22 @@
+{
+  "recordKind": "hacp.v0_3_candidate.agent_report",
+  "schemaVersion": "hacp-0.3-candidate",
+  "reportId": "report_example_successor_001",
+  "packetId": "taskpkt_example_continue_review_001",
+  "consumptionReceiptId": "receipt_example_claim_successor_001",
+  "successorInvocationId": "invoke_example_docs_worker_001",
+  "attemptedWork": [
+    "prepared docs-only v0.3 candidate text",
+    "ran repository validation"
+  ],
+  "evidenceRefs": [
+    "evidence://example/git-diff-check",
+    "evidence://example/hacp-cli-bridge-examples",
+    "evidence://example/ack-pr-loop"
+  ],
+  "residualRisks": [
+    "external concurrency proof gate must be accepted before semantic promotion"
+  ],
+  "requestedNextHumanDecision": "review_draft_packet",
+  "boundaryStatement": "The report is evidence for human review. It does not approve merge, release, or v0.3 conformance."
+}

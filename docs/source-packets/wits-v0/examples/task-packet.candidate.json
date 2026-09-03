@@ -1,0 +1,39 @@
+{
+  "recordKind": "hacp.v0_3_candidate.task_packet",
+  "schemaVersion": "hacp-0.3-candidate",
+  "packetId": "taskpkt_example_continue_review_001",
+  "sourceContext": {
+    "humanRequest": "Review the returned finding and continue only if the owner approves the bounded follow-up.",
+    "sourceRefs": [
+      "repo://example/hacp/issues/39",
+      "docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md"
+    ]
+  },
+  "approvedScope": [
+    "prepare a docs-only patch",
+    "return evidence and residual risk"
+  ],
+  "forbiddenEffects": [
+    "hosted_execution",
+    "hidden_model_or_tool_dispatch",
+    "github_mutation_by_protocol",
+    "billing_or_customer_runtime",
+    "worker_launch_authority"
+  ],
+  "expectedEvidence": [
+    "review finding",
+    "human decision",
+    "consumption receipt",
+    "agent report or stop response"
+  ],
+  "stopConditions": [
+    "missing human decision",
+    "scope mismatch",
+    "stale or revoked decision",
+    "unsupported continuation extension"
+  ],
+  "profileRefs": [
+    "hacp-accountable-continuation-v0.3-candidate"
+  ],
+  "boundaryStatement": "The packet records bounded human-approved scope. It does not launch a worker or approve a future result."
+}

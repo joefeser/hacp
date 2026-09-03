@@ -76,7 +76,8 @@ human decision schema, and it does not mutate the approved decision.
 A receipt should bind:
 
 - the unchanged human decision identifier and digest;
-- the decision-request or stop-response that asked for the decision;
+- the decision-request or stop-response identifier and digest that asked for
+  the decision;
 - the digest domain and canonicalization basis used for comparison;
 - the permitted successor scope;
 - the successor invocation id or claim id;
@@ -156,6 +157,8 @@ A report-return path should preserve:
 - packet or handoff reference;
 - decision reference and digest prefix or full digest as appropriate;
 - consumption receipt id and digest;
+- decision-request or finding reference and digest when it controlled the
+  continuation boundary;
 - successor invocation id;
 - attempted work summary;
 - evidence refs and check output;

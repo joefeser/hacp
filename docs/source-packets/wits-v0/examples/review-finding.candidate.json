@@ -13,5 +13,11 @@
   ],
   "recommendedDisposition": "request_human_decision",
   "residualRisk": "The successor invocation must be bounded to docs-only work and must not infer merge authority.",
-  "humanDecisionRequired": true
+  "humanDecisionRequired": true,
+  "digest": {
+    "algorithm": "sha-256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "review_finding_v0.3_candidate",
+    "value": "1111111111111111111111111111111111111111111111111111111111111111"
+  }
 }

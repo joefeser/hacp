@@ -1,0 +1,31 @@
+{
+  "kind": "hacp.candidate_fixture_inventory",
+  "profileId": "org.hacp.local-owner-continuation",
+  "profileVersion": "0.1-candidate",
+  "status": "required_observations_not_completed_proof",
+  "cases": [
+    { "id": "authenticated-happy-path", "expected": "one durable claim and start intent, one dry-run observation, separate result" },
+    { "id": "missing-or-wrong-authentication", "expected": "access denied before protected read, mutation or observation" },
+    { "id": "caller-forged-issuer-or-actor", "expected": "rejected, configured identity cannot be overridden" },
+    { "id": "two-overlapping-claims", "expected": "one issuer/decision slot, one winner, competing successor denied" },
+    { "id": "same-id-different-issuer", "expected": "separate configured issuer slots; no cross-issuer access or caller reassignment" },
+    { "id": "changed-binding-replay", "expected": "conflict for changed digest/request/action/expiry/profile/successor on both replay paths" },
+    { "id": "exact-claim-retry", "expected": "identical readback only, no second start or new expiry" },
+    { "id": "legacy-id-collision", "expected": "new-profile admission denied without modifying historical receipt" },
+    { "id": "unknown-profile-or-stripped-context", "expected": "no fallback, MISSING_AUTHORITY" },
+    { "id": "unsupported-action-or-parameter", "expected": "SCOPE_CONFLICT, no observation" },
+    { "id": "missing-or-corrupt-durable-readback", "expected": "denied before start intent/observation" },
+    { "id": "absent-or-corrupt-status", "expected": "UNVERIFIED_ASSUMPTION, no observation" },
+    { "id": "expiry-after-lock-wait", "expected": "STALE_PACKET, no observation" },
+    { "id": "expiry-between-intent-and-handoff", "expected": "STALE_PACKET, retained intent, no observation or retry" },
+    { "id": "revocation-before-handoff", "expected": "STALE_PACKET, zero observation, serialized status order evidenced" },
+    { "id": "concurrent-revoke-start", "expected": "order visible; earlier revocation wins; no later work enabled" },
+    { "id": "clock-rollback-or-unknown-time", "expected": "UNVERIFIED_ASSUMPTION, no observation" },
+    { "id": "crash-after-intent-before-result", "expected": "reopen retains intent, HUMAN_DECISION_REQUIRED, no automatic observation" },
+    { "id": "lost-response-or-ambiguous-observation", "expected": "durable uncertainty, HUMAN_DECISION_REQUIRED, no automatic retry" },
+    { "id": "completed-start-replay", "expected": "historical readback only, no second observation" },
+    { "id": "store-unavailable", "expected": "ENVIRONMENT_BLOCKED, no observation" },
+    { "id": "revoked-status-reset", "expected": "rejected, terminal revocation and original slot preserved" }
+  ],
+  "boundary": "Inventory only; no fixture grants approval, runs a provider, launches work or proves release readiness."
+}

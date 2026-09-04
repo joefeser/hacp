@@ -103,9 +103,21 @@ algorithm check, not a complete decision fixture:
 
 Its SHA-256 is
 `9de745ae777609863f309450a0455da5ad7a1d166f8f29734d8a2d35d569f014`.
-The base decision reference retains the base record's own declared digest and
-canonicalization; the candidate stores that complete lowercase hex value and
-does not reinterpret or rewrite the closed base record.
+The closed v0.1 Human Decision Gate does not declare a native digest. This
+candidate therefore binds it through a detached companion digest declaration
+inside the candidate decision; it does not add a field to or claim a digest for
+the base record itself. The companion hash input is UTF-8 RFC 8785 JCS of:
+
+```json
+{"domain":"org.hacp.local-owner-continuation.base-decision-reference.0.1-candidate","record":<complete-unchanged-closed-base-human-decision-record>}
+```
+
+`baseDecisionDigest` is the corresponding digest declaration with `algorithm:
+sha256`, `canonicalization: json-rfc8785-jcs`, that exact `domain`, and the full
+lowercase hex `value`. The verifier first validates the unchanged base record
+against its closed schema and matrix, then verifies this detached candidate
+binding. An implementation must not reinterpret this companion digest as a
+native base-record digest or mutate the base record to carry it.
 
 The minimal candidate record contracts are closed: unknown members fail. Common
 members on all five are `recordKind`, `profileId`, `profileVersion`, `issuerId`,

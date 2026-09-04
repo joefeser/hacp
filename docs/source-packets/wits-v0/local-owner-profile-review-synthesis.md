@@ -43,6 +43,8 @@ The follow-up candidate:
   exact action, and treats the dry-run as observation rather than a lifecycle
   transition;
 - fixes the UTF-8 JCS digest envelope and known-answer vector;
+- defines a candidate-owned detached digest for the unchanged closed base
+  decision, which has no native digest declaration;
 - closes the fixed action and minimal record contracts;
 - defines initial status, predecessor ordering and authoritative heads;
 - defines local wall/monotonic clock checks with no grace period;

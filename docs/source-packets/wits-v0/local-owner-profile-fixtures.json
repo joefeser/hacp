@@ -41,6 +41,7 @@
     { "id": "store-unavailable", "expected": "ENVIRONMENT_BLOCKED, no observation" },
     { "id": "revoked-status-reset", "expected": "rejected, terminal revocation and original slot preserved" },
     { "id": "digest-known-answer-and-domain-mismatch", "expected": "published vector matches; omitted/changed domain and alternate preimage fail" },
+    { "id": "base-decision-companion-digest", "expected": "detached candidate domain binds the complete unchanged base record; mismatch fails without claiming a native base digest" },
     { "id": "closed-base-record-remains-unchanged", "expected": "candidate context is separate and base schema still validates without extension fields" },
     { "id": "unsupported-surface-no-fallback", "expected": "legacy console, provider loop, HTTP service and callback dispatch cannot invoke candidate start" }
   ],

@@ -54,7 +54,8 @@ authority packet form multiple chains that share an authority origin.
 
 The owner-approved work unit. It defines scope, authority, allowed surfaces,
 forbidden surfaces, stop conditions, verification expectations, and the decision
-boundary. It is the origin of bounded authority.
+boundary. It records or references bounded authority that originates in a
+human approval act; the packet is not an authority source by itself.
 
 HACP 0.2 renames the v0.1 "task packet" concept to "authority packet" to make
 the authority origin explicit. v0.1 task packets and v0.2 authority packets are

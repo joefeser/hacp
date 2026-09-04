@@ -1,0 +1,55 @@
+{
+  "recordKind": "hacp.v0_3_candidate.task_packet",
+  "schemaVersion": "hacp-0.3-candidate",
+  "packetId": "taskpkt_example_continue_review_001",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "task_packet_v0.3_candidate",
+    "value": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "sourceContext": {
+    "humanRequest": "Review the returned finding and continue only if the owner approves the bounded follow-up.",
+    "sourceRefs": [
+      "repo://example/hacp/issues/39",
+      "docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md"
+    ]
+  },
+  "requestedScope": [
+    "edit docs/source-packets/",
+    "run docs/config validation",
+    "return ACK and review evidence"
+  ],
+  "loopPolicy": {
+    "mode": "single_pass",
+    "ceiling": 0,
+    "counter": 0,
+    "incrementTrigger": "post_return_human_approval_of_another_packet",
+    "claimAttemptLimit": 1,
+    "automaticRetryAllowed": false,
+    "boundaryStatement": "Illustrative single-pass posture, not a universal profile default or permission to reset the same session."
+  },
+  "forbiddenEffects": [
+    "hosted_execution",
+    "hidden_model_or_tool_dispatch",
+    "github_mutation_by_protocol",
+    "billing_or_customer_runtime",
+    "worker_launch_authority"
+  ],
+  "expectedEvidence": [
+    "review finding",
+    "human decision",
+    "consumption receipt",
+    "agent report or stop response"
+  ],
+  "stopConditions": [
+    "missing human decision",
+    "scope mismatch",
+    "stale or revoked decision",
+    "unsupported continuation extension"
+  ],
+  "profileRefs": [
+    "hacp-accountable-continuation-v0.3-candidate"
+  ],
+  "boundaryStatement": "This packet records requested bounded scope only. Authority remains inactive until a human decision records approval, and the packet does not launch a worker or approve a future result."
+}

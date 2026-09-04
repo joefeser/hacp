@@ -2,9 +2,9 @@
 
 ## Status
 
-These schemas are a **working draft** for HACP v0.1-style artifact shapes.
-They are public-safe companion artifacts for documentation and validation. They
-are not a final external standard.
+These schemas are **working draft** companion artifacts for HACP v0.1 and HACP
+0.2 record shapes. They are public-safe documentation and validation aids, not
+a final external standard.
 
 Need a concise enterprise explainer before schema details? See
 [../adoption-primer.md](../adoption-primer.md).
@@ -17,12 +17,25 @@ Need to choose a concrete stop reason? See
 
 ## Versioning
 
-- Profile/version target: `hacp-base-draft` / `v0.1-draft`
+- Profile/version targets:
+  - `hacp-base-draft` / `v0.1-draft` for the original task-packet,
+    agent-report, human-decision-gate, review-finding, evidence-set,
+    loop-policy, and stop-response shapes.
+  - `hacp-base-draft` / `v0.2-draft` for the chain-of-custody authority packet,
+    handoff package, adapter report, match proof, and human decision record
+    shapes.
 - Schema dialect: JSON Schema Draft 2020-12
-- `$id` namespace: `https://hacp.example/schemas/v0.1-draft/`
+- `$id` namespaces:
+  - `https://hacp.example/schemas/v0.1-draft/`
+  - `https://hacp.example/schemas/v0.2-draft/`
 
 Versioning for future phases should preserve backward-readable draft history
 rather than rewriting old identifiers.
+
+HACP v0.1 and HACP 0.2 records may coexist as public draft artifacts, but they
+are not interchangeable inside one custody chain unless a profile publishes an
+explicit translation record. HACP v0.3 source-packet examples are candidate
+sketches only until a future schema or profile promotes them.
 
 ## Draft Limitations
 
@@ -46,12 +59,19 @@ They do not:
 
 ## Authority Boundary
 
-- Approval is explicit and human-issued through `HumanDecision` records.
+- Approval is explicit and human-issued. In v0.1, the
+  [Human Decision Gate](human-decision.schema.json) records the approval. In
+  v0.2, originating approval is recorded in
+  [AuthorityPacket.approval](authority-packet.schema.json); the later
+  [HumanDecisionRecord](human-decision-record.schema.json) records the human
+  decision after the adapter report and match proof.
 - Report verification is custody/integrity evidence, not completion proof.
 - File and CLI transport can carry schema-valid artifacts without granting
   approval authority.
 
 ## Schema Index
+
+### HACP v0.1 Draft Shapes
 
 - [task-packet.schema.json](task-packet.schema.json)
 - [agent-report.schema.json](agent-report.schema.json)
@@ -60,6 +80,14 @@ They do not:
 - [stop-response.schema.json](stop-response.schema.json)
 - [review-finding.schema.json](review-finding.schema.json)
 - [loop-policy.schema.json](loop-policy.schema.json)
+
+### HACP 0.2 Draft Chain-of-Custody Shapes
+
+- [authority-packet.schema.json](authority-packet.schema.json)
+- [handoff-package.schema.json](handoff-package.schema.json)
+- [adapter-report.schema.json](adapter-report.schema.json)
+- [match-proof.schema.json](match-proof.schema.json)
+- [human-decision-record.schema.json](human-decision-record.schema.json)
 
 ## Evidence Field Compatibility
 

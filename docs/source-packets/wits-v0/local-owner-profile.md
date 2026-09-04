@@ -57,20 +57,74 @@ digest/domain, request reference, exact canonical action, approval time and
 explicit expiry. Scope is exact equality for this candidate; subset inference,
 natural-language equivalence and multi-action expansion are unsupported.
 
-The action is a JSON object containing a fixed model-free dry-run operation ID
-and its declared parameters. Its grammar is closed by the implementation's
-pinned adapter and declared in proof; unknown operation/parameter fails closed.
-No operation may select a command, provider, network endpoint or code callback
-from untrusted input. The effect is a bounded local test observation, not an
-external side effect or a report claiming real work completed.
+The referenced base Human Decision Gate MUST pass the closed v0.1 schema and
+published decision-matrix checks. For this candidate it MUST be a distinct
+human `start_work` act for the same packet, validated as `approved` to
+`in_progress`, with `actor_kind: human`, a trusted actor verification source,
+and evidence that identifies this exact candidate decision and canonical
+action. The verifier resolves that evidence through its owner-controlled local
+store; a caller-supplied reference, authenticated service request, unrelated
+`approve_next_packet`, automated event, cancellation, closeout or reused human
+act is not applicable authority. The dry-run observation does not create or
+change base lifecycle status. It only tests whether an already-valid base
+`start_work` decision and this extension remain admissible.
+
+The only action is the exact JSON value
+`{"operationId":"observe_fixed_payload","parameters":{"payload":"HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"}}`.
+No additional operation, parameter or value is allowed. The implementation may
+only compare and synchronously return that fixed payload; it may not interpret
+it as a command, provider, network endpoint or code callback. The effect is a
+bounded local test observation, not an external side effect or a report
+claiming real work completed.
 
 All new profile records use full SHA-256 digests, domain separation, and RFC
-8785 JCS over the complete record with its own top-level digest omitted.
-Referenced record digests remain in that preimage. A digest declaration is
-`algorithm: sha256`, `canonicalization: json-rfc8785-jcs`, a versioned domain,
-and full hex value. Domain names are `<profile-id>.<record-kind>.0.1-candidate`.
-Required record kinds are decision, claim, status-event, start-intent, and
-start-result. Unknown domain/version or any mismatched binding denies start.
+8785 JCS. The exact hash input is the UTF-8 encoding, with no BOM or trailing
+newline, of this envelope:
+
+```json
+{"domain":"<profile-id>.<record-kind>.0.1-candidate","record":<complete-record-with-top-level-digest-omitted>}
+```
+
+The `domain` member is therefore inside the hashed preimage. Referenced record
+digests remain inside `record`. A digest declaration, stored outside the hash
+input it describes, is `algorithm: sha256`, `canonicalization:
+json-rfc8785-jcs`, the same versioned `domain`, and a 64-character lowercase
+hex `value`. Required record kinds are `decision`, `claim`, `status-event`,
+`start-intent`, and `start-result`; every record contains `recordKind`,
+`profileId`, and `profileVersion`. Unknown domain/version or any mismatched
+binding denies start.
+
+This small known-answer vector fixes envelope interpretation; it is a digest
+algorithm check, not a complete decision fixture:
+
+```json
+{"domain":"org.hacp.local-owner-continuation.decision.0.1-candidate","record":{"decisionId":"decision-example-001","issuerId":"issuer-example","profileId":"org.hacp.local-owner-continuation","profileVersion":"0.1-candidate","recordKind":"decision"}}
+```
+
+Its SHA-256 is
+`9de745ae777609863f309450a0455da5ad7a1d166f8f29734d8a2d35d569f014`.
+The base decision reference retains the base record's own declared digest and
+canonicalization; the candidate stores that complete lowercase hex value and
+does not reinterpret or rewrite the closed base record.
+
+The minimal candidate record contracts are closed: unknown members fail. Common
+members on all five are `recordKind`, `profileId`, `profileVersion`, `issuerId`,
+`decisionId`, and `digest`. In addition:
+
+| Kind | Additional required members |
+| --- | --- |
+| `decision` | `humanEventRef`, `baseDecisionRef`, `baseDecisionDigest`, `requestRef`, `action`, `approvedAt`, `expiresAt` |
+| `claim` | `decisionDigest`, `claimId`, `attemptKey`, `successorId`, `requestRef`, `action`, `claimedAt`, `expiresAt` |
+| `status-event` | `eventId`, `targetKind`, `targetDigest`, `sequence`, `previousDigest`, `state`, `recordedAt`, `actorId` |
+| `start-intent` | `claimDigest`, `intentId`, `successorId`, `action`, `admittedAt`, `decisionStatusHead`, `claimStatusHead`, `clockSample` |
+| `start-result` | `intentDigest`, `resultId`, `outcome`, `observedAt`, `observationDigest` |
+
+`outcome` is exactly `completed` or `uncertain`; absence is not an outcome.
+`clockSample` contains the accepted UTC wall timestamp and monotonic reading,
+never a caller timestamp. IDs and references are non-empty strings; timestamps
+use the expiry format below; sequence is a non-negative integer; digest members
+use the declaration above. The implementation proof MUST publish executable
+schemas matching this table before claiming candidate support.
 Expiry is mandatory on decision and claim, finite RFC3339 UTC with millisecond
 precision and a valid calendar date; null/absent, invalid and expired values
 fail closed. Receipt expiry cannot exceed decision expiry.
@@ -92,6 +146,17 @@ append-only, digest-bound events for the exact decision/claim. Revocation is
 terminal in this candidate: no un-revoke or status reset. Never infer active
 status from an absent row, a caller snapshot, a receipt's old accepted flag,
 or a self-supplied URI. Both decision and claim must have known active status.
+
+Each decision and claim is created with an initial `active` status event in the
+same serialized mutation that records it. A status event contains `eventId`,
+`targetKind` (`decision` or `claim`), `targetDigest`, strictly increasing
+`sequence`, `previousDigest` (null only at sequence 0), `state` (`active` or
+`revoked`), `recordedAt`, configured issuer/actor bindings, and its own digest.
+The datastore retains an authoritative head digest for each target and changes
+that head atomically with the append. Verification walks sequence 0 through the
+head, checks every predecessor/digest/target binding, rejects gaps, forks,
+truncation, multiple heads or a head not matching the stored authoritative
+head, and derives current state only from the verified final event.
 
 A guarded start requires a fresh authenticated request to this verifier, exact
 decision/claim/successor/action bindings, durable receipt readback and an unused
@@ -115,9 +180,18 @@ local handoff; database atomicity alone does not make external execution atomic.
 If the implementation cannot enforce this local interval, it must deny start,
 not rename an earlier snapshot as an immediate-before-start check. Revocation
 ordered before the handoff wins; later revocation cannot undo an observation
-already made, and cannot authorize further work. The status/clock assumptions
-and order must be inspectable in proof. Clock rollback/unknown freshness blocks;
-no caller-controlled clock override exists outside explicit test injection.
+already made, and cannot authorize further work. The accepted clock is an
+owner-configured local UTC wall clock paired with a monotonic process clock.
+The verifier stores the latest accepted wall-clock sample in the authoritative
+store. Within the uninterrupted guarded call it samples both clocks after
+acquiring the guard and again immediately before observation; wall and
+monotonic samples MUST NOT move backward, and the wall sample MUST NOT precede
+the durable prior wall sample. Every expiry comparison uses the later wall
+sample and has no grace period. Unavailable clocks, invalid samples, rollback,
+inability to read/update the durable sample, or inability to keep the same
+guarded process interval makes freshness unknown and blocks. No caller-controlled
+clock override exists outside explicit test injection, and restart never
+resumes an existing intent.
 
 Process interruption, lost response, existing start intent, unknown outcome,
 restarted process or any recovery request routes to human inspection. No
@@ -195,3 +269,5 @@ independent reviewers with identical pins, no priming between them, and an
 evidence-based synthesis. Available Codex reviewers can perform the bounded
 reviews; no additional paid Kiro permission exists. Release/deployment/merge
 are not authorized. Proof acceptance and any release decision remain human.
+The initial independent findings and their bounded repair disposition are in
+[the review synthesis](local-owner-profile-review-synthesis.md).

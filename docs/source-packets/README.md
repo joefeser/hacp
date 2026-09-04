@@ -14,6 +14,9 @@ the normal RFC, schema, profile, and fixture process.
 - [WITS v0 accountable continuation source packet](wits-v0/accountable-continuation-v0.3-draft.md)
   for HACP v0.3 candidate consumption receipts, successor invocation evidence,
   and fail-closed continuation boundaries.
+- [Local owner continuation profile candidate](wits-v0/local-owner-profile.md)
+  narrows the approved local verifier/issuer/start policy; implementation proof
+  and explicit acceptance remain separate gates.
 
 ## Boundaries
 

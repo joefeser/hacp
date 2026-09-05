@@ -56,6 +56,9 @@ closed clock-sample representation, deterministic completed/uncertain
 observation digest, and one restart rule. Those repairs retain explicit owner
 selection, use canonical decimal-string monotonic nanoseconds, assert no digest
 for an uncertain observation, and route every restart to human inspection.
+Fresh-head Codex review then identified a contradictory clock sentence; the
+final repair assigns the acquisition sample to the post-lock check and the
+second sample to the immediate pre-observation recheck.
 
 These dispositions preserve the approved policy. Delegation, remote trust,
 external dispatch, automatic recovery/reexecution, migration and relaxed clock

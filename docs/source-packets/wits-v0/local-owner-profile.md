@@ -229,8 +229,10 @@ The verifier stores the latest accepted wall-clock sample in the authoritative
 store. Within the uninterrupted guarded call it samples both clocks after
 acquiring the guard and again immediately before observation; wall and
 monotonic samples MUST NOT move backward, and the wall sample MUST NOT precede
-the durable prior wall sample. Every expiry comparison uses the later wall
-sample and has no grace period. Unavailable clocks, invalid samples, rollback,
+the durable prior wall sample. The initial post-lock expiry check uses the
+acquisition `clockSample`; the immediate pre-observation expiry recheck uses the
+later `observationClockSample`. Both use `now >= expiry` with no grace period.
+Unavailable clocks, invalid samples, rollback,
 inability to read/update the durable sample, or inability to keep the same
 guarded process interval makes freshness unknown and blocks. No caller-controlled
 clock override exists outside explicit test injection, and restart never

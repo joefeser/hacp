@@ -2,6 +2,12 @@
 
 Status: HACP v0.3 candidate source packet.
 
+The [local owner profile candidate](local-owner-profile.md) is a separately
+pinned, narrow application of the owner's verifier/issuer/start policy. It does
+not resolve policy for every possible continuation profile or establish
+implementation proof. The illustrative sketches below remain historical
+candidate shapes, not interchangeable records for that local profile.
+
 Source material:
 
 - [WITS v0 HACP source packet](../wits-v0-hacp-source-packet.md);

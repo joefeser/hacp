@@ -59,6 +59,10 @@ for an uncertain observation, and route every restart to human inspection.
 Fresh-head Codex review then identified a contradictory clock sentence; the
 final repair assigns the acquisition sample to the post-lock check and the
 second sample to the immediate pre-observation recheck.
+An additional exact-head review found that an uncorrelated monotonic sample
+could not catch a stalled wall clock. The contract now records a monotonic
+expiry deadline derived at acquisition and rejects the observation when either
+the wall expiry or monotonic deadline is reached.
 
 These dispositions preserve the approved policy. Delegation, remote trust,
 external dispatch, automatic recovery/reexecution, migration and relaxed clock

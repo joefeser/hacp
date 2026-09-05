@@ -23,7 +23,7 @@ and fields defined below, but no base authority or decision vocabulary. Its
 authority impact is limited to testing an already-valid human `start_work`
 decision through the fixed local observation. It removes optional recovery and
 all action choice, confirms the forbidden effects in this document, adds the
-43 observations in the adjacent inventory, and uses the compatibility and
+44 observations in the adjacent inventory, and uses the compatibility and
 migration rules below. Consumers MUST read this declaration before processing
 candidate records and reject a missing, changed, deprecated or revoked pin.
 
@@ -141,7 +141,7 @@ members on all five are `recordKind`, `profileId`, `profileVersion`, `issuerId`,
 | `decision` | `humanEventRef`, `baseDecisionRef`, `baseDecisionDigest`, `requestRef`, `action`, `approvedAt`, `expiresAt` |
 | `claim` | `decisionDigest`, `claimId`, `attemptKey`, `successorId`, `requestRef`, `action`, `claimedAt`, `expiresAt` |
 | `status-event` | `eventId`, `targetKind`, `targetDigest`, `sequence`, `previousDigest`, `state`, `recordedAt`, `actorId` |
-| `start-intent` | `claimDigest`, `intentId`, `successorId`, `action`, `admittedAt`, `decisionStatusHead`, `claimStatusHead`, `clockSample` |
+| `start-intent` | `claimDigest`, `intentId`, `successorId`, `action`, `admittedAt`, `decisionStatusHead`, `claimStatusHead`, `clockSample`, `expiryDeadlineMonotonicNanoseconds` |
 | `start-result` | `intentDigest`, `resultId`, `outcome`, `observedAt`, `observationClockSample`, `observationDigest` |
 
 `outcome` is exactly `completed` or `uncertain`; absence is not an outcome.
@@ -156,6 +156,14 @@ by the caller. `admittedAt` equals `clockSample.wallTime`; `observedAt` equals
 sequence is a non-negative integer; digest members use the declaration above. The
 implementation proof MUST publish executable schemas matching this table
 before claiming candidate support.
+
+`expiryDeadlineMonotonicNanoseconds` uses the same canonical decimal-string
+representation. After the acquisition sample passes `wallTime < expiresAt`,
+for both records, `effectiveExpiresAt` is the earlier of decision and claim
+expiry. The verifier derives the deadline as acquisition
+`monotonicNanoseconds` plus the exact non-negative difference from acquisition
+`wallTime` to `effectiveExpiresAt`, converted from milliseconds to nanoseconds.
+The derived value is recorded in the start intent; callers cannot supply it.
 
 For `completed`, `observationDigest` is a digest declaration for UTF-8 RFC 8785
 JCS of this exact observation envelope:
@@ -231,8 +239,11 @@ acquiring the guard and again immediately before observation; wall and
 monotonic samples MUST NOT move backward, and the wall sample MUST NOT precede
 the durable prior wall sample. The initial post-lock expiry check uses the
 acquisition `clockSample`; the immediate pre-observation expiry recheck uses the
-later `observationClockSample`. Both use `now >= expiry` with no grace period.
-Unavailable clocks, invalid samples, rollback,
+later `observationClockSample`. The second check denies observation when either
+its `wallTime >= effectiveExpiresAt` or its `monotonicNanoseconds >=
+expiryDeadlineMonotonicNanoseconds`; equality denies and there is no grace
+period. This monotonic deadline makes elapsed time authoritative if wall time
+stalls while the guard is held. Unavailable clocks, invalid samples, rollback,
 inability to read/update the durable sample, or inability to keep the same
 guarded process interval makes freshness unknown and blocks. No caller-controlled
 clock override exists outside explicit test injection, and restart never

@@ -34,6 +34,7 @@
     { "id": "concurrent-revoke-start", "expected": "order visible; earlier revocation wins; no later work enabled" },
     { "id": "two-overlapping-starts", "expected": "one durable intent and at most one dry-run observation; loser stops with retained state" },
     { "id": "clock-rollback-or-unknown-time", "expected": "UNVERIFIED_ASSUMPTION, no observation" },
+    { "id": "wall-clock-stall-crosses-monotonic-deadline", "expected": "STALE_PACKET when monotonic deadline is reached even if wallTime remains before expiry, no observation" },
     { "id": "restart-after-claim-before-intent", "expected": "historical readback only, HUMAN_DECISION_REQUIRED, no start or automatic continuation" },
     { "id": "crash-after-intent-before-result", "expected": "reopen retains intent, HUMAN_DECISION_REQUIRED, no automatic observation" },
     { "id": "lost-response-or-ambiguous-observation", "expected": "durable uncertainty, HUMAN_DECISION_REQUIRED, no automatic retry" },

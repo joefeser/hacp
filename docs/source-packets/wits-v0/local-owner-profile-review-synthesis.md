@@ -51,6 +51,12 @@ The follow-up candidate:
 - adds distinct authority, expiry, revocation, status-integrity, restart,
   start-race, legacy-race, digest and unsupported-surface observations.
 
+Hosted review on PR #43 additionally required the RFC-0009 `active` declaration,
+closed clock-sample representation, deterministic completed/uncertain
+observation digest, and one restart rule. Those repairs retain explicit owner
+selection, use canonical decimal-string monotonic nanoseconds, assert no digest
+for an uncertain observation, and route every restart to human inspection.
+
 These dispositions preserve the approved policy. Delegation, remote trust,
 external dispatch, automatic recovery/reexecution, migration and relaxed clock
 acceptance remain unsupported and would require separate owner decisions.

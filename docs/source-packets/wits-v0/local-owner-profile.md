@@ -6,13 +6,26 @@ Not a released profile, base conformance claim, or execution authority.
 ## Identity And Scope
 
 - Candidate identity: `org.hacp.local-owner-continuation`, version `0.1-candidate`.
+- Profile status: `active`, only for explicit owner-approved candidate
+  processing under this declaration. This status does not mean released,
+  conformant, implemented, deployed or generally enabled.
 - Publisher: HACP maintainers; deployment issuer: explicitly configured owner.
 - Base: `hacp-base-draft / v0.1-draft`, unchanged closed base records.
 - Discovery: this document and its adjacent fixture inventory, pinned by Git
   commit and SHA-256 before processing. Unknown identity/version fails closed.
-- No active/revoked profile registry entry is published by this source packet.
-  A consuming implementation must explicitly select this candidate under owner
-  approval; a filename, hash, or successful validation is not that approval.
+- Discovery is by bundled artifact plus the integrity pin above; no registry
+  entry or stable release URL is published. A consuming implementation must
+  explicitly select this active candidate under owner approval; a filename,
+  hash, status or successful validation is not that approval.
+
+This section is the RFC-0009 profile declaration. It adds the five record kinds
+and fields defined below, but no base authority or decision vocabulary. Its
+authority impact is limited to testing an already-valid human `start_work`
+decision through the fixed local observation. It removes optional recovery and
+all action choice, confirms the forbidden effects in this document, adds the
+43 observations in the adjacent inventory, and uses the compatibility and
+migration rules below. Consumers MUST read this declaration before processing
+candidate records and reject a missing, changed, deprecated or revoked pin.
 
 The owner approved: an owner-controlled authenticated verifier, one consumption
 slot per issuer plus decision ID, and fail-closed expiry/revocation checks
@@ -129,14 +142,32 @@ members on all five are `recordKind`, `profileId`, `profileVersion`, `issuerId`,
 | `claim` | `decisionDigest`, `claimId`, `attemptKey`, `successorId`, `requestRef`, `action`, `claimedAt`, `expiresAt` |
 | `status-event` | `eventId`, `targetKind`, `targetDigest`, `sequence`, `previousDigest`, `state`, `recordedAt`, `actorId` |
 | `start-intent` | `claimDigest`, `intentId`, `successorId`, `action`, `admittedAt`, `decisionStatusHead`, `claimStatusHead`, `clockSample` |
-| `start-result` | `intentDigest`, `resultId`, `outcome`, `observedAt`, `observationDigest` |
+| `start-result` | `intentDigest`, `resultId`, `outcome`, `observedAt`, `observationClockSample`, `observationDigest` |
 
 `outcome` is exactly `completed` or `uncertain`; absence is not an outcome.
-`clockSample` contains the accepted UTC wall timestamp and monotonic reading,
-never a caller timestamp. IDs and references are non-empty strings; timestamps
-use the expiry format below; sequence is a non-negative integer; digest members
-use the declaration above. The implementation proof MUST publish executable
-schemas matching this table before claiming candidate support.
+`clockSample` and `observationClockSample` are closed JSON objects with exactly
+`wallTime` and `monotonicNanoseconds`. `wallTime` uses the timestamp format below.
+`monotonicNanoseconds` is a non-negative base-10 integer encoded as the JSON
+string `"0"` or a string matching `[1-9][0-9]*`, with no sign, leading zero,
+fraction or exponent; implementations compare it as arbitrary-precision
+nanoseconds from one process-local monotonic clock. Neither sample is supplied
+by the caller. `admittedAt` equals `clockSample.wallTime`; `observedAt` equals
+`observationClockSample.wallTime`. IDs and references are non-empty strings;
+sequence is a non-negative integer; digest members use the declaration above. The
+implementation proof MUST publish executable schemas matching this table
+before claiming candidate support.
+
+For `completed`, `observationDigest` is a digest declaration for UTF-8 RFC 8785
+JCS of this exact observation envelope:
+
+```json
+{"domain":"org.hacp.local-owner-continuation.observation.0.1-candidate","record":{"operationId":"observe_fixed_payload","payload":"HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"}}
+```
+
+Its SHA-256 is
+`2291610e38245f88bac99efc480897600b1f322a4004d0113487033a3b13de5e`.
+For `uncertain`, `observationDigest` is JSON null: no observation is asserted
+or hashed. Any other observation member, domain, payload or digest shape fails.
 Expiry is mandatory on decision and claim, finite RFC3339 UTC with millisecond
 precision and a valid calendar date; null/absent, invalid and expired values
 fail closed. Receipt expiry cannot exceed decision expiry.
@@ -206,7 +237,8 @@ clock override exists outside explicit test injection, and restart never
 resumes an existing intent.
 
 Process interruption, lost response, existing start intent, unknown outcome,
-restarted process or any recovery request routes to human inspection. No
+restarted process (including restart after claim but before intent) or any
+recovery request routes to human inspection. No
 automatic recovery, stale-lock reclaim, retry, receipt reset, new successor,
 or exactly-once external-effect promise. Store reopen for historical readback
 is supported; resume/reexecution is not. A new human decision is needed for

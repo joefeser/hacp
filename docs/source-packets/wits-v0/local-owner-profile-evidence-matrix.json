@@ -130,7 +130,8 @@
       "status": "observed",
       "receiptKind": "process",
       "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/7/receipt",
-      "receiptSha256": "2e73b76d33b7c1763cd38db6365a8e941c370c0f90227ec68005902c310e7564"
+      "receiptSha256": "2e73b76d33b7c1763cd38db6365a8e941c370c0f90227ec68005902c310e7564",
+      "independentReceiptSha256": "9491c26fb250ad4e6d9197f3f3ef78e37e4f2c841635df31e3e8050ebae05b21"
     },
     {
       "id": "same-id-different-issuer",
@@ -165,7 +166,8 @@
       "status": "observed",
       "receiptKind": "process",
       "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/12/receipt",
-      "receiptSha256": "b9f1d7d3de1d86190fb18a5e5078ea06b716ea30657e10de12ecaab1a9881e90"
+      "receiptSha256": "b9f1d7d3de1d86190fb18a5e5078ea06b716ea30657e10de12ecaab1a9881e90",
+      "independentReceiptSha256": "b1fe842d1ae92e6846f9da15404b78bd3c25900c1ab1e62a862a33fa05b310cd"
     },
     {
       "id": "unknown-profile-or-stripped-context",
@@ -263,21 +265,24 @@
       "status": "observed",
       "receiptKind": "process",
       "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/26/receipt",
-      "receiptSha256": "d29ea90cbd229034c44f18cc220d738f557206eba5b310aad322a233471e54db"
+      "receiptSha256": "d29ea90cbd229034c44f18cc220d738f557206eba5b310aad322a233471e54db",
+      "independentReceiptSha256": "c4a276b11864feb600aac937ebd61b262ba9e45800952b9225609c02b742d6be"
     },
     {
       "id": "concurrent-revoke-start",
       "status": "observed",
       "receiptKind": "process",
       "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/27/receipt",
-      "receiptSha256": "2c0d23e04c3937675eaebcc0342c9c1e363e5a1fc0c06a629ff5500c930389d6"
+      "receiptSha256": "2c0d23e04c3937675eaebcc0342c9c1e363e5a1fc0c06a629ff5500c930389d6",
+      "independentReceiptSha256": "4829e9ecf21329f5f9e5f14144f577a53ac243a3da092da0720268d6770c6f48"
     },
     {
       "id": "two-overlapping-starts",
       "status": "observed",
       "receiptKind": "process",
       "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/28/receipt",
-      "receiptSha256": "41db4b5813c9b3039d8f0e012a4c47391c5b6acbf4b7733c0670d133412baaf6"
+      "receiptSha256": "41db4b5813c9b3039d8f0e012a4c47391c5b6acbf4b7733c0670d133412baaf6",
+      "independentReceiptSha256": "49b065a496672590619ce888af20dee67249c15d8616805eee35431a52627a41"
     },
     {
       "id": "clock-rollback-or-unknown-time",
@@ -298,14 +303,16 @@
       "status": "observed",
       "receiptKind": "process",
       "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/31/receipt",
-      "receiptSha256": "4d6aefb5fd89e56f9e206c58980b4acb9b8abfae644b553af9f76ccd58b5539b"
+      "receiptSha256": "4d6aefb5fd89e56f9e206c58980b4acb9b8abfae644b553af9f76ccd58b5539b",
+      "independentReceiptSha256": "4d6aefb5fd89e56f9e206c58980b4acb9b8abfae644b553af9f76ccd58b5539b"
     },
     {
       "id": "crash-after-intent-before-result",
       "status": "observed",
       "receiptKind": "process",
       "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/32/receipt",
-      "receiptSha256": "5a1f7ba26fd529f12c1c6f2eaca4c39ea77becefc2812c522cd96c94c38d63e0"
+      "receiptSha256": "5a1f7ba26fd529f12c1c6f2eaca4c39ea77becefc2812c522cd96c94c38d63e0",
+      "independentReceiptSha256": "2104c8ea435113a26060796f2beba0fd517b29acd8ec4c6f9f235d04c8cc135d"
     },
     {
       "id": "lost-response-or-ambiguous-observation",

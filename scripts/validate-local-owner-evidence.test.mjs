@@ -121,6 +121,16 @@ for (const source of ['CI', 'local']) {
     });
   }, /process evidence two-overlapping-claims/);
 
+  if (source === 'local') {
+    rejects('rejects fabricated independent process receipt contents', (matrix, editProof) => {
+      editProof('local', (proof) => {
+        const receipt = proof.inventory.find((entry) => entry.id === 'two-overlapping-claims').receipt;
+        receipt.test = 'fabricated placeholder';
+        receipt.evidence = { fabricated: true };
+      });
+    }, /local rerun process receipt two-overlapping-claims/);
+  }
+
   rejects(`rejects an inconsistent ${source} unit count`, (matrix, editProof) => {
     editProof(source, (proof, metadata) => {
       proof.testRun.receiptCount = metadata.unitReceipts = 36;

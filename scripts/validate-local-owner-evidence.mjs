@@ -131,8 +131,16 @@ for (const [index, fixture] of fixtures.cases.entries()) {
     if (receiptKind === 'process') {
       assert.ok(caseReceipt.evidence && typeof caseReceipt.evidence === 'object'
         && Object.keys(caseReceipt.evidence).length > 0, `${label} process evidence ${fixture.id}`);
+      if (label === 'local rerun') {
+        assert.match(entry.independentReceiptSha256, /^[a-f0-9]{64}$/,
+          `local rerun process receipt digest ${fixture.id}`);
+        assert.equal(sha256(JSON.stringify(caseReceipt)), entry.independentReceiptSha256,
+          `local rerun process receipt ${fixture.id}`);
+      }
     } else {
       assert.equal(Object.hasOwn(caseReceipt, 'evidence'), false, `${label} unit receipt ${fixture.id}`);
+      assert.equal(Object.hasOwn(entry, 'independentReceiptSha256'), false,
+        `unit matrix receipt ${fixture.id}`);
     }
   }
   counts[receiptKind] += 1;

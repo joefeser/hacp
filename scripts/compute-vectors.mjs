@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { pathToFileURL } from 'node:url';
 
 const repoRoot = process.cwd();
 const writeMode = process.argv.includes('--write');
@@ -219,7 +220,24 @@ function buildInvalidFixtures(valid) {
   splicedStop.packetId = 'taskpkt_unrelated_001';
   splicedStop.digest = digestRecord('stop-response', splicedStop);
 
+  const leapSecondExpiry = structuredClone(valid['consumption-receipt']);
+  leapSecondExpiry.singleConsumerBasis.receiptExpiresAt = '2025-12-31T23:59:60Z';
+  leapSecondExpiry.digest = digestRecord('consumption-receipt', leapSecondExpiry);
+
+  const fractionalClaim = structuredClone(valid['consumption-receipt']);
+  fractionalClaim.claim.claimedAt = '2026-09-03T18:05:01.0001Z';
+  fractionalClaim.digest = digestRecord('consumption-receipt', fractionalClaim);
+
+  const reportBeforeStart = structuredClone(valid['agent-report']);
+  reportBeforeStart.returnedAt = '2026-09-03T18:04:00Z';
+  reportBeforeStart.digest = digestRecord('agent-report', reportBeforeStart);
+
   return {
+    'agent-report.missing-context-record.invalid.json': structuredClone(valid['agent-report']),
+    'agent-report.missing-decision-record.invalid.json': structuredClone(valid['agent-report']),
+    'consumption-receipt.leap-second-expiry.invalid.json': leapSecondExpiry,
+    'consumption-receipt.fractional-claim-order.invalid.json': fractionalClaim,
+    'agent-report.return-before-start.invalid.json': reportBeforeStart,
     'human-decision.digest-mismatch.invalid.json': digestMismatch,
     'agent-report.stripped-context.invalid.json': strippedContext,
     'continuation-context.stale-replay.invalid.json': staleReplay,
@@ -268,6 +286,26 @@ function sameDecisionRequest(left, right) {
     && equalDigest(left?.digest, right?.digest);
 }
 
+// Keep fractional seconds separate: Date.parse truncates them to milliseconds.
+// Unsupported instants (including leap seconds) cannot prove gate ordering.
+function parseTimestamp(value) {
+  const fraction = typeof value === 'string'
+    ? value.match(/\.(\d+)/)
+    : null;
+  const whole = typeof value === 'string'
+    ? Date.parse(fraction ? value.replace(fraction[0], '') : value)
+    : NaN;
+  return Number.isFinite(whole) ? { whole, fraction: fraction?.[1] || '' } : null;
+}
+
+function compareTimestamps(left, right) {
+  if (left.whole !== right.whole) return Math.sign(left.whole - right.whole);
+  const width = Math.max(left.fraction.length, right.fraction.length);
+  const a = left.fraction.padEnd(width, '0');
+  const b = right.fraction.padEnd(width, '0');
+  return a < b ? -1 : a > b ? 1 : 0;
+}
+
 function validateSemantics(records, context = {}) {
   const diagnostics = [];
   const add = (code, message) => diagnostics.push({ code, message });
@@ -278,6 +316,40 @@ function validateSemantics(records, context = {}) {
   const continuation = records['continuation-context'];
   const report = records['agent-report'];
   const stop = records['stop-response'];
+
+  const dependencies = {
+    'review-finding': ['task-packet'],
+    'human-decision': ['task-packet'],
+    'consumption-receipt': ['task-packet', 'human-decision'],
+    'continuation-context': ['task-packet', 'human-decision', 'consumption-receipt'],
+    'agent-report': ['task-packet', 'human-decision', 'consumption-receipt', 'continuation-context'],
+    'stop-response': ['task-packet']
+  };
+  for (const [kind, required] of Object.entries(dependencies)) {
+    if (!records[kind]) continue;
+    for (const dependency of required) {
+      if (!records[dependency]) add('MISSING_REQUIRED_RECORD', `${kind} requires ${dependency} for chain validation.`);
+    }
+  }
+
+  const timestamps = {
+    decisionCreated: decision?.createdAt,
+    claimed: receipt?.claim?.claimedAt,
+    expires: receipt?.singleConsumerBasis?.receiptExpiresAt,
+    readBack: report?.startEvidence?.acceptedClaimReadBackAt,
+    started: report?.startEvidence?.workStartedAt,
+    returned: report?.returnedAt
+  };
+  const times = {};
+  for (const [name, value] of Object.entries(timestamps)) {
+    if (value === undefined) continue; // Missing fields are schema errors.
+    times[name] = parseTimestamp(value);
+    if (!times[name]) add('TIMESTAMP_UNCOMPARABLE', `${name} cannot establish deterministic timestamp ordering.`);
+  }
+  const after = (left, right) => times[left] && times[right]
+    && compareTimestamps(times[left], times[right]) > 0;
+  const atOrBefore = (left, right) => times[left] && times[right]
+    && compareTimestamps(times[left], times[right]) <= 0;
 
   for (const [kind, record] of Object.entries(records)) {
     if (record?.digest && !equalDigest(record.digest, digestRecord(kind, record))) {
@@ -310,8 +382,11 @@ function validateSemantics(records, context = {}) {
     if (receipt.claim.permittedScope.some((item) => !approved.has(item))) {
       add('SCOPE_EXPANSION', 'Consumption receipt claim exceeds the approved successor scope.');
     }
-    if (Date.parse(receipt.singleConsumerBasis.receiptExpiresAt) <= Date.parse(receipt.claim.claimedAt)) {
+    if (atOrBefore('expires', 'claimed')) {
       add('EXPIRED_RECEIPT', 'Receipt expiry is not later than its claim time.');
+    }
+    if (after('decisionCreated', 'claimed')) {
+      add('CLAIM_START_CHRONOLOGY_INVALID', 'Consumption claim predates the human decision.');
     }
     if ((context.revokedDecisionDigests || []).includes(decision.digest.value)) {
       add('REVOCATION_STATUS_REJECTED', 'Trusted fixture context marks the exact decision revision revoked.');
@@ -362,22 +437,20 @@ function validateSemantics(records, context = {}) {
     )) {
       add('START_EVIDENCE_BINDING_MISMATCH', 'Start evidence does not bind the accepted receipt and reported successor.');
     }
-    if (Date.parse(report.startEvidence.acceptedClaimReadBackAt) > Date.parse(report.startEvidence.workStartedAt)) {
+    if (after('readBack', 'started')) {
       add('CLAIM_AFTER_START', 'Accepted claim readback occurs after work start.');
     }
     if (receipt) {
-      const decisionCreatedAt = decision ? Date.parse(decision.createdAt) : Number.NEGATIVE_INFINITY;
-      const claimedAt = Date.parse(receipt.claim.claimedAt);
-      const readBackAt = Date.parse(report.startEvidence.acceptedClaimReadBackAt);
-      const workStartedAt = Date.parse(report.startEvidence.workStartedAt);
-      if (decisionCreatedAt > claimedAt || claimedAt > readBackAt || readBackAt > workStartedAt) {
+      if (after('claimed', 'readBack') || after('readBack', 'started')) {
         add('CLAIM_START_CHRONOLOGY_INVALID', 'Decision, claim, accepted-claim readback, and work start are not in canonical order.');
       }
-      const expiresAt = Date.parse(receipt.singleConsumerBasis.receiptExpiresAt);
-      if (expiresAt <= readBackAt || expiresAt <= workStartedAt) {
+      if (atOrBefore('expires', 'readBack') || atOrBefore('expires', 'started')) {
         add('EXPIRED_AT_START', 'Receipt was not valid through accepted-claim readback and successor start.');
       }
     }
+  }
+  if (after('started', 'returned')) {
+    add('REPORT_BEFORE_START', 'Agent report return time precedes successor work start.');
   }
   if (stop && task && stop.packetId !== task.packetId) {
     add('STOP_PACKET_MISMATCH', 'Stop response does not bind the current task packet.');
@@ -439,6 +512,11 @@ async function expectedOutputs() {
     },
     expectedValid: recordKinds.map((kind) => ({ path: `valid/${kind}.valid.json`, schema: `${kind}.schema.json` })),
     expectedInvalid: [
+      { path: 'invalid/agent-report.missing-context-record.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'MISSING_REQUIRED_RECORD', omittedRecords: ['continuation-context'] },
+      { path: 'invalid/agent-report.missing-decision-record.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'MISSING_REQUIRED_RECORD', omittedRecords: ['human-decision'] },
+      { path: 'invalid/consumption-receipt.leap-second-expiry.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'TIMESTAMP_UNCOMPARABLE' },
+      { path: 'invalid/consumption-receipt.fractional-claim-order.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'CLAIM_START_CHRONOLOGY_INVALID' },
+      { path: 'invalid/agent-report.return-before-start.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'REPORT_BEFORE_START' },
       { path: 'invalid/human-decision.digest-mismatch.invalid.json', schema: 'human-decision.schema.json', expectedCode: 'DIGEST_MISMATCH' },
       { path: 'invalid/agent-report.stripped-context.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'SCHEMA_VALIDATION_FAILED' },
       { path: 'invalid/continuation-context.stale-replay.invalid.json', schema: 'continuation-context.schema.json', expectedCode: 'STALE_REPLAY' },
@@ -537,6 +615,7 @@ async function validateCorpus(valid, manifest) {
     const invalidRecord = await readJson(path.join(fixtureRoot, entry.path));
     const kind = kindFromRecord[invalidRecord.recordKind];
     const records = { ...valid, [kind]: invalidRecord };
+    for (const omitted of entry.omittedRecords || []) delete records[omitted];
     const diagnostics = [
       ...schemaDiagnostics(validators, invalidRecord),
       ...validateSemantics(records, entry.context || {})
@@ -556,13 +635,21 @@ async function validateCorpus(valid, manifest) {
   };
 }
 
-try {
-  const generated = await expectedOutputs();
-  if (writeMode) await writeOutputs(generated.outputs);
-  if (checkMode) await checkOutputs(generated.outputs);
-  const result = await validateCorpus(generated.valid, generated.manifest);
-  process.stdout.write(`${JSON.stringify({ ok: true, ...result }, null, 2)}\n`);
-} catch (error) {
-  process.stderr.write(`${JSON.stringify({ ok: false, error: error.message }, null, 2)}\n`);
-  process.exitCode = 1;
+async function main() {
+  try {
+    const generated = await expectedOutputs();
+    if (writeMode) await writeOutputs(generated.outputs);
+    if (checkMode) await checkOutputs(generated.outputs);
+    const result = await validateCorpus(generated.valid, generated.manifest);
+    process.stdout.write(`${JSON.stringify({ ok: true, ...result }, null, 2)}\n`);
+  } catch (error) {
+    process.stderr.write(`${JSON.stringify({ ok: false, error: error.message }, null, 2)}\n`);
+    process.exitCode = 1;
+  }
+}
+
+export { buildValidRecords, digestRecord, digestEnvelope, loadValidators, schemaDiagnostics, validateSemantics };
+
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+  await main();
 }

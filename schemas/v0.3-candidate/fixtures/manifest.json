@@ -52,6 +52,37 @@
   ],
   "expectedInvalid": [
     {
+      "path": "invalid/agent-report.missing-context-record.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "MISSING_REQUIRED_RECORD",
+      "omittedRecords": [
+        "continuation-context"
+      ]
+    },
+    {
+      "path": "invalid/agent-report.missing-decision-record.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "MISSING_REQUIRED_RECORD",
+      "omittedRecords": [
+        "human-decision"
+      ]
+    },
+    {
+      "path": "invalid/consumption-receipt.leap-second-expiry.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "TIMESTAMP_UNCOMPARABLE"
+    },
+    {
+      "path": "invalid/consumption-receipt.fractional-claim-order.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "CLAIM_START_CHRONOLOGY_INVALID"
+    },
+    {
+      "path": "invalid/agent-report.return-before-start.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_BEFORE_START"
+    },
+    {
       "path": "invalid/human-decision.digest-mismatch.invalid.json",
       "schema": "human-decision.schema.json",
       "expectedCode": "DIGEST_MISMATCH"

@@ -33,7 +33,9 @@ npm run hacp:v03-candidate
 The command checks that committed vectors are exactly reproducible, compiles
 all seven schemas, verifies the valid cross-record chain and its RFC 8785 JCS
 digests, and requires every declared invalid fixture to fail with its expected
-diagnostic. To regenerate the committed corpus after an approved contract
+diagnostic. It also runs regression tests that recompute downstream digests
+after semantic mutations, so stale references cannot mask an invalid chain.
+To regenerate the committed corpus after an approved contract
 change:
 
 ```bash
@@ -56,14 +58,24 @@ with its separate proposed supporting domain.
 
 [`fixtures/manifest.json`](fixtures/manifest.json) pins the source and
 who-decides evidence revisions and declares seven expected-valid records plus
-seventeen negative cases covering digest mismatch, stripped context,
+twenty-two negative cases covering digest mismatch, stripped context,
 stale-reference replay, expired and trusted-revoked status, scope expansion,
 non-approval consumption, report/reference splicing, loop ceilings, and
 start-evidence binding, including claim chronology, request-chain continuity,
-and stop-response packet binding.
+stop-response packet binding, missing prerequisite records, timestamp edge cases,
+and report-return chronology.
 
 The revocation fixture intentionally supplies trusted status as fixture
-context. A receipt URI or self-asserted field does not prove revocation.
+context. The missing-record fixtures use `omittedRecords` to remove named
+prerequisites from the otherwise valid chain before validation; their report
+records remain individually schema-valid. A receipt URI or self-asserted field
+does not prove revocation.
+
+Timestamp comparisons preserve all supplied fractional-second digits and
+normalize time-zone offsets. Instants the harness cannot order, including leap
+seconds unsupported by its time parser, fail with `TIMESTAMP_UNCOMPARABLE`;
+they cannot silently bypass expiry checks. Report return must follow or equal
+work start; return after receipt expiry is still valid historical evidence.
 
 The historical source-packet examples remain under
 [`docs/source-packets/wits-v0/examples/`](../../docs/source-packets/wits-v0/examples/),

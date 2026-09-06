@@ -33,6 +33,8 @@ The reviewed implementation is who-decides PR
   successful on 2026-09-06;
 - CI proof artifact:
   `local-owner-proof-e47515f8b66a318966233fbf416da0b130650ede`;
+- durable exact artifact copy:
+  [`evidence/who-decides-e47515f8-local-owner-proof.json`](evidence/who-decides-e47515f8-local-owner-proof.json);
 - downloaded artifact `result.json` SHA-256:
   `02257303e5880cbc755da1ed310a6c1e6365f4ad5361695d29d67e678062d09d`.
 
@@ -94,7 +96,11 @@ test bodies**; inventory labels are no longer an independent source of truth.
 Seven cases require process evidence: overlapping claims, overlapping starts,
 restart after claim, concurrent revoke/start, revocation before handoff, crash
 after intent, and the legacy/candidate admission race. The remaining 37 cases
-have exact-ID unit receipts. The JSON matrix records every mapping.
+have exact-ID unit receipts. Every JSON matrix row records a JSON Pointer into
+the committed proof artifact and the SHA-256 of that exact receipt object.
+Run `node scripts/validate-local-owner-evidence.mjs` to verify the artifact
+hash, contract pins, source hashes, fixture order and expected text, exact
+receipt IDs and passing status, receipt digests, and aggregate counts.
 
 ## Same-File Admission Evidence
 

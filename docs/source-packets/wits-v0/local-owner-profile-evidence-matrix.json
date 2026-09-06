@@ -35,7 +35,8 @@
     "processReceipts": 7,
     "providerCalls": 0,
     "networkCallbacks": 0,
-    "secretsExported": false
+    "secretsExported": false,
+    "evidenceFile": "evidence/who-decides-e47515f8-local-owner-proof.json"
   },
   "independentLocalValidation": {
     "headCommit": "e47515f8b66a318966233fbf416da0b130650ede",
@@ -62,50 +63,314 @@
     "rule": "an inventory case is observed iff a passing unit or process receipt with the exact fixture id exists"
   },
   "cases": [
-    { "id": "authenticated-happy-path", "status": "observed", "receiptKind": "unit" },
-    { "id": "missing-or-wrong-authentication", "status": "observed", "receiptKind": "unit" },
-    { "id": "authenticated-without-human-act", "status": "observed", "receiptKind": "unit" },
-    { "id": "unrelated-or-reused-human-act", "status": "observed", "receiptKind": "unit" },
-    { "id": "base-approve-without-start-work", "status": "observed", "receiptKind": "unit" },
-    { "id": "invalid-base-transition-or-target", "status": "observed", "receiptKind": "unit" },
-    { "id": "caller-forged-issuer-or-actor", "status": "observed", "receiptKind": "unit" },
-    { "id": "two-overlapping-claims", "status": "observed", "receiptKind": "process" },
-    { "id": "same-id-different-issuer", "status": "observed", "receiptKind": "unit" },
-    { "id": "changed-binding-replay", "status": "observed", "receiptKind": "unit" },
-    { "id": "exact-claim-retry", "status": "observed", "receiptKind": "unit" },
-    { "id": "legacy-id-collision", "status": "observed", "receiptKind": "unit" },
-    { "id": "legacy-insert-races-profile-admission", "status": "observed", "receiptKind": "process" },
-    { "id": "unknown-profile-or-stripped-context", "status": "observed", "receiptKind": "unit" },
-    { "id": "unsupported-action-or-parameter", "status": "observed", "receiptKind": "unit" },
-    { "id": "missing-or-corrupt-durable-readback", "status": "observed", "receiptKind": "unit" },
-    { "id": "absent-or-corrupt-status", "status": "observed", "receiptKind": "unit" },
-    { "id": "status-gap-fork-truncation-or-wrong-head", "status": "observed", "receiptKind": "unit" },
-    { "id": "decision-expired-claim-active", "status": "observed", "receiptKind": "unit" },
-    { "id": "claim-expired-decision-active", "status": "observed", "receiptKind": "unit" },
-    { "id": "decision-revoked-claim-active", "status": "observed", "receiptKind": "unit" },
-    { "id": "claim-revoked-decision-active", "status": "observed", "receiptKind": "unit" },
-    { "id": "missing-or-malformed-expiry", "status": "observed", "receiptKind": "unit" },
-    { "id": "claim-expiry-exceeds-decision", "status": "observed", "receiptKind": "unit" },
-    { "id": "expiry-after-lock-wait", "status": "observed", "receiptKind": "unit" },
-    { "id": "expiry-between-intent-and-handoff", "status": "observed", "receiptKind": "unit" },
-    { "id": "revocation-before-handoff", "status": "observed", "receiptKind": "process" },
-    { "id": "concurrent-revoke-start", "status": "observed", "receiptKind": "process" },
-    { "id": "two-overlapping-starts", "status": "observed", "receiptKind": "process" },
-    { "id": "clock-rollback-or-unknown-time", "status": "observed", "receiptKind": "unit" },
-    { "id": "wall-clock-stall-crosses-monotonic-deadline", "status": "observed", "receiptKind": "unit" },
-    { "id": "restart-after-claim-before-intent", "status": "observed", "receiptKind": "process" },
-    { "id": "crash-after-intent-before-result", "status": "observed", "receiptKind": "process" },
-    { "id": "lost-response-or-ambiguous-observation", "status": "observed", "receiptKind": "unit" },
-    { "id": "completed-start-replay", "status": "observed", "receiptKind": "unit" },
-    { "id": "store-unavailable", "status": "observed", "receiptKind": "unit" },
-    { "id": "revoked-status-reset", "status": "observed", "receiptKind": "unit" },
-    { "id": "digest-known-answer-and-domain-mismatch", "status": "observed", "receiptKind": "unit" },
-    { "id": "profile-declaration-status", "status": "observed", "receiptKind": "unit" },
-    { "id": "clock-sample-shape", "status": "observed", "receiptKind": "unit" },
-    { "id": "observation-digest-completed-or-uncertain", "status": "observed", "receiptKind": "unit" },
-    { "id": "base-decision-companion-digest", "status": "observed", "receiptKind": "unit" },
-    { "id": "closed-base-record-remains-unchanged", "status": "observed", "receiptKind": "unit" },
-    { "id": "unsupported-surface-no-fallback", "status": "observed", "receiptKind": "unit" }
+    {
+      "id": "authenticated-happy-path",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/0/receipt",
+      "receiptSha256": "7c4a7fdff1c3515b5dba25b898ec6c106582d992e48d496a70a18b9616a48a3c"
+    },
+    {
+      "id": "missing-or-wrong-authentication",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/1/receipt",
+      "receiptSha256": "8f53df0ab03300f1461c00e860696236520ae380e1537f46b52491745e9aa4af"
+    },
+    {
+      "id": "authenticated-without-human-act",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/2/receipt",
+      "receiptSha256": "dadda8f19e075f992b45877e1c1122b10307b5f12cfd4f1afe3f85330e0d4a47"
+    },
+    {
+      "id": "unrelated-or-reused-human-act",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/3/receipt",
+      "receiptSha256": "bbcef1f735caf70498ff3c21d7a13a3ae4c7208b108b9fc5bbbc33971e6d70d9"
+    },
+    {
+      "id": "base-approve-without-start-work",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/4/receipt",
+      "receiptSha256": "1cb309d932bd1f6e1522d4022a9be451e164ae25c237a2ad717ab4a1a93eeb33"
+    },
+    {
+      "id": "invalid-base-transition-or-target",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/5/receipt",
+      "receiptSha256": "c1974115113bacd276aaa3cd52ecd594146837c64e84974f1326b3bbc242ae7c"
+    },
+    {
+      "id": "caller-forged-issuer-or-actor",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/6/receipt",
+      "receiptSha256": "212e0c17bf8918b7334db780648f9bdd9dfbe28238ed177ea28d44c46fb7067f"
+    },
+    {
+      "id": "two-overlapping-claims",
+      "status": "observed",
+      "receiptKind": "process",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/7/receipt",
+      "receiptSha256": "2e73b76d33b7c1763cd38db6365a8e941c370c0f90227ec68005902c310e7564"
+    },
+    {
+      "id": "same-id-different-issuer",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/8/receipt",
+      "receiptSha256": "bd4f1dc58e03195c40e420afba8ab4fabab87508a4b8713a8daafe0d0c92946a"
+    },
+    {
+      "id": "changed-binding-replay",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/9/receipt",
+      "receiptSha256": "3f8583d6885e88fbf2a4c0c47cf3e8feb5516321dd9dd0e075c68658ddb32631"
+    },
+    {
+      "id": "exact-claim-retry",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/10/receipt",
+      "receiptSha256": "628780554b08eb38617600488d819cd77ab0841aa965aad9b0d43da2a81bb694"
+    },
+    {
+      "id": "legacy-id-collision",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/11/receipt",
+      "receiptSha256": "c3a1da74208e11e081692311acb8ff290997e54d18bf4af40fa70feec07d71f1"
+    },
+    {
+      "id": "legacy-insert-races-profile-admission",
+      "status": "observed",
+      "receiptKind": "process",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/12/receipt",
+      "receiptSha256": "b9f1d7d3de1d86190fb18a5e5078ea06b716ea30657e10de12ecaab1a9881e90"
+    },
+    {
+      "id": "unknown-profile-or-stripped-context",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/13/receipt",
+      "receiptSha256": "17739e9927b7596e73137951782244819b55e9b8a5aa2747d4da5d68a751c78c"
+    },
+    {
+      "id": "unsupported-action-or-parameter",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/14/receipt",
+      "receiptSha256": "d331ce07a140a53cdeee379bfe25fa8dc760dcff5fb9cf2e945145cc1655e992"
+    },
+    {
+      "id": "missing-or-corrupt-durable-readback",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/15/receipt",
+      "receiptSha256": "576d19973fde48cb4f23a2aedf48b0f5dbc8b0d1d59f0a156c26a43ad9c682d7"
+    },
+    {
+      "id": "absent-or-corrupt-status",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/16/receipt",
+      "receiptSha256": "64a672dd0625543c18e2a098db5481ab20ae709008e1735077c9044476b79ebd"
+    },
+    {
+      "id": "status-gap-fork-truncation-or-wrong-head",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/17/receipt",
+      "receiptSha256": "de6e8dd2e01c3ccff910d7dff08ee71b23622e56307bd2067e9a4188c4cd1e5a"
+    },
+    {
+      "id": "decision-expired-claim-active",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/18/receipt",
+      "receiptSha256": "dec535c4ad1e14a0e737c146977c953f8a1afc63ee12be9e1e252488fa83ef49"
+    },
+    {
+      "id": "claim-expired-decision-active",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/19/receipt",
+      "receiptSha256": "620023db79e1dabaf91e01fc355c058b66ae5c32b18a84baddf474b519ac8b4e"
+    },
+    {
+      "id": "decision-revoked-claim-active",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/20/receipt",
+      "receiptSha256": "17aa76c352d60568d7c7e1459826fc6767beb63bd2273dae2187ac85ea04c67e"
+    },
+    {
+      "id": "claim-revoked-decision-active",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/21/receipt",
+      "receiptSha256": "cdf14c1a333321b632cfe18e75dad8509b73ac2475a9f5268fe7bcf73e699c68"
+    },
+    {
+      "id": "missing-or-malformed-expiry",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/22/receipt",
+      "receiptSha256": "5551ed7af7042a65507590cefeb45915168864aca4b417a5339f7a561dce6c4f"
+    },
+    {
+      "id": "claim-expiry-exceeds-decision",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/23/receipt",
+      "receiptSha256": "5cfce362fa30902214a2dffea1eab28406b0684325210d0dfcd2604551caedaf"
+    },
+    {
+      "id": "expiry-after-lock-wait",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/24/receipt",
+      "receiptSha256": "9076389aa2078ca378e31b794e8153d7a985ac3009b2e402732b5eeed348aaf4"
+    },
+    {
+      "id": "expiry-between-intent-and-handoff",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/25/receipt",
+      "receiptSha256": "417af54ef2828ded1623b62f26dffa0530bcf209bc16bc10cb3817b25ff08d04"
+    },
+    {
+      "id": "revocation-before-handoff",
+      "status": "observed",
+      "receiptKind": "process",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/26/receipt",
+      "receiptSha256": "d29ea90cbd229034c44f18cc220d738f557206eba5b310aad322a233471e54db"
+    },
+    {
+      "id": "concurrent-revoke-start",
+      "status": "observed",
+      "receiptKind": "process",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/27/receipt",
+      "receiptSha256": "2c0d23e04c3937675eaebcc0342c9c1e363e5a1fc0c06a629ff5500c930389d6"
+    },
+    {
+      "id": "two-overlapping-starts",
+      "status": "observed",
+      "receiptKind": "process",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/28/receipt",
+      "receiptSha256": "41db4b5813c9b3039d8f0e012a4c47391c5b6acbf4b7733c0670d133412baaf6"
+    },
+    {
+      "id": "clock-rollback-or-unknown-time",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/29/receipt",
+      "receiptSha256": "14da2fd7f9899ba529b134ced2392ca69b1143fc5b732611aaf759e633a42acc"
+    },
+    {
+      "id": "wall-clock-stall-crosses-monotonic-deadline",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/30/receipt",
+      "receiptSha256": "7cee1b5a003188505a27f3d9545ebfec298e4f4a3b22596e2cfcb3cbaf40f210"
+    },
+    {
+      "id": "restart-after-claim-before-intent",
+      "status": "observed",
+      "receiptKind": "process",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/31/receipt",
+      "receiptSha256": "4d6aefb5fd89e56f9e206c58980b4acb9b8abfae644b553af9f76ccd58b5539b"
+    },
+    {
+      "id": "crash-after-intent-before-result",
+      "status": "observed",
+      "receiptKind": "process",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/32/receipt",
+      "receiptSha256": "5a1f7ba26fd529f12c1c6f2eaca4c39ea77becefc2812c522cd96c94c38d63e0"
+    },
+    {
+      "id": "lost-response-or-ambiguous-observation",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/33/receipt",
+      "receiptSha256": "31e9bc3280867ebea008af38d1c592edf6f6f206e28075174877ff83fb9ddae7"
+    },
+    {
+      "id": "completed-start-replay",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/34/receipt",
+      "receiptSha256": "157654864ebbd8d14f6baeb50c7218db8e37c51c6aaaf7c7bb821482ba4c56e2"
+    },
+    {
+      "id": "store-unavailable",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/35/receipt",
+      "receiptSha256": "c9c7439cdd00a7c9f5865a2595aa58b96ea9d43911fe7d7c57e0c254915a28b6"
+    },
+    {
+      "id": "revoked-status-reset",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/36/receipt",
+      "receiptSha256": "ef272b1f81610312fbeb0db049d93b26792640a2b65b0f7a11ef674b01849ebf"
+    },
+    {
+      "id": "digest-known-answer-and-domain-mismatch",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/37/receipt",
+      "receiptSha256": "eea533b82b78a74db941e51573160798db9f986a8377576d5a78c15d8a4b32bd"
+    },
+    {
+      "id": "profile-declaration-status",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/38/receipt",
+      "receiptSha256": "d4ecff884261f91211df3c6b933c69cd97d6c3bf27115c9874b24028b88c5ab7"
+    },
+    {
+      "id": "clock-sample-shape",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/39/receipt",
+      "receiptSha256": "eec63f21813535e5c047d0d725a52b17ac466f16b51a6cd481429e0ec12865ae"
+    },
+    {
+      "id": "observation-digest-completed-or-uncertain",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/40/receipt",
+      "receiptSha256": "6d8d2907f039f6c307ae31189c539dac8c4478f29fdcc5fe20a7aef96b2f610a"
+    },
+    {
+      "id": "base-decision-companion-digest",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/41/receipt",
+      "receiptSha256": "13b6fab219a26ba420c65ae3663f6de2e5b1cf9e0180eae76bd201b3eb063cb8"
+    },
+    {
+      "id": "closed-base-record-remains-unchanged",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/42/receipt",
+      "receiptSha256": "122e66ecf3e1a359800f803bf2983a458b803b4a050ff8df323dd51dbbabba36"
+    },
+    {
+      "id": "unsupported-surface-no-fallback",
+      "status": "observed",
+      "receiptKind": "unit",
+      "receiptRef": "evidence/who-decides-e47515f8-local-owner-proof.json#/inventory/43/receipt",
+      "receiptSha256": "2163251bfb8687070c42250682917193780640294a9bb69dfecb1a0993ac357a"
+    }
   ],
   "limitations": [
     "candidate evidence, not owner acceptance",

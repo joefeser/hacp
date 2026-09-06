@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/stop-response.schema.json",
+  "title": "HACP v0.3 Candidate Stop Response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recordKind", "schemaVersion", "stopId", "packetId", "decisionId", "profileId", "successorInvocationId", "stopReason", "whatDoesNotLineUp", "evidenceRefs", "minimalCorrection", "successorWorkBegan", "digest", "boundaryStatement"],
+  "properties": {
+    "recordKind": { "const": "hacp.v0_3_candidate.stop_response" },
+    "schemaVersion": { "const": "hacp-0.3-candidate" },
+    "stopId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "packetId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "decisionId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "profileId": { "const": "hacp-accountable-continuation-v0.3-candidate" },
+    "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "stopReason": { "enum": ["CONTEXT_MISMATCH", "WRONG_TOOL_OR_MODE", "MISSING_AUTHORITY", "SCOPE_CONFLICT", "STALE_PACKET", "UNVERIFIED_ASSUMPTION", "ENVIRONMENT_BLOCKED", "RELIABILITY_LIMIT_REACHED", "HUMAN_DECISION_REQUIRED"] },
+    "whatDoesNotLineUp": { "$ref": "common-defs.schema.json#/$defs/text" },
+    "evidenceRefs": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "minimalCorrection": { "$ref": "common-defs.schema.json#/$defs/text" },
+    "successorWorkBegan": { "const": false },
+    "digest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.stop-response.v0.3-candidate" } } }
+      ]
+    },
+    "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }
+  }
+}

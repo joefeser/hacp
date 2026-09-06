@@ -9,8 +9,10 @@ who-decides implementation now has a reviewed
 [evidence reconciliation](local-owner-profile-evidence-reconciliation.md)
 covering all 44 candidate fixtures. That implementation evidence is not owner
 acceptance, publication, standardization, or a general conformance claim. The
-illustrative sketches below remain historical candidate shapes, not
-interchangeable records for that local profile.
+illustrative examples below remain historical candidate paths. Their computed
+forms are covered by the separate executable
+[v0.3 candidate conformance package](../../../schemas/v0.3-candidate/README.md),
+but they are not interchangeable records for the narrower local-owner profile.
 
 Source material:
 
@@ -129,10 +131,11 @@ Digest objects use `sha256` and the [HACP 0.2 canonicalization rules](../../hacp
 omit a record's own top-level `digest` when hashing its JCS representation;
 retain embedded reference digests, which bind their referenced records in their
 own domains. This applies also to the separately referenced start-evidence
-record, not to its display copy inside a report. The `*_v0.3_candidate` domains
-are unregistered candidates: consumers must reject them unless an approved
-profile declares their coverage and interpretation. All illustrated digest
-values are placeholders, not computed integrity evidence.
+record, not to its display copy inside a report. The proposed
+`org.hacp.*.v0.3-candidate` domains remain REVIEW-REQUIRED: consumers must
+reject them unless an approved profile declares their coverage and
+interpretation. The executable package supplies reproducible computed
+candidate values without finalizing those domain strings as a standard.
 
 Accepting a consumption claim proves only that one successor invocation was
 admitted under the profile's concurrency rule. It does not prove provider
@@ -317,8 +320,9 @@ work or replace the validity check at start.
 
 Importers must verify the returned report's content digest under the selected
 profile before using its contents as evidence. Matching only digests of records
-referenced by the report does not protect the report itself. These sketches use
-placeholder digests; they cannot pass real integrity verification unchanged.
+referenced by the report does not protect the report itself. The executable
+candidate package computes both the report digest and its referenced record
+digests; changing any bound content requires regeneration and revalidation.
 
 ## RabbitMQ Transport Envelope Posture
 
@@ -343,15 +347,16 @@ Useful envelope evidence includes:
 
 ## Example Sketches
 
-Public-safe candidate sketches live in
-[examples/](examples/). They are not schema-valid conformance fixtures yet and
-use placeholder ids/digests.
+Public-safe historical candidate examples live in [examples/](examples/).
+Their computed content is preserved, while
+[`schemas/v0.3-candidate/fixtures/`](../../../schemas/v0.3-candidate/fixtures/)
+supersedes these paths as the executable conformance corpus.
 
 | Sketch | Purpose |
 | --- | --- |
 | [task-packet.candidate.json](examples/task-packet.candidate.json) | Bounded source context and forbidden effects. |
 | [review-finding.candidate.json](examples/review-finding.candidate.json) | Finding that requests a human decision before continuation. |
-| [human-decision.candidate.json](examples/human-decision.candidate.json) | Immutable candidate human-decision sketch, not a schema-valid base record. |
+| [human-decision.candidate.json](examples/human-decision.candidate.json) | Immutable candidate human-decision record, separate from the closed v0.1 base record. |
 | [consumption-receipt.candidate.json](examples/consumption-receipt.candidate.json) | Separate issuer-evidenced admission receipt with scope bounded by the decision. |
 | [continuation-context.candidate.json](examples/continuation-context.candidate.json) | Required outer input binding the extension marker, decision, receipt, and invocation. |
 | [agent-report.candidate.json](examples/agent-report.candidate.json) | Evidence return tied to the receipt. |
@@ -366,10 +371,11 @@ All `evidence://example/` references are hypothetical, not supplied proof
 artifacts. No sketch illustrates the closing human decision yet; that separate
 record is still required before marking work complete.
 
-## Conformance Fixture Candidates
+## Candidate Conformance Fixtures
 
-Future conformance work should promote the candidate sketches only after the
-semantics are proven and digest domains are made deterministic.
+The executable candidate package promotes the seven example shapes into
+closed schemas and computed vectors. Its exact digest-domain identifiers and
+second-implementation qualification rule remain explicit owner review gates.
 
 Positive candidates:
 
@@ -388,8 +394,9 @@ Negative candidates:
 - stripped extension data treated as base authority;
 - queue ack treated as approval, completion, or worker launch authority.
 
-Issue [#9](https://github.com/joefeser/hacp/issues/9) remains the proper home
-for real RFC 8785 JCS digest fixture promotion.
+Issue [#9](https://github.com/joefeser/hacp/issues/9) preserves the historical
+RFC 8785 JCS fixture work. The executable corpus records its current bounded
+result without claiming protocol release.
 
 ## External Proof Gate
 

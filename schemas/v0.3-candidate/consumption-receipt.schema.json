@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/consumption-receipt.schema.json",
+  "title": "HACP v0.3 Candidate Consumption Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recordKind", "schemaVersion", "receiptId", "decisionId", "decisionDigest", "decisionRequest", "claim", "singleConsumerBasis", "admittedBy", "evidenceRefs", "digest", "boundaryStatement"],
+  "properties": {
+    "recordKind": { "const": "hacp.v0_3_candidate.consumption_receipt" },
+    "schemaVersion": { "const": "hacp-0.3-candidate" },
+    "receiptId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "decisionId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "decisionDigest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.human-decision.v0.3-candidate" } } }
+      ]
+    },
+    "decisionRequest": { "$ref": "common-defs.schema.json#/$defs/decisionRequestRef" },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claimId", "claimant", "claimedAt", "successorInvocationId", "permittedScope", "admissionResult"],
+      "properties": {
+        "claimId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "claimant": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "claimedAt": { "$ref": "common-defs.schema.json#/$defs/timestamp" },
+        "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "permittedScope": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+        "admissionResult": { "const": "accepted" }
+      }
+    },
+    "singleConsumerBasis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profileId", "idempotencyKey", "uniquenessRuleStatus", "trustedTimeSource", "receiptExpiresAt", "decisionValidityRef", "receiptValidityRef"],
+      "properties": {
+        "profileId": { "const": "hacp-accountable-continuation-v0.3-candidate" },
+        "idempotencyKey": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "uniquenessRuleStatus": { "const": "requires_owner_approved_profile_definition" },
+        "trustedTimeSource": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "receiptExpiresAt": { "$ref": "common-defs.schema.json#/$defs/timestamp" },
+        "decisionValidityRef": { "$ref": "common-defs.schema.json#/$defs/reference" },
+        "receiptValidityRef": { "$ref": "common-defs.schema.json#/$defs/reference" }
+      }
+    },
+    "admittedBy": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "evidenceRefs": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "digest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.consumption-receipt.v0.3-candidate" } } }
+      ]
+    },
+    "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }
+  }
+}

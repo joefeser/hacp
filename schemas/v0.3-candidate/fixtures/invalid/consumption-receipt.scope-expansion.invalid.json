@@ -27,7 +27,8 @@
     "permittedScope": [
       "edit docs/source-packets/",
       "run docs/config validation",
-      "return ACK and review evidence"
+      "return ACK and review evidence",
+      "deploy"
     ],
     "admissionResult": "accepted"
   },
@@ -49,7 +50,7 @@
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
-    "value": "7e55396c6535614bb09c431cb34f26967ae7a5c8f75dc1718107bb68e35e81bd"
+    "value": "9255d74cc0858aaf777bb694de01634d1448720b58ebc157decd51f5907f491d"
   },
   "boundaryStatement": "Illustrative acceptance only: issuer trust, uniqueness, and current-status policy require an independently approved profile. These hypothetical evidence references prove no actual admission. Accepted admission does not prove provider execution, external side effects, merge readiness, or exactly-once downstream completion."
 }

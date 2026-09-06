@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/task-packet.schema.json",
+  "title": "HACP v0.3 Candidate Task Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recordKind", "schemaVersion", "packetId", "digest", "sourceContext", "requestedScope", "loopPolicy", "forbiddenEffects", "expectedEvidence", "stopConditions", "profileRefs", "boundaryStatement"],
+  "properties": {
+    "recordKind": { "const": "hacp.v0_3_candidate.task_packet" },
+    "schemaVersion": { "const": "hacp-0.3-candidate" },
+    "packetId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "digest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.task-packet.v0.3-candidate" } } }
+      ]
+    },
+    "sourceContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["humanRequest", "sourceRefs"],
+      "properties": {
+        "humanRequest": { "$ref": "common-defs.schema.json#/$defs/text" },
+        "sourceRefs": { "$ref": "common-defs.schema.json#/$defs/stringSet" }
+      }
+    },
+    "requestedScope": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "loopPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "ceiling", "counter", "incrementTrigger", "claimAttemptLimit", "automaticRetryAllowed", "boundaryStatement"],
+      "properties": {
+        "mode": { "const": "single_pass" },
+        "ceiling": { "type": "integer", "minimum": 0 },
+        "counter": { "type": "integer", "minimum": 0 },
+        "incrementTrigger": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "claimAttemptLimit": { "const": 1 },
+        "automaticRetryAllowed": { "const": false },
+        "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }
+      }
+    },
+    "forbiddenEffects": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "expectedEvidence": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "stopConditions": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "profileRefs": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }
+  }
+}

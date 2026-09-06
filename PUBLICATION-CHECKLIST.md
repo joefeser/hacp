@@ -13,6 +13,11 @@ Use this before making the repository public.
       claim-before-start failure (reject successor start without durable
       readback of its accepted claim), ambiguous execution reporting, and
       expiry/revocation ordering before merging the consumption-contract draft.
+- [ ] Before publishing the executable v0.3 candidate conformance package,
+      record Joe's approval of every exact digest-domain string and the
+      second-implementation qualification rule.
+- [ ] Require two independent reviews against the same pinned v0.3 candidate
+      package before treating its contracts as publication-ready.
 - [ ] Confirm issue templates or discussion settings are ready for public
       review.
 - [ ] Decide whether to publish as a personal repo first or move under an

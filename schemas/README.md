@@ -28,14 +28,16 @@ Need to choose a concrete stop reason? See
 - `$id` namespaces:
   - `https://hacp.example/schemas/v0.1-draft/`
   - `https://hacp.example/schemas/v0.2-draft/`
+  - `https://hacp.example/schemas/v0.3-candidate/` for executable candidate
+    interworking contracts; exact digest domains remain owner review gates.
 
 Versioning for future phases should preserve backward-readable draft history
 rather than rewriting old identifiers.
 
 HACP v0.1 and HACP 0.2 records may coexist as public draft artifacts, but they
 are not interchangeable inside one custody chain unless a profile publishes an
-explicit translation record. HACP v0.3 source-packet examples are candidate
-sketches only until a future schema or profile promotes them.
+explicit translation record. HACP v0.3 has an executable candidate conformance
+package, but it remains a candidate and is not a released standard or profile.
 
 ## Draft Limitations
 
@@ -88,6 +90,16 @@ They do not:
 - [adapter-report.schema.json](adapter-report.schema.json)
 - [match-proof.schema.json](match-proof.schema.json)
 - [human-decision-record.schema.json](human-decision-record.schema.json)
+
+### HACP v0.3 Candidate Interworking Shapes
+
+- [candidate package, schemas, vectors, and review gates](v0.3-candidate/README.md)
+
+Validate the generated candidate corpus with:
+
+```bash
+npm run hacp:v03-candidate
+```
 
 ## Evidence Field Compatibility
 

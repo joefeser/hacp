@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "hacp:doctor": "node scripts/hacp-doctor.mjs",
-    "hacp:cli-bridge-examples": "node scripts/validate-cli-bridge-examples.mjs"
+    "hacp:cli-bridge-examples": "node scripts/validate-cli-bridge-examples.mjs",
+    "hacp:v03-candidate": "node scripts/compute-vectors.mjs --check"
   },
   "dependencies": {
     "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1"
+    "ajv-formats": "^3.0.1",
+    "canonicalize": "^4.0.0"
   }
 }

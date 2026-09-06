@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/review-finding.schema.json",
+  "title": "HACP v0.3 Candidate Review Finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recordKind", "schemaVersion", "findingId", "packetId", "packetDigest", "severity", "summary", "affectedSurfaces", "evidenceRefs", "recommendedDisposition", "residualRisk", "humanDecisionRequired", "digest"],
+  "properties": {
+    "recordKind": { "const": "hacp.v0_3_candidate.review_finding" },
+    "schemaVersion": { "const": "hacp-0.3-candidate" },
+    "findingId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "packetId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "packetDigest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.task-packet.v0.3-candidate" } } }
+      ]
+    },
+    "severity": { "enum": ["blocker", "high", "medium", "low"] },
+    "summary": { "$ref": "common-defs.schema.json#/$defs/text" },
+    "affectedSurfaces": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "evidenceRefs": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "recommendedDisposition": { "enum": ["request_human_decision", "patch", "defer", "accept_residual_risk", "close_as_noise"] },
+    "residualRisk": { "$ref": "common-defs.schema.json#/$defs/text" },
+    "humanDecisionRequired": { "type": "boolean" },
+    "digest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.review-finding.v0.3-candidate" } } }
+      ]
+    }
+  }
+}

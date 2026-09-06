@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/continuation-context.schema.json",
+  "title": "HACP v0.3 Candidate Continuation Context",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recordKind", "schemaVersion", "contextId", "requiredExtension", "decision", "consumptionReceipt", "successorInvocationId", "digest", "boundaryStatement"],
+  "properties": {
+    "recordKind": { "const": "hacp.v0_3_candidate.continuation_context" },
+    "schemaVersion": { "const": "hacp-0.3-candidate" },
+    "contextId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "requiredExtension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profileId", "profileVersion", "extensionAwareProcessingRequired"],
+      "properties": {
+        "profileId": { "const": "hacp-accountable-continuation-v0.3-candidate" },
+        "profileVersion": { "const": "hacp-0.3-candidate" },
+        "extensionAwareProcessingRequired": { "const": true }
+      }
+    },
+    "decision": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digestRef" },
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.human-decision.v0.3-candidate" } } } } }
+      ]
+    },
+    "consumptionReceipt": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digestRef" },
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.consumption-receipt.v0.3-candidate" } } } } }
+      ]
+    },
+    "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "digest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.continuation-context.v0.3-candidate" } } }
+      ]
+    },
+    "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }
+  }
+}

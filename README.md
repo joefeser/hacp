@@ -251,10 +251,10 @@ Start here:
 - [docs/review-packet.md](docs/review-packet.md): severity-ordered review
   packet for the 0.2 draft.
 
-HACP 0.2 is not 1.0. HACP v0.3 material is an even earlier source-packet
-candidate, not a released schema or conformance profile. Both are draft
-vocabulary and fixture material for review and independent implementation
-feedback.
+HACP 0.2 is not 1.0. HACP v0.3 is an earlier candidate with executable
+schemas, not a released standard or conformance profile. Both remain draft or
+candidate vocabulary and fixture material for review and independent
+implementation feedback.
 
 For maturity framing across v0.1 and v0.2, see
 [Stability Lanes](#stability-lanes).
@@ -298,9 +298,9 @@ until independent implementations and conformance fixtures exist.
 
 ## HACP v0.3 Candidate Status
 
-HACP v0.3 candidate material is source-packet-level only. It explores
+HACP v0.3 candidate material includes an executable conformance package. It explores
 accountable continuation, consumption receipts, successor invocation evidence,
-and extension fail-closed behavior. It does not define a released schema,
+and extension fail-closed behavior. It does not define a released standard,
 runtime, worker launch path, hosted execution surface, or product feature.
 
 ## HACP v0.1 Draft Completeness
@@ -376,11 +376,14 @@ The v0.2 public review surface is the draft chain-of-custody packet:
 - the v0.2 fixtures in [fixtures/happy-path/](fixtures/happy-path/) and
   [fixtures/risk-cases/](fixtures/risk-cases/).
 
-The v0.3 candidate review surface is source-packet material only:
+The v0.3 candidate review surface includes source-packet material and an
+executable candidate package:
 
 - [docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md](docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md);
 - candidate JSON sketches in
   [docs/source-packets/wits-v0/examples/](docs/source-packets/wits-v0/examples/).
+- closed candidate schemas and computed vectors in
+  [schemas/v0.3-candidate/](schemas/v0.3-candidate/).
 
 Implementation-specific trial artefacts are not required to review this public
 draft. Future releases may add public evidence bundles, conformance test

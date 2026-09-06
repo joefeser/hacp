@@ -36,9 +36,11 @@ The producer must separately prove a native human approval act that binds:
 
 The downstream admission chain must then bind that exact decision digest, the
 applicable expiry and revocation readback, the accepted one-use consumption
-receipt, successor start evidence, and the resulting agent report and closing
-human-decision request. Later evidence does not become part of the earlier
-human act retroactively.
+receipt, successor start evidence, and the resulting agent report. The current
+agent report names `requestedNextHumanDecision` only as an identifier; it does
+not digest-bind a closing request. Qualification must not claim that stronger
+relationship. Later evidence does not become part of the earlier human act
+retroactively.
 
 The continuation-authority record must be produced from WITS-owned canonical
 source state. An adapter, projection, caller, task packet, transport envelope,
@@ -84,6 +86,11 @@ profile. It must define a closed record shape, digest domain, canonical source
 and relationship semantics, actor provenance, mismatch diagnostics, and
 negative fixtures. It must not be introduced as an optional field that current
 v0.3 candidate consumers silently ignore.
+
+The same rule applies if implementations need a digest-bound relationship
+between an agent report and its closing human-decision request. That
+relationship is deferred protocol work; `requestedNextHumanDecision` alone is
+not proof of the request contents or its relationship to the report.
 
 ## Non-Claims
 

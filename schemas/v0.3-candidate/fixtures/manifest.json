@@ -125,6 +125,21 @@
       "path": "invalid/consumption-receipt.expired-before-start.invalid.json",
       "schema": "consumption-receipt.schema.json",
       "expectedCode": "EXPIRED_AT_START"
+    },
+    {
+      "path": "invalid/consumption-receipt.claim-after-start.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "CLAIM_START_CHRONOLOGY_INVALID"
+    },
+    {
+      "path": "invalid/consumption-receipt.divergent-request.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "DECISION_REQUEST_CHAIN_MISMATCH"
+    },
+    {
+      "path": "invalid/stop-response.spliced-packet.invalid.json",
+      "schema": "stop-response.schema.json",
+      "expectedCode": "STOP_PACKET_MISMATCH"
     }
   ]
 }

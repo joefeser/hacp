@@ -203,6 +203,22 @@ function buildInvalidFixtures(valid) {
   expiredBeforeStart.singleConsumerBasis.receiptExpiresAt = '2026-09-03T18:05:01Z';
   expiredBeforeStart.digest = digestRecord('consumption-receipt', expiredBeforeStart);
 
+  const claimAfterStart = structuredClone(valid['consumption-receipt']);
+  claimAfterStart.claim.claimedAt = '2026-09-03T18:06:00Z';
+  claimAfterStart.digest = digestRecord('consumption-receipt', claimAfterStart);
+
+  const divergentDecisionRequest = structuredClone(valid['consumption-receipt']);
+  divergentDecisionRequest.decisionRequest = {
+    kind: 'stop_response',
+    id: valid['stop-response'].stopId,
+    digest: valid['stop-response'].digest
+  };
+  divergentDecisionRequest.digest = digestRecord('consumption-receipt', divergentDecisionRequest);
+
+  const splicedStop = structuredClone(valid['stop-response']);
+  splicedStop.packetId = 'taskpkt_unrelated_001';
+  splicedStop.digest = digestRecord('stop-response', splicedStop);
+
   return {
     'human-decision.digest-mismatch.invalid.json': digestMismatch,
     'agent-report.stripped-context.invalid.json': strippedContext,
@@ -217,7 +233,10 @@ function buildInvalidFixtures(valid) {
     'task-packet.loop-ceiling.invalid.json': loopExceeded,
     'agent-report.loop-counter.invalid.json': loopCounterMismatch,
     'agent-report.spliced-start-evidence.invalid.json': splicedStartEvidence,
-    'consumption-receipt.expired-before-start.invalid.json': expiredBeforeStart
+    'consumption-receipt.expired-before-start.invalid.json': expiredBeforeStart,
+    'consumption-receipt.claim-after-start.invalid.json': claimAfterStart,
+    'consumption-receipt.divergent-request.invalid.json': divergentDecisionRequest,
+    'stop-response.spliced-packet.invalid.json': splicedStop
   };
 }
 
@@ -241,6 +260,12 @@ function resolveDecisionRequest(request, finding, stop) {
 function decisionRequestMatches(request, finding, stop) {
   const target = resolveDecisionRequest(request, finding, stop);
   return Boolean(target && request.id === target.id && equalDigest(request.digest, target.digest));
+}
+
+function sameDecisionRequest(left, right) {
+  return left?.kind === right?.kind
+    && left?.id === right?.id
+    && equalDigest(left?.digest, right?.digest);
 }
 
 function validateSemantics(records, context = {}) {
@@ -273,6 +298,9 @@ function validateSemantics(records, context = {}) {
   }
   if (receipt && !decisionRequestMatches(receipt.decisionRequest, finding, stop)) {
     add('DECISION_REQUEST_MISMATCH', 'Consumption receipt does not bind the selected current decision-request record.');
+  }
+  if (receipt && decision && !sameDecisionRequest(receipt.decisionRequest, decision.decisionRequest)) {
+    add('DECISION_REQUEST_CHAIN_MISMATCH', 'Consumption receipt does not preserve the human decision request exactly.');
   }
   if (receipt && decision) {
     if (decision.decision !== 'approve_bounded_successor') {
@@ -307,6 +335,9 @@ function validateSemantics(records, context = {}) {
   if (report && !decisionRequestMatches(report.decisionRequest, finding, stop)) {
     add('REPORT_DECISION_REQUEST_MISMATCH', 'Agent report does not bind the selected current decision-request record.');
   }
+  if (report && decision && !sameDecisionRequest(report.decisionRequest, decision.decisionRequest)) {
+    add('DECISION_REQUEST_CHAIN_MISMATCH', 'Agent report does not preserve the human decision request exactly.');
+  }
   if (report && receipt && (report.consumptionReceiptId !== receipt.receiptId || !equalDigest(report.consumptionReceiptDigest, receipt.digest) || report.successorInvocationId !== receipt.claim.successorInvocationId)) {
     add('CONSUMPTION_REFERENCE_MISMATCH', 'Agent report does not bind the accepted receipt and successor.');
   }
@@ -335,12 +366,27 @@ function validateSemantics(records, context = {}) {
       add('CLAIM_AFTER_START', 'Accepted claim readback occurs after work start.');
     }
     if (receipt) {
+      const decisionCreatedAt = decision ? Date.parse(decision.createdAt) : Number.NEGATIVE_INFINITY;
+      const claimedAt = Date.parse(receipt.claim.claimedAt);
+      const readBackAt = Date.parse(report.startEvidence.acceptedClaimReadBackAt);
+      const workStartedAt = Date.parse(report.startEvidence.workStartedAt);
+      if (decisionCreatedAt > claimedAt || claimedAt > readBackAt || readBackAt > workStartedAt) {
+        add('CLAIM_START_CHRONOLOGY_INVALID', 'Decision, claim, accepted-claim readback, and work start are not in canonical order.');
+      }
       const expiresAt = Date.parse(receipt.singleConsumerBasis.receiptExpiresAt);
-      if (expiresAt <= Date.parse(report.startEvidence.acceptedClaimReadBackAt)
-        || expiresAt <= Date.parse(report.startEvidence.workStartedAt)) {
+      if (expiresAt <= readBackAt || expiresAt <= workStartedAt) {
         add('EXPIRED_AT_START', 'Receipt was not valid through accepted-claim readback and successor start.');
       }
     }
+  }
+  if (stop && task && stop.packetId !== task.packetId) {
+    add('STOP_PACKET_MISMATCH', 'Stop response does not bind the current task packet.');
+  }
+  if (stop && decision && stop.decisionId !== decision.decisionId) {
+    add('STOP_DECISION_MISMATCH', 'Stop response does not bind the current human decision identity.');
+  }
+  if (stop && receipt && stop.successorInvocationId !== receipt.claim.successorInvocationId) {
+    add('STOP_INVOCATION_MISMATCH', 'Stop response does not bind the current successor invocation.');
   }
   if (stop && stop.successorWorkBegan !== false) add('STOP_AFTER_WORK', 'Candidate stop response cannot assert successor work began.');
   return diagnostics;
@@ -406,7 +452,10 @@ async function expectedOutputs() {
       { path: 'invalid/task-packet.loop-ceiling.invalid.json', schema: 'task-packet.schema.json', expectedCode: 'LOOP_CEILING_EXCEEDED' },
       { path: 'invalid/agent-report.loop-counter.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'LOOP_COUNTER_MISMATCH' },
       { path: 'invalid/agent-report.spliced-start-evidence.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'START_EVIDENCE_BINDING_MISMATCH' },
-      { path: 'invalid/consumption-receipt.expired-before-start.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'EXPIRED_AT_START' }
+      { path: 'invalid/consumption-receipt.expired-before-start.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'EXPIRED_AT_START' },
+      { path: 'invalid/consumption-receipt.claim-after-start.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'CLAIM_START_CHRONOLOGY_INVALID' },
+      { path: 'invalid/consumption-receipt.divergent-request.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'DECISION_REQUEST_CHAIN_MISMATCH' },
+      { path: 'invalid/stop-response.spliced-packet.invalid.json', schema: 'stop-response.schema.json', expectedCode: 'STOP_PACKET_MISMATCH' }
     ]
   };
   outputs.set(path.join(fixtureRoot, 'manifest.json'), stableJson(manifest));

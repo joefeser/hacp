@@ -17,8 +17,14 @@
       "org.hacp.review-finding.v0.3-candidate",
       "org.hacp.stop-response.v0.3-candidate",
       "org.hacp.successor-start-evidence.v0.3-candidate"
-    ],
-    "qualificationRule": "UNRESOLVED: independent production plus cross-validation versus bidirectional production"
+    ]
+  },
+  "ownerRulings": {
+    "secondImplementationQualification": {
+      "sourceIssue": "https://github.com/joefeser/hacp/issues/47",
+      "candidatePromotion": "independent_production_plus_cross_validation",
+      "fullRelease": "bidirectional_production_and_consumption"
+    }
   },
   "expectedValid": [
     {

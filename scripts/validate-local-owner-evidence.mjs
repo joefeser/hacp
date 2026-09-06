@@ -15,6 +15,15 @@ const proofPath = path.join(packetDir, matrix.ciEvidence.evidenceFile);
 const proofBytes = readFileSync(proofPath);
 const proof = JSON.parse(proofBytes);
 
+const contractFiles = {
+  profileSha256: 'local-owner-profile.md',
+  fixturesSha256: 'local-owner-profile-fixtures.json',
+  synthesisSha256: 'local-owner-profile-review-synthesis.md',
+};
+for (const [pin, file] of Object.entries(contractFiles)) {
+  assert.equal(sha256(readFileSync(path.join(packetDir, file))), matrix.contract[pin], file);
+}
+
 assert.equal(sha256(proofBytes), matrix.ciEvidence.artifactResultSha256);
 assert.equal(proof.schema, matrix.ciEvidence.artifactSchema);
 assert.equal(proof.gitHead, matrix.ciEvidence.checkoutCommit);

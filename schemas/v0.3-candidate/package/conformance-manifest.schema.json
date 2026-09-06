@@ -177,18 +177,152 @@
       }
     },
     "bundle": {
+      "oneOf": [
+        { "$ref": "#/$defs/successfulContinuationBundle" },
+        { "$ref": "#/$defs/preStartStopBundle" },
+        { "$ref": "#/$defs/stopDecisionResponseBundle" }
+      ]
+    },
+    "successfulContinuationBundle": {
       "type": "object",
       "additionalProperties": false,
       "required": ["id", "kind", "records"],
       "properties": {
-        "id": { "$ref": "#/$defs/bundleKind" },
-        "kind": { "$ref": "#/$defs/bundleKind" },
+        "id": { "const": "successful_continuation" },
+        "kind": { "const": "successful_continuation" },
         "records": {
           "type": "array",
-          "minItems": 3,
+          "minItems": 6,
+          "maxItems": 6,
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/rolePath" }
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/consumptionReceiptRole" },
+            { "$ref": "#/$defs/continuationContextRole" },
+            { "$ref": "#/$defs/agentReportRole" }
+          ],
+          "items": false
         }
+      }
+    },
+    "preStartStopBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "pre_start_stop" },
+        "kind": { "const": "pre_start_stop" },
+        "records": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/stopResponseRole" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "stopDecisionResponseBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "stop_decision_response" },
+        "kind": { "const": "stop_decision_response" },
+        "records": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/stopResponseRole" },
+            { "$ref": "#/$defs/responseDecisionRole" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "taskPacketRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "task_packet" },
+        "path": { "enum": ["valid/success/task-packet.valid.json", "valid/stop/task-packet.valid.json"] }
+      }
+    },
+    "decisionRequestRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "decision_request" },
+        "path": { "enum": ["valid/success/review-finding.valid.json", "valid/stop/review-finding.valid.json"] }
+      }
+    },
+    "authorityBasisDecisionRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "authority_basis_decision" },
+        "path": { "enum": ["valid/success/human-decision.valid.json", "valid/stop/authority-basis-decision.valid.json"] }
+      }
+    },
+    "consumptionReceiptRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "consumption_receipt" },
+        "path": { "const": "valid/success/consumption-receipt.valid.json" }
+      }
+    },
+    "continuationContextRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "continuation_context" },
+        "path": { "const": "valid/success/continuation-context.valid.json" }
+      }
+    },
+    "agentReportRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "agent_report" },
+        "path": { "const": "valid/success/agent-report.valid.json" }
+      }
+    },
+    "stopResponseRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "stop_response" },
+        "path": { "const": "valid/stop/stop-response.valid.json" }
+      }
+    },
+    "responseDecisionRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "response_decision" },
+        "path": { "const": "valid/stop/response-decision.valid.json" }
+      }
+    },
+    "rolePathBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path"],
+      "properties": {
+        "role": { "$ref": "#/$defs/role" },
+        "path": { "$ref": "#/$defs/fixturePath" }
       }
     },
     "expectedCodes": {

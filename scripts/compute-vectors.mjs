@@ -550,6 +550,10 @@ function validateSemantics(entries, context = {}, bundleKind = 'explicit') {
     || !equalDigest(responseDecision.decisionRequest.digest, stop.digest))) {
     add('DECISION_REQUEST_MISMATCH', 'Response decision does not bind the exact stop response.');
   }
+  if (responseDecision && task && (responseDecision.packetId !== task.packetId
+    || !equalDigest(responseDecision.packetDigest, task.digest))) {
+    add('PACKET_REFERENCE_MISMATCH', 'Response decision does not bind the bundle task packet.');
+  }
   if (responseDecision && decision && responseDecision.decisionId === decision.decisionId) {
     add('RESPONSE_DECISION_ID_REUSE', 'Response decision must have an identity distinct from the authority-basis decision.');
   }

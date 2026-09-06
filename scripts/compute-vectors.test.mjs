@@ -152,6 +152,19 @@ test('response decision has distinct identity and exact stop binding', async () 
   }
 });
 
+test('response decision binds the exact bundle task packet', async () => {
+  for (const mutate of [
+    record => { record.packetId = 'taskpkt_unrelated_001'; },
+    record => { record.packetDigest.value = 'd'.repeat(64); }
+  ]) {
+    const bundle = entriesFor(manifest.expectedValidBundles[2]);
+    const response = bundle.find((item) => item.role === 'response_decision').record;
+    mutate(response);
+    response.digest = digestRecord('human-decision', response);
+    assert.deepEqual(await codesFor(bundle, 'stop_decision_response', true), ['PACKET_REFERENCE_MISMATCH']);
+  }
+});
+
 test('top-level stop digest mismatch fails closed', async () => {
   const bundle = entriesFor(manifest.expectedValidBundles[1]);
   bundle.find((item) => item.role === 'stop_response').record.digest.value = '0'.repeat(64);
@@ -196,13 +209,19 @@ test('manifest rejects unsafe, mismatched, and uncovered inventory paths', async
   await rejectsManifest(value => { value.fixtureInventory[0].schema = 'agent-report.schema.json'; }, /MANIFEST_BUNDLE_PATH_INVALID/);
   await rejectsManifest(value => { value.fixtureInventory.pop(); }, /MANIFEST_BUNDLE_PATH_INVALID|MANIFEST_UNCOVERED_VALID_FIXTURE/);
   await rejectsManifest(value => { value.fixtureInventory.push(structuredClone(value.fixtureInventory[0])); }, /MANIFEST_SCHEMA_INVALID|MANIFEST_DUPLICATE_INVENTORY_PATH/);
-  await rejectsManifest(value => { value.expectedValidBundles[0].records[0].path = 'valid\/success\/unknown.json'; }, /MANIFEST_BUNDLE_PATH_INVALID/);
+  await rejectsManifest(value => { value.expectedValidBundles[0].records[0].path = 'valid\/success\/unknown.json'; }, /MANIFEST_SCHEMA_INVALID|MANIFEST_BUNDLE_PATH_INVALID/);
 });
 
 test('manifest rejects duplicate roles, paths, and explicit records', async () => {
-  await rejectsManifest(value => { value.expectedValidBundles[0].records[1].role = 'task_packet'; }, /MANIFEST_BUNDLE_ROLES_INVALID/);
-  await rejectsManifest(value => { value.expectedValidBundles[0].records[1].path = value.expectedValidBundles[0].records[0].path; }, /MANIFEST_BUNDLE_DUPLICATE|MANIFEST_BUNDLE_PATH_INVALID/);
+  await rejectsManifest(value => { value.expectedValidBundles[0].records[1].role = 'task_packet'; }, /MANIFEST_SCHEMA_INVALID|MANIFEST_BUNDLE_ROLES_INVALID/);
+  await rejectsManifest(value => { value.expectedValidBundles[0].records[1].path = value.expectedValidBundles[0].records[0].path; }, /MANIFEST_SCHEMA_INVALID|MANIFEST_BUNDLE_DUPLICATE|MANIFEST_BUNDLE_PATH_INVALID/);
   await rejectsManifest(value => { value.expectedInvalid.at(-2).records.push(structuredClone(value.expectedInvalid.at(-2).records[0])); }, /MANIFEST_SCHEMA_INVALID|MANIFEST_EXPLICIT_DUPLICATE/);
+});
+
+test('standalone manifest schema rejects role/path combinations from another record', async () => {
+  await rejectsManifest(value => {
+    value.expectedValidBundles[0].records[0].path = 'valid/success/agent-report.valid.json';
+  }, /MANIFEST_SCHEMA_INVALID/);
 });
 
 test('raw inventory and duplicate roles are undeclared inputs', async () => {

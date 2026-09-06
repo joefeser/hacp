@@ -7,7 +7,7 @@
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.agent-report.v0.3-candidate",
-    "value": "8883d823cdb11f94ab09163922cdf5d1a02b8f7a5f685491250a33ef1ee58840"
+    "value": "861e2843cfe461207054e91d24b0e69fe63fb2bfdc11ddaac4970edf9b9a44cb"
   },
   "packetId": "taskpkt_example_continue_review_001",
   "decision": {

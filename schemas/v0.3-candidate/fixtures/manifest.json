@@ -1,7 +1,8 @@
 {
-  "schema": "hacp.v0_3_candidate.conformance_manifest.v1",
+  "schema": "hacp.v0_3_candidate.conformance_manifest.v2",
   "candidateStatus": true,
-  "sourceCommit": "db47da2118355683f34fd955083c2b3c38769fe4",
+  "sourcePacketCommit": "db47da2118355683f34fd955083c2b3c38769fe4",
+  "regenerationBaseCommit": "73056a53fd87ce20d6a40f8c2188d2fb0a07ce7f",
   "whoDecidesEvidence": {
     "reviewedHead": "e47515f8b66a318966233fbf416da0b130650ede",
     "mergeCommit": "c6677da198c166079132ac2a23a39afeade26af3",
@@ -26,92 +27,235 @@
       "fullRelease": "bidirectional_production_and_consumption"
     }
   },
-  "expectedValid": [
+  "nonChainInventory": true,
+  "fixtureInventory": [
     {
-      "path": "valid/task-packet.valid.json",
+      "path": "valid/success/task-packet.valid.json",
       "schema": "task-packet.schema.json"
     },
     {
-      "path": "valid/review-finding.valid.json",
+      "path": "valid/success/review-finding.valid.json",
       "schema": "review-finding.schema.json"
     },
     {
-      "path": "valid/human-decision.valid.json",
+      "path": "valid/success/human-decision.valid.json",
       "schema": "human-decision.schema.json"
     },
     {
-      "path": "valid/consumption-receipt.valid.json",
+      "path": "valid/success/consumption-receipt.valid.json",
       "schema": "consumption-receipt.schema.json"
     },
     {
-      "path": "valid/continuation-context.valid.json",
+      "path": "valid/success/continuation-context.valid.json",
       "schema": "continuation-context.schema.json"
     },
     {
-      "path": "valid/agent-report.valid.json",
+      "path": "valid/success/agent-report.valid.json",
       "schema": "agent-report.schema.json"
     },
     {
-      "path": "valid/stop-response.valid.json",
+      "path": "valid/stop/task-packet.valid.json",
+      "schema": "task-packet.schema.json"
+    },
+    {
+      "path": "valid/stop/review-finding.valid.json",
+      "schema": "review-finding.schema.json"
+    },
+    {
+      "path": "valid/stop/authority-basis-decision.valid.json",
+      "schema": "human-decision.schema.json"
+    },
+    {
+      "path": "valid/stop/stop-response.valid.json",
       "schema": "stop-response.schema.json"
+    },
+    {
+      "path": "valid/stop/response-decision.valid.json",
+      "schema": "human-decision.schema.json"
+    }
+  ],
+  "expectedValidBundles": [
+    {
+      "id": "successful_continuation",
+      "kind": "successful_continuation",
+      "records": [
+        {
+          "role": "task_packet",
+          "path": "valid/success/task-packet.valid.json"
+        },
+        {
+          "role": "decision_request",
+          "path": "valid/success/review-finding.valid.json"
+        },
+        {
+          "role": "authority_basis_decision",
+          "path": "valid/success/human-decision.valid.json"
+        },
+        {
+          "role": "consumption_receipt",
+          "path": "valid/success/consumption-receipt.valid.json"
+        },
+        {
+          "role": "continuation_context",
+          "path": "valid/success/continuation-context.valid.json"
+        },
+        {
+          "role": "agent_report",
+          "path": "valid/success/agent-report.valid.json"
+        }
+      ]
+    },
+    {
+      "id": "pre_start_stop",
+      "kind": "pre_start_stop",
+      "records": [
+        {
+          "role": "task_packet",
+          "path": "valid/stop/task-packet.valid.json"
+        },
+        {
+          "role": "decision_request",
+          "path": "valid/stop/review-finding.valid.json"
+        },
+        {
+          "role": "authority_basis_decision",
+          "path": "valid/stop/authority-basis-decision.valid.json"
+        },
+        {
+          "role": "stop_response",
+          "path": "valid/stop/stop-response.valid.json"
+        }
+      ]
+    },
+    {
+      "id": "stop_decision_response",
+      "kind": "stop_decision_response",
+      "records": [
+        {
+          "role": "task_packet",
+          "path": "valid/stop/task-packet.valid.json"
+        },
+        {
+          "role": "decision_request",
+          "path": "valid/stop/review-finding.valid.json"
+        },
+        {
+          "role": "authority_basis_decision",
+          "path": "valid/stop/authority-basis-decision.valid.json"
+        },
+        {
+          "role": "stop_response",
+          "path": "valid/stop/stop-response.valid.json"
+        },
+        {
+          "role": "response_decision",
+          "path": "valid/stop/response-decision.valid.json"
+        }
+      ]
     }
   ],
   "expectedInvalid": [
     {
-      "path": "invalid/agent-report.missing-context-record.invalid.json",
-      "schema": "agent-report.schema.json",
-      "expectedCode": "MISSING_REQUIRED_RECORD",
-      "omittedRecords": [
-        "continuation-context"
+      "caseId": "agent-report-missing-context-record",
+      "baseBundle": "successful_continuation",
+      "omittedRecordPaths": [
+        "valid/success/continuation-context.valid.json"
+      ],
+      "expectedCodes": [
+        "MISSING_REQUIRED_RECORD"
       ]
     },
     {
-      "path": "invalid/agent-report.missing-decision-record.invalid.json",
-      "schema": "agent-report.schema.json",
-      "expectedCode": "MISSING_REQUIRED_RECORD",
-      "omittedRecords": [
-        "human-decision"
+      "caseId": "agent-report-missing-decision-record",
+      "baseBundle": "successful_continuation",
+      "omittedRecordPaths": [
+        "valid/success/human-decision.valid.json"
+      ],
+      "expectedCodes": [
+        "MISSING_REQUIRED_RECORD"
       ]
     },
     {
+      "caseId": "leap-second-expiry",
       "path": "invalid/consumption-receipt.leap-second-expiry.invalid.json",
       "schema": "consumption-receipt.schema.json",
-      "expectedCode": "TIMESTAMP_UNCOMPARABLE"
+      "expectedCodes": [
+        "TIMESTAMP_UNCOMPARABLE"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/consumption-receipt.valid.json"
     },
     {
+      "caseId": "fractional-claim-order",
       "path": "invalid/consumption-receipt.fractional-claim-order.invalid.json",
       "schema": "consumption-receipt.schema.json",
-      "expectedCode": "CLAIM_START_CHRONOLOGY_INVALID"
+      "expectedCodes": [
+        "CLAIM_START_CHRONOLOGY_INVALID"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/consumption-receipt.valid.json"
     },
     {
+      "caseId": "report-before-start",
       "path": "invalid/agent-report.return-before-start.invalid.json",
       "schema": "agent-report.schema.json",
-      "expectedCode": "REPORT_BEFORE_START"
+      "expectedCodes": [
+        "REPORT_BEFORE_START"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/agent-report.valid.json"
     },
     {
+      "caseId": "human-decision-digest-mismatch",
       "path": "invalid/human-decision.digest-mismatch.invalid.json",
       "schema": "human-decision.schema.json",
-      "expectedCode": "DIGEST_MISMATCH"
+      "expectedCodes": [
+        "DIGEST_MISMATCH"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/human-decision.valid.json"
     },
     {
+      "caseId": "agent-report-stripped-context",
       "path": "invalid/agent-report.stripped-context.invalid.json",
       "schema": "agent-report.schema.json",
-      "expectedCode": "SCHEMA_VALIDATION_FAILED"
+      "expectedCodes": [
+        "SCHEMA_VALIDATION_FAILED",
+        "STRIPPED_OR_MISMATCHED_CONTEXT"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/agent-report.valid.json"
     },
     {
+      "caseId": "continuation-context-stale-replay",
       "path": "invalid/continuation-context.stale-replay.invalid.json",
       "schema": "continuation-context.schema.json",
-      "expectedCode": "STALE_REPLAY"
+      "expectedCodes": [
+        "STALE_REPLAY"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/continuation-context.valid.json"
     },
     {
+      "caseId": "receipt-expired",
       "path": "invalid/consumption-receipt.expired.invalid.json",
       "schema": "consumption-receipt.schema.json",
-      "expectedCode": "EXPIRED_RECEIPT"
+      "expectedCodes": [
+        "EXPIRED_AT_START",
+        "EXPIRED_RECEIPT"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/consumption-receipt.valid.json"
     },
     {
+      "caseId": "receipt-revoked",
       "path": "invalid/consumption-receipt.revoked.invalid.json",
       "schema": "consumption-receipt.schema.json",
-      "expectedCode": "REVOCATION_STATUS_REJECTED",
+      "expectedCodes": [
+        "REVOCATION_STATUS_REJECTED"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/consumption-receipt.valid.json",
       "context": {
         "revokedDecisionDigests": [
           "fcdc44811249a82aa110a64b4a0100612bcf8f80fb45f63a1f0e000b4df2d45a"
@@ -119,64 +263,155 @@
       }
     },
     {
+      "caseId": "receipt-scope-expansion",
       "path": "invalid/consumption-receipt.scope-expansion.invalid.json",
       "schema": "consumption-receipt.schema.json",
-      "expectedCode": "SCOPE_EXPANSION"
+      "expectedCodes": [
+        "SCOPE_EXPANSION"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/consumption-receipt.valid.json"
     },
     {
+      "caseId": "non-approval-consumption",
       "path": "invalid/human-decision.non-approval.invalid.json",
       "schema": "human-decision.schema.json",
-      "expectedCode": "NON_APPROVAL_DECISION"
+      "expectedCodes": [
+        "NON_APPROVAL_DECISION"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/human-decision.valid.json"
     },
     {
+      "caseId": "report-spliced-authority",
       "path": "invalid/agent-report.spliced-authority.invalid.json",
       "schema": "agent-report.schema.json",
-      "expectedCode": "REPORT_PACKET_MISMATCH"
+      "expectedCodes": [
+        "REPORT_PACKET_MISMATCH"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/agent-report.valid.json"
     },
     {
+      "caseId": "report-spliced-decision",
       "path": "invalid/agent-report.spliced-decision.invalid.json",
       "schema": "agent-report.schema.json",
-      "expectedCode": "REPORT_DECISION_MISMATCH"
+      "expectedCodes": [
+        "REPORT_DECISION_MISMATCH"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/agent-report.valid.json"
     },
     {
+      "caseId": "report-spliced-request",
       "path": "invalid/agent-report.spliced-request.invalid.json",
       "schema": "agent-report.schema.json",
-      "expectedCode": "REPORT_DECISION_REQUEST_MISMATCH"
+      "expectedCodes": [
+        "DECISION_REQUEST_CHAIN_MISMATCH",
+        "REPORT_DECISION_REQUEST_MISMATCH"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/agent-report.valid.json"
     },
     {
+      "caseId": "task-loop-ceiling",
       "path": "invalid/task-packet.loop-ceiling.invalid.json",
       "schema": "task-packet.schema.json",
-      "expectedCode": "LOOP_CEILING_EXCEEDED"
+      "expectedCodes": [
+        "LOOP_CEILING_EXCEEDED"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/task-packet.valid.json"
     },
     {
+      "caseId": "report-loop-counter",
       "path": "invalid/agent-report.loop-counter.invalid.json",
       "schema": "agent-report.schema.json",
-      "expectedCode": "LOOP_COUNTER_MISMATCH"
+      "expectedCodes": [
+        "LOOP_COUNTER_MISMATCH"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/agent-report.valid.json"
     },
     {
+      "caseId": "report-spliced-start-evidence",
       "path": "invalid/agent-report.spliced-start-evidence.invalid.json",
       "schema": "agent-report.schema.json",
-      "expectedCode": "START_EVIDENCE_BINDING_MISMATCH"
+      "expectedCodes": [
+        "START_EVIDENCE_BINDING_MISMATCH"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/agent-report.valid.json"
     },
     {
+      "caseId": "receipt-expired-before-start",
       "path": "invalid/consumption-receipt.expired-before-start.invalid.json",
       "schema": "consumption-receipt.schema.json",
-      "expectedCode": "EXPIRED_AT_START"
+      "expectedCodes": [
+        "EXPIRED_AT_START"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/consumption-receipt.valid.json"
     },
     {
+      "caseId": "receipt-claim-after-start",
       "path": "invalid/consumption-receipt.claim-after-start.invalid.json",
       "schema": "consumption-receipt.schema.json",
-      "expectedCode": "CLAIM_START_CHRONOLOGY_INVALID"
+      "expectedCodes": [
+        "CLAIM_START_CHRONOLOGY_INVALID"
+      ],
+      "baseBundle": "successful_continuation",
+      "replaceRecordPath": "valid/success/consumption-receipt.valid.json"
     },
     {
-      "path": "invalid/consumption-receipt.divergent-request.invalid.json",
-      "schema": "consumption-receipt.schema.json",
-      "expectedCode": "DECISION_REQUEST_CHAIN_MISMATCH"
+      "caseId": "receipt-divergent-request",
+      "records": [
+        {
+          "role": "task_packet",
+          "path": "valid/success/task-packet.valid.json"
+        },
+        {
+          "role": "decision_request",
+          "path": "valid/success/review-finding.valid.json"
+        },
+        {
+          "role": "authority_basis_decision",
+          "path": "valid/success/human-decision.valid.json"
+        },
+        {
+          "role": "consumption_receipt",
+          "path": "invalid/consumption-receipt.divergent-request.invalid.json"
+        },
+        {
+          "role": "continuation_context",
+          "path": "valid/success/continuation-context.valid.json"
+        },
+        {
+          "role": "agent_report",
+          "path": "valid/success/agent-report.valid.json"
+        },
+        {
+          "role": "stop_response",
+          "path": "valid/stop/stop-response.valid.json"
+        }
+      ],
+      "expectedCodes": [
+        "DECISION_REQUEST_CHAIN_MISMATCH",
+        "DECISION_REQUEST_MISMATCH",
+        "STOP_AUTHORITY_BASIS_DECISION_MISMATCH",
+        "STOP_PACKET_MISMATCH",
+        "UNDECLARED_VALIDATION_INPUT"
+      ]
     },
     {
+      "caseId": "stop-spliced-packet",
       "path": "invalid/stop-response.spliced-packet.invalid.json",
       "schema": "stop-response.schema.json",
-      "expectedCode": "STOP_PACKET_MISMATCH"
+      "expectedCodes": [
+        "STOP_PACKET_MISMATCH"
+      ],
+      "baseBundle": "pre_start_stop",
+      "replaceRecordPath": "valid/stop/stop-response.valid.json"
     }
   ]
 }

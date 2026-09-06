@@ -240,6 +240,14 @@ Profile-specific stop codes may add detail, but any base HACP stop response
 must preserve the canonical reason and the minimal correction needed to unblock
 review.
 
+The v0.3-candidate executable stop-response record requires a `decisionId` and
+therefore covers only stops where a real human-decision record was presented or
+evaluated as the authority basis. That identity-only reference does not prove
+that the decision was valid, current, sufficient, admitted, or consumed. The
+candidate record cannot honestly encode a pre-decision or no-decision stop;
+producers must not invent a sentinel decision ID. That broader draft condition
+remains a named future contract gap rather than an executable candidate claim.
+
 Candidate decision/disposition labels are explanatory, not new base enum values:
 
 | Candidate label | Base projection |

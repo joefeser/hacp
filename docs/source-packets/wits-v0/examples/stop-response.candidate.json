@@ -1,23 +1,23 @@
 {
   "recordKind": "hacp.v0_3_candidate.stop_response",
   "schemaVersion": "hacp-0.3-candidate",
-  "stopId": "stop_example_missing_receipt_001",
-  "packetId": "taskpkt_example_continue_review_001",
-  "decisionId": "decision_example_approve_successor_001",
+  "stopId": "stop_example_pre_start_001",
+  "packetId": "taskpkt_example_pre_start_stop_001",
+  "decisionId": "decision_example_stop_authority_basis_001",
   "profileId": "hacp-accountable-continuation-v0.3-candidate",
-  "successorInvocationId": "invoke_example_docs_worker_001",
+  "successorInvocationId": "invoke_example_stopped_worker_001",
   "stopReason": "MISSING_AUTHORITY",
-  "whatDoesNotLineUp": "The continuation request requires an accountable-continuation receipt, but no accepted receipt could be read back.",
+  "whatDoesNotLineUp": "The presented decision did not have a readable accepted consumption receipt for this successor invocation.",
   "evidenceRefs": [
     "evidence://example/receipt-lookup-empty"
   ],
   "minimalCorrection": "Return to the human decision gate or verify authentic issuer-side admission and current validity under an approved continuation profile; a claimant-created receipt is insufficient.",
   "successorWorkBegan": false,
-  "boundaryStatement": "No work began in this hypothetical stop case. This candidate does not assert that any forbidden effect occurred or extend the base forbidden-effects vocabulary.",
+  "boundaryStatement": "The stop records a candidate no-start assertion for this invocation; it does not prove execution absence outside the declared evidence boundary.",
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.stop-response.v0.3-candidate",
-    "value": "086c40d2b7384069f758bc96ee7583b54108a0800632b8370a0729a0871ea163"
+    "value": "0233f83463eea76bce60acd0de145c232e70e0524df3e02fa3aee546b4913868"
   }
 }

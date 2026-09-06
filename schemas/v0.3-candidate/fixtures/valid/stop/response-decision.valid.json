@@ -1,0 +1,57 @@
+{
+  "recordKind": "hacp.v0_3_candidate.human_decision",
+  "schemaVersion": "hacp-0.3-candidate",
+  "decisionId": "decision_example_respond_to_stop_001",
+  "packetId": "taskpkt_example_pre_start_stop_001",
+  "packetDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "value": "647e2639c22dfeff4145b83842d6fb8519b9dd1040c3f48dc5d1f1d8277b072f"
+  },
+  "decisionRequest": {
+    "kind": "stop_response",
+    "id": "stop_example_pre_start_001",
+    "digest": {
+      "algorithm": "sha256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "org.hacp.stop-response.v0.3-candidate",
+      "value": "0233f83463eea76bce60acd0de145c232e70e0524df3e02fa3aee546b4913868"
+    }
+  },
+  "actor": {
+    "actorId": "human:owner@example.invalid",
+    "actorKind": "human",
+    "verificationSource": "signed_human_attestation"
+  },
+  "authenticationContext": {
+    "interactionChannel": "cli",
+    "secretMaterialPresent": false,
+    "authEventRef": "evidence://example/human-approval-event"
+  },
+  "evidenceRefs": [
+    "evidence://example/pre-start-stop-review"
+  ],
+  "decision": "defer",
+  "decisionReason": "The owner defers continuation until an authentic current admission receipt is available.",
+  "approvedSuccessorScope": [
+    "edit docs/source-packets/",
+    "run docs/config validation",
+    "return ACK and review evidence"
+  ],
+  "deniedAuthority": [
+    "merge",
+    "deploy",
+    "launch_worker",
+    "mutate_github_without_separate_tool_authority",
+    "accept_risk"
+  ],
+  "createdAt": "2026-09-03T18:02:00Z",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+    "value": "ce2ef6691b7673fdb131873ee50038f03f4fcb7bfe6f594781ab174308182898"
+  },
+  "boundaryStatement": "This response records a human deferral only. It grants no successor authority and consumes no decision."
+}

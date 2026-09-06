@@ -13,6 +13,7 @@ gate. Workers should use the repo-local lane config at
    ```bash
    agent-control version --json
    agent-control capability list --json
+   agent-control onboard doctor --repo OWNER/REPO --base <base> --json
    ```
 
 2. Confirm the lane requirements in `.agent-control/lanes/pr-review-loop.yaml`.
@@ -33,8 +34,12 @@ agent-control pr-loop --repo OWNER/REPO --pr NUMBER --base <base> --require-code
 
 Use the PR base branch as `<base>`. For normal HACP agent loops, that is
 usually `dev`. `main` promotion remains human-mediated.
-ACK policy requests configured required Codex and Qodo reviewers as a batch;
-workers do not post reviewer tags manually.
+ACK may request Codex; it batches the returned Codex and Qodo evidence but
+never requests Qodo. Before starting the loop, confirm the repository
+integration has started or returned the initial Qodo review. If it has not,
+hand off to the owner/coordinator to arrange that initial review outside ACK.
+Do not wait for an unrequested reviewer or weaken the required quorum. After
+Qodo returns once, retain its evidence; do not request a second return.
 
 Then run:
 

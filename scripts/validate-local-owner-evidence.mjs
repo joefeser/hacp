@@ -125,6 +125,11 @@ for (const [index, fixture] of fixtures.cases.entries()) {
   assert.equal(localObserved.receipt.status, 'passed', `local rerun ${fixture.id}`);
   const receiptKind = processCases.has(fixture.id) ? 'process' : 'unit';
   assert.equal(entry.receiptKind, receiptKind, `receipt kind ${fixture.id}`);
+  // Unit receipts have no run-local observations: the same pinned test source
+  // must emit the identical case-to-test binding in both runs.
+  if (receiptKind === 'unit') {
+    assert.deepEqual(localObserved.receipt, receipt, `unit receipt agreement ${fixture.id}`);
+  }
   for (const [label, caseReceipt] of [['CI', receipt], ['local rerun', localObserved.receipt]]) {
     assert.equal(typeof caseReceipt.test, 'string', `${label} test ${fixture.id}`);
     assert.ok(caseReceipt.test.trim(), `${label} test ${fixture.id}`);

@@ -107,7 +107,9 @@ Run `node scripts/validate-local-owner-evidence.mjs` to verify the artifact
 hash, contract pins, implementation/run-head and checkout-tree consistency,
 empty tracked diffs, the complete v3 source-hash inventory, fixture order and
 expected text, exact receipt IDs and passing status, receipt digests, and
-unit/process classification and aggregate counts in both proofs. Regression
+unit/process classification and aggregate counts in both proofs. The 37 unit
+receipts must agree across runs, including each case's test name, because the
+pinned source emits no run-local fields in those receipts. Regression
 checks run with `node --test scripts/validate-local-owner-evidence.test.mjs`.
 This offline check verifies consistency of the retained evidence; it does not
 query GitHub to authenticate run metadata or rerun the implementation tests.

@@ -99,9 +99,9 @@ prLoopPacket:
       requirement: required
       waitUntilReturnedBeforeProcessing: true
       waitTimeoutSeconds: 600
-      requestAllowed: policy
-      requestRetryCeiling: 2
-      retryCooldownSeconds: 120
+      requestAllowed: explicit_only
+      requestRetryCeiling: 0
+      retryCooldownSeconds: 0
     gemini:
       requirement: optional
       waitUntilReturnedBeforeProcessing: false
@@ -145,6 +145,10 @@ operationalNotes:
   qodoLifecycle: >
     pr-loop never posts @qodo-code-review review. Qodo review requests are
     explicit-only owner/coordinator actions outside the normal worker loop.
+    Before starting the loop, confirm the repository integration has started
+    or returned the initial Qodo review. A missing initial review requires
+    owner/coordinator setup; ACK cannot request it. After Qodo returns once,
+    retain its evidence and do not request a second return.
   botRetagBoundary: >
     Do not manually retag Codex, Qodo, Gemini, Sourcery, or other review bots.
   optionalReviewers: >

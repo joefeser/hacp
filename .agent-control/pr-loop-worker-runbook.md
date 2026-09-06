@@ -12,8 +12,14 @@ agent-control pr-loop --repo OWNER/REPO --pr NUMBER --base <base> --require-code
 ACK loads `.agent-control/lanes/pr-review-loop.yaml` from the repo by default.
 Verify local capability with `agent-control version --json` before relying on
 review quorum, required reviewer batching, quiet JSON, or freshness waiting.
-ACK policy requests the configured required Codex and Qodo reviewers as a batch;
-workers do not post reviewer tags manually.
+Run `agent-control onboard doctor --repo OWNER/REPO --base <base> --json`
+to validate the lane's reviewer policy as well as version/capability support.
+ACK may request Codex; it batches the returned Codex and Qodo evidence but
+never requests Qodo. Before starting the loop, confirm the repository
+integration has started or returned the initial Qodo review. If it has not,
+hand off to the owner/coordinator to arrange that initial review outside ACK.
+Do not wait for an unrequested reviewer or weaken the required quorum. After
+Qodo returns once, retain its evidence; do not request a second return.
 
 ## Worker rules
 
@@ -43,6 +49,7 @@ For this repo, run focused validation for changed files. Common checks are:
 
 ```bash
 agent-control doctor --json
+agent-control onboard doctor --repo OWNER/REPO --base <base> --json
 npm run hacp:cli-bridge-examples
 git diff --check
 ```

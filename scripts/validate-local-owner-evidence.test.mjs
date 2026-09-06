@@ -97,6 +97,13 @@ for (const [field, unsafeValue, message] of [
 }
 
 for (const source of ['CI', 'local']) {
+  rejects(`rejects a repinned ${source} unit receipt naming an unrelated test`, (matrix, editProof) => {
+    editProof(source, (proof) => {
+      const receipt = proof.inventory.find((entry) => entry.id === 'authenticated-without-human-act').receipt;
+      receipt.test = proof.inventory.find((entry) => entry.id === 'store-unavailable').receipt.test;
+    });
+  }, /unit receipt agreement authenticated-without-human-act/);
+
   rejects(`rejects a repinned dirty ${source} proof`, (matrix, editProof) => {
     editProof(source, (proof, metadata) => {
       proof.trackedDiffSha256 = metadata.trackedDiffSha256 = sha256('tracked implementation change');

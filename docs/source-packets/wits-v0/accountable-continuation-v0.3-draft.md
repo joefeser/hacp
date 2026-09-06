@@ -4,9 +4,13 @@ Status: HACP v0.3 candidate source packet.
 
 The [local owner profile candidate](local-owner-profile.md) is a separately
 pinned, narrow application of the owner's verifier/issuer/start policy. It does
-not resolve policy for every possible continuation profile or establish
-implementation proof. The illustrative sketches below remain historical
-candidate shapes, not interchangeable records for that local profile.
+not resolve policy for every possible continuation profile. One exact
+who-decides implementation now has a reviewed
+[evidence reconciliation](local-owner-profile-evidence-reconciliation.md)
+covering all 44 candidate fixtures. That implementation evidence is not owner
+acceptance, publication, standardization, or a general conformance claim. The
+illustrative sketches below remain historical candidate shapes, not
+interchangeable records for that local profile.
 
 Source material:
 
@@ -403,8 +407,12 @@ independent readback of pinned code, tests, and receipts showing:
 - ambiguous execution is reported without pretending completion;
 - expiry and revocation ordering is deterministic and reviewable.
 
-Until that evidence is accepted by the owner, a clean docs review or ACK
-mechanical result is not a merge or release recommendation for this draft.
+The local-owner evidence reconciliation verifies these observations for the
+exact who-decides candidate implementation at
+`e47515f8b66a318966233fbf416da0b130650ede`. It does not turn this general
+source packet into a standard, authorize release or deployment, or substitute
+for owner acceptance. A clean docs review or ACK mechanical result remains
+insufficient for any of those later decisions.
 
 ## Related Backlog
 

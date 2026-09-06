@@ -15,8 +15,11 @@ the normal RFC, schema, profile, and fixture process.
   for HACP v0.3 candidate consumption receipts, successor invocation evidence,
   and fail-closed continuation boundaries.
 - [Local owner continuation profile candidate](wits-v0/local-owner-profile.md)
-  narrows the approved local verifier/issuer/start policy; implementation proof
-  and explicit acceptance remain separate gates.
+  narrows the approved local verifier/issuer/start policy.
+- [Local owner continuation evidence reconciliation](wits-v0/local-owner-profile-evidence-reconciliation.md)
+  verifies one exact who-decides implementation and all 44 candidate fixture
+  receipts. The evidence closes the candidate implementation-proof gate only;
+  owner acceptance, publication, and standardization remain separate gates.
 
 ## Boundaries
 

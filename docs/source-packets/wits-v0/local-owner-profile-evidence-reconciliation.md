@@ -79,16 +79,19 @@ the CI result because run-local observations are intentionally retained.
 
 ## Verified Matrix
 
-The exact-head CI and an independent detached-head local rerun both report:
+The exact-head CI proof and independent detached-head proof receipts both
+report:
 
 - 44 inventory cases;
 - 44 observed and zero uncovered;
 - 37 unit receipts and 7 process receipts;
-- 46/46 local-owner tests, 15/15 console tests, 8/8 artifact tests, 6/6
-  live-loop tests, and 12/12 consumption tests;
-- typecheck, deterministic scenario, consumption proof, and local-owner proof
-  successful;
 - zero provider calls, zero network callbacks, and no exported secrets.
+
+The linked exact-head CI run also reported successful typecheck, auxiliary test
+suites, deterministic scenario, and consumption proof at live review time.
+Those auxiliary outputs are not contained in either committed local-owner proof
+receipt, so they are contextual CI state rather than part of this durable
+44-case evidence reconciliation.
 
 The proof generator derives `observed` only from a passing receipt carrying the
 exact fixture ID. Unknown receipt IDs fail. This structurally corrects the

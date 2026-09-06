@@ -45,6 +45,7 @@ assert.equal(proof.providerCalls, 0);
 assert.equal(proof.networkCallbacks, 0);
 assert.equal(proof.secretsExported, false);
 assert.equal(proof.testRun.outputSha256, matrix.ciEvidence.localOwnerTestOutputSha256);
+assert.equal(proof.testRun.receiptCount, matrix.ciEvidence.unitReceipts);
 
 assert.equal(sha256(localProofBytes), matrix.independentLocalValidation.proofResultSha256);
 assert.equal(localProof.schema, matrix.ciEvidence.artifactSchema);

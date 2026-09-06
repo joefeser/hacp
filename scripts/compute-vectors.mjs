@@ -404,13 +404,13 @@ function buildInvalidManifest(success, stop) {
       caseId: 'agent-report-missing-context-record',
       baseBundle: 'successful_continuation',
       omittedRecordPaths: [successPaths.continuation_context],
-      expectedCodes: ['MISSING_REQUIRED_RECORD', 'UNDECLARED_VALIDATION_INPUT']
+      expectedCodes: ['MISSING_REQUIRED_RECORD']
     },
     {
       caseId: 'agent-report-missing-decision-record',
       baseBundle: 'successful_continuation',
       omittedRecordPaths: [successPaths.authority_basis_decision],
-      expectedCodes: ['MISSING_REQUIRED_RECORD', 'UNDECLARED_VALIDATION_INPUT']
+      expectedCodes: ['MISSING_REQUIRED_RECORD']
     },
     replacement('leap-second-expiry', 'invalid/consumption-receipt.leap-second-expiry.invalid.json', 'consumption-receipt.schema.json', 'consumption_receipt', ['TIMESTAMP_UNCOMPARABLE']),
     replacement('fractional-claim-order', 'invalid/consumption-receipt.fractional-claim-order.invalid.json', 'consumption-receipt.schema.json', 'consumption_receipt', ['CLAIM_START_CHRONOLOGY_INVALID']),
@@ -643,7 +643,9 @@ function validateSemantics(entries, context = {}, bundleKind = 'explicit') {
   }
   if (after('started', 'returned')) add('REPORT_BEFORE_START', 'Agent report return time precedes successor work start.');
   if (stop && task && stop.packetId !== task.packetId) add('STOP_PACKET_MISMATCH', 'Stop response does not bind the current task packet.');
-  if (stop && decision && stop.decisionId !== decision.decisionId) {
+  const authorityBasisDecisions = entries.filter((item) => item.role === 'authority_basis_decision');
+  if (stop && (authorityBasisDecisions.length !== 1
+    || stop.decisionId !== authorityBasisDecisions[0].record?.decisionId)) {
     add('STOP_AUTHORITY_BASIS_DECISION_MISMATCH', 'Stop response does not identify the bundle authority-basis decision.');
   }
   if (stop && report?.startEvidence
@@ -907,12 +909,16 @@ function diagnosticCodes(diagnostics) {
   return [...new Set(diagnostics.map((item) => item.code))].sort();
 }
 
-async function validateInput(entries, validators, context = {}, bundleKind = 'explicit', _declared = undefined) {
+async function validateInput(entries, validators, context = {}, declaredBundle = undefined) {
   const diagnostics = [];
-  const declaredByContent = Object.hasOwn(bundleRoles, bundleKind)
-    && exactRoleSet(bundleKind, entries)
+  const bundleKind = declaredBundle?.kind ?? 'explicit';
+  const declaredByContent = declaredBundle !== undefined
+    && Object.hasOwn(bundleRoles, bundleKind)
+    && entries.length === declaredBundle.records.length
+    && entries.every((item, index) => item.role === declaredBundle.records[index]?.role
+      && item.path === declaredBundle.records[index]?.path)
     && entries.every((item) => kindFromRecord[item.record?.recordKind] === roleKinds[item.role]);
-  if (!declaredByContent) diagnostics.push({ code: 'UNDECLARED_VALIDATION_INPUT', message: 'Semantic input does not exactly match a declared bundle kind, role set, and role-to-record-kind mapping.' });
+  if (!declaredByContent) diagnostics.push({ code: 'UNDECLARED_VALIDATION_INPUT', message: 'Semantic input does not exactly match a selected manifest bundle, including its ordered roles, paths, and role-to-record-kind mapping.' });
   const roles = entries.map((item) => item.role);
   if (new Set(roles).size !== roles.length) diagnostics.push({ code: 'DUPLICATE_RECORD_ROLE', message: 'Semantic input contains duplicate roles.' });
   const kinds = entries.map((item) => kindFromRecord[item.record?.recordKind]).filter(Boolean);
@@ -934,19 +940,24 @@ async function constructInvalidInput(entry, bundleMap) {
     const filtered = descriptors.filter((item) => !(entry.omittedRecordPaths || []).includes(item.path));
     const entries = await loadEntries(filtered);
     const targetRole = descriptors[targetIndex].role;
-    return { entries: rebindDownstream(entries, targetRole), bundleKind: base.kind, declared: true };
+    return {
+      entries: rebindDownstream(entries, targetRole),
+      declaredBundle: { ...base, records: filtered }
+    };
   }
   if ('omittedRecordPaths' in entry) {
     const base = bundleMap.get(entry.baseBundle);
     const descriptors = base.records.filter((item) => !entry.omittedRecordPaths.includes(item.path));
-    return { entries: await loadEntries(descriptors), bundleKind: base.kind, declared: true };
+    return {
+      entries: await loadEntries(descriptors),
+      declaredBundle: { ...base, records: descriptors }
+    };
   }
   const entries = await loadEntries(entry.records);
   const target = entry.records.find((item) => item.path.startsWith('invalid/'));
   return {
     entries: rebindDownstream(entries, target?.role),
-    bundleKind: 'explicit',
-    declared: false
+    declaredBundle: undefined
   };
 }
 
@@ -1022,12 +1033,12 @@ async function validateCorpus(manifest) {
   const { bundleMap } = await validateManifest(manifest);
   for (const bundle of manifest.expectedValidBundles) {
     const entries = await loadEntries(bundle.records);
-    const codes = diagnosticCodes(await validateInput(entries, validators, {}, bundle.kind, true));
+    const codes = diagnosticCodes(await validateInput(entries, validators, {}, bundle));
     if (codes.length) throw new Error(`Expected-valid bundle ${bundle.id} failed: ${JSON.stringify(codes)}`);
   }
   for (const entry of manifest.expectedInvalid) {
     const input = await constructInvalidInput(entry, bundleMap);
-    const codes = diagnosticCodes(await validateInput(input.entries, validators, entry.context || {}, input.bundleKind, input.declared));
+    const codes = diagnosticCodes(await validateInput(input.entries, validators, entry.context || {}, input.declaredBundle));
     const expected = [...entry.expectedCodes].sort();
     if (codes.join('|') !== expected.join('|')) {
       throw new Error(`${entry.caseId} diagnostics ${JSON.stringify(codes)} did not exactly match ${JSON.stringify(expected)}.`);

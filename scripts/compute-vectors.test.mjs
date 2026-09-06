@@ -19,8 +19,8 @@ function entriesFor(bundle) {
   }));
 }
 
-function codesFor(entries, bundleKind = 'explicit', declared = true) {
-  return validateInput(entries, validators, {}, bundleKind, declared).then(diagnosticCodes);
+function codesFor(entries, declaredBundle = undefined) {
+  return validateInput(entries, validators, {}, declaredBundle).then(diagnosticCodes);
 }
 
 function cloneManifest(edit) {
@@ -51,7 +51,7 @@ test('all three declared bundles validate independently', async () => {
     'successful_continuation', 'pre_start_stop', 'stop_decision_response'
   ]);
   for (const bundle of manifest.expectedValidBundles) {
-    assert.deepEqual(await codesFor(entriesFor(bundle), bundle.kind, true), [], bundle.id);
+    assert.deepEqual(await codesFor(entriesFor(bundle), bundle), [], bundle.id);
   }
 });
 
@@ -69,7 +69,7 @@ test('historical all-seven same-invocation inventory is not a valid chain', asyn
   stop.record.decisionId = success.find((item) => item.role === 'authority_basis_decision').record.decisionId;
   stop.record.successorInvocationId = success.find((item) => item.role === 'agent_report').record.successorInvocationId;
   stop.record.digest = digestRecord('stop-response', stop.record);
-  assert.deepEqual(await codesFor([...success, stop], 'explicit', false), [
+  assert.deepEqual(await codesFor([...success, stop]), [
     'STOP_AFTER_WORK', 'UNDECLARED_VALIDATION_INPUT'
   ]);
 });
@@ -81,13 +81,13 @@ test('rehashing a stop onto the successful invocation still fails STOP_AFTER_WOR
   stop.record.decisionId = success.find((item) => item.role === 'authority_basis_decision').record.decisionId;
   stop.record.successorInvocationId = success.find((item) => item.role === 'agent_report').record.successorInvocationId;
   stop.record.digest = digestRecord('stop-response', stop.record);
-  assert.ok((await codesFor([...success, stop], 'explicit', false)).includes('STOP_AFTER_WORK'));
+  assert.ok((await codesFor([...success, stop])).includes('STOP_AFTER_WORK'));
 });
 
 test('splicing a stop into a success bundle fails closed', async () => {
   const success = entriesFor(manifest.expectedValidBundles[0]);
   const stop = entriesFor(manifest.expectedValidBundles[1]).find((item) => item.role === 'stop_response');
-  assert.deepEqual(await codesFor([...success, stop], 'explicit', false), [
+  assert.deepEqual(await codesFor([...success, stop]), [
     'STOP_AUTHORITY_BASIS_DECISION_MISMATCH', 'STOP_PACKET_MISMATCH', 'UNDECLARED_VALIDATION_INPUT'
   ]);
 });
@@ -96,7 +96,7 @@ test('success-only records cannot be inserted into the stop bundle', async () =>
   const stop = entriesFor(manifest.expectedValidBundles[1]);
   const success = entriesFor(manifest.expectedValidBundles[0]);
   for (const role of ['consumption_receipt', 'continuation_context']) {
-    const codes = await codesFor([...stop, success.find((item) => item.role === role)], 'explicit', false);
+    const codes = await codesFor([...stop, success.find((item) => item.role === role)]);
     assert.ok(codes.includes('UNDECLARED_VALIDATION_INPUT'), role);
   }
   const report = success.find((item) => item.role === 'agent_report');
@@ -104,7 +104,7 @@ test('success-only records cannot be inserted into the stop bundle', async () =>
   report.record.successorInvocationId = stopRecord.successorInvocationId;
   report.record.startEvidence.successorInvocationId = stopRecord.successorInvocationId;
   report.record.digest = digestRecord('agent-report', report.record);
-  const codes = await codesFor([...stop, report], 'explicit', false);
+  const codes = await codesFor([...stop, report]);
   assert.ok(codes.includes('STOP_AFTER_WORK'));
   assert.ok(codes.includes('UNDECLARED_VALIDATION_INPUT'));
 });
@@ -112,19 +112,45 @@ test('success-only records cannot be inserted into the stop bundle', async () =>
 test('stop bundles require task and authority-basis records', async () => {
   for (const role of ['task_packet', 'authority_basis_decision']) {
     const bundle = entriesFor(manifest.expectedValidBundles[1]).filter((item) => item.role !== role);
-    assert.ok((await codesFor(bundle, 'pre_start_stop', true)).includes('MISSING_REQUIRED_RECORD'), role);
+    assert.ok((await codesFor(bundle, manifest.expectedValidBundles[1])).includes('MISSING_REQUIRED_RECORD'), role);
   }
 });
 
 test('declaration is derived from exact contents, never a caller boolean', async () => {
   const success = entriesFor(manifest.expectedValidBundles[0]);
-  assert.deepEqual(await codesFor([], 'successful_continuation', true), ['UNDECLARED_VALIDATION_INPUT']);
-  assert.deepEqual(await codesFor([success[0]], 'successful_continuation', true), ['UNDECLARED_VALIDATION_INPUT']);
+  assert.deepEqual(await codesFor([], manifest.expectedValidBundles[0]), ['UNDECLARED_VALIDATION_INPUT']);
+  assert.deepEqual(await codesFor([success[0]], manifest.expectedValidBundles[0]), ['UNDECLARED_VALIDATION_INPUT']);
   const mismatched = entriesFor(manifest.expectedValidBundles[0]);
   mismatched[0].role = 'agent_report';
-  const codes = await codesFor(mismatched, 'successful_continuation', true);
+  const codes = await codesFor(mismatched, manifest.expectedValidBundles[0]);
   assert.ok(codes.includes('UNDECLARED_VALIDATION_INPUT'));
   assert.ok(codes.includes('DUPLICATE_RECORD_ROLE'));
+});
+
+test('declaration includes exact manifest fixture paths', async () => {
+  const missingPath = entriesFor(manifest.expectedValidBundles[0]);
+  delete missingPath[0].path;
+  assert.ok((await codesFor(missingPath, manifest.expectedValidBundles[0])).includes('UNDECLARED_VALIDATION_INPUT'));
+
+  const crossBranch = entriesFor(manifest.expectedValidBundles[0]);
+  crossBranch[0].path = 'valid/stop/task-packet.valid.json';
+  assert.ok((await codesFor(crossBranch, manifest.expectedValidBundles[0])).includes('UNDECLARED_VALIDATION_INPUT'));
+});
+
+test('stop authority basis must exist exactly once and match', async () => {
+  const expected = manifest.expectedValidBundles[1];
+  const missing = entriesFor(expected).filter((item) => item.role !== 'authority_basis_decision');
+  const missingCodes = await codesFor(missing, expected);
+  assert.ok(missingCodes.includes('MISSING_REQUIRED_RECORD'));
+  assert.ok(missingCodes.includes('STOP_AUTHORITY_BASIS_DECISION_MISMATCH'));
+  assert.ok(missingCodes.includes('UNDECLARED_VALIDATION_INPUT'));
+
+  const duplicate = entriesFor(expected);
+  duplicate.push(structuredClone(duplicate.find((item) => item.role === 'authority_basis_decision')));
+  const duplicateCodes = await codesFor(duplicate, expected);
+  assert.ok(duplicateCodes.includes('DUPLICATE_RECORD_ROLE'));
+  assert.ok(duplicateCodes.includes('STOP_AUTHORITY_BASIS_DECISION_MISMATCH'));
+  assert.ok(duplicateCodes.includes('UNDECLARED_VALIDATION_INPUT'));
 });
 
 test('stop identifies the actual authority-basis decision in both stop bundles', async () => {
@@ -138,7 +164,7 @@ test('stop identifies the actual authority-basis decision in both stop bundles',
       response.decisionRequest.digest = stop.digest;
       response.digest = digestRecord('human-decision', response);
     }
-    const codes = await codesFor(bundle, manifest.expectedValidBundles[bundleIndex].kind, true);
+    const codes = await codesFor(bundle, manifest.expectedValidBundles[bundleIndex]);
     assert.deepEqual(codes, ['STOP_AUTHORITY_BASIS_DECISION_MISMATCH']);
   }
 });
@@ -149,7 +175,7 @@ test('response decision has distinct identity and exact stop binding', async () 
   const response = reused.find((item) => item.role === 'response_decision').record;
   response.decisionId = authority.decisionId;
   response.digest = digestRecord('human-decision', response);
-  assert.ok((await codesFor(reused, 'stop_decision_response', true)).includes('RESPONSE_DECISION_ID_REUSE'));
+  assert.ok((await codesFor(reused, manifest.expectedValidBundles[2])).includes('RESPONSE_DECISION_ID_REUSE'));
 
   for (const mutate of [
     record => { record.decisionRequest.id = 'stop_wrong_001'; },
@@ -159,7 +185,7 @@ test('response decision has distinct identity and exact stop binding', async () 
     const candidate = bundle.find((item) => item.role === 'response_decision').record;
     mutate(candidate);
     candidate.digest = digestRecord('human-decision', candidate);
-    assert.ok((await codesFor(bundle, 'stop_decision_response', true)).includes('DECISION_REQUEST_MISMATCH'));
+    assert.ok((await codesFor(bundle, manifest.expectedValidBundles[2])).includes('DECISION_REQUEST_MISMATCH'));
   }
 });
 
@@ -172,14 +198,14 @@ test('response decision binds the exact bundle task packet', async () => {
     const response = bundle.find((item) => item.role === 'response_decision').record;
     mutate(response);
     response.digest = digestRecord('human-decision', response);
-    assert.deepEqual(await codesFor(bundle, 'stop_decision_response', true), ['PACKET_REFERENCE_MISMATCH']);
+    assert.deepEqual(await codesFor(bundle, manifest.expectedValidBundles[2]), ['PACKET_REFERENCE_MISMATCH']);
   }
 });
 
 test('top-level stop digest mismatch fails closed', async () => {
   const bundle = entriesFor(manifest.expectedValidBundles[1]);
   bundle.find((item) => item.role === 'stop_response').record.digest.value = '0'.repeat(64);
-  assert.deepEqual(await codesFor(bundle, 'pre_start_stop', true), ['DIGEST_MISMATCH']);
+  assert.deepEqual(await codesFor(bundle, manifest.expectedValidBundles[1]), ['DIGEST_MISMATCH']);
 });
 
 for (const item of packageData.artifacts) {
@@ -237,7 +263,7 @@ test('standalone manifest schema rejects role/path combinations from another rec
 
 test('raw inventory and duplicate roles are undeclared inputs', async () => {
   const all = packageData.artifacts.map((item) => ({ role: item.role, path: item.path, record: structuredClone(item.record) }));
-  const codes = await codesFor(all, 'explicit', false);
+  const codes = await codesFor(all);
   assert.deepEqual(codes, [
     'DECISION_REQUEST_CHAIN_MISMATCH',
     'DECISION_REQUEST_MISMATCH',
@@ -247,10 +273,11 @@ test('raw inventory and duplicate roles are undeclared inputs', async () => {
     'REPORT_DECISION_REQUEST_MISMATCH',
     'REPORT_PACKET_MISMATCH',
     'STALE_REPLAY',
+    'STOP_AUTHORITY_BASIS_DECISION_MISMATCH',
     'UNDECLARED_VALIDATION_INPUT'
   ]);
   const success = entriesFor(manifest.expectedValidBundles[0]);
-  const duplicateCodes = await codesFor([...success, structuredClone(success[0])], 'explicit', false);
+  const duplicateCodes = await codesFor([...success, structuredClone(success[0])]);
   assert.ok(duplicateCodes.includes('DUPLICATE_RECORD_ROLE'));
   assert.ok(duplicateCodes.includes('DUPLICATE_RECORD_KIND'));
 });

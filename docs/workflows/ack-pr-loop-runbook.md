@@ -33,6 +33,8 @@ agent-control pr-loop --repo OWNER/REPO --pr NUMBER --base <base> --require-code
 
 Use the PR base branch as `<base>`. For normal HACP agent loops, that is
 usually `dev`. `main` promotion remains human-mediated.
+ACK policy requests configured required Codex and Qodo reviewers as a batch;
+workers do not post reviewer tags manually.
 
 Then run:
 

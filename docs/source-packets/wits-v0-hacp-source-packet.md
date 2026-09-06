@@ -94,8 +94,10 @@ The WITS source shape reinforces the existing HACP task-packet rule:
   dispatch by HACP, GitHub mutation by HACP, hidden worker launch, and billing
   actions.
 
-A task packet can authorize bounded work for an external participant. It does
-not authorize HACP core to run the participant.
+A task packet can carry bounded authorization for an external participant only
+after the referenced human-origin approval path and its content binding have
+been verified. The packet is not an authority source by itself, and it does not
+authorize HACP core to run the participant.
 
 ## Approved Packet Readback
 

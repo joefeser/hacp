@@ -99,9 +99,9 @@ prLoopPacket:
       requirement: required
       waitUntilReturnedBeforeProcessing: true
       waitTimeoutSeconds: 600
-      requestAllowed: explicit_only
-      requestRetryCeiling: 0
-      retryCooldownSeconds: 0
+      requestAllowed: policy
+      requestRetryCeiling: 2
+      retryCooldownSeconds: 120
     gemini:
       requirement: optional
       waitUntilReturnedBeforeProcessing: false

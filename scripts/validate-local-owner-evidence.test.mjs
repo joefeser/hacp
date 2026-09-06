@@ -86,6 +86,16 @@ rejects('rejects a different synthetic checkout tree', (matrix) => {
   matrix.ciEvidence.checkoutTree = '0'.repeat(40);
 }, /CI checkout implementation tree/);
 
+for (const [field, unsafeValue, message] of [
+  ['providerCalls', 1, /CI provider calls/],
+  ['networkCallbacks', 1, /CI network callbacks/],
+  ['secretsExported', true, /CI secrets exported/],
+]) {
+  rejects(`rejects contradictory CI ${field} metadata`, (matrix) => {
+    matrix.ciEvidence[field] = unsafeValue;
+  }, message);
+}
+
 for (const source of ['CI', 'local']) {
   rejects(`rejects a repinned dirty ${source} proof`, (matrix, editProof) => {
     editProof(source, (proof, metadata) => {

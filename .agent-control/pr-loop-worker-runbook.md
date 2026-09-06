@@ -12,6 +12,8 @@ agent-control pr-loop --repo OWNER/REPO --pr NUMBER --base <base> --require-code
 ACK loads `.agent-control/lanes/pr-review-loop.yaml` from the repo by default.
 Verify local capability with `agent-control version --json` before relying on
 review quorum, required reviewer batching, quiet JSON, or freshness waiting.
+ACK policy requests the configured required Codex and Qodo reviewers as a batch;
+workers do not post reviewer tags manually.
 
 ## Worker rules
 

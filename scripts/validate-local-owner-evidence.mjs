@@ -73,6 +73,9 @@ assert.deepEqual(proof.contract, {
 });
 assert.equal(proof.evidenceIntegrity.defectSpecies, matrix.evidenceIntegrity.defectSpecies);
 assert.equal(proof.evidenceIntegrity.rule, matrix.evidenceIntegrity.rule);
+assert.equal(proof.providerCalls, matrix.ciEvidence.providerCalls, 'CI provider calls');
+assert.equal(proof.networkCallbacks, matrix.ciEvidence.networkCallbacks, 'CI network callbacks');
+assert.equal(proof.secretsExported, matrix.ciEvidence.secretsExported, 'CI secrets exported');
 assert.equal(proof.providerCalls, 0);
 assert.equal(proof.networkCallbacks, 0);
 assert.equal(proof.secretsExported, false);

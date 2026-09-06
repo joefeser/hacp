@@ -52,9 +52,12 @@ or HACP validator must not invent the join or supply the approver identity.
 | --- | --- |
 | Product Decision exists, but no native continuation-authority act exists | Stop with `MISSING_AUTHORITY`; no successor work begins. |
 | Product Decision records `executionAuthorized: false` | Preserve it as non-authorizing evidence; do not reinterpret it. |
-| Caller or adapter supplies an otherwise unproven relationship | Stop with `UNVERIFIED_ASSUMPTION` or `CONTEXT_MISMATCH`; do not manufacture a chain. |
-| Product Decision revision, action digest, packet digest, or scope conflicts with the native authority act | Stop with `CONTEXT_MISMATCH` or `SCOPE_CONFLICT`. |
-| Authority is expired, revoked, already consumed, or not tied to the intended successor | Use the applicable existing candidate stop and preserve `successorWorkBegan: false`. |
+| Caller or adapter supplies an otherwise unsupported relationship claim | Stop with `UNVERIFIED_ASSUMPTION`; do not manufacture a chain. |
+| Required Product Decision revision, action digest, packet digest, or native authority evidence is missing or cannot be verified | Stop with `MISSING_AUTHORITY`. |
+| Verified Product Decision or packet evidence no longer matches authenticated current authority evidence | Stop with `STALE_PACKET`. |
+| Approved successor scope conflicts with the requested continuation | Stop with `SCOPE_CONFLICT`. |
+| Authority or receipt is expired or revoked before successor start | Stop with `STALE_PACKET`; preserve `successorWorkBegan: false`. |
+| The authority was already consumed and no accepted claim exists for this successor | Stop with `MISSING_AUTHORITY`; preserve `successorWorkBegan: false`. |
 
 A reference string alone proves neither the referenced record's contents nor
 the authority relationship. Qualification evidence must retain the immutable

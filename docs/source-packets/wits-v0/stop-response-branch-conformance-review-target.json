@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "docs/source-packets/wits-v0/stop-response-branch-conformance-proposal.md",
-      "sha256": "0f227d3370baa3e95712c30c94cbf8eb4a98718fe085c34b77fc2c3b41b32fb8"
+      "sha256": "8a8a02165276f0eece10ef3e8b0b8baaf230abf1ba8f041478c31a7eb01875bd"
     },
     {
       "path": "schemas/v0.3-candidate/README.md",

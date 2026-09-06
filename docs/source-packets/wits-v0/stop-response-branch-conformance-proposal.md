@@ -87,7 +87,7 @@ not duplicate records or a combined execution chain.
 
 Each bundle is independently schema-, digest-, and semantics-valid. Bundle
 entries use explicit semantic roles, so the response bundle resolves the
-authorizing decision by `stop.decisionId` and the later response decision by
+authority-basis decision by `stop.decisionId` and the later response decision by
 its distinct identity plus exact stop ID and digest. Zero, multiple, or
 ambiguous role matches fail closed. The union is an inventory only and must
 never be passed to semantic validation as one chain.
@@ -95,10 +95,13 @@ never be passed to semantic validation as one chain.
 ### Cross-record rule disposition
 
 - Retire the global `STOP_DECISION_MISMATCH` rule. Replace it with a
-  `STOP_AUTHORITY_BASIS_DECISION_MISMATCH` rule scoped only to a
-  `pre_start_stop` bundle. It requires the stop's `decisionId` to equal that
-  bundle's single authority-basis decision without asserting that the decision
-  was valid or currently authorizing.
+  `STOP_AUTHORITY_BASIS_DECISION_MISMATCH` rule scoped to every declared
+  stop-bearing bundle that contains an `authority_basis_decision`, including
+  `pre_start_stop` and `stop_decision_response`. It requires the stop's
+  `decisionId` to equal that bundle's single authority-basis decision without
+  asserting that the decision was valid or currently authorizing. Zero,
+  multiple, missing, or ambiguous authority-basis matches produce this exact
+  diagnostic.
 - Retire the global `STOP_INVOCATION_MISMATCH` rule. A valid stop branch has no
   accepted receipt to compare. Equality with an invocation from a different
   branch is a collision, not a positive binding rule.
@@ -116,8 +119,8 @@ never be passed to semantic validation as one chain.
 - A stop that happens to name the success branch's decision but names a distinct
   never-started invocation is not rejected merely by global identifier
   equality. It is rejected when presented as a member of an undeclared bundle
-  or when its branch-local authorizing-decision binding is false. This avoids
-  inventing cross-branch authority semantics.
+  or when its branch-local authority-basis-decision binding is false. This
+  avoids inventing cross-branch authority semantics.
 
 ## Manifest v2 contract
 
@@ -143,11 +146,15 @@ kept outside the record-schema scan. It must:
   one declared bundle;
 - require the bundle union to cover all seven protocol record kinds;
 - reject undeclared files, unknown paths, unknown bundle kinds, missing
-  bundles, and extra or duplicate membership rather than inferring intent;
+  bundles, duplicate role/path membership within one bundle, duplicate bundle
+  entries, and undeclared extra membership rather than inferring intent. The
+  exact shared antecedent paths declared by `pre_start_stop` and
+  `stop_decision_response` are permitted across those two bundles;
 - require every invalid entry to select exactly one closed construction form:
-  replacement (`baseBundle`, `replaceRecordPath`, invalid `path`), omission
-  (`baseBundle`, non-empty `omittedRecordPaths`), or explicit cross-branch
-  input (complete role/path entries);
+  replacement (`caseId`, `baseBundle`, `replaceRecordPath`, invalid `path`),
+  omission (`caseId`, `baseBundle`, non-empty `omittedRecordPaths`, and no
+  invalid fixture `path`), or explicit cross-branch input (`caseId` plus
+  complete role/path entries);
 - require replacement targets and omissions to be members of the selected
   base, require replacement record-kind compatibility, apply replacement
   before omission, and reject omissions of absent paths or the replacement
@@ -163,7 +170,11 @@ kept outside the record-schema scan. It must:
 The loader's declared-file boundary is recursive `*.json` content beneath
 `fixtures/valid/` and `fixtures/invalid/`. It rejects an unlisted JSON fixture
 but ignores non-JSON editor or operating-system files. The manifest itself and
-the package-metadata schema are outside that inventory.
+the package-metadata schema are outside that inventory. The two current
+byte-identical missing-record files are removed: their logical case IDs remain
+in the manifest as omission-only cases built directly from the declared base
+bundle. This preserves all twenty-two logical negative cases without retaining
+misleading invalid-file copies that are not themselves invalid records.
 
 The executable harness must accept a declared bundle identity, never the raw
 `fixtureInventory`, as positive semantic input. Passing the inventory or the
@@ -199,40 +210,42 @@ The revised package must add committed or test-generated cases that prove:
    `pre_start_stop` bundle fails specifically with
    `STOP_AUTHORITY_BASIS_DECISION_MISMATCH`, never a retired global equality
    rule;
-4. inserting a stop into `successful_continuation` fails closed as undeclared
+4. the same authority-basis decision mutation inside an otherwise valid
+   `stop_decision_response` bundle fails with the same exact diagnostic;
+5. inserting a stop into `successful_continuation` fails closed as undeclared
    membership, and also produces `STOP_AFTER_WORK` when the report names the
    same invocation;
-5. inserting a receipt, continuation context, or report for the stopped
+6. inserting a receipt, continuation context, or report for the stopped
    invocation into `pre_start_stop` fails closed as undeclared membership; a
    same-invocation report also produces `STOP_AFTER_WORK`;
-6. omitting the stop branch's task packet fails with
+7. omitting the stop branch's task packet fails with
    `MISSING_REQUIRED_RECORD`;
-7. the existing stop packet splice still fails with `STOP_PACKET_MISMATCH`;
-8. a `stop_decision_response` decision that reuses the authority-basis decision
+8. the existing stop packet splice still fails with `STOP_PACKET_MISMATCH`;
+9. a `stop_decision_response` decision that reuses the authority-basis decision
    identity fails, while a distinct non-approval decision binding the exact
    stop passes;
-9. independently rehashed response decisions with either the wrong stop ID or
+10. independently rehashed response decisions with either the wrong stop ID or
    wrong stop digest fail with `DECISION_REQUEST_MISMATCH`;
-10. a stop response mutated without recomputing its top-level digest fails with
+11. a stop response mutated without recomputing its top-level digest fails with
     `DIGEST_MISMATCH`;
-11. an unknown manifest field, wrong manifest identifier, unknown base bundle,
+12. an unknown manifest field, wrong manifest identifier, unknown base bundle,
    both or neither selector form, replacement path absent from its base,
    wrong-kind replacement, invalid omission, inconsistent inventory
    path/schema pair, unsafe path, unknown path,
    duplicate path, duplicate bundle, missing bundle, uncovered valid fixture,
    duplicate record kind outside the one declared two-decision bundle, or
    unknown bundle kind fails before corpus validation;
-12. submitting the complete `fixtureInventory` or the union of all three valid
+13. submitting the complete `fixtureInventory` or the union of all three valid
    bundles as one semantic input fails with the exact expected diagnostic set,
    including `UNDECLARED_VALIDATION_INPUT` and any declared duplicate-role or
    duplicate-kind diagnostics;
-13. every invalid fixture selects its validation input unambiguously and every
+14. every invalid fixture selects its validation input unambiguously and every
    cross-branch case matches its complete `expectedCodes` set;
-14. `consumption-receipt.divergent-request` remains an intentional in-branch
+15. `consumption-receipt.divergent-request` remains an intentional in-branch
     decision-request-chain mutation rather than degrading into an unknown
     cross-branch reference; and
-15. all twenty-two existing negatives retain their expected diagnostic under
-    their declared validation input.
+16. all twenty-two existing logical negative cases retain their expected
+    diagnostic under their declared validation input.
 
 ## Required implementation evidence
 
@@ -278,8 +291,9 @@ package honest about mutually exclusive terminal branches.
 The two initial independent reviews agree that branch separation is the
 smallest safe correction and that no protocol-record schema or digest-domain
 change is required. This revision adopts their shared findings and resolves
-their main disagreement by requiring the stop to name a real authorizing human
-decision and by separately representing a later human response to that stop.
+their main disagreement by requiring the stop to name a real authority-basis
+human decision and by separately representing a later human response to that
+stop.
 
 Implementation remains gated on a clean independent review of this revised
 proposal and Joe's explicit acceptance of the synthesis.

@@ -14,6 +14,9 @@ const fixtures = readJson(path.join(packetDir, 'local-owner-profile-fixtures.jso
 const proofPath = path.join(packetDir, matrix.ciEvidence.evidenceFile);
 const proofBytes = readFileSync(proofPath);
 const proof = JSON.parse(proofBytes);
+const localProofPath = path.join(packetDir, matrix.independentLocalValidation.evidenceFile);
+const localProofBytes = readFileSync(localProofPath);
+const localProof = JSON.parse(localProofBytes);
 
 const contractFiles = {
   profileSha256: 'local-owner-profile.md',
@@ -27,7 +30,9 @@ for (const [pin, file] of Object.entries(contractFiles)) {
 assert.equal(sha256(proofBytes), matrix.ciEvidence.artifactResultSha256);
 assert.equal(proof.schema, matrix.ciEvidence.artifactSchema);
 assert.equal(proof.gitHead, matrix.ciEvidence.checkoutCommit);
-assert.equal(proof.trackedDiffSha256, matrix.independentLocalValidation.trackedDiffSha256);
+assert.equal(proof.trackedDiffSha256, matrix.ciEvidence.trackedDiffSha256);
+assert.equal(matrix.ciEvidence.conclusion, 'success');
+assert.equal(proof.testRun.passed, true);
 assert.deepEqual(proof.contract, {
   commit: matrix.contract.sourceCommit,
   profileSha256: matrix.contract.profileSha256,
@@ -41,8 +46,19 @@ assert.equal(proof.networkCallbacks, 0);
 assert.equal(proof.secretsExported, false);
 assert.equal(proof.testRun.outputSha256, matrix.ciEvidence.localOwnerTestOutputSha256);
 
+assert.equal(sha256(localProofBytes), matrix.independentLocalValidation.proofResultSha256);
+assert.equal(localProof.schema, matrix.ciEvidence.artifactSchema);
+assert.equal(localProof.gitHead, matrix.independentLocalValidation.headCommit);
+assert.equal(localProof.trackedDiffSha256, matrix.independentLocalValidation.trackedDiffSha256);
+assert.equal(localProof.testRun.passed, true);
+assert.equal(localProof.providerCalls, 0);
+assert.equal(localProof.networkCallbacks, 0);
+assert.equal(localProof.secretsExported, false);
+assert.deepEqual(localProof.contract, proof.contract);
+
 for (const [source, digest] of Object.entries(matrix.sourceHashes)) {
   assert.equal(proof.sourceHashes[source], digest, source);
+  assert.equal(localProof.sourceHashes[source], digest, `local rerun ${source}`);
 }
 
 assert.equal(fixtures.cases.length, 44);
@@ -60,6 +76,12 @@ for (const [index, fixture] of fixtures.cases.entries()) {
   assert.equal(observed.status, 'observed', fixture.id);
   assert.equal(receipt.id, fixture.id, fixture.id);
   assert.equal(receipt.status, 'passed', fixture.id);
+  const localObserved = localProof.inventory[index];
+  assert.equal(localObserved.id, fixture.id, `local rerun ${fixture.id}`);
+  assert.equal(localObserved.required, fixture.expected, `local rerun ${fixture.id}`);
+  assert.equal(localObserved.status, 'observed', `local rerun ${fixture.id}`);
+  assert.equal(localObserved.receipt.id, fixture.id, `local rerun ${fixture.id}`);
+  assert.equal(localObserved.receipt.status, 'passed', `local rerun ${fixture.id}`);
   assert.equal(
     entry.receiptRef,
     `${matrix.ciEvidence.evidenceFile}#/inventory/${index}/receipt`,
@@ -77,6 +99,11 @@ assert.deepEqual(counts, {
   process: matrix.ciEvidence.processReceipts,
 });
 assert.equal(proof.inventory.filter((entry) => entry.status !== 'observed').length, 0);
+assert.equal(localProof.inventory.length, matrix.independentLocalValidation.inventoryCases);
+assert.equal(localProof.inventory.filter((entry) => entry.status === 'observed').length, matrix.independentLocalValidation.observedCases);
+assert.equal(localProof.inventory.filter((entry) => entry.status !== 'observed').length, matrix.independentLocalValidation.uncoveredCases);
+assert.equal(localProof.testRun.receiptCount, matrix.independentLocalValidation.unitReceipts);
+assert.equal(matrix.independentLocalValidation.processReceipts, counts.process);
 
 console.log(JSON.stringify({
   passed: true,

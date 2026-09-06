@@ -26,6 +26,7 @@
     "runHeadCommit": "e47515f8b66a318966233fbf416da0b130650ede",
     "checkoutCommit": "22b835d927fe2f7d649b7187911b0cf192506bc5",
     "checkoutTree": "2a5a3d36c29c5e05096cefebdab91d042e72bae3",
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "conclusion": "success",
     "artifactName": "local-owner-proof-e47515f8b66a318966233fbf416da0b130650ede",
     "artifactResultSha256": "02257303e5880cbc755da1ed310a6c1e6365f4ad5361695d29d67e678062d09d",
@@ -39,6 +40,7 @@
     "evidenceFile": "evidence/who-decides-e47515f8-local-owner-proof.json"
   },
   "independentLocalValidation": {
+    "evidenceFile": "evidence/who-decides-e47515f8-local-rerun-proof.json",
     "headCommit": "e47515f8b66a318966233fbf416da0b130650ede",
     "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "proofResultSha256": "ca5ded2349b45a06a3f26cc918ff11b2bb38d76d2cf38da4a7b841de6f8e9952",

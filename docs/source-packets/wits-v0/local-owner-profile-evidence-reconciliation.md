@@ -72,6 +72,8 @@ The CI local-owner test-output SHA-256 is
 The independent detached-head proof recorded `gitHead` `e47515f8...`, an empty
 tracked diff, and result SHA-256
 `ca5ded2349b45a06a3f26cc918ff11b2bb38d76d2cf38da4a7b841de6f8e9952`.
+Its exact result is retained as
+[`evidence/who-decides-e47515f8-local-rerun-proof.json`](evidence/who-decides-e47515f8-local-rerun-proof.json).
 That whole-result hash identifies that rerun only; it is not expected to equal
 the CI result because run-local observations are intentionally retained.
 

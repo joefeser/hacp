@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/package/conformance-manifest.schema.json",
+  "title": "HACP v0.3 Candidate Conformance Manifest v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "candidateStatus",
+    "sourcePacketCommit",
+    "regenerationBaseCommit",
+    "whoDecidesEvidence",
+    "reviewRequired",
+    "ownerRulings",
+    "nonChainInventory",
+    "fixtureInventory",
+    "expectedValidBundles",
+    "expectedInvalid"
+  ],
+  "properties": {
+    "schema": { "const": "hacp.v0_3_candidate.conformance_manifest.v2" },
+    "candidateStatus": { "const": true },
+    "sourcePacketCommit": { "$ref": "#/$defs/commit" },
+    "regenerationBaseCommit": { "$ref": "#/$defs/commit" },
+    "whoDecidesEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewedHead", "mergeCommit", "inspectedMainAtPreparation"],
+      "properties": {
+        "reviewedHead": { "$ref": "#/$defs/commit" },
+        "mergeCommit": { "$ref": "#/$defs/commit" },
+        "inspectedMainAtPreparation": { "$ref": "#/$defs/commit" }
+      }
+    },
+    "reviewRequired": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["digestDomains"],
+      "properties": {
+        "digestDomains": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "ownerRulings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["secondImplementationQualification"],
+      "properties": {
+        "secondImplementationQualification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceIssue", "candidatePromotion", "fullRelease"],
+          "properties": {
+            "sourceIssue": { "const": "https://github.com/joefeser/hacp/issues/47" },
+            "candidatePromotion": { "const": "independent_production_plus_cross_validation" },
+            "fullRelease": { "const": "bidirectional_production_and_consumption" }
+          }
+        }
+      }
+    },
+    "nonChainInventory": { "const": true },
+    "fixtureInventory": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/inventoryEntry" }
+    },
+    "expectedValidBundles": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/bundle" }
+    },
+    "expectedInvalid": {
+      "type": "array",
+      "minItems": 22,
+      "uniqueItems": true,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/replacementCase" },
+          { "$ref": "#/$defs/omissionCase" },
+          { "$ref": "#/$defs/explicitCase" }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "fixturePath": {
+      "type": "string",
+      "pattern": "^(valid|invalid)/[A-Za-z0-9._/-]+\\.json$"
+    },
+    "schemaFile": {
+      "enum": [
+        "task-packet.schema.json",
+        "review-finding.schema.json",
+        "human-decision.schema.json",
+        "consumption-receipt.schema.json",
+        "continuation-context.schema.json",
+        "agent-report.schema.json",
+        "stop-response.schema.json"
+      ]
+    },
+    "bundleKind": {
+      "enum": ["successful_continuation", "pre_start_stop", "stop_decision_response"]
+    },
+    "role": {
+      "enum": [
+        "task_packet",
+        "decision_request",
+        "authority_basis_decision",
+        "consumption_receipt",
+        "continuation_context",
+        "agent_report",
+        "stop_response",
+        "response_decision"
+      ]
+    },
+    "diagnosticCode": {
+      "enum": [
+        "CLAIM_AFTER_START",
+        "CLAIM_START_CHRONOLOGY_INVALID",
+        "CONSUMPTION_REFERENCE_MISMATCH",
+        "DECISION_REQUEST_CHAIN_MISMATCH",
+        "DECISION_REQUEST_MISMATCH",
+        "DIGEST_MISMATCH",
+        "DUPLICATE_RECORD_KIND",
+        "DUPLICATE_RECORD_ROLE",
+        "EXPIRED_AT_START",
+        "EXPIRED_RECEIPT",
+        "LOOP_CEILING_EXCEEDED",
+        "LOOP_COUNTER_MISMATCH",
+        "MISSING_REQUIRED_RECORD",
+        "NON_APPROVAL_DECISION",
+        "PACKET_REFERENCE_MISMATCH",
+        "REPORT_BEFORE_START",
+        "REPORT_DECISION_MISMATCH",
+        "REPORT_DECISION_REQUEST_MISMATCH",
+        "REPORT_PACKET_MISMATCH",
+        "RESPONSE_DECISION_ID_REUSE",
+        "REVOCATION_STATUS_REJECTED",
+        "SCHEMA_VALIDATION_FAILED",
+        "SCOPE_EXPANSION",
+        "STALE_REPLAY",
+        "START_EVIDENCE_BINDING_MISMATCH",
+        "START_EVIDENCE_DIGEST_MISMATCH",
+        "STOP_AFTER_WORK",
+        "STOP_AUTHORITY_BASIS_DECISION_MISMATCH",
+        "STOP_PACKET_MISMATCH",
+        "STRIPPED_OR_MISMATCHED_CONTEXT",
+        "TIMESTAMP_UNCOMPARABLE",
+        "UNDECLARED_VALIDATION_INPUT"
+      ]
+    },
+    "inventoryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "schema"],
+      "properties": {
+        "path": { "$ref": "#/$defs/fixturePath" },
+        "schema": { "$ref": "#/$defs/schemaFile" }
+      }
+    },
+    "rolePath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path"],
+      "properties": {
+        "role": { "$ref": "#/$defs/role" },
+        "path": { "$ref": "#/$defs/fixturePath" }
+      }
+    },
+    "bundle": {
+      "oneOf": [
+        { "$ref": "#/$defs/successfulContinuationBundle" },
+        { "$ref": "#/$defs/preStartStopBundle" },
+        { "$ref": "#/$defs/stopDecisionResponseBundle" }
+      ]
+    },
+    "successfulContinuationBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "successful_continuation" },
+        "kind": { "const": "successful_continuation" },
+        "records": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/consumptionReceiptRole" },
+            { "$ref": "#/$defs/continuationContextRole" },
+            { "$ref": "#/$defs/agentReportRole" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "preStartStopBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "pre_start_stop" },
+        "kind": { "const": "pre_start_stop" },
+        "records": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/stopResponseRole" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "stopDecisionResponseBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "stop_decision_response" },
+        "kind": { "const": "stop_decision_response" },
+        "records": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/stopResponseRole" },
+            { "$ref": "#/$defs/responseDecisionRole" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "taskPacketRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "task_packet" },
+        "path": { "enum": ["valid/success/task-packet.valid.json", "valid/stop/task-packet.valid.json"] }
+      }
+    },
+    "decisionRequestRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "decision_request" },
+        "path": { "enum": ["valid/success/review-finding.valid.json", "valid/stop/review-finding.valid.json"] }
+      }
+    },
+    "authorityBasisDecisionRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "authority_basis_decision" },
+        "path": { "enum": ["valid/success/human-decision.valid.json", "valid/stop/authority-basis-decision.valid.json"] }
+      }
+    },
+    "consumptionReceiptRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "consumption_receipt" },
+        "path": { "const": "valid/success/consumption-receipt.valid.json" }
+      }
+    },
+    "continuationContextRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "continuation_context" },
+        "path": { "const": "valid/success/continuation-context.valid.json" }
+      }
+    },
+    "agentReportRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "agent_report" },
+        "path": { "const": "valid/success/agent-report.valid.json" }
+      }
+    },
+    "stopResponseRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "stop_response" },
+        "path": { "const": "valid/stop/stop-response.valid.json" }
+      }
+    },
+    "responseDecisionRole": {
+      "$ref": "#/$defs/rolePathBase",
+      "type": "object",
+      "properties": {
+        "role": { "const": "response_decision" },
+        "path": { "const": "valid/stop/response-decision.valid.json" }
+      }
+    },
+    "rolePathBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path"],
+      "properties": {
+        "role": { "$ref": "#/$defs/role" },
+        "path": { "$ref": "#/$defs/fixturePath" }
+      }
+    },
+    "expectedCodes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/diagnosticCode" }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revokedDecisionDigests": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "replacementCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caseId", "path", "schema", "expectedCodes", "baseBundle", "replaceRecordPath"],
+      "properties": {
+        "caseId": { "type": "string", "minLength": 1 },
+        "path": { "$ref": "#/$defs/fixturePath" },
+        "schema": { "$ref": "#/$defs/schemaFile" },
+        "expectedCodes": { "$ref": "#/$defs/expectedCodes" },
+        "baseBundle": { "$ref": "#/$defs/bundleKind" },
+        "replaceRecordPath": { "$ref": "#/$defs/fixturePath" },
+        "omittedRecordPaths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/fixturePath" }
+        },
+        "context": { "$ref": "#/$defs/context" }
+      }
+    },
+    "omissionCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caseId", "baseBundle", "omittedRecordPaths", "expectedCodes"],
+      "properties": {
+        "caseId": { "type": "string", "minLength": 1 },
+        "baseBundle": { "$ref": "#/$defs/bundleKind" },
+        "omittedRecordPaths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/fixturePath" }
+        },
+        "expectedCodes": { "$ref": "#/$defs/expectedCodes" },
+        "context": { "$ref": "#/$defs/context" }
+      }
+    },
+    "explicitCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caseId", "records", "expectedCodes"],
+      "properties": {
+        "caseId": { "type": "string", "minLength": 1 },
+        "records": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/rolePath" }
+        },
+        "expectedCodes": { "$ref": "#/$defs/expectedCodes" },
+        "context": { "$ref": "#/$defs/context" }
+      }
+    }
+  }
+}

@@ -31,10 +31,12 @@ npm run hacp:v03-candidate
 ```
 
 The command checks that committed vectors are exactly reproducible, compiles
-all seven schemas, verifies the valid cross-record chain and its RFC 8785 JCS
-digests, and requires every declared invalid fixture to fail with its expected
-diagnostic. It also runs regression tests that recompute downstream digests
-after semantic mutations, so stale references cannot mask an invalid chain.
+all seven record schemas plus the closed package-manifest schema, verifies three
+declared branch-scoped bundles and their RFC 8785 JCS digests, and requires
+every declared invalid case to fail with its exact diagnostic set. The flat
+fixture inventory is explicitly not a chain and is rejected as a semantic
+validation input. Regression tests recompute downstream digests after semantic
+mutations so stale references cannot mask an invalid bundle.
 To regenerate the committed corpus after an approved contract
 change:
 
@@ -56,8 +58,11 @@ with its separate proposed supporting domain.
 
 ## Fixtures
 
-[`fixtures/manifest.json`](fixtures/manifest.json) pins the source and
-who-decides evidence revisions and declares seven expected-valid records plus
+[`fixtures/manifest.json`](fixtures/manifest.json) pins the source-packet,
+regeneration-base, and who-decides evidence revisions. Its eleven valid fixture
+records form three declared bundles: successful continuation, pre-start stop,
+and a later human response to that stop. Their union covers seven protocol
+record kinds but is not itself a semantic chain. The manifest also declares
 twenty-two negative cases covering digest mismatch, stripped context,
 stale-reference replay, expired and trusted-revoked status, scope expansion,
 non-approval consumption, report/reference splicing, loop ceilings, and
@@ -66,10 +71,30 @@ stop-response packet binding, missing prerequisite records, timestamp edge cases
 and report-return chronology.
 
 The revocation fixture intentionally supplies trusted status as fixture
-context. The missing-record fixtures use `omittedRecords` to remove named
-prerequisites from the otherwise valid chain before validation; their report
-records remain individually schema-valid. A receipt URI or self-asserted field
-does not prove revocation.
+context. Missing-record cases are omission-only manifest instructions; they do
+not retain byte-identical files that would misleadingly appear to be invalid
+records. A receipt URI or self-asserted field does not prove revocation.
+
+The v2 manifest is validated before fixture content is trusted. Its
+`fixtureInventory` is a non-chain inventory, and `expectedValidBundles` is the
+only positive semantic input. Unknown manifest versions, unsafe paths,
+undeclared JSON fixtures, ambiguous negative selectors, unexpected roles, and
+unknown or duplicate bundle membership fail closed.
+
+Within this candidate package, `stop_response.decisionId` is an identity-only
+reference to the real human-decision record presented or evaluated as the
+authority basis for the attempted continuation. It is not a decision digest
+and does not prove authenticity, currency, sufficiency, admission,
+consumption, or revision-exact authority. The required field cannot represent
+a pre-decision or no-decision stop; producers must not invent an identifier for
+that future contract gap. Likewise, the stopped `successorInvocationId` is the
+stop record's bounded assertion, not a positive binding independently
+established by an accepted receipt.
+
+The future representation of a stop that has no decision identity is tracked
+in [HACP #52](https://github.com/joefeser/hacp/issues/52). That follow-up does
+not broaden this candidate package and is not permission to invent a sentinel
+identifier.
 
 Timestamp comparisons preserve all supplied fractional-second digits and
 normalize time-zone offsets. Instants the harness cannot order, including leap
@@ -77,10 +102,10 @@ seconds unsupported by its time parser, fail with `TIMESTAMP_UNCOMPARABLE`;
 they cannot silently bypass expiry checks. Report return must follow or equal
 work start; return after receipt expiry is still valid historical evidence.
 
-The historical source-packet examples remain under
+The individual source-packet examples remain under
 [`docs/source-packets/wits-v0/examples/`](../../docs/source-packets/wits-v0/examples/),
-but the generated fixtures in this directory supersede those paths as the
-conformance corpus.
+but they are not one cross-record chain. The branch-scoped generated fixtures
+in this directory are the conformance corpus.
 
 ## REVIEW-REQUIRED: candidate digest domains
 
@@ -121,7 +146,10 @@ recast as the separate native human act that approves a bounded successor.
 
 ## Provenance and limits
 
-- HACP source commit: `db47da2118355683f34fd955083c2b3c38769fe4`.
+- Historical source-packet commit:
+  `db47da2118355683f34fd955083c2b3c38769fe4`.
+- Executable regeneration-base commit:
+  `73056a53fd87ce20d6a40f8c2188d2fb0a07ce7f`.
 - who-decides reviewed proof head:
   `e47515f8b66a318966233fbf416da0b130650ede`.
 - who-decides merge commit:

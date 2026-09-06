@@ -10,7 +10,10 @@
     "schemaVersion": { "const": "hacp-0.3-candidate" },
     "stopId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
     "packetId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
-    "decisionId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "decisionId": {
+      "description": "Identity-only reference to the real human-decision record presented or evaluated as the authority basis for this attempted continuation. It does not establish authenticity, validity, currency, sufficiency, admission, consumption, or revision-exact binding.",
+      "$ref": "common-defs.schema.json#/$defs/identifier"
+    },
     "profileId": { "const": "hacp-accountable-continuation-v0.3-candidate" },
     "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
     "stopReason": { "enum": ["CONTEXT_MISMATCH", "WRONG_TOOL_OR_MODE", "MISSING_AUTHORITY", "SCOPE_CONFLICT", "STALE_PACKET", "UNVERIFIED_ASSUMPTION", "ENVIRONMENT_BLOCKED", "RELIABILITY_LIMIT_REACHED", "HUMAN_DECISION_REQUIRED"] },

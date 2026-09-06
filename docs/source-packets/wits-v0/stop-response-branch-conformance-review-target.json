@@ -1,0 +1,33 @@
+{
+  "recordKind": "hacp.architecture_review_target.v1",
+  "issue": "https://github.com/joefeser/hacp/issues/51",
+  "hacpParentCommit": "1b94a3a41f0950926e39a74e5045f11ce65c4f1e",
+  "reviewTargetCommit": "supplied-and-verified-by-each-review-dispatch",
+  "files": [
+    {
+      "path": "docs/source-packets/wits-v0/stop-response-branch-conformance-proposal.md",
+      "sha256": "8a8a02165276f0eece10ef3e8b0b8baaf230abf1ba8f041478c31a7eb01875bd"
+    },
+    {
+      "path": "schemas/v0.3-candidate/README.md",
+      "sha256": "80c81d1525cb17f4167e96522733142674b43f72ecd228e3a6575f7a7ce1f5ec"
+    },
+    {
+      "path": "schemas/v0.3-candidate/fixtures/manifest.json",
+      "sha256": "2e22e8dcc13a96cb3576739a5a028681dc45f4e96c4e2c83aa4639ff4583a042"
+    },
+    {
+      "path": "schemas/v0.3-candidate/stop-response.schema.json",
+      "sha256": "d951ad7b859da2fce468d4f010b96aa0bb22ebbf82574df51bb3d4d7e5ca545f"
+    },
+    {
+      "path": "scripts/compute-vectors.mjs",
+      "sha256": "639e8e509c1203f8d43a3a9932b0c2b7a01c79085b78084ee3f2c13126b126bf"
+    },
+    {
+      "path": "scripts/compute-vectors.test.mjs",
+      "sha256": "401b3059468ff8888b4fd36a0653698de4f2e4ec190dc92abef6dbf8bdccf2f1"
+    }
+  ],
+  "implementationAuthorized": false
+}

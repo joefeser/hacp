@@ -1,0 +1,57 @@
+{
+  "recordKind": "hacp.v0_3_candidate.human_decision",
+  "schemaVersion": "hacp-0.3-candidate",
+  "decisionId": "decision_example_stop_authority_basis_001",
+  "packetId": "taskpkt_example_pre_start_stop_001",
+  "packetDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "value": "647e2639c22dfeff4145b83842d6fb8519b9dd1040c3f48dc5d1f1d8277b072f"
+  },
+  "decisionRequest": {
+    "kind": "review_finding",
+    "id": "finding_example_stop_authority_basis_001",
+    "digest": {
+      "algorithm": "sha256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "org.hacp.review-finding.v0.3-candidate",
+      "value": "26a5710c788fb1cc5717bbc12c150a40e92c4165b941ce2dc9164730113163e4"
+    }
+  },
+  "actor": {
+    "actorId": "human:owner@example.invalid",
+    "actorKind": "human",
+    "verificationSource": "signed_human_attestation"
+  },
+  "authenticationContext": {
+    "interactionChannel": "cli",
+    "secretMaterialPresent": false,
+    "authEventRef": "evidence://example/human-approval-event"
+  },
+  "evidenceRefs": [
+    "evidence://example/human-approval-attestation"
+  ],
+  "decision": "approve_bounded_successor",
+  "decisionReason": "The bounded continuation was approved, but its required admission receipt could not be established.",
+  "approvedSuccessorScope": [
+    "edit docs/source-packets/",
+    "run docs/config validation",
+    "return ACK and review evidence"
+  ],
+  "deniedAuthority": [
+    "merge",
+    "deploy",
+    "launch_worker",
+    "mutate_github_without_separate_tool_authority",
+    "accept_risk"
+  ],
+  "createdAt": "2026-09-03T18:00:00Z",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+    "value": "c2c448ecef9d7da10335120309cd0043bf9937c10a6c178215967a4038fd21e1"
+  },
+  "boundaryStatement": "This decision is immutable source evidence. Consumption is recorded in a separate receipt."
+}

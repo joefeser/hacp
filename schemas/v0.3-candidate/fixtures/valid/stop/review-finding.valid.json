@@ -1,0 +1,29 @@
+{
+  "recordKind": "hacp.v0_3_candidate.review_finding",
+  "schemaVersion": "hacp-0.3-candidate",
+  "findingId": "finding_example_stop_authority_basis_001",
+  "packetId": "taskpkt_example_pre_start_stop_001",
+  "packetDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "value": "647e2639c22dfeff4145b83842d6fb8519b9dd1040c3f48dc5d1f1d8277b072f"
+  },
+  "severity": "medium",
+  "summary": "Returned evidence is actionable, but continuation would consume a human decision and start a successor invocation.",
+  "affectedSurfaces": [
+    "repo://example/hacp/docs/source-packets/"
+  ],
+  "evidenceRefs": [
+    "evidence://example/review-output-001"
+  ],
+  "recommendedDisposition": "request_human_decision",
+  "residualRisk": "The successor invocation must be bounded to docs-only work and must not infer merge authority.",
+  "humanDecisionRequired": true,
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "org.hacp.review-finding.v0.3-candidate",
+    "value": "26a5710c788fb1cc5717bbc12c150a40e92c4165b941ce2dc9164730113163e4"
+  }
+}

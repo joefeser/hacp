@@ -1,0 +1,176 @@
+{
+  "schema": "hacp.v0_3_candidate.conformance_manifest.v1",
+  "candidateStatus": true,
+  "sourceCommit": "db47da2118355683f34fd955083c2b3c38769fe4",
+  "whoDecidesEvidence": {
+    "reviewedHead": "e47515f8b66a318966233fbf416da0b130650ede",
+    "mergeCommit": "c6677da198c166079132ac2a23a39afeade26af3",
+    "inspectedMainAtPreparation": "04a89f5509035b3299bb3786da1e9909a4e78dc0"
+  },
+  "reviewRequired": {
+    "digestDomains": [
+      "org.hacp.task-packet.v0.3-candidate",
+      "org.hacp.human-decision.v0.3-candidate",
+      "org.hacp.consumption-receipt.v0.3-candidate",
+      "org.hacp.continuation-context.v0.3-candidate",
+      "org.hacp.agent-report.v0.3-candidate",
+      "org.hacp.review-finding.v0.3-candidate",
+      "org.hacp.stop-response.v0.3-candidate",
+      "org.hacp.successor-start-evidence.v0.3-candidate"
+    ],
+    "qualificationRule": "UNRESOLVED: independent production plus cross-validation versus bidirectional production"
+  },
+  "expectedValid": [
+    {
+      "path": "valid/task-packet.valid.json",
+      "schema": "task-packet.schema.json"
+    },
+    {
+      "path": "valid/review-finding.valid.json",
+      "schema": "review-finding.schema.json"
+    },
+    {
+      "path": "valid/human-decision.valid.json",
+      "schema": "human-decision.schema.json"
+    },
+    {
+      "path": "valid/consumption-receipt.valid.json",
+      "schema": "consumption-receipt.schema.json"
+    },
+    {
+      "path": "valid/continuation-context.valid.json",
+      "schema": "continuation-context.schema.json"
+    },
+    {
+      "path": "valid/agent-report.valid.json",
+      "schema": "agent-report.schema.json"
+    },
+    {
+      "path": "valid/stop-response.valid.json",
+      "schema": "stop-response.schema.json"
+    }
+  ],
+  "expectedInvalid": [
+    {
+      "path": "invalid/agent-report.missing-context-record.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "MISSING_REQUIRED_RECORD",
+      "omittedRecords": [
+        "continuation-context"
+      ]
+    },
+    {
+      "path": "invalid/agent-report.missing-decision-record.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "MISSING_REQUIRED_RECORD",
+      "omittedRecords": [
+        "human-decision"
+      ]
+    },
+    {
+      "path": "invalid/consumption-receipt.leap-second-expiry.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "TIMESTAMP_UNCOMPARABLE"
+    },
+    {
+      "path": "invalid/consumption-receipt.fractional-claim-order.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "CLAIM_START_CHRONOLOGY_INVALID"
+    },
+    {
+      "path": "invalid/agent-report.return-before-start.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_BEFORE_START"
+    },
+    {
+      "path": "invalid/human-decision.digest-mismatch.invalid.json",
+      "schema": "human-decision.schema.json",
+      "expectedCode": "DIGEST_MISMATCH"
+    },
+    {
+      "path": "invalid/agent-report.stripped-context.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "SCHEMA_VALIDATION_FAILED"
+    },
+    {
+      "path": "invalid/continuation-context.stale-replay.invalid.json",
+      "schema": "continuation-context.schema.json",
+      "expectedCode": "STALE_REPLAY"
+    },
+    {
+      "path": "invalid/consumption-receipt.expired.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "EXPIRED_RECEIPT"
+    },
+    {
+      "path": "invalid/consumption-receipt.revoked.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "REVOCATION_STATUS_REJECTED",
+      "context": {
+        "revokedDecisionDigests": [
+          "fcdc44811249a82aa110a64b4a0100612bcf8f80fb45f63a1f0e000b4df2d45a"
+        ]
+      }
+    },
+    {
+      "path": "invalid/consumption-receipt.scope-expansion.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "SCOPE_EXPANSION"
+    },
+    {
+      "path": "invalid/human-decision.non-approval.invalid.json",
+      "schema": "human-decision.schema.json",
+      "expectedCode": "NON_APPROVAL_DECISION"
+    },
+    {
+      "path": "invalid/agent-report.spliced-authority.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_PACKET_MISMATCH"
+    },
+    {
+      "path": "invalid/agent-report.spliced-decision.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_DECISION_MISMATCH"
+    },
+    {
+      "path": "invalid/agent-report.spliced-request.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_DECISION_REQUEST_MISMATCH"
+    },
+    {
+      "path": "invalid/task-packet.loop-ceiling.invalid.json",
+      "schema": "task-packet.schema.json",
+      "expectedCode": "LOOP_CEILING_EXCEEDED"
+    },
+    {
+      "path": "invalid/agent-report.loop-counter.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "LOOP_COUNTER_MISMATCH"
+    },
+    {
+      "path": "invalid/agent-report.spliced-start-evidence.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "START_EVIDENCE_BINDING_MISMATCH"
+    },
+    {
+      "path": "invalid/consumption-receipt.expired-before-start.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "EXPIRED_AT_START"
+    },
+    {
+      "path": "invalid/consumption-receipt.claim-after-start.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "CLAIM_START_CHRONOLOGY_INVALID"
+    },
+    {
+      "path": "invalid/consumption-receipt.divergent-request.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "DECISION_REQUEST_CHAIN_MISMATCH"
+    },
+    {
+      "path": "invalid/stop-response.spliced-packet.invalid.json",
+      "schema": "stop-response.schema.json",
+      "expectedCode": "STOP_PACKET_MISMATCH"
+    }
+  ]
+}

@@ -7,7 +7,7 @@
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.agent-report.v0.3-candidate",
-    "value": "8883d823cdb11f94ab09163922cdf5d1a02b8f7a5f685491250a33ef1ee58840"
+    "value": "5de0a34f8bb5c8b31a816132e561eae83d892e0b244e95bc1107ba72fc3b4725"
   },
   "continuationContext": {
     "id": "context_example_successor_001",
@@ -20,7 +20,7 @@
   },
   "packetId": "taskpkt_example_continue_review_001",
   "decision": {
-    "id": "decision_example_approve_successor_001",
+    "id": "decision_unrelated_001",
     "digest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",

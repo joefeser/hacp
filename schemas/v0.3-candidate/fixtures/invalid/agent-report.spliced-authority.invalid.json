@@ -7,7 +7,7 @@
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.agent-report.v0.3-candidate",
-    "value": "8883d823cdb11f94ab09163922cdf5d1a02b8f7a5f685491250a33ef1ee58840"
+    "value": "18d9f65ec652f105e2af55d24852cbd3c31e9a6f0828ba8c227fcc2478d0d03b"
   },
   "continuationContext": {
     "id": "context_example_successor_001",
@@ -18,7 +18,7 @@
       "value": "92dfe026bee268300467761ad158a672bd3012331c56799bef6effa666b97993"
     }
   },
-  "packetId": "taskpkt_example_continue_review_001",
+  "packetId": "taskpkt_unrelated_001",
   "decision": {
     "id": "decision_example_approve_successor_001",
     "digest": {

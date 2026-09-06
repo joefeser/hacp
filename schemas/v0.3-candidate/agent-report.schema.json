@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/agent-report.schema.json",
+  "title": "HACP v0.3 Candidate Agent Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recordKind", "schemaVersion", "reportId", "returnedAt", "digest", "continuationContext", "packetId", "decision", "decisionRequest", "consumptionReceiptId", "consumptionReceiptDigest", "successorInvocationId", "startEvidence", "attemptedWork", "evidenceRefs", "residualRisks", "loopCounter", "loopOutcome", "requestedNextHumanDecision", "boundaryStatement"],
+  "properties": {
+    "recordKind": { "const": "hacp.v0_3_candidate.agent_report" },
+    "schemaVersion": { "const": "hacp-0.3-candidate" },
+    "reportId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "returnedAt": { "$ref": "common-defs.schema.json#/$defs/timestamp" },
+    "digest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.agent-report.v0.3-candidate" } } }
+      ]
+    },
+    "continuationContext": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digestRef" },
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.continuation-context.v0.3-candidate" } } } } }
+      ]
+    },
+    "packetId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "decision": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digestRef" },
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.human-decision.v0.3-candidate" } } } } }
+      ]
+    },
+    "decisionRequest": { "$ref": "common-defs.schema.json#/$defs/decisionRequestRef" },
+    "consumptionReceiptId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "consumptionReceiptDigest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.consumption-receipt.v0.3-candidate" } } }
+      ]
+    },
+    "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "startEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recordId", "evidenceRef", "digest", "successorInvocationId", "consumptionReceiptId", "consumptionReceiptDigest", "acceptedClaimReadBackAt", "workStartedAt", "validityReadbackRef", "timeSource"],
+      "properties": {
+        "recordId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "evidenceRef": { "$ref": "common-defs.schema.json#/$defs/reference" },
+        "digest": {
+          "allOf": [
+            { "$ref": "common-defs.schema.json#/$defs/digest" },
+            { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.successor-start-evidence.v0.3-candidate" } } }
+          ]
+        },
+        "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "consumptionReceiptId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "consumptionReceiptDigest": {
+          "allOf": [
+            { "$ref": "common-defs.schema.json#/$defs/digest" },
+            { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.consumption-receipt.v0.3-candidate" } } }
+          ]
+        },
+        "acceptedClaimReadBackAt": { "$ref": "common-defs.schema.json#/$defs/timestamp" },
+        "workStartedAt": { "$ref": "common-defs.schema.json#/$defs/timestamp" },
+        "validityReadbackRef": { "$ref": "common-defs.schema.json#/$defs/reference" },
+        "timeSource": { "$ref": "common-defs.schema.json#/$defs/identifier" }
+      }
+    },
+    "attemptedWork": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "evidenceRefs": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "residualRisks": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "loopCounter": { "type": "integer", "minimum": 0 },
+    "loopOutcome": { "enum": ["unobserved", "completed", "stopped", "ambiguous"] },
+    "requestedNextHumanDecision": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }
+  }
+}

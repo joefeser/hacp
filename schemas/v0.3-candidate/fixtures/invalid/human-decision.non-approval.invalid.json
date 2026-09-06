@@ -32,7 +32,7 @@
   "evidenceRefs": [
     "evidence://example/human-approval-attestation"
   ],
-  "decision": "approve_bounded_successor",
+  "decision": "reject",
   "decisionReason": "The follow-up is docs-only and the expected evidence is explicit.",
   "approvedSuccessorScope": [
     "edit docs/source-packets/",
@@ -51,7 +51,7 @@
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.human-decision.v0.3-candidate",
-    "value": "fcdc44811249a82aa110a64b4a0100612bcf8f80fb45f63a1f0e000b4df2d45a"
+    "value": "1b39c5d4552b1a17f6b198ebfc34b776532e3006ad0485ad5765c5a65f90ec6c"
   },
   "boundaryStatement": "This decision is immutable source evidence. Consumption is recorded in a separate receipt."
 }

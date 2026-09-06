@@ -2,12 +2,12 @@
   "recordKind": "hacp.v0_3_candidate.agent_report",
   "schemaVersion": "hacp-0.3-candidate",
   "reportId": "report_example_successor_001",
-  "returnedAt": "2026-09-03T18:10:00Z",
+  "returnedAt": "2026-09-03T18:04:00Z",
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.agent-report.v0.3-candidate",
-    "value": "8883d823cdb11f94ab09163922cdf5d1a02b8f7a5f685491250a33ef1ee58840"
+    "value": "77ea34ace1e8cde2eb8fb56584f354bbbd731e84a82c59f79b54d68fe04e7fce"
   },
   "continuationContext": {
     "id": "context_example_successor_001",

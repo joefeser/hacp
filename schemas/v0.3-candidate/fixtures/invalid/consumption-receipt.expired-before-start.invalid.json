@@ -36,7 +36,7 @@
     "idempotencyKey": "example:decision:successor:001",
     "uniquenessRuleStatus": "requires_owner_approved_profile_definition",
     "trustedTimeSource": "profile-defined-owner-ledger",
-    "receiptExpiresAt": "2026-09-03T19:00:00Z",
+    "receiptExpiresAt": "2026-09-03T18:05:01Z",
     "decisionValidityRef": "evidence://example/decision-validity",
     "receiptValidityRef": "evidence://example/receipt-validity"
   },
@@ -49,7 +49,7 @@
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
-    "value": "7e55396c6535614bb09c431cb34f26967ae7a5c8f75dc1718107bb68e35e81bd"
+    "value": "d52a92878a347db19232927f3e80abde1b5144badc99fee7318a4c0d5a7ab3b3"
   },
   "boundaryStatement": "Illustrative acceptance only: issuer trust, uniqueness, and current-status policy require an independently approved profile. These hypothetical evidence references prove no actual admission. Accepted admission does not prove provider execution, external side effects, merge readiness, or exactly-once downstream completion."
 }

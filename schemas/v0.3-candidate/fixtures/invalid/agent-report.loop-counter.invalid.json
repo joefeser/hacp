@@ -7,7 +7,7 @@
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
     "digestDomain": "org.hacp.agent-report.v0.3-candidate",
-    "value": "8883d823cdb11f94ab09163922cdf5d1a02b8f7a5f685491250a33ef1ee58840"
+    "value": "b12ee410cfc6869bd51c3b6ca5af1c4a1e853af55e56d533607f3c80537fec7e"
   },
   "continuationContext": {
     "id": "context_example_successor_001",
@@ -84,7 +84,7 @@
     "external concurrency and expiry/revocation proof must be accepted before merge of this consumption-contract source packet",
     "illustrated issuer, uniqueness, and validity policies remain undefined; hypothetical references do not prove actual admission or current authority"
   ],
-  "loopCounter": 0,
+  "loopCounter": 1,
   "loopOutcome": "unobserved",
   "requestedNextHumanDecision": "review_draft_packet",
   "boundaryStatement": "The report is evidence for human review. It does not approve merge, release, or v0.3 conformance."

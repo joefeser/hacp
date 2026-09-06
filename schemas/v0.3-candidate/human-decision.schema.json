@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/human-decision.schema.json",
+  "title": "HACP v0.3 Candidate Human Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recordKind", "schemaVersion", "decisionId", "packetId", "packetDigest", "decisionRequest", "actor", "authenticationContext", "evidenceRefs", "decision", "decisionReason", "approvedSuccessorScope", "deniedAuthority", "createdAt", "digest", "boundaryStatement"],
+  "properties": {
+    "recordKind": { "const": "hacp.v0_3_candidate.human_decision" },
+    "schemaVersion": { "const": "hacp-0.3-candidate" },
+    "decisionId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "packetId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+    "packetDigest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.task-packet.v0.3-candidate" } } }
+      ]
+    },
+    "decisionRequest": { "$ref": "common-defs.schema.json#/$defs/decisionRequestRef" },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actorId", "actorKind", "verificationSource"],
+      "properties": {
+        "actorId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
+        "actorKind": { "const": "human" },
+        "verificationSource": { "$ref": "common-defs.schema.json#/$defs/identifier" }
+      }
+    },
+    "authenticationContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interactionChannel", "secretMaterialPresent", "authEventRef"],
+      "properties": {
+        "interactionChannel": { "enum": ["cli", "web", "api", "in_person", "signed_artifact"] },
+        "secretMaterialPresent": { "const": false },
+        "authEventRef": { "$ref": "common-defs.schema.json#/$defs/reference" }
+      }
+    },
+    "evidenceRefs": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "decision": { "enum": ["approve_bounded_successor", "reject", "defer", "return_for_clarification"] },
+    "decisionReason": { "$ref": "common-defs.schema.json#/$defs/text" },
+    "approvedSuccessorScope": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "deniedAuthority": { "$ref": "common-defs.schema.json#/$defs/stringSet" },
+    "createdAt": { "$ref": "common-defs.schema.json#/$defs/timestamp" },
+    "digest": {
+      "allOf": [
+        { "$ref": "common-defs.schema.json#/$defs/digest" },
+        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.human-decision.v0.3-candidate" } } }
+      ]
+    },
+    "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }
+  }
+}

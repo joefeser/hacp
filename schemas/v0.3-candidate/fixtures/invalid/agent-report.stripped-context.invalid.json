@@ -9,15 +9,6 @@
     "digestDomain": "org.hacp.agent-report.v0.3-candidate",
     "value": "8883d823cdb11f94ab09163922cdf5d1a02b8f7a5f685491250a33ef1ee58840"
   },
-  "continuationContext": {
-    "id": "context_example_successor_001",
-    "digest": {
-      "algorithm": "sha256",
-      "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.continuation-context.v0.3-candidate",
-      "value": "92dfe026bee268300467761ad158a672bd3012331c56799bef6effa666b97993"
-    }
-  },
   "packetId": "taskpkt_example_continue_review_001",
   "decision": {
     "id": "decision_example_approve_successor_001",

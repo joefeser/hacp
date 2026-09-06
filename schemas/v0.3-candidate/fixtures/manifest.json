@@ -162,7 +162,8 @@
         "valid/success/continuation-context.valid.json"
       ],
       "expectedCodes": [
-        "MISSING_REQUIRED_RECORD"
+        "MISSING_REQUIRED_RECORD",
+        "UNDECLARED_VALIDATION_INPUT"
       ]
     },
     {
@@ -172,7 +173,8 @@
         "valid/success/human-decision.valid.json"
       ],
       "expectedCodes": [
-        "MISSING_REQUIRED_RECORD"
+        "MISSING_REQUIRED_RECORD",
+        "UNDECLARED_VALIDATION_INPUT"
       ]
     },
     {

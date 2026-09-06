@@ -116,6 +116,17 @@ test('stop bundles require task and authority-basis records', async () => {
   }
 });
 
+test('declaration is derived from exact contents, never a caller boolean', async () => {
+  const success = entriesFor(manifest.expectedValidBundles[0]);
+  assert.deepEqual(await codesFor([], 'successful_continuation', true), ['UNDECLARED_VALIDATION_INPUT']);
+  assert.deepEqual(await codesFor([success[0]], 'successful_continuation', true), ['UNDECLARED_VALIDATION_INPUT']);
+  const mismatched = entriesFor(manifest.expectedValidBundles[0]);
+  mismatched[0].role = 'agent_report';
+  const codes = await codesFor(mismatched, 'successful_continuation', true);
+  assert.ok(codes.includes('UNDECLARED_VALIDATION_INPUT'));
+  assert.ok(codes.includes('DUPLICATE_RECORD_ROLE'));
+});
+
 test('stop identifies the actual authority-basis decision in both stop bundles', async () => {
   for (const bundleIndex of [1, 2]) {
     const bundle = entriesFor(manifest.expectedValidBundles[bundleIndex]);

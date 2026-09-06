@@ -404,13 +404,13 @@ function buildInvalidManifest(success, stop) {
       caseId: 'agent-report-missing-context-record',
       baseBundle: 'successful_continuation',
       omittedRecordPaths: [successPaths.continuation_context],
-      expectedCodes: ['MISSING_REQUIRED_RECORD']
+      expectedCodes: ['MISSING_REQUIRED_RECORD', 'UNDECLARED_VALIDATION_INPUT']
     },
     {
       caseId: 'agent-report-missing-decision-record',
       baseBundle: 'successful_continuation',
       omittedRecordPaths: [successPaths.authority_basis_decision],
-      expectedCodes: ['MISSING_REQUIRED_RECORD']
+      expectedCodes: ['MISSING_REQUIRED_RECORD', 'UNDECLARED_VALIDATION_INPUT']
     },
     replacement('leap-second-expiry', 'invalid/consumption-receipt.leap-second-expiry.invalid.json', 'consumption-receipt.schema.json', 'consumption_receipt', ['TIMESTAMP_UNCOMPARABLE']),
     replacement('fractional-claim-order', 'invalid/consumption-receipt.fractional-claim-order.invalid.json', 'consumption-receipt.schema.json', 'consumption_receipt', ['CLAIM_START_CHRONOLOGY_INVALID']),
@@ -907,9 +907,12 @@ function diagnosticCodes(diagnostics) {
   return [...new Set(diagnostics.map((item) => item.code))].sort();
 }
 
-async function validateInput(entries, validators, context = {}, bundleKind = 'explicit', declared = true) {
+async function validateInput(entries, validators, context = {}, bundleKind = 'explicit', _declared = undefined) {
   const diagnostics = [];
-  if (!declared) diagnostics.push({ code: 'UNDECLARED_VALIDATION_INPUT', message: 'Semantic input is not a declared valid bundle.' });
+  const declaredByContent = Object.hasOwn(bundleRoles, bundleKind)
+    && exactRoleSet(bundleKind, entries)
+    && entries.every((item) => kindFromRecord[item.record?.recordKind] === roleKinds[item.role]);
+  if (!declaredByContent) diagnostics.push({ code: 'UNDECLARED_VALIDATION_INPUT', message: 'Semantic input does not exactly match a declared bundle kind, role set, and role-to-record-kind mapping.' });
   const roles = entries.map((item) => item.role);
   if (new Set(roles).size !== roles.length) diagnostics.push({ code: 'DUPLICATE_RECORD_ROLE', message: 'Semantic input contains duplicate roles.' });
   const kinds = entries.map((item) => kindFromRecord[item.record?.recordKind]).filter(Boolean);

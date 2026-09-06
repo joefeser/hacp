@@ -51,14 +51,25 @@
     "processReceipts": 7
   },
   "sourceHashes": {
+    "docs/contracts/local-owner-continuation/local-owner-profile.md": "bc02b5972c2ac1184637062b3dabf7a655ae442cb6fa22940d8d119f678483ec",
+    "docs/contracts/local-owner-continuation/local-owner-profile-fixtures.json": "463f25a09db48863d03344a5225576052d944622d04c997d65057c89c2e77aa0",
+    "docs/contracts/local-owner-continuation/local-owner-profile-review-synthesis.md": "4995b0e2603d695cd005c2bcbfb8e6a6ada1664ff079b148fc20f8b105ba8805",
     "src/store-admission.ts": "0b2fe9cb5db791d38c976f55897075ef7e9729a795acc5f78301f84e09fb5905",
     "src/store-schema.ts": "47abe3a49c3524e9b4a5c0884a8c945a2d52c60e2dc32875ba4748efa083d109",
     "src/consumption/store.ts": "9118bebcf1e2212432c438cbe55bb4f62037551306cadf536a3c686d5f7bd214",
-    "src/local-owner/verifier.ts": "d7a07274966faadeefa1710d6ea85a562c130433e9c7a8de063a988a8c4fc2ea",
+    "src/local-owner/jcs.ts": "5b0664306bcb9399ac9a1b35ad0cfbf2e65ec6e6d8a0abbf877a22a4d6b73f63",
+    "src/local-owner/contracts.ts": "6c12e1400a280b4cbd4f58040aa83cd5af1b4ea1596b0caa1c729c196efa3c83",
     "src/local-owner/evidence.ts": "3d2d601f63f11a8883ef35c6aae19ab6e67393854c158eee8b3033221f941362",
+    "src/local-owner/verifier.ts": "d7a07274966faadeefa1710d6ea85a562c130433e9c7a8de063a988a8c4fc2ea",
     "src/local-owner/test.ts": "2d419c70566a5bbe2019713db225319f28e6526c13c94116e24c5c1eb2a26234",
     "scripts/local-owner-proof.ts": "fb236fe2b8d26974d6912c3659a6724c265276b781adc6ae4e67dafe0286cbd6",
-    "scripts/local-owner-legacy-race-child.ts": "79d35f2e892c4955639ac56f00dea91a115f45c6e43d7ce1c23ec6a6d90d2dd5"
+    "scripts/local-owner-proof-child.ts": "acfb192580fa0c9ca48b8ff9520eaa1c7a40f14f5e2ff7584b261cccd8eb963e",
+    "scripts/local-owner-legacy-race-child.ts": "79d35f2e892c4955639ac56f00dea91a115f45c6e43d7ce1c23ec6a6d90d2dd5",
+    "schemas/local-owner/decision.schema.json": "8edf6661dde1b2c699bfd40f982063210ba82d1482af3332ef982a00af2e756e",
+    "schemas/local-owner/claim.schema.json": "15b2004c3b48ed8ac97fbf6ab7d16beb80d91d9ebf5ff89f02039a533eb385f1",
+    "schemas/local-owner/status-event.schema.json": "6cb4e7dbd4316625966b93b28d0cb08039605747e674e6587781537488dce985",
+    "schemas/local-owner/start-intent.schema.json": "7f9af0f4d70ada69c9751c99ce6d0081f5456bfb63c2dcee436461baf173ece7",
+    "schemas/local-owner/start-result.schema.json": "a61f9764294359cc995c3c580c1d2478470af84d1ea1b4a341c2d1c6e166ba95"
   },
   "evidenceIntegrity": {
     "defectSpecies": "EVIDENCE_INTEGRITY — proof observed labels outran test bodies",

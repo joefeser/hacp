@@ -104,8 +104,13 @@ after intent, and the legacy/candidate admission race. The remaining 37 cases
 have exact-ID unit receipts. Every JSON matrix row records a JSON Pointer into
 the committed proof artifact and the SHA-256 of that exact receipt object.
 Run `node scripts/validate-local-owner-evidence.mjs` to verify the artifact
-hash, contract pins, source hashes, fixture order and expected text, exact
-receipt IDs and passing status, receipt digests, and aggregate counts.
+hash, contract pins, implementation/run-head and checkout-tree consistency,
+empty tracked diffs, the complete v3 source-hash inventory, fixture order and
+expected text, exact receipt IDs and passing status, receipt digests, and
+unit/process classification and aggregate counts in both proofs. Regression
+checks run with `node --test scripts/validate-local-owner-evidence.test.mjs`.
+This offline check verifies consistency of the retained evidence; it does not
+query GitHub to authenticate run metadata or rerun the implementation tests.
 
 ## Same-File Admission Evidence
 

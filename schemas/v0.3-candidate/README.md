@@ -99,19 +99,25 @@ this implementation PR:
 Joe must approve the exact normative domain set before candidate publication.
 Changing a domain changes every affected digest and is a contract change.
 
-## REVIEW-REQUIRED: second-implementation qualification
+## Owner-Ruled Second-Implementation Qualification
 
-The promotion criterion remains unresolved. Joe must choose whether the second
-implementation must:
+Issue [#47](https://github.com/joefeser/hacp/issues/47) records the owner
+ruling for candidate promotion: a second implementation must independently
+produce candidate records and cross-validate them with who-decides against this
+conformance package, including its negative fixtures, without importing
+who-decides runtime code.
 
-1. independently produce candidate records and cross-validate them with
-   who-decides; or
-2. both produce and consume records bidirectionally with who-decides.
-
-This package enables either test. Passing it alone is not a second
+Bidirectional production and consumption with who-decides is reserved as a
+future full-release criterion. Passing this package alone is not a second
 implementation, does not promote v0.3 beyond candidate status, and does not
 prove single-consumer atomicity, provider execution, or exactly-once external
 effects.
+
+The WITS-specific authority disposition in issue
+[#48](https://github.com/joefeser/hacp/issues/48) is documented in the
+[interworking authority seam](../../docs/source-packets/wits-v0/interworking-authority-seam.md).
+A non-authorizing domain decision may remain source evidence, but it cannot be
+recast as the separate native human act that approves a bounded successor.
 
 ## Provenance and limits
 

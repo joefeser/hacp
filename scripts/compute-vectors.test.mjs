@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 import {
   buildValidRecords, digestRecord, digestEnvelope, loadValidators,
@@ -7,6 +8,19 @@ import {
 
 const validators = await loadValidators();
 const baseline = await buildValidRecords();
+const manifest = JSON.parse(await readFile(
+  new URL('../schemas/v0.3-candidate/fixtures/manifest.json', import.meta.url),
+  'utf8',
+));
+
+test('manifest records the owner-ruled qualification without reopening it', () => {
+  assert.equal(Object.hasOwn(manifest.reviewRequired, 'qualificationRule'), false);
+  assert.deepEqual(manifest.ownerRulings.secondImplementationQualification, {
+    sourceIssue: 'https://github.com/joefeser/hacp/issues/47',
+    candidatePromotion: 'independent_production_plus_cross_validation',
+    fullRelease: 'bidirectional_production_and_consumption',
+  });
+});
 
 // Rebind every downstream digest after a mutation. A negative test must fail
 // on the semantic defect, not a stale digest left behind by its setup.

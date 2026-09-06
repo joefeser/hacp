@@ -374,8 +374,12 @@ record is still required before marking work complete.
 ## Candidate Conformance Fixtures
 
 The executable candidate package promotes the seven example shapes into
-closed schemas and computed vectors. Its exact digest-domain identifiers and
-second-implementation qualification rule remain explicit owner review gates.
+closed schemas and computed vectors. Its exact digest-domain identifiers
+remain an explicit owner review gate. Issue
+[#47](https://github.com/joefeser/hacp/issues/47) records independent
+production plus cross-validation as the second-implementation criterion for
+candidate promotion; bidirectional production and consumption remains a
+future full-release criterion.
 
 Positive candidates:
 

@@ -168,13 +168,56 @@ function buildInvalidFixtures(valid) {
   scopeExpansion.claim.permittedScope.push('deploy');
   scopeExpansion.digest = digestRecord('consumption-receipt', scopeExpansion);
 
+  const nonApproval = structuredClone(valid['human-decision']);
+  nonApproval.decision = 'reject';
+  nonApproval.digest = digestRecord('human-decision', nonApproval);
+
+  const splicedReport = structuredClone(valid['agent-report']);
+  splicedReport.packetId = 'taskpkt_unrelated_001';
+  splicedReport.digest = digestRecord('agent-report', splicedReport);
+
+  const splicedReportDecision = structuredClone(valid['agent-report']);
+  splicedReportDecision.decision.id = 'decision_unrelated_001';
+  splicedReportDecision.digest = digestRecord('agent-report', splicedReportDecision);
+
+  const splicedReportRequest = structuredClone(valid['agent-report']);
+  splicedReportRequest.decisionRequest.id = 'finding_unrelated_001';
+  splicedReportRequest.digest = digestRecord('agent-report', splicedReportRequest);
+
+  const loopExceeded = structuredClone(valid['task-packet']);
+  loopExceeded.loopPolicy.counter = loopExceeded.loopPolicy.ceiling + 1;
+  loopExceeded.digest = digestRecord('task-packet', loopExceeded);
+
+  const loopCounterMismatch = structuredClone(valid['agent-report']);
+  loopCounterMismatch.loopCounter += 1;
+  loopCounterMismatch.digest = digestRecord('agent-report', loopCounterMismatch);
+
+  const splicedStartEvidence = structuredClone(valid['agent-report']);
+  splicedStartEvidence.startEvidence.successorInvocationId = 'invoke_unrelated_001';
+  const splicedStartInput = structuredClone(splicedStartEvidence.startEvidence);
+  delete splicedStartInput.digest;
+  splicedStartEvidence.startEvidence.digest = digestEnvelope(domains['successor-start-evidence'], splicedStartInput);
+  splicedStartEvidence.digest = digestRecord('agent-report', splicedStartEvidence);
+
+  const expiredBeforeStart = structuredClone(valid['consumption-receipt']);
+  expiredBeforeStart.singleConsumerBasis.receiptExpiresAt = '2026-09-03T18:05:01Z';
+  expiredBeforeStart.digest = digestRecord('consumption-receipt', expiredBeforeStart);
+
   return {
     'human-decision.digest-mismatch.invalid.json': digestMismatch,
     'agent-report.stripped-context.invalid.json': strippedContext,
     'continuation-context.stale-replay.invalid.json': staleReplay,
     'consumption-receipt.expired.invalid.json': expired,
     'consumption-receipt.revoked.invalid.json': revoked,
-    'consumption-receipt.scope-expansion.invalid.json': scopeExpansion
+    'consumption-receipt.scope-expansion.invalid.json': scopeExpansion,
+    'human-decision.non-approval.invalid.json': nonApproval,
+    'agent-report.spliced-authority.invalid.json': splicedReport,
+    'agent-report.spliced-decision.invalid.json': splicedReportDecision,
+    'agent-report.spliced-request.invalid.json': splicedReportRequest,
+    'task-packet.loop-ceiling.invalid.json': loopExceeded,
+    'agent-report.loop-counter.invalid.json': loopCounterMismatch,
+    'agent-report.spliced-start-evidence.invalid.json': splicedStartEvidence,
+    'consumption-receipt.expired-before-start.invalid.json': expiredBeforeStart
   };
 }
 
@@ -183,6 +226,21 @@ function equalDigest(left, right) {
     && left?.canonicalization === right?.canonicalization
     && left?.digestDomain === right?.digestDomain
     && left?.value === right?.value;
+}
+
+function resolveDecisionRequest(request, finding, stop) {
+  if (request?.kind === 'review_finding') return finding
+    ? { id: finding.findingId, digest: finding.digest }
+    : null;
+  if (request?.kind === 'stop_response') return stop
+    ? { id: stop.stopId, digest: stop.digest }
+    : null;
+  return null;
+}
+
+function decisionRequestMatches(request, finding, stop) {
+  const target = resolveDecisionRequest(request, finding, stop);
+  return Boolean(target && request.id === target.id && equalDigest(request.digest, target.digest));
 }
 
 function validateSemantics(records, context = {}) {
@@ -207,16 +265,19 @@ function validateSemantics(records, context = {}) {
   if (decision && task && (decision.packetId !== task.packetId || !equalDigest(decision.packetDigest, task.digest))) {
     add('PACKET_REFERENCE_MISMATCH', 'Human decision does not bind the current task packet.');
   }
-  if (decision && finding && (decision.decisionRequest.id !== finding.findingId || !equalDigest(decision.decisionRequest.digest, finding.digest))) {
-    add('DECISION_REQUEST_MISMATCH', 'Human decision does not bind the current review finding.');
+  if (decision && !decisionRequestMatches(decision.decisionRequest, finding, stop)) {
+    add('DECISION_REQUEST_MISMATCH', 'Human decision does not bind the selected current decision-request record.');
   }
   if (receipt && decision && (receipt.decisionId !== decision.decisionId || !equalDigest(receipt.decisionDigest, decision.digest))) {
     add('STALE_REPLAY', 'Consumption receipt does not bind the current human decision revision.');
   }
-  if (receipt && finding && (receipt.decisionRequest.id !== finding.findingId || !equalDigest(receipt.decisionRequest.digest, finding.digest))) {
-    add('DECISION_REQUEST_MISMATCH', 'Consumption receipt does not bind the current decision request.');
+  if (receipt && !decisionRequestMatches(receipt.decisionRequest, finding, stop)) {
+    add('DECISION_REQUEST_MISMATCH', 'Consumption receipt does not bind the selected current decision-request record.');
   }
   if (receipt && decision) {
+    if (decision.decision !== 'approve_bounded_successor') {
+      add('NON_APPROVAL_DECISION', 'A non-approval decision cannot authorize a consumption receipt.');
+    }
     const approved = new Set(decision.approvedSuccessorScope);
     if (receipt.claim.permittedScope.some((item) => !approved.has(item))) {
       add('SCOPE_EXPANSION', 'Consumption receipt claim exceeds the approved successor scope.');
@@ -237,16 +298,48 @@ function validateSemantics(records, context = {}) {
   if (report && continuation && (!equalDigest(report.continuationContext?.digest, continuation.digest) || report.continuationContext?.id !== continuation.contextId)) {
     add('STRIPPED_OR_MISMATCHED_CONTEXT', 'Agent report does not carry the required continuation context binding.');
   }
+  if (report && task && report.packetId !== task.packetId) {
+    add('REPORT_PACKET_MISMATCH', 'Agent report does not bind the current task packet.');
+  }
+  if (report && decision && (report.decision.id !== decision.decisionId || !equalDigest(report.decision.digest, decision.digest))) {
+    add('REPORT_DECISION_MISMATCH', 'Agent report does not bind the current human decision revision.');
+  }
+  if (report && !decisionRequestMatches(report.decisionRequest, finding, stop)) {
+    add('REPORT_DECISION_REQUEST_MISMATCH', 'Agent report does not bind the selected current decision-request record.');
+  }
   if (report && receipt && (report.consumptionReceiptId !== receipt.receiptId || !equalDigest(report.consumptionReceiptDigest, receipt.digest) || report.successorInvocationId !== receipt.claim.successorInvocationId)) {
     add('CONSUMPTION_REFERENCE_MISMATCH', 'Agent report does not bind the accepted receipt and successor.');
+  }
+  if (task && task.loopPolicy.counter > task.loopPolicy.ceiling) {
+    add('LOOP_CEILING_EXCEEDED', 'Task loop counter exceeds its declared ceiling.');
+  }
+  if (report && task && report.loopCounter !== task.loopPolicy.counter) {
+    add('LOOP_COUNTER_MISMATCH', 'Agent report does not preserve the task loop counter.');
   }
   if (report?.startEvidence) {
     const startEvidenceInput = structuredClone(report.startEvidence);
     delete startEvidenceInput.digest;
     const expected = digestEnvelope(domains['successor-start-evidence'], startEvidenceInput);
     if (!equalDigest(report.startEvidence.digest, expected)) add('START_EVIDENCE_DIGEST_MISMATCH', 'Start evidence digest is invalid.');
+    if (receipt && (
+      report.startEvidence.successorInvocationId !== report.successorInvocationId
+      || report.startEvidence.successorInvocationId !== receipt.claim.successorInvocationId
+      || report.startEvidence.consumptionReceiptId !== report.consumptionReceiptId
+      || report.startEvidence.consumptionReceiptId !== receipt.receiptId
+      || !equalDigest(report.startEvidence.consumptionReceiptDigest, report.consumptionReceiptDigest)
+      || !equalDigest(report.startEvidence.consumptionReceiptDigest, receipt.digest)
+    )) {
+      add('START_EVIDENCE_BINDING_MISMATCH', 'Start evidence does not bind the accepted receipt and reported successor.');
+    }
     if (Date.parse(report.startEvidence.acceptedClaimReadBackAt) > Date.parse(report.startEvidence.workStartedAt)) {
       add('CLAIM_AFTER_START', 'Accepted claim readback occurs after work start.');
+    }
+    if (receipt) {
+      const expiresAt = Date.parse(receipt.singleConsumerBasis.receiptExpiresAt);
+      if (expiresAt <= Date.parse(report.startEvidence.acceptedClaimReadBackAt)
+        || expiresAt <= Date.parse(report.startEvidence.workStartedAt)) {
+        add('EXPIRED_AT_START', 'Receipt was not valid through accepted-claim readback and successor start.');
+      }
     }
   }
   if (stop && stop.successorWorkBegan !== false) add('STOP_AFTER_WORK', 'Candidate stop response cannot assert successor work began.');
@@ -305,7 +398,15 @@ async function expectedOutputs() {
       { path: 'invalid/continuation-context.stale-replay.invalid.json', schema: 'continuation-context.schema.json', expectedCode: 'STALE_REPLAY' },
       { path: 'invalid/consumption-receipt.expired.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'EXPIRED_RECEIPT' },
       { path: 'invalid/consumption-receipt.revoked.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'REVOCATION_STATUS_REJECTED', context: { revokedDecisionDigests: [valid['human-decision'].digest.value] } },
-      { path: 'invalid/consumption-receipt.scope-expansion.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'SCOPE_EXPANSION' }
+      { path: 'invalid/consumption-receipt.scope-expansion.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'SCOPE_EXPANSION' },
+      { path: 'invalid/human-decision.non-approval.invalid.json', schema: 'human-decision.schema.json', expectedCode: 'NON_APPROVAL_DECISION' },
+      { path: 'invalid/agent-report.spliced-authority.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'REPORT_PACKET_MISMATCH' },
+      { path: 'invalid/agent-report.spliced-decision.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'REPORT_DECISION_MISMATCH' },
+      { path: 'invalid/agent-report.spliced-request.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'REPORT_DECISION_REQUEST_MISMATCH' },
+      { path: 'invalid/task-packet.loop-ceiling.invalid.json', schema: 'task-packet.schema.json', expectedCode: 'LOOP_CEILING_EXCEEDED' },
+      { path: 'invalid/agent-report.loop-counter.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'LOOP_COUNTER_MISMATCH' },
+      { path: 'invalid/agent-report.spliced-start-evidence.invalid.json', schema: 'agent-report.schema.json', expectedCode: 'START_EVIDENCE_BINDING_MISMATCH' },
+      { path: 'invalid/consumption-receipt.expired-before-start.invalid.json', schema: 'consumption-receipt.schema.json', expectedCode: 'EXPIRED_AT_START' }
     ]
   };
   outputs.set(path.join(fixtureRoot, 'manifest.json'), stableJson(manifest));
@@ -353,6 +454,35 @@ async function validateCorpus(valid, manifest) {
   for (const record of Object.values(valid)) validDiagnostics.push(...schemaDiagnostics(validators, record));
   validDiagnostics.push(...validateSemantics(valid));
   if (validDiagnostics.length > 0) throw new Error(`Expected-valid corpus failed: ${JSON.stringify(validDiagnostics)}`);
+
+  const stopOrigin = structuredClone(valid);
+  stopOrigin['human-decision'].decisionRequest = {
+    kind: 'stop_response',
+    id: valid['stop-response'].stopId,
+    digest: valid['stop-response'].digest
+  };
+  stopOrigin['human-decision'].digest = digestRecord('human-decision', stopOrigin['human-decision']);
+  stopOrigin['consumption-receipt'].decisionDigest = stopOrigin['human-decision'].digest;
+  stopOrigin['consumption-receipt'].decisionRequest = structuredClone(stopOrigin['human-decision'].decisionRequest);
+  stopOrigin['consumption-receipt'].digest = digestRecord('consumption-receipt', stopOrigin['consumption-receipt']);
+  stopOrigin['continuation-context'].decision.digest = stopOrigin['human-decision'].digest;
+  stopOrigin['continuation-context'].consumptionReceipt.digest = stopOrigin['consumption-receipt'].digest;
+  stopOrigin['continuation-context'].digest = digestRecord('continuation-context', stopOrigin['continuation-context']);
+  stopOrigin['agent-report'].decision.digest = stopOrigin['human-decision'].digest;
+  stopOrigin['agent-report'].decisionRequest = structuredClone(stopOrigin['human-decision'].decisionRequest);
+  stopOrigin['agent-report'].consumptionReceiptDigest = stopOrigin['consumption-receipt'].digest;
+  stopOrigin['agent-report'].continuationContext.digest = stopOrigin['continuation-context'].digest;
+  stopOrigin['agent-report'].startEvidence.consumptionReceiptDigest = stopOrigin['consumption-receipt'].digest;
+  const stopOriginStart = structuredClone(stopOrigin['agent-report'].startEvidence);
+  delete stopOriginStart.digest;
+  stopOrigin['agent-report'].startEvidence.digest = digestEnvelope(domains['successor-start-evidence'], stopOriginStart);
+  stopOrigin['agent-report'].digest = digestRecord('agent-report', stopOrigin['agent-report']);
+  const stopOriginDiagnostics = [];
+  for (const record of Object.values(stopOrigin)) stopOriginDiagnostics.push(...schemaDiagnostics(validators, record));
+  stopOriginDiagnostics.push(...validateSemantics(stopOrigin));
+  if (stopOriginDiagnostics.length > 0) {
+    throw new Error(`Stop-response decision-request chain failed: ${JSON.stringify(stopOriginDiagnostics)}`);
+  }
 
   for (const entry of manifest.expectedInvalid) {
     const invalidRecord = await readJson(path.join(fixtureRoot, entry.path));

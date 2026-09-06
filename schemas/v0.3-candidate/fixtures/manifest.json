@@ -85,6 +85,46 @@
       "path": "invalid/consumption-receipt.scope-expansion.invalid.json",
       "schema": "consumption-receipt.schema.json",
       "expectedCode": "SCOPE_EXPANSION"
+    },
+    {
+      "path": "invalid/human-decision.non-approval.invalid.json",
+      "schema": "human-decision.schema.json",
+      "expectedCode": "NON_APPROVAL_DECISION"
+    },
+    {
+      "path": "invalid/agent-report.spliced-authority.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_PACKET_MISMATCH"
+    },
+    {
+      "path": "invalid/agent-report.spliced-decision.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_DECISION_MISMATCH"
+    },
+    {
+      "path": "invalid/agent-report.spliced-request.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "REPORT_DECISION_REQUEST_MISMATCH"
+    },
+    {
+      "path": "invalid/task-packet.loop-ceiling.invalid.json",
+      "schema": "task-packet.schema.json",
+      "expectedCode": "LOOP_CEILING_EXCEEDED"
+    },
+    {
+      "path": "invalid/agent-report.loop-counter.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "LOOP_COUNTER_MISMATCH"
+    },
+    {
+      "path": "invalid/agent-report.spliced-start-evidence.invalid.json",
+      "schema": "agent-report.schema.json",
+      "expectedCode": "START_EVIDENCE_BINDING_MISMATCH"
+    },
+    {
+      "path": "invalid/consumption-receipt.expired-before-start.invalid.json",
+      "schema": "consumption-receipt.schema.json",
+      "expectedCode": "EXPIRED_AT_START"
     }
   ]
 }

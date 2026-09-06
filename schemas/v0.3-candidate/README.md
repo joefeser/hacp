@@ -56,8 +56,10 @@ with its separate proposed supporting domain.
 
 [`fixtures/manifest.json`](fixtures/manifest.json) pins the source and
 who-decides evidence revisions and declares seven expected-valid records plus
-digest-mismatch, stripped-context, stale-reference replay, expired,
-trusted-revoked-status, and scope-expansion rejection cases.
+fourteen negative cases covering digest mismatch, stripped context,
+stale-reference replay, expired and trusted-revoked status, scope expansion,
+non-approval consumption, report/reference splicing, loop ceilings, and
+start-evidence binding.
 
 The revocation fixture intentionally supplies trusted status as fixture
 context. A receipt URI or self-asserted field does not prove revocation.

@@ -1,0 +1,1499 @@
+{
+  "schema": "who-decides.local-owner-proof.v3",
+  "observedAt": "2026-09-06T00:47:53.292Z",
+  "gitHead": "22b835d927fe2f7d649b7187911b0cf192506bc5",
+  "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "contract": {
+    "commit": "3b61e64d61984f0c5617c4a71266802f31961494",
+    "profileSha256": "bc02b5972c2ac1184637062b3dabf7a655ae442cb6fa22940d8d119f678483ec",
+    "fixturesSha256": "463f25a09db48863d03344a5225576052d944622d04c997d65057c89c2e77aa0",
+    "synthesisSha256": "4995b0e2603d695cd005c2bcbfb8e6a6ada1664ff079b148fc20f8b105ba8805"
+  },
+  "evidenceIntegrity": {
+    "defectSpecies": "EVIDENCE_INTEGRITY — proof observed labels outran test bodies",
+    "rule": "an inventory case is observed iff a passing unit or process receipt with the exact fixture id exists"
+  },
+  "testRun": {
+    "command": "npm run test:local-owner",
+    "passed": true,
+    "outputSha256": "daad1a14b3b2864f026a9dfd3b1161545b0e121dcc5340a9be3d6488ad5ec1f5",
+    "receiptCount": 37
+  },
+  "overlap": {
+    "claimRace": [
+      {
+        "kind": "result",
+        "pid": 3031,
+        "beganAt": "2026-09-06T00:47:48.454Z",
+        "endedAt": "2026-09-06T00:47:48.682Z",
+        "result": {
+          "ok": false,
+          "stop": "SCOPE_CONFLICT",
+          "detail": "slot already consumed"
+        }
+      },
+      {
+        "kind": "result",
+        "pid": 3032,
+        "beganAt": "2026-09-06T00:47:48.454Z",
+        "endedAt": "2026-09-06T00:47:48.576Z",
+        "result": {
+          "ok": true,
+          "value": {
+            "recordKind": "claim",
+            "profileId": "org.hacp.local-owner-continuation",
+            "profileVersion": "0.1-candidate",
+            "issuerId": "synthetic-issuer",
+            "decisionId": "proof",
+            "decisionDigest": {
+              "algorithm": "sha256",
+              "canonicalization": "json-rfc8785-jcs",
+              "domain": "org.hacp.local-owner-continuation.decision.0.1-candidate",
+              "value": "e36d1349d9e371ee121c1e1c6d903bb4792fb065cf3d295f1924fda7b26e3cf0"
+            },
+            "claimId": "claim-b",
+            "attemptKey": "attempt-claim-b",
+            "successorId": "successor-b",
+            "requestRef": "request-proof",
+            "action": {
+              "operationId": "observe_fixed_payload",
+              "parameters": {
+                "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+              }
+            },
+            "claimedAt": "2026-09-05T00:00:01.000Z",
+            "expiresAt": "2099-01-01T00:00:00.000Z",
+            "digest": {
+              "algorithm": "sha256",
+              "canonicalization": "json-rfc8785-jcs",
+              "domain": "org.hacp.local-owner-continuation.claim.0.1-candidate",
+              "value": "32234661954437e509abfc70e267d4bfee5cdc53622c83220692aeef6e12a398"
+            }
+          }
+        }
+      }
+    ],
+    "startRace": [
+      {
+        "kind": "startResult",
+        "pid": 3032,
+        "beganAt": "2026-09-06T00:47:49.004Z",
+        "endedAt": "2026-09-06T00:47:49.151Z",
+        "result": {
+          "ok": true,
+          "value": {
+            "intent": {
+              "recordKind": "start-intent",
+              "profileId": "org.hacp.local-owner-continuation",
+              "profileVersion": "0.1-candidate",
+              "issuerId": "synthetic-issuer",
+              "decisionId": "proof",
+              "claimDigest": {
+                "algorithm": "sha256",
+                "canonicalization": "json-rfc8785-jcs",
+                "domain": "org.hacp.local-owner-continuation.claim.0.1-candidate",
+                "value": "32234661954437e509abfc70e267d4bfee5cdc53622c83220692aeef6e12a398"
+              },
+              "intentId": "intent-proof",
+              "successorId": "successor-b",
+              "action": {
+                "operationId": "observe_fixed_payload",
+                "parameters": {
+                  "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+                }
+              },
+              "admittedAt": "2026-09-06T00:47:49.108Z",
+              "decisionStatusHead": "5b57846cf36ff1680eb304a19366e7e4919d1ec06b8fbf878b22c81e1f4adaa8",
+              "claimStatusHead": "6da1133ff4ce567beea2b945a239cb69ef19eee8c36ff230855cc9a43a93d8cc",
+              "clockSample": {
+                "wallTime": "2026-09-06T00:47:49.108Z",
+                "monotonicNanoseconds": "87448934822"
+              },
+              "expiryDeadlineMonotonicNanoseconds": "2282253218340934822",
+              "digest": {
+                "algorithm": "sha256",
+                "canonicalization": "json-rfc8785-jcs",
+                "domain": "org.hacp.local-owner-continuation.start-intent.0.1-candidate",
+                "value": "6c20fbf27bdbaa49adb85d5a01654323fd5463a7a5da431950db3d503cef3564"
+              }
+            },
+            "result": {
+              "recordKind": "start-result",
+              "profileId": "org.hacp.local-owner-continuation",
+              "profileVersion": "0.1-candidate",
+              "issuerId": "synthetic-issuer",
+              "decisionId": "proof",
+              "intentDigest": {
+                "algorithm": "sha256",
+                "canonicalization": "json-rfc8785-jcs",
+                "domain": "org.hacp.local-owner-continuation.start-intent.0.1-candidate",
+                "value": "6c20fbf27bdbaa49adb85d5a01654323fd5463a7a5da431950db3d503cef3564"
+              },
+              "resultId": "a4bb1dc8-8b82-4209-abb0-497546199e8e",
+              "outcome": "completed",
+              "observedAt": "2026-09-06T00:47:49.150Z",
+              "observationClockSample": {
+                "wallTime": "2026-09-06T00:47:49.150Z",
+                "monotonicNanoseconds": "87490922540"
+              },
+              "observationDigest": {
+                "algorithm": "sha256",
+                "canonicalization": "json-rfc8785-jcs",
+                "domain": "org.hacp.local-owner-continuation.observation.0.1-candidate",
+                "value": "2291610e38245f88bac99efc480897600b1f322a4004d0113487033a3b13de5e"
+              },
+              "digest": {
+                "algorithm": "sha256",
+                "canonicalization": "json-rfc8785-jcs",
+                "domain": "org.hacp.local-owner-continuation.start-result.0.1-candidate",
+                "value": "ca24831370d3ede0afddf740109bf47a4966bf9d6c9101f2910b543f81d27e6e"
+              }
+            },
+            "observation": {
+              "operationId": "observe_fixed_payload",
+              "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+            }
+          }
+        }
+      },
+      {
+        "kind": "result",
+        "pid": 3066,
+        "beganAt": "2026-09-06T00:47:49.004Z",
+        "endedAt": "2026-09-06T00:47:49.005Z",
+        "monotonicNanoseconds": "87345756913",
+        "result": {
+          "ok": false,
+          "stop": "HUMAN_DECISION_REQUIRED",
+          "detail": "restart after claim requires human inspection"
+        }
+      }
+    ],
+    "concurrentRevokeStart": {
+      "revokeResult": {
+        "kind": "result",
+        "pid": 3088,
+        "beganAt": "2026-09-06T00:47:50.437Z",
+        "endedAt": "2026-09-06T00:47:50.557Z",
+        "monotonicNanoseconds": "88898052642",
+        "result": {
+          "ok": true,
+          "value": {
+            "recordKind": "status-event",
+            "profileId": "org.hacp.local-owner-continuation",
+            "profileVersion": "0.1-candidate",
+            "issuerId": "synthetic-issuer",
+            "decisionId": "concurrent-proof",
+            "eventId": "b5d6d426-3674-486c-a27c-0da0f41ea0c0",
+            "targetKind": "decision",
+            "targetDigest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+            "sequence": 1,
+            "previousDigest": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50",
+            "state": "revoked",
+            "recordedAt": "2026-09-06T00:47:50.555Z",
+            "actorId": "synthetic-human",
+            "digest": {
+              "algorithm": "sha256",
+              "canonicalization": "json-rfc8785-jcs",
+              "domain": "org.hacp.local-owner-continuation.status-event.0.1-candidate",
+              "value": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879"
+            }
+          }
+        }
+      },
+      "concurrentStartResult": {
+        "kind": "startResult",
+        "pid": 3081,
+        "beganAt": "2026-09-06T00:47:50.545Z",
+        "endedAt": "2026-09-06T00:47:50.664Z",
+        "result": {
+          "ok": false,
+          "stop": "STALE_PACKET",
+          "detail": "revoked"
+        }
+      }
+    },
+    "legacyCandidate": {
+      "legacyFirst": {
+        "order": "legacy-first",
+        "databaseIdentity": {
+          "databaseId": "8b87ee79-ed7d-4b45-a128-24fe3226a2c9",
+          "canonicalPath": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/legacy-first/shared.db",
+          "device": "66305",
+          "inode": "9442571",
+          "filesystemType": "61267",
+          "schemaSha256": "53738d864295b2a80539a354b4abb68d375e22f58c69399ef0d8f1af27dcf226",
+          "configGeneration": "proof-legacy-first-generation-1",
+          "guardDirectory": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/legacy-first/.who-decides-guards-8b87ee79-ed7d-4b45-a128-24fe3226a2c9",
+          "guardDevice": "66305",
+          "guardInode": "9442591",
+          "guardFilesystemType": "61267"
+        },
+        "processes": {
+          "legacyPid": 3102,
+          "candidatePid": 3121,
+          "separate": true
+        },
+        "overlap": {
+          "lockHeld": {
+            "kind": "writeLockHeld",
+            "pid": 3102,
+            "monotonicNanoseconds": "90689198146"
+          },
+          "loserBeforeBegin": {
+            "kind": "beforeBeginImmediate",
+            "pid": 3121,
+            "monotonicNanoseconds": "90694183034"
+          },
+          "loserBlockedBeforeRelease": true,
+          "releaseMonotonicNanoseconds": "90772642342"
+        },
+        "results": {
+          "legacy": {
+            "kind": "result",
+            "pid": 3102,
+            "beganAt": "2026-09-06T00:47:52.347Z",
+            "endedAt": "2026-09-06T00:47:52.436Z",
+            "result": {
+              "status": "claimed",
+              "receipt": {
+                "schema": "who-decides.consumption-receipt.v0",
+                "receiptId": "585889f6-0be5-4e5f-b093-4a29b86ece34",
+                "decisionId": "race-legacy-first",
+                "decisionDigest": "sha256:df7480ca306df65d5604974b927ddcf11b426a2b6426050bf90ff7b1ad3daeda",
+                "decisionRequestId": "legacy-request-legacy-first",
+                "permittedAction": "legacy dry-run claim",
+                "successorInvocationId": "legacy-successor-legacy-first",
+                "claimedAt": "2026-09-06T00:47:52.435Z",
+                "claimNote": "Claim acceptance does not prove invocation completion or exactly-once external effects."
+              }
+            }
+          },
+          "candidate": {
+            "kind": "result",
+            "pid": 3121,
+            "beganAt": "2026-09-06T00:47:52.351Z",
+            "endedAt": "2026-09-06T00:47:52.459Z",
+            "result": {
+              "ok": false,
+              "stop": "MISSING_AUTHORITY",
+              "detail": "legacy decision-id collision"
+            }
+          }
+        },
+        "durableReadback": {
+          "receiptCount": 1,
+          "slotCount": 0,
+          "unionCount": 1,
+          "legacyReceiptBytesSha256": "57efbfa732900f4206c230ad9b5e5de37bc56fba3ffd062fcc765ed9e1588935",
+          "legacyDecisionDigest": "sha256:df7480ca306df65d5604974b927ddcf11b426a2b6426050bf90ff7b1ad3daeda",
+          "candidateRecordBytesSha256": null,
+          "candidateDecisionDigest": null,
+          "integrity": "ok"
+        }
+      },
+      "candidateFirst": {
+        "order": "candidate-first",
+        "databaseIdentity": {
+          "databaseId": "4b256e30-590d-4d74-86b4-1e671e556df7",
+          "canonicalPath": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/candidate-first/shared.db",
+          "device": "66305",
+          "inode": "9442600",
+          "filesystemType": "61267",
+          "schemaSha256": "53738d864295b2a80539a354b4abb68d375e22f58c69399ef0d8f1af27dcf226",
+          "configGeneration": "proof-candidate-first-generation-1",
+          "guardDirectory": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/candidate-first/.who-decides-guards-4b256e30-590d-4d74-86b4-1e671e556df7",
+          "guardDevice": "66305",
+          "guardInode": "9442603",
+          "guardFilesystemType": "61267"
+        },
+        "processes": {
+          "legacyPid": 3135,
+          "candidatePid": 3128,
+          "separate": true
+        },
+        "overlap": {
+          "lockHeld": {
+            "kind": "writeLockHeld",
+            "pid": 3128,
+            "monotonicNanoseconds": "91475078170"
+          },
+          "loserBeforeBegin": {
+            "kind": "beforeBeginImmediate",
+            "pid": 3135,
+            "monotonicNanoseconds": "91480946290"
+          },
+          "loserBlockedBeforeRelease": true,
+          "releaseMonotonicNanoseconds": "91559303188"
+        },
+        "results": {
+          "legacy": {
+            "kind": "result",
+            "pid": 3135,
+            "beganAt": "2026-09-06T00:47:53.138Z",
+            "endedAt": "2026-09-06T00:47:53.269Z",
+            "result": {
+              "status": "rejected",
+              "reason": "profile_slot_conflict",
+              "detail": "decision ID is already admitted by the local-owner candidate profile"
+            }
+          },
+          "candidate": {
+            "kind": "result",
+            "pid": 3128,
+            "beganAt": "2026-09-06T00:47:53.113Z",
+            "endedAt": "2026-09-06T00:47:53.261Z",
+            "result": {
+              "ok": true,
+              "value": {
+                "recordKind": "decision",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "race-candidate-first",
+                "humanEventRef": "human-race-candidate-first",
+                "baseDecisionRef": "packet-race-candidate-first",
+                "baseDecisionDigest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.base-decision-reference.0.1-candidate",
+                  "value": "19feaa7624958130b5f979988e466541fa171954322139bac5240da9243ed9aa"
+                },
+                "requestRef": "candidate-request-candidate-first",
+                "action": {
+                  "operationId": "observe_fixed_payload",
+                  "parameters": {
+                    "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+                  }
+                },
+                "approvedAt": "2026-09-05T00:00:00.000Z",
+                "expiresAt": "2100-01-01T00:00:00.000Z",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.decision.0.1-candidate",
+                  "value": "b22afd69b21471bfa50187eb7df61c9d0279fed85872f329f63f7546a73213db"
+                }
+              }
+            }
+          }
+        },
+        "durableReadback": {
+          "receiptCount": 0,
+          "slotCount": 1,
+          "unionCount": 1,
+          "legacyReceiptBytesSha256": null,
+          "legacyDecisionDigest": null,
+          "candidateRecordBytesSha256": "e51f5d3a945dfa1a655e350137ffab8272a6d888d5011252ea2a9391dc6a2063",
+          "candidateDecisionDigest": "b22afd69b21471bfa50187eb7df61c9d0279fed85872f329f63f7546a73213db",
+          "integrity": "ok"
+        }
+      }
+    }
+  },
+  "restart": {
+    "ok": false,
+    "stop": "HUMAN_DECISION_REQUIRED",
+    "detail": "restart after claim requires human inspection"
+  },
+  "crash": {
+    "crashHistory": {
+      "ok": true,
+      "value": {
+        "issuer_id": "synthetic-issuer",
+        "decision_id": "crash-proof",
+        "decision_digest": "08b99bfad83a4055b7aefc5106268338539f8d4127e87fd96c24a537817e0076",
+        "claim_digest": "698cf19bf64edc6736cb61552b756a4e83d7fa9f688af945f59037cc8daa1744",
+        "claim_session": "a5ba1bd7-7974-4ba8-b95a-a6d7a667e77e",
+        "decision_status_head": "e6150c1a5c9b88b5d5689404d256bd36c1b7c249b79a4c9815db90aabe3c1aad",
+        "claim_status_head": "918989ff368b0fd0dc847de0556c7895c447bba333932fde597feb7f4afb66b1",
+        "start_intent_digest": "de8cd3d8101ecba0828d9f0c3403d8813d8331ab6aee7fe710e4541eaae0d2c8"
+      }
+    },
+    "crashRestart": {
+      "ok": false,
+      "stop": "HUMAN_DECISION_REQUIRED",
+      "detail": "existing start intent; no retry"
+    }
+  },
+  "history": {
+    "ok": true,
+    "value": {
+      "issuer_id": "synthetic-issuer",
+      "decision_id": "proof",
+      "decision_digest": "e36d1349d9e371ee121c1e1c6d903bb4792fb065cf3d295f1924fda7b26e3cf0",
+      "claim_digest": "32234661954437e509abfc70e267d4bfee5cdc53622c83220692aeef6e12a398",
+      "claim_session": "175efc6e-945e-485b-b4b2-e7dbb5d6c531",
+      "decision_status_head": "5b57846cf36ff1680eb304a19366e7e4919d1ec06b8fbf878b22c81e1f4adaa8",
+      "claim_status_head": "6da1133ff4ce567beea2b945a239cb69ef19eee8c36ff230855cc9a43a93d8cc",
+      "start_intent_digest": "6c20fbf27bdbaa49adb85d5a01654323fd5463a7a5da431950db3d503cef3564"
+    }
+  },
+  "inventory": [
+    {
+      "id": "authenticated-happy-path",
+      "required": "one durable claim and start intent, one dry-run observation, separate result",
+      "status": "observed",
+      "receipt": {
+        "id": "authenticated-happy-path",
+        "test": "happy guarded start persists intent/result and never reexecutes",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "missing-or-wrong-authentication",
+      "required": "access denied before protected read, mutation or observation",
+      "status": "observed",
+      "receipt": {
+        "id": "missing-or-wrong-authentication",
+        "test": "authentication precedes disclosure and human act/base companion binding",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "authenticated-without-human-act",
+      "required": "MISSING_AUTHORITY, authentication alone records no decision and enables no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "authenticated-without-human-act",
+        "test": "authentication precedes disclosure and human act/base companion binding",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "unrelated-or-reused-human-act",
+      "required": "MISSING_AUTHORITY, event must bind this decision, packet and exact action",
+      "status": "observed",
+      "receipt": {
+        "id": "unrelated-or-reused-human-act",
+        "test": "authentication precedes disclosure and human act/base companion binding",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "base-approve-without-start-work",
+      "required": "MISSING_AUTHORITY, approve_next_packet does not authorize candidate observation",
+      "status": "observed",
+      "receipt": {
+        "id": "base-approve-without-start-work",
+        "test": "base approval without start_work is not authority",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "invalid-base-transition-or-target",
+      "required": "rejected by closed base schema and matrix checks, no candidate mutation",
+      "status": "observed",
+      "receipt": {
+        "id": "invalid-base-transition-or-target",
+        "test": "invalid base transition is rejected before candidate mutation",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "caller-forged-issuer-or-actor",
+      "required": "rejected, configured identity cannot be overridden",
+      "status": "observed",
+      "receipt": {
+        "id": "caller-forged-issuer-or-actor",
+        "test": "caller cannot override configured actor or issuer",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "two-overlapping-claims",
+      "required": "one issuer/decision slot, one winner, competing successor denied",
+      "status": "observed",
+      "receipt": {
+        "id": "two-overlapping-claims",
+        "test": "two child-process claims",
+        "status": "passed",
+        "evidence": [
+          {
+            "kind": "result",
+            "pid": 3031,
+            "beganAt": "2026-09-06T00:47:48.454Z",
+            "endedAt": "2026-09-06T00:47:48.682Z",
+            "result": {
+              "ok": false,
+              "stop": "SCOPE_CONFLICT",
+              "detail": "slot already consumed"
+            }
+          },
+          {
+            "kind": "result",
+            "pid": 3032,
+            "beganAt": "2026-09-06T00:47:48.454Z",
+            "endedAt": "2026-09-06T00:47:48.576Z",
+            "result": {
+              "ok": true,
+              "value": {
+                "recordKind": "claim",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "proof",
+                "decisionDigest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.decision.0.1-candidate",
+                  "value": "e36d1349d9e371ee121c1e1c6d903bb4792fb065cf3d295f1924fda7b26e3cf0"
+                },
+                "claimId": "claim-b",
+                "attemptKey": "attempt-claim-b",
+                "successorId": "successor-b",
+                "requestRef": "request-proof",
+                "action": {
+                  "operationId": "observe_fixed_payload",
+                  "parameters": {
+                    "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+                  }
+                },
+                "claimedAt": "2026-09-05T00:00:01.000Z",
+                "expiresAt": "2099-01-01T00:00:00.000Z",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.claim.0.1-candidate",
+                  "value": "32234661954437e509abfc70e267d4bfee5cdc53622c83220692aeef6e12a398"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "same-id-different-issuer",
+      "required": "separate configured issuer slots; no cross-issuer access or caller reassignment",
+      "status": "observed",
+      "receipt": {
+        "id": "same-id-different-issuer",
+        "test": "same candidate decision id under two issuers: separate slots, no cross-issuer access (review P1)",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "changed-binding-replay",
+      "required": "conflict for changed digest/request/action/expiry/profile/successor on both replay paths",
+      "status": "observed",
+      "receipt": {
+        "id": "changed-binding-replay",
+        "test": "changed bindings conflict on occupied claim replay paths",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "exact-claim-retry",
+      "required": "identical readback only, no second start or new expiry",
+      "status": "observed",
+      "receipt": {
+        "id": "exact-claim-retry",
+        "test": "exact claim retry is read-only before and after start",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "legacy-id-collision",
+      "required": "new-profile admission denied without modifying historical receipt",
+      "status": "observed",
+      "receipt": {
+        "id": "legacy-id-collision",
+        "test": "issuer namespace is separate while legacy decision id blocks without rewrite",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "legacy-insert-races-profile-admission",
+      "required": "one serialized namespace outcome; collision denies candidate and no duplicate decision ID exists",
+      "status": "observed",
+      "receipt": {
+        "id": "legacy-insert-races-profile-admission",
+        "test": "same admitted SQLite main database, both real lock-winner orderings and negative startup matrix",
+        "status": "passed",
+        "evidence": {
+          "legacyFirst": {
+            "order": "legacy-first",
+            "databaseIdentity": {
+              "databaseId": "8b87ee79-ed7d-4b45-a128-24fe3226a2c9",
+              "canonicalPath": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/legacy-first/shared.db",
+              "device": "66305",
+              "inode": "9442571",
+              "filesystemType": "61267",
+              "schemaSha256": "53738d864295b2a80539a354b4abb68d375e22f58c69399ef0d8f1af27dcf226",
+              "configGeneration": "proof-legacy-first-generation-1",
+              "guardDirectory": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/legacy-first/.who-decides-guards-8b87ee79-ed7d-4b45-a128-24fe3226a2c9",
+              "guardDevice": "66305",
+              "guardInode": "9442591",
+              "guardFilesystemType": "61267"
+            },
+            "processes": {
+              "legacyPid": 3102,
+              "candidatePid": 3121,
+              "separate": true
+            },
+            "overlap": {
+              "lockHeld": {
+                "kind": "writeLockHeld",
+                "pid": 3102,
+                "monotonicNanoseconds": "90689198146"
+              },
+              "loserBeforeBegin": {
+                "kind": "beforeBeginImmediate",
+                "pid": 3121,
+                "monotonicNanoseconds": "90694183034"
+              },
+              "loserBlockedBeforeRelease": true,
+              "releaseMonotonicNanoseconds": "90772642342"
+            },
+            "results": {
+              "legacy": {
+                "kind": "result",
+                "pid": 3102,
+                "beganAt": "2026-09-06T00:47:52.347Z",
+                "endedAt": "2026-09-06T00:47:52.436Z",
+                "result": {
+                  "status": "claimed",
+                  "receipt": {
+                    "schema": "who-decides.consumption-receipt.v0",
+                    "receiptId": "585889f6-0be5-4e5f-b093-4a29b86ece34",
+                    "decisionId": "race-legacy-first",
+                    "decisionDigest": "sha256:df7480ca306df65d5604974b927ddcf11b426a2b6426050bf90ff7b1ad3daeda",
+                    "decisionRequestId": "legacy-request-legacy-first",
+                    "permittedAction": "legacy dry-run claim",
+                    "successorInvocationId": "legacy-successor-legacy-first",
+                    "claimedAt": "2026-09-06T00:47:52.435Z",
+                    "claimNote": "Claim acceptance does not prove invocation completion or exactly-once external effects."
+                  }
+                }
+              },
+              "candidate": {
+                "kind": "result",
+                "pid": 3121,
+                "beganAt": "2026-09-06T00:47:52.351Z",
+                "endedAt": "2026-09-06T00:47:52.459Z",
+                "result": {
+                  "ok": false,
+                  "stop": "MISSING_AUTHORITY",
+                  "detail": "legacy decision-id collision"
+                }
+              }
+            },
+            "durableReadback": {
+              "receiptCount": 1,
+              "slotCount": 0,
+              "unionCount": 1,
+              "legacyReceiptBytesSha256": "57efbfa732900f4206c230ad9b5e5de37bc56fba3ffd062fcc765ed9e1588935",
+              "legacyDecisionDigest": "sha256:df7480ca306df65d5604974b927ddcf11b426a2b6426050bf90ff7b1ad3daeda",
+              "candidateRecordBytesSha256": null,
+              "candidateDecisionDigest": null,
+              "integrity": "ok"
+            }
+          },
+          "candidateFirst": {
+            "order": "candidate-first",
+            "databaseIdentity": {
+              "databaseId": "4b256e30-590d-4d74-86b4-1e671e556df7",
+              "canonicalPath": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/candidate-first/shared.db",
+              "device": "66305",
+              "inode": "9442600",
+              "filesystemType": "61267",
+              "schemaSha256": "53738d864295b2a80539a354b4abb68d375e22f58c69399ef0d8f1af27dcf226",
+              "configGeneration": "proof-candidate-first-generation-1",
+              "guardDirectory": "/home/runner/work/who-decides/who-decides/.tmp/local-owner-proof/candidate-first/.who-decides-guards-4b256e30-590d-4d74-86b4-1e671e556df7",
+              "guardDevice": "66305",
+              "guardInode": "9442603",
+              "guardFilesystemType": "61267"
+            },
+            "processes": {
+              "legacyPid": 3135,
+              "candidatePid": 3128,
+              "separate": true
+            },
+            "overlap": {
+              "lockHeld": {
+                "kind": "writeLockHeld",
+                "pid": 3128,
+                "monotonicNanoseconds": "91475078170"
+              },
+              "loserBeforeBegin": {
+                "kind": "beforeBeginImmediate",
+                "pid": 3135,
+                "monotonicNanoseconds": "91480946290"
+              },
+              "loserBlockedBeforeRelease": true,
+              "releaseMonotonicNanoseconds": "91559303188"
+            },
+            "results": {
+              "legacy": {
+                "kind": "result",
+                "pid": 3135,
+                "beganAt": "2026-09-06T00:47:53.138Z",
+                "endedAt": "2026-09-06T00:47:53.269Z",
+                "result": {
+                  "status": "rejected",
+                  "reason": "profile_slot_conflict",
+                  "detail": "decision ID is already admitted by the local-owner candidate profile"
+                }
+              },
+              "candidate": {
+                "kind": "result",
+                "pid": 3128,
+                "beganAt": "2026-09-06T00:47:53.113Z",
+                "endedAt": "2026-09-06T00:47:53.261Z",
+                "result": {
+                  "ok": true,
+                  "value": {
+                    "recordKind": "decision",
+                    "profileId": "org.hacp.local-owner-continuation",
+                    "profileVersion": "0.1-candidate",
+                    "issuerId": "synthetic-issuer",
+                    "decisionId": "race-candidate-first",
+                    "humanEventRef": "human-race-candidate-first",
+                    "baseDecisionRef": "packet-race-candidate-first",
+                    "baseDecisionDigest": {
+                      "algorithm": "sha256",
+                      "canonicalization": "json-rfc8785-jcs",
+                      "domain": "org.hacp.local-owner-continuation.base-decision-reference.0.1-candidate",
+                      "value": "19feaa7624958130b5f979988e466541fa171954322139bac5240da9243ed9aa"
+                    },
+                    "requestRef": "candidate-request-candidate-first",
+                    "action": {
+                      "operationId": "observe_fixed_payload",
+                      "parameters": {
+                        "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+                      }
+                    },
+                    "approvedAt": "2026-09-05T00:00:00.000Z",
+                    "expiresAt": "2100-01-01T00:00:00.000Z",
+                    "digest": {
+                      "algorithm": "sha256",
+                      "canonicalization": "json-rfc8785-jcs",
+                      "domain": "org.hacp.local-owner-continuation.decision.0.1-candidate",
+                      "value": "b22afd69b21471bfa50187eb7df61c9d0279fed85872f329f63f7546a73213db"
+                    }
+                  }
+                }
+              }
+            },
+            "durableReadback": {
+              "receiptCount": 0,
+              "slotCount": 1,
+              "unionCount": 1,
+              "legacyReceiptBytesSha256": null,
+              "legacyDecisionDigest": null,
+              "candidateRecordBytesSha256": "e51f5d3a945dfa1a655e350137ffab8272a6d888d5011252ea2a9391dc6a2063",
+              "candidateDecisionDigest": "b22afd69b21471bfa50187eb7df61c9d0279fed85872f329f63f7546a73213db",
+              "integrity": "ok"
+            }
+          },
+          "negativeStartupTest": "owner-admitted store rejects aliases drift unsafe paths and incomplete writer inventory",
+          "negativeStartupTestOutputSha256": "daad1a14b3b2864f026a9dfd3b1161545b0e121dcc5340a9be3d6488ad5ec1f5"
+        }
+      }
+    },
+    {
+      "id": "unknown-profile-or-stripped-context",
+      "required": "no fallback, MISSING_AUTHORITY",
+      "status": "observed",
+      "receipt": {
+        "id": "unknown-profile-or-stripped-context",
+        "test": "malformed scope and extra start context produce typed stops without reserving intent",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "unsupported-action-or-parameter",
+      "required": "SCOPE_CONFLICT, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "unsupported-action-or-parameter",
+        "test": "fixed action, expiry and exact claim replay bindings",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "missing-or-corrupt-durable-readback",
+      "required": "denied before start intent/observation",
+      "status": "observed",
+      "receipt": {
+        "id": "missing-or-corrupt-durable-readback",
+        "test": "status corruption and missing durable readback deny observation",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "absent-or-corrupt-status",
+      "required": "UNVERIFIED_ASSUMPTION, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "absent-or-corrupt-status",
+        "test": "status corruption and missing durable readback deny observation",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "status-gap-fork-truncation-or-wrong-head",
+      "required": "UNVERIFIED_ASSUMPTION for each history defect, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "status-gap-fork-truncation-or-wrong-head",
+        "test": "status history rejects validly hashed gaps forks truncation and wrong heads",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "decision-expired-claim-active",
+      "required": "STALE_PACKET, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "decision-expired-claim-active",
+        "test": "decision and claim expiry are independently enforced",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "claim-expired-decision-active",
+      "required": "STALE_PACKET, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "claim-expired-decision-active",
+        "test": "decision and claim expiry are independently enforced",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "decision-revoked-claim-active",
+      "required": "STALE_PACKET, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "decision-revoked-claim-active",
+        "test": "decision revocation blocks an otherwise active claim",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "claim-revoked-decision-active",
+      "required": "STALE_PACKET, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "claim-revoked-decision-active",
+        "test": "status revocation fails closed and remains terminal",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "missing-or-malformed-expiry",
+      "required": "decision and claim variants rejected before admission",
+      "status": "observed",
+      "receipt": {
+        "id": "missing-or-malformed-expiry",
+        "test": "missing and malformed expiry fail for decision and claim admission",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "claim-expiry-exceeds-decision",
+      "required": "rejected before claim admission",
+      "status": "observed",
+      "receipt": {
+        "id": "claim-expiry-exceeds-decision",
+        "test": "claim expiry cannot exceed decision expiry",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "expiry-after-lock-wait",
+      "required": "STALE_PACKET, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "expiry-after-lock-wait",
+        "test": "expiry is sampled after serialization guard wait",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "expiry-between-intent-and-handoff",
+      "required": "STALE_PACKET, retained intent, no observation or retry",
+      "status": "observed",
+      "receipt": {
+        "id": "expiry-between-intent-and-handoff",
+        "test": "expiry between intent and handoff retains uncertainty without retry",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "revocation-before-handoff",
+      "required": "STALE_PACKET, zero observation, serialized status order evidenced",
+      "status": "observed",
+      "receipt": {
+        "id": "revocation-before-handoff",
+        "test": "overlapping revoke before claimant start with durable status-chain readback",
+        "status": "passed",
+        "evidence": {
+          "revokeResult": {
+            "kind": "result",
+            "pid": 3088,
+            "beganAt": "2026-09-06T00:47:50.437Z",
+            "endedAt": "2026-09-06T00:47:50.557Z",
+            "monotonicNanoseconds": "88898052642",
+            "result": {
+              "ok": true,
+              "value": {
+                "recordKind": "status-event",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "concurrent-proof",
+                "eventId": "b5d6d426-3674-486c-a27c-0da0f41ea0c0",
+                "targetKind": "decision",
+                "targetDigest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+                "sequence": 1,
+                "previousDigest": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50",
+                "state": "revoked",
+                "recordedAt": "2026-09-06T00:47:50.555Z",
+                "actorId": "synthetic-human",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.status-event.0.1-candidate",
+                  "value": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879"
+                }
+              }
+            }
+          },
+          "concurrentStartResult": {
+            "kind": "startResult",
+            "pid": 3081,
+            "beganAt": "2026-09-06T00:47:50.545Z",
+            "endedAt": "2026-09-06T00:47:50.664Z",
+            "result": {
+              "ok": false,
+              "stop": "STALE_PACKET",
+              "detail": "revoked"
+            }
+          },
+          "revokeBegan": {
+            "kind": "began",
+            "pid": 3088,
+            "beganAt": "2026-09-06T00:47:50.437Z"
+          },
+          "revokeGuardHeld": {
+            "kind": "revokeGuardHeld",
+            "pid": 3088,
+            "monotonicNanoseconds": "88880592890"
+          },
+          "startBegan": {
+            "kind": "startBegan",
+            "pid": 3081,
+            "beganAt": "2026-09-06T00:47:50.545Z",
+            "monotonicNanoseconds": "88886187484"
+          },
+          "concurrentSlot": {
+            "decision_digest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+            "decision_status_head": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879",
+            "start_intent_digest": null
+          },
+          "concurrentStatuses": [
+            {
+              "sequence": 0,
+              "digest": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50",
+              "record_json": "{\"recordKind\":\"status-event\",\"profileId\":\"org.hacp.local-owner-continuation\",\"profileVersion\":\"0.1-candidate\",\"issuerId\":\"synthetic-issuer\",\"decisionId\":\"concurrent-proof\",\"eventId\":\"c59e56be-f352-4dc0-9658-37ed9ccc7946\",\"targetKind\":\"decision\",\"targetDigest\":\"7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6\",\"sequence\":0,\"previousDigest\":null,\"state\":\"active\",\"recordedAt\":\"2026-09-06T00:47:49.767Z\",\"actorId\":\"synthetic-human\",\"digest\":{\"algorithm\":\"sha256\",\"canonicalization\":\"json-rfc8785-jcs\",\"domain\":\"org.hacp.local-owner-continuation.status-event.0.1-candidate\",\"value\":\"e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50\"}}",
+              "record": {
+                "recordKind": "status-event",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "concurrent-proof",
+                "eventId": "c59e56be-f352-4dc0-9658-37ed9ccc7946",
+                "targetKind": "decision",
+                "targetDigest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+                "sequence": 0,
+                "previousDigest": null,
+                "state": "active",
+                "recordedAt": "2026-09-06T00:47:49.767Z",
+                "actorId": "synthetic-human",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.status-event.0.1-candidate",
+                  "value": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50"
+                }
+              }
+            },
+            {
+              "sequence": 1,
+              "digest": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879",
+              "record_json": "{\"recordKind\":\"status-event\",\"profileId\":\"org.hacp.local-owner-continuation\",\"profileVersion\":\"0.1-candidate\",\"issuerId\":\"synthetic-issuer\",\"decisionId\":\"concurrent-proof\",\"eventId\":\"b5d6d426-3674-486c-a27c-0da0f41ea0c0\",\"targetKind\":\"decision\",\"targetDigest\":\"7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6\",\"sequence\":1,\"previousDigest\":\"e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50\",\"state\":\"revoked\",\"recordedAt\":\"2026-09-06T00:47:50.555Z\",\"actorId\":\"synthetic-human\",\"digest\":{\"algorithm\":\"sha256\",\"canonicalization\":\"json-rfc8785-jcs\",\"domain\":\"org.hacp.local-owner-continuation.status-event.0.1-candidate\",\"value\":\"200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879\"}}",
+              "record": {
+                "recordKind": "status-event",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "concurrent-proof",
+                "eventId": "b5d6d426-3674-486c-a27c-0da0f41ea0c0",
+                "targetKind": "decision",
+                "targetDigest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+                "sequence": 1,
+                "previousDigest": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50",
+                "state": "revoked",
+                "recordedAt": "2026-09-06T00:47:50.555Z",
+                "actorId": "synthetic-human",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.status-event.0.1-candidate",
+                  "value": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879"
+                }
+              }
+            }
+          ],
+          "concurrentWork": 0
+        }
+      }
+    },
+    {
+      "id": "concurrent-revoke-start",
+      "required": "order visible; earlier revocation wins; no later work enabled",
+      "status": "observed",
+      "receipt": {
+        "id": "concurrent-revoke-start",
+        "test": "overlapping revoke before claimant start",
+        "status": "passed",
+        "evidence": {
+          "revokeResult": {
+            "kind": "result",
+            "pid": 3088,
+            "beganAt": "2026-09-06T00:47:50.437Z",
+            "endedAt": "2026-09-06T00:47:50.557Z",
+            "monotonicNanoseconds": "88898052642",
+            "result": {
+              "ok": true,
+              "value": {
+                "recordKind": "status-event",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "concurrent-proof",
+                "eventId": "b5d6d426-3674-486c-a27c-0da0f41ea0c0",
+                "targetKind": "decision",
+                "targetDigest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+                "sequence": 1,
+                "previousDigest": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50",
+                "state": "revoked",
+                "recordedAt": "2026-09-06T00:47:50.555Z",
+                "actorId": "synthetic-human",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.status-event.0.1-candidate",
+                  "value": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879"
+                }
+              }
+            }
+          },
+          "concurrentStartResult": {
+            "kind": "startResult",
+            "pid": 3081,
+            "beganAt": "2026-09-06T00:47:50.545Z",
+            "endedAt": "2026-09-06T00:47:50.664Z",
+            "result": {
+              "ok": false,
+              "stop": "STALE_PACKET",
+              "detail": "revoked"
+            }
+          },
+          "revokeBegan": {
+            "kind": "began",
+            "pid": 3088,
+            "beganAt": "2026-09-06T00:47:50.437Z"
+          },
+          "revokeGuardHeld": {
+            "kind": "revokeGuardHeld",
+            "pid": 3088,
+            "monotonicNanoseconds": "88880592890"
+          },
+          "startBegan": {
+            "kind": "startBegan",
+            "pid": 3081,
+            "beganAt": "2026-09-06T00:47:50.545Z",
+            "monotonicNanoseconds": "88886187484"
+          },
+          "concurrentSlot": {
+            "decision_digest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+            "decision_status_head": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879",
+            "start_intent_digest": null
+          },
+          "concurrentStatuses": [
+            {
+              "sequence": 0,
+              "digest": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50",
+              "record_json": "{\"recordKind\":\"status-event\",\"profileId\":\"org.hacp.local-owner-continuation\",\"profileVersion\":\"0.1-candidate\",\"issuerId\":\"synthetic-issuer\",\"decisionId\":\"concurrent-proof\",\"eventId\":\"c59e56be-f352-4dc0-9658-37ed9ccc7946\",\"targetKind\":\"decision\",\"targetDigest\":\"7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6\",\"sequence\":0,\"previousDigest\":null,\"state\":\"active\",\"recordedAt\":\"2026-09-06T00:47:49.767Z\",\"actorId\":\"synthetic-human\",\"digest\":{\"algorithm\":\"sha256\",\"canonicalization\":\"json-rfc8785-jcs\",\"domain\":\"org.hacp.local-owner-continuation.status-event.0.1-candidate\",\"value\":\"e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50\"}}",
+              "record": {
+                "recordKind": "status-event",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "concurrent-proof",
+                "eventId": "c59e56be-f352-4dc0-9658-37ed9ccc7946",
+                "targetKind": "decision",
+                "targetDigest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+                "sequence": 0,
+                "previousDigest": null,
+                "state": "active",
+                "recordedAt": "2026-09-06T00:47:49.767Z",
+                "actorId": "synthetic-human",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.status-event.0.1-candidate",
+                  "value": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50"
+                }
+              }
+            },
+            {
+              "sequence": 1,
+              "digest": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879",
+              "record_json": "{\"recordKind\":\"status-event\",\"profileId\":\"org.hacp.local-owner-continuation\",\"profileVersion\":\"0.1-candidate\",\"issuerId\":\"synthetic-issuer\",\"decisionId\":\"concurrent-proof\",\"eventId\":\"b5d6d426-3674-486c-a27c-0da0f41ea0c0\",\"targetKind\":\"decision\",\"targetDigest\":\"7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6\",\"sequence\":1,\"previousDigest\":\"e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50\",\"state\":\"revoked\",\"recordedAt\":\"2026-09-06T00:47:50.555Z\",\"actorId\":\"synthetic-human\",\"digest\":{\"algorithm\":\"sha256\",\"canonicalization\":\"json-rfc8785-jcs\",\"domain\":\"org.hacp.local-owner-continuation.status-event.0.1-candidate\",\"value\":\"200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879\"}}",
+              "record": {
+                "recordKind": "status-event",
+                "profileId": "org.hacp.local-owner-continuation",
+                "profileVersion": "0.1-candidate",
+                "issuerId": "synthetic-issuer",
+                "decisionId": "concurrent-proof",
+                "eventId": "b5d6d426-3674-486c-a27c-0da0f41ea0c0",
+                "targetKind": "decision",
+                "targetDigest": "7746e8c48730757aa55b9dfc873272d11f99acd89f6ac79791cd059b2295c1c6",
+                "sequence": 1,
+                "previousDigest": "e4d89610942efe69e880b891aef750f2a43748216cebaa33546fda369b172b50",
+                "state": "revoked",
+                "recordedAt": "2026-09-06T00:47:50.555Z",
+                "actorId": "synthetic-human",
+                "digest": {
+                  "algorithm": "sha256",
+                  "canonicalization": "json-rfc8785-jcs",
+                  "domain": "org.hacp.local-owner-continuation.status-event.0.1-candidate",
+                  "value": "200e202a04ddfad936bd7c0da3447e2b9ed4ede0a167d10170e3905a3d322879"
+                }
+              }
+            }
+          ],
+          "concurrentWork": 0
+        }
+      }
+    },
+    {
+      "id": "two-overlapping-starts",
+      "required": "one durable intent and at most one dry-run observation; loser stops with retained state",
+      "status": "observed",
+      "receipt": {
+        "id": "two-overlapping-starts",
+        "test": "claimant and restarted child-process starts",
+        "status": "passed",
+        "evidence": [
+          {
+            "kind": "startResult",
+            "pid": 3032,
+            "beganAt": "2026-09-06T00:47:49.004Z",
+            "endedAt": "2026-09-06T00:47:49.151Z",
+            "result": {
+              "ok": true,
+              "value": {
+                "intent": {
+                  "recordKind": "start-intent",
+                  "profileId": "org.hacp.local-owner-continuation",
+                  "profileVersion": "0.1-candidate",
+                  "issuerId": "synthetic-issuer",
+                  "decisionId": "proof",
+                  "claimDigest": {
+                    "algorithm": "sha256",
+                    "canonicalization": "json-rfc8785-jcs",
+                    "domain": "org.hacp.local-owner-continuation.claim.0.1-candidate",
+                    "value": "32234661954437e509abfc70e267d4bfee5cdc53622c83220692aeef6e12a398"
+                  },
+                  "intentId": "intent-proof",
+                  "successorId": "successor-b",
+                  "action": {
+                    "operationId": "observe_fixed_payload",
+                    "parameters": {
+                      "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+                    }
+                  },
+                  "admittedAt": "2026-09-06T00:47:49.108Z",
+                  "decisionStatusHead": "5b57846cf36ff1680eb304a19366e7e4919d1ec06b8fbf878b22c81e1f4adaa8",
+                  "claimStatusHead": "6da1133ff4ce567beea2b945a239cb69ef19eee8c36ff230855cc9a43a93d8cc",
+                  "clockSample": {
+                    "wallTime": "2026-09-06T00:47:49.108Z",
+                    "monotonicNanoseconds": "87448934822"
+                  },
+                  "expiryDeadlineMonotonicNanoseconds": "2282253218340934822",
+                  "digest": {
+                    "algorithm": "sha256",
+                    "canonicalization": "json-rfc8785-jcs",
+                    "domain": "org.hacp.local-owner-continuation.start-intent.0.1-candidate",
+                    "value": "6c20fbf27bdbaa49adb85d5a01654323fd5463a7a5da431950db3d503cef3564"
+                  }
+                },
+                "result": {
+                  "recordKind": "start-result",
+                  "profileId": "org.hacp.local-owner-continuation",
+                  "profileVersion": "0.1-candidate",
+                  "issuerId": "synthetic-issuer",
+                  "decisionId": "proof",
+                  "intentDigest": {
+                    "algorithm": "sha256",
+                    "canonicalization": "json-rfc8785-jcs",
+                    "domain": "org.hacp.local-owner-continuation.start-intent.0.1-candidate",
+                    "value": "6c20fbf27bdbaa49adb85d5a01654323fd5463a7a5da431950db3d503cef3564"
+                  },
+                  "resultId": "a4bb1dc8-8b82-4209-abb0-497546199e8e",
+                  "outcome": "completed",
+                  "observedAt": "2026-09-06T00:47:49.150Z",
+                  "observationClockSample": {
+                    "wallTime": "2026-09-06T00:47:49.150Z",
+                    "monotonicNanoseconds": "87490922540"
+                  },
+                  "observationDigest": {
+                    "algorithm": "sha256",
+                    "canonicalization": "json-rfc8785-jcs",
+                    "domain": "org.hacp.local-owner-continuation.observation.0.1-candidate",
+                    "value": "2291610e38245f88bac99efc480897600b1f322a4004d0113487033a3b13de5e"
+                  },
+                  "digest": {
+                    "algorithm": "sha256",
+                    "canonicalization": "json-rfc8785-jcs",
+                    "domain": "org.hacp.local-owner-continuation.start-result.0.1-candidate",
+                    "value": "ca24831370d3ede0afddf740109bf47a4966bf9d6c9101f2910b543f81d27e6e"
+                  }
+                },
+                "observation": {
+                  "operationId": "observe_fixed_payload",
+                  "payload": "HACP_LOCAL_OWNER_CONTINUATION_PROBE_V1"
+                }
+              }
+            }
+          },
+          {
+            "kind": "result",
+            "pid": 3066,
+            "beganAt": "2026-09-06T00:47:49.004Z",
+            "endedAt": "2026-09-06T00:47:49.005Z",
+            "monotonicNanoseconds": "87345756913",
+            "result": {
+              "ok": false,
+              "stop": "HUMAN_DECISION_REQUIRED",
+              "detail": "restart after claim requires human inspection"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "clock-rollback-or-unknown-time",
+      "required": "UNVERIFIED_ASSUMPTION, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "clock-rollback-or-unknown-time",
+        "test": "independent clock rollbacks and unavailable time retain uncertainty without retry",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "wall-clock-stall-crosses-monotonic-deadline",
+      "required": "STALE_PACKET when monotonic deadline is reached even if wallTime remains before expiry, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "wall-clock-stall-crosses-monotonic-deadline",
+        "test": "monotonic deadline denies a stalled wall clock at equality",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "restart-after-claim-before-intent",
+      "required": "historical readback only, HUMAN_DECISION_REQUIRED, no start or automatic continuation",
+      "status": "observed",
+      "receipt": {
+        "id": "restart-after-claim-before-intent",
+        "test": "fresh process after claim",
+        "status": "passed",
+        "evidence": {
+          "ok": false,
+          "stop": "HUMAN_DECISION_REQUIRED",
+          "detail": "restart after claim requires human inspection"
+        }
+      }
+    },
+    {
+      "id": "crash-after-intent-before-result",
+      "required": "reopen retains intent, HUMAN_DECISION_REQUIRED, no automatic observation",
+      "status": "observed",
+      "receipt": {
+        "id": "crash-after-intent-before-result",
+        "test": "claimant process exits after durable intent",
+        "status": "passed",
+        "evidence": {
+          "exitCode": 91,
+          "crashHistory": {
+            "ok": true,
+            "value": {
+              "issuer_id": "synthetic-issuer",
+              "decision_id": "crash-proof",
+              "decision_digest": "08b99bfad83a4055b7aefc5106268338539f8d4127e87fd96c24a537817e0076",
+              "claim_digest": "698cf19bf64edc6736cb61552b756a4e83d7fa9f688af945f59037cc8daa1744",
+              "claim_session": "a5ba1bd7-7974-4ba8-b95a-a6d7a667e77e",
+              "decision_status_head": "e6150c1a5c9b88b5d5689404d256bd36c1b7c249b79a4c9815db90aabe3c1aad",
+              "claim_status_head": "918989ff368b0fd0dc847de0556c7895c447bba333932fde597feb7f4afb66b1",
+              "start_intent_digest": "de8cd3d8101ecba0828d9f0c3403d8813d8331ab6aee7fe710e4541eaae0d2c8"
+            }
+          },
+          "crashRestart": {
+            "ok": false,
+            "stop": "HUMAN_DECISION_REQUIRED",
+            "detail": "existing start intent; no retry"
+          }
+        }
+      }
+    },
+    {
+      "id": "lost-response-or-ambiguous-observation",
+      "required": "durable uncertainty, HUMAN_DECISION_REQUIRED, no automatic retry",
+      "status": "observed",
+      "receipt": {
+        "id": "lost-response-or-ambiguous-observation",
+        "test": "completed and uncertain observations carry outcome-specific digests",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "completed-start-replay",
+      "required": "historical readback only, no second observation",
+      "status": "observed",
+      "receipt": {
+        "id": "completed-start-replay",
+        "test": "happy guarded start persists intent/result and never reexecutes",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "store-unavailable",
+      "required": "ENVIRONMENT_BLOCKED, no observation",
+      "status": "observed",
+      "receipt": {
+        "id": "store-unavailable",
+        "test": "unavailable database returns a typed denial from every mutation",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "revoked-status-reset",
+      "required": "rejected, terminal revocation and original slot preserved",
+      "status": "observed",
+      "receipt": {
+        "id": "revoked-status-reset",
+        "test": "status revocation fails closed and remains terminal",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "digest-known-answer-and-domain-mismatch",
+      "required": "published vector matches; omitted/changed domain and alternate preimage fail",
+      "status": "observed",
+      "receipt": {
+        "id": "digest-known-answer-and-domain-mismatch",
+        "test": "digest vectors reject omitted domains changed domains and alternate preimages",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "profile-declaration-status",
+      "required": "active exact-pin candidate may be explicitly selected; missing, changed, deprecated or revoked declaration is rejected",
+      "status": "observed",
+      "receipt": {
+        "id": "profile-declaration-status",
+        "test": "JCS known vectors and profile selection",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "clock-sample-shape",
+      "required": "only wallTime plus canonical decimal-string monotonicNanoseconds accepted; extra members and alternate numeric forms fail",
+      "status": "observed",
+      "receipt": {
+        "id": "clock-sample-shape",
+        "test": "closed clock shape and unknown clock fail before observation",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "observation-digest-completed-or-uncertain",
+      "required": "completed binds the exact fixed observation envelope; uncertain requires null and makes no observation claim",
+      "status": "observed",
+      "receipt": {
+        "id": "observation-digest-completed-or-uncertain",
+        "test": "completed and uncertain observations carry outcome-specific digests",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "base-decision-companion-digest",
+      "required": "detached candidate domain binds the complete unchanged base record; mismatch fails without claiming a native base digest",
+      "status": "observed",
+      "receipt": {
+        "id": "base-decision-companion-digest",
+        "test": "authentication precedes disclosure and human act/base companion binding",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "closed-base-record-remains-unchanged",
+      "required": "candidate context is separate and base schema still validates without extension fields",
+      "status": "observed",
+      "receipt": {
+        "id": "closed-base-record-remains-unchanged",
+        "test": "closed base record validates without candidate extension fields",
+        "status": "passed"
+      }
+    },
+    {
+      "id": "unsupported-surface-no-fallback",
+      "required": "legacy console, provider loop, HTTP service and callback dispatch cannot invoke candidate start",
+      "status": "observed",
+      "receipt": {
+        "id": "unsupported-surface-no-fallback",
+        "test": "production surfaces cannot import the candidate verifier",
+        "status": "passed"
+      }
+    }
+  ],
+  "sourceHashes": {
+    "docs/contracts/local-owner-continuation/local-owner-profile.md": "bc02b5972c2ac1184637062b3dabf7a655ae442cb6fa22940d8d119f678483ec",
+    "docs/contracts/local-owner-continuation/local-owner-profile-fixtures.json": "463f25a09db48863d03344a5225576052d944622d04c997d65057c89c2e77aa0",
+    "docs/contracts/local-owner-continuation/local-owner-profile-review-synthesis.md": "4995b0e2603d695cd005c2bcbfb8e6a6ada1664ff079b148fc20f8b105ba8805",
+    "src/store-admission.ts": "0b2fe9cb5db791d38c976f55897075ef7e9729a795acc5f78301f84e09fb5905",
+    "src/store-schema.ts": "47abe3a49c3524e9b4a5c0884a8c945a2d52c60e2dc32875ba4748efa083d109",
+    "src/consumption/store.ts": "9118bebcf1e2212432c438cbe55bb4f62037551306cadf536a3c686d5f7bd214",
+    "src/local-owner/jcs.ts": "5b0664306bcb9399ac9a1b35ad0cfbf2e65ec6e6d8a0abbf877a22a4d6b73f63",
+    "src/local-owner/contracts.ts": "6c12e1400a280b4cbd4f58040aa83cd5af1b4ea1596b0caa1c729c196efa3c83",
+    "src/local-owner/evidence.ts": "3d2d601f63f11a8883ef35c6aae19ab6e67393854c158eee8b3033221f941362",
+    "src/local-owner/verifier.ts": "d7a07274966faadeefa1710d6ea85a562c130433e9c7a8de063a988a8c4fc2ea",
+    "src/local-owner/test.ts": "2d419c70566a5bbe2019713db225319f28e6526c13c94116e24c5c1eb2a26234",
+    "scripts/local-owner-proof.ts": "fb236fe2b8d26974d6912c3659a6724c265276b781adc6ae4e67dafe0286cbd6",
+    "scripts/local-owner-proof-child.ts": "acfb192580fa0c9ca48b8ff9520eaa1c7a40f14f5e2ff7584b261cccd8eb963e",
+    "scripts/local-owner-legacy-race-child.ts": "79d35f2e892c4955639ac56f00dea91a115f45c6e43d7ce1c23ec6a6d90d2dd5",
+    "schemas/local-owner/decision.schema.json": "8edf6661dde1b2c699bfd40f982063210ba82d1482af3332ef982a00af2e756e",
+    "schemas/local-owner/claim.schema.json": "15b2004c3b48ed8ac97fbf6ab7d16beb80d91d9ebf5ff89f02039a533eb385f1",
+    "schemas/local-owner/status-event.schema.json": "6cb4e7dbd4316625966b93b28d0cb08039605747e674e6587781537488dce985",
+    "schemas/local-owner/start-intent.schema.json": "7f9af0f4d70ada69c9751c99ce6d0081f5456bfb63c2dcee436461baf173ece7",
+    "schemas/local-owner/start-result.schema.json": "a61f9764294359cc995c3c580c1d2478470af84d1ea1b4a341c2d1c6e166ba95"
+  },
+  "secretsExported": false,
+  "providerCalls": 0,
+  "networkCallbacks": 0,
+  "limitations": [
+    "candidate evidence, not owner acceptance",
+    "same-file-only closed-world support; separate stores, unlisted/direct writers, unsupported locking filesystems and distributed trust remain unsupported",
+    "fixed local observation only",
+    "no migration, recovery or reexecution",
+    "no provider/external effect"
+  ]
+}

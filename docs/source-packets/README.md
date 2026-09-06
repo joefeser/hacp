@@ -20,6 +20,9 @@ the normal RFC, schema, profile, and fixture process.
   verifies one exact who-decides implementation and all 44 candidate fixture
   receipts. The evidence closes the candidate implementation-proof gate only;
   owner acceptance, publication, and standardization remain separate gates.
+- [WITS interworking authority seam](wits-v0/interworking-authority-seam.md)
+  keeps a non-authorizing Product Decision separate from the native human act
+  that may approve one bounded successor.
 
 ## Boundaries
 

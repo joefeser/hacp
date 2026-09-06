@@ -507,8 +507,14 @@ async function expectedOutputs() {
       inspectedMainAtPreparation: '04a89f5509035b3299bb3786da1e9909a4e78dc0'
     },
     reviewRequired: {
-      digestDomains: Object.values(domains),
-      qualificationRule: 'UNRESOLVED: independent production plus cross-validation versus bidirectional production'
+      digestDomains: Object.values(domains)
+    },
+    ownerRulings: {
+      secondImplementationQualification: {
+        sourceIssue: 'https://github.com/joefeser/hacp/issues/47',
+        candidatePromotion: 'independent_production_plus_cross_validation',
+        fullRelease: 'bidirectional_production_and_consumption'
+      }
     },
     expectedValid: recordKinds.map((kind) => ({ path: `valid/${kind}.valid.json`, schema: `${kind}.schema.json` })),
     expectedInvalid: [
@@ -631,7 +637,8 @@ async function validateCorpus(valid, manifest) {
     digestAlgorithm: 'sha256',
     canonicalization: 'RFC 8785 JCS',
     candidateOnly: true,
-    reviewRequired: ['digest domains', 'qualification rule']
+    reviewRequired: ['digest domains'],
+    ownerRuled: ['second-implementation qualification']
   };
 }
 

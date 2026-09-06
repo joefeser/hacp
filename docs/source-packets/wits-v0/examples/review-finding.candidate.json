@@ -1,0 +1,29 @@
+{
+  "recordKind": "hacp.v0_3_candidate.review_finding",
+  "schemaVersion": "hacp-0.3-candidate",
+  "findingId": "finding_example_needs_owner_decision_001",
+  "packetId": "taskpkt_example_continue_review_001",
+  "packetDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "task_packet_v0.3_candidate",
+    "value": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "severity": "medium",
+  "summary": "Returned evidence is actionable, but continuation would consume a human decision and start a successor invocation.",
+  "affectedSurfaces": [
+    "repo://example/hacp/docs/source-packets/"
+  ],
+  "evidenceRefs": [
+    "evidence://example/review-output-001"
+  ],
+  "recommendedDisposition": "request_human_decision",
+  "residualRisk": "The successor invocation must be bounded to docs-only work and must not infer merge authority.",
+  "humanDecisionRequired": true,
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "review_finding_v0.3_candidate",
+    "value": "1111111111111111111111111111111111111111111111111111111111111111"
+  }
+}

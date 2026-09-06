@@ -233,6 +233,17 @@ Start here:
 - [docs/cli-bridge-contract/v0/README.md](docs/cli-bridge-contract/v0/README.md):
   public candidate package for owner-controlled CLI bridge profile, preflight,
   runner evidence, waiver, import, digest, doctor, and stop-reason objects.
+- [docs/workflows/ack-pr-loop-runbook.md](docs/workflows/ack-pr-loop-runbook.md):
+  repo-local ACK PR-loop worker guidance, including lane loading, reviewer
+  batching, stale-summary waiting, handoff artifacts, and human-mediated main
+  promotion posture.
+- [docs/source-packets/wits-v0-hacp-source-packet.md](docs/source-packets/wits-v0-hacp-source-packet.md):
+  public-safe WITS v0 source packet for task packets, agent reports, human
+  decision gates, evidence, stop reasons, transport envelopes, and fixture
+  candidates.
+- [docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md](docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md):
+  HACP v0.3 candidate source packet for one-successor consumption receipts,
+  fail-closed extension processing, and accountable continuation evidence.
 - [docs/security-boundaries.md](docs/security-boundaries.md): authority,
   report, match-proof, human-decision, digest-domain, and fail-closed
   boundaries.
@@ -240,8 +251,10 @@ Start here:
 - [docs/review-packet.md](docs/review-packet.md): severity-ordered review
   packet for the 0.2 draft.
 
-HACP 0.2 is not 1.0. It is a draft vocabulary and fixture set for review and
-independent implementation feedback.
+HACP 0.2 is not 1.0. HACP v0.3 material is an even earlier source-packet
+candidate, not a released schema or conformance profile. Both are draft
+vocabulary and fixture material for review and independent implementation
+feedback.
 
 For maturity framing across v0.1 and v0.2, see
 [Stability Lanes](#stability-lanes).
@@ -283,6 +296,13 @@ is reviewable through the 0.2 docs, schemas, profile registry, and fixtures
 listed above. It should not be described as HACP 1.0 or as generally compliant
 until independent implementations and conformance fixtures exist.
 
+## HACP v0.3 Candidate Status
+
+HACP v0.3 candidate material is source-packet-level only. It explores
+accountable continuation, consumption receipts, successor invocation evidence,
+and extension fail-closed behavior. It does not define a released schema,
+runtime, worker launch path, hosted execution surface, or product feature.
+
 ## HACP v0.1 Draft Completeness
 
 The current draft set is minimally reviewable as a v0.1 protocol sketch. It is
@@ -320,8 +340,9 @@ RFC-0008 transport-boundary checks.
 ## Core Invariants
 
 1. Human authority is explicit and cannot be silently delegated away.
-2. Authority comes from an approved task packet, not from the mechanism that
-   transports the packet.
+2. Authority originates with a human approval act and is recorded or referenced
+   by an approved task or authority packet, not by the mechanism that transports
+   the packet.
 3. Manual and automated transport are different layers. Moving a packet does not
    widen the packet's authority.
 4. Closed vocabularies must not silently widen. Profiles may extend them only
@@ -348,11 +369,18 @@ The v0.2 public review surface is the draft chain-of-custody packet:
 - [docs/hacp-0.2.md](docs/hacp-0.2.md);
 - [docs/profiles.md](docs/profiles.md);
 - [docs/security-boundaries.md](docs/security-boundaries.md);
+- [docs/source-packets/wits-v0-hacp-source-packet.md](docs/source-packets/wits-v0-hacp-source-packet.md);
 - [docs/non-goals.md](docs/non-goals.md);
 - [profiles/hacp-base-draft-v0.2.yaml](profiles/hacp-base-draft-v0.2.yaml);
 - the v0.2 schemas in [schemas/](schemas/);
 - the v0.2 fixtures in [fixtures/happy-path/](fixtures/happy-path/) and
   [fixtures/risk-cases/](fixtures/risk-cases/).
+
+The v0.3 candidate review surface is source-packet material only:
+
+- [docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md](docs/source-packets/wits-v0/accountable-continuation-v0.3-draft.md);
+- candidate JSON sketches in
+  [docs/source-packets/wits-v0/examples/](docs/source-packets/wits-v0/examples/).
 
 Implementation-specific trial artefacts are not required to review this public
 draft. Future releases may add public evidence bundles, conformance test

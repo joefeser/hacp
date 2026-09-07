@@ -227,3 +227,18 @@ test('external paths reject traversal, absolute paths, backslashes, and symlinks
     await assert.rejects(() => validateExternalBundleRoot(root), /EXTERNAL_PATH_SYMLINK/);
   });
 });
+
+// This is independently emitted WITS evidence, not a copy of the canonical corpus.
+test('committed WITS supplementary bundles retain their merged-source provenance', async () => {
+  const result = await validateExternalBundleRoot(path.join(repoRoot, 'fixtures/supplementary/v0.3-candidate/wits'));
+  assert.equal(result.ok, true);
+  assert.equal(result.candidateOnly, true);
+  assert.equal(result.producer.sourceCommit, '9fa658f7faf2522de6ea12408c784bb987223f00');
+  assert.equal(result.conformancePackage.canonicalNegativeCases, 22);
+  assert.equal(result.conformancePackage.diagnosticSetsComparedExactly, true);
+  assert.deepEqual(result.bundles.map(({ kind, records }) => [kind, records]), [
+    ['successful_continuation', 6],
+    ['pre_start_stop', 4],
+    ['stop_decision_response', 5]
+  ]);
+});

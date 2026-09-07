@@ -1,0 +1,66 @@
+{
+  "schemaId": "hacp.wits_supplementary_cross_validation_receipt.v1",
+  "recordedAt": "2026-09-07T16:16:32.359569+00:00",
+  "witsSourceCommit": "9fa658f7faf2522de6ea12408c784bb987223f00",
+  "witsPullRequest": "https://github.com/joefeser/what-is-the-spec/pull/1367",
+  "hacpValidatorCommit": "b6c6bf35640515045252803cfe49d75e223a12d9",
+  "bundleRoot": "fixtures/supplementary/v0.3-candidate/wits",
+  "externalManifestSha256": "44742d3b6a8700534b18884474bef09a2850bd15d837306a309feec077ca00d1",
+  "witsIntegrationTests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "validationCommand": "node scripts/validate-external-bundle.mjs --root fixtures/supplementary/v0.3-candidate/wits",
+  "validationResult": {
+    "ok": true,
+    "candidateOnly": true,
+    "qualificationIntent": "independent_production_plus_cross_validation",
+    "producer": {
+      "implementationId": "wits.hacp-v03-candidate-interworking-proof.v0",
+      "sourceRepository": "https://github.com/joefeser/what-is-the-spec",
+      "sourceCommit": "9fa658f7faf2522de6ea12408c784bb987223f00",
+      "generatedAt": "2026-09-07T16:15:15.047Z"
+    },
+    "conformancePackage": {
+      "manifestSha256": "18bdd29c2e5347411a0598964224b8674bd0962628cffbc6bac2f0e107cb1d92",
+      "recordSchemaSha256": {
+        "common-defs.schema.json": "be18915465d8db45712a3f08f0cc2eac236565051b639dddaa243c9da36ed759",
+        "task-packet.schema.json": "9bc15332a03e71b9cb2594066928dd99c4c50477cf8004be301c0bc83c9267a7",
+        "review-finding.schema.json": "3e6ed24e06995e89cafa65140e80cb13f44c47dcbc80245711135aa1cffcb1ff",
+        "human-decision.schema.json": "fc5e254e848c2d7c87fb03fa42c45abf4f7b884e4de88c31666b15acf2298675",
+        "consumption-receipt.schema.json": "54a02f5ef6254a5ad001e0ffd214e1e97f5ec6dec455d497dbaae2bbdf1e7954",
+        "continuation-context.schema.json": "73b006a3edef340ffd61d08e3cbc59ac12eb29d8ad1c3e87965cb8dbadc41b29",
+        "agent-report.schema.json": "39344a10f31d5f9d200debe524277e2dcca59fc3cfcc2385913b54532a13f2db",
+        "stop-response.schema.json": "e820499cdd1d1658024d584e6b6178866ef2af7754b41f4cd385447661d33aaa"
+      },
+      "semanticValidatorSha256": "b6fccb52ea78af9b335c3702110a6c630f84d0a93f00548c1a0f30e4e7cf3b89",
+      "canonicalNegativeCases": 22,
+      "diagnosticSetsComparedExactly": true
+    },
+    "bundles": [
+      {
+        "id": "successful_continuation",
+        "kind": "successful_continuation",
+        "records": 6
+      },
+      {
+        "id": "pre_start_stop",
+        "kind": "pre_start_stop",
+        "records": 4
+      },
+      {
+        "id": "stop_decision_response",
+        "kind": "stop_decision_response",
+        "records": 5
+      }
+    ]
+  },
+  "limitations": [
+    "Synthetic local PostgreSQL proof; authentication references describe seeded test identities, not live external identity verification.",
+    "Candidate-only evidence; owner reconciliation under HACP #47 remains separate from conformance validation.",
+    "No provider/model invocation, dispatch, deployment, or external-effect proof.",
+    "WITS and HACP share canonicalize, so agreement retains common-mode JCS library risk.",
+    "Digest-bearing timestamps use the prior post-lock database observation; the final atomic CTE rechecks time and expiry. The stronger single-read provenance assertion remains unproven.",
+    "Fixture timestamps and UUIDs vary on fresh database generation; the committed manifest pins this run byte-for-byte."
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "recordKind": "hacp.v0_3_candidate.agent_report",
+  "schemaVersion": "hacp-0.3-candidate",
+  "reportId": "report_wits_hacp_v03_success",
+  "returnedAt": "2026-09-07T16:15:10.088Z",
+  "continuationContext": {
+    "id": "context_wits_01a07ca6_ee9f_73d6_be33_eb8a3aa2e07a",
+    "digest": {
+      "value": "5108f76e74fa6e9f1b929088f0daebfe9c1a48cadc6f92cba38545922b946f1b",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.continuation-context.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    }
+  },
+  "packetId": "taskpkt_wits_01a07ca6_edb8_7b3e_8765_7833962903aa",
+  "decision": {
+    "id": "decision_wits_01a07ca6_ee6a_73a6_aa44_41f2e4298d05",
+    "digest": {
+      "value": "b7261e0f87fb97852bb5e1d4f8d9c6d89eaa049164626b79b00a3bed915325e9",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    }
+  },
+  "decisionRequest": {
+    "kind": "review_finding",
+    "id": "finding_wits_01a07ca6_edb8_7b3e_8765_7833962903aa",
+    "digest": {
+      "value": "9952f87b684f3e9c9a56e223c29a254cbd7f44185d2584c98b575d1c044096fa",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.review-finding.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    }
+  },
+  "consumptionReceiptId": "receipt_wits_01a07ca6_ee9f_73d6_be33_eb8a3aa2e07a",
+  "consumptionReceiptDigest": {
+    "value": "e7dfce443ebbc087b8d246bc2077b54ccee74fd39acc45d3fbc19020b830042f",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "successorInvocationId": "invoke_wits_hacp_v03_success_001",
+  "startEvidence": {
+    "digest": {
+      "value": "e15b49b34e92e28081a54ec6ef73d6b0d327324bd624494affb4b584d3300279",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.successor-start-evidence.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    },
+    "recordId": "start_evidence_wits_01a07ca6_ee9f_7b0a_a066_4e280d96f64c",
+    "timeSource": "wits-postgresql-clock-timestamp",
+    "evidenceRef": "wits://candidate-start/01a07ca6-ee9f-7b0a-a066-4e280d96f64c",
+    "workStartedAt": "2026-09-07T16:15:09.983Z",
+    "validityReadbackRef": "wits://candidate-admission/01a07ca6-ee9f-73d6-be33-eb8a3aa2e07a",
+    "consumptionReceiptId": "receipt_wits_01a07ca6_ee9f_73d6_be33_eb8a3aa2e07a",
+    "successorInvocationId": "invoke_wits_hacp_v03_success_001",
+    "acceptedClaimReadBackAt": "2026-09-07T16:15:09.983Z",
+    "consumptionReceiptDigest": {
+      "value": "e7dfce443ebbc087b8d246bc2077b54ccee74fd39acc45d3fbc19020b830042f",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    }
+  },
+  "attemptedWork": [
+    "produced public-safe HACP records"
+  ],
+  "evidenceRefs": [
+    "evidence://wits/local-validator"
+  ],
+  "residualRisks": [
+    "Candidate evidence does not prove distributed execution."
+  ],
+  "loopCounter": 0,
+  "loopOutcome": "completed",
+  "requestedNextHumanDecision": "decision_request_wits_01a07ca6_ef08_7145_98b1_0088c15be2e5",
+  "boundaryStatement": "This report is immutable evidence for human review. It grants no merge, deployment, provider, or standard authority.",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "org.hacp.agent-report.v0.3-candidate",
+    "value": "a9862ac39018d6f9df996327d14e5fcc29a27bf4d0f34beeb5056760a9593b9d"
+  }
+}

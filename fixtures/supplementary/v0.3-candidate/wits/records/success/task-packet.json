@@ -1,0 +1,53 @@
+{
+  "digest": {
+    "value": "21cc7b195d12d4556c3756b186cbd520ea2964e7f58ebbc9c958c81c170974f9",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "packetId": "taskpkt_wits_01a07ca6_edb8_7b3e_8765_7833962903aa",
+  "loopPolicy": {
+    "mode": "single_pass",
+    "ceiling": 0,
+    "counter": 0,
+    "incrementTrigger": "post_return_human_approval_of_another_packet",
+    "boundaryStatement": "One bounded successor only; a later continuation requires another human decision.",
+    "claimAttemptLimit": 1,
+    "automaticRetryAllowed": false
+  },
+  "recordKind": "hacp.v0_3_candidate.task_packet",
+  "profileRefs": [
+    "hacp-accountable-continuation-v0.3-candidate"
+  ],
+  "schemaVersion": "hacp-0.3-candidate",
+  "sourceContext": {
+    "sourceRefs": [
+      "wits://case/3348032a-cade-40e2-a167-69d1b2d5001e/product-decisions/01a07ca6-ed98-799c-94fd-5108d7ac4680",
+      "wits://product-decision-action/01a07ca6-edb8-7b3e-8765-7833962903aa"
+    ],
+    "humanRequest": "May one public-safe conformance successor begin?"
+  },
+  "requestedScope": [
+    "produce seven public-safe candidate records",
+    "run local conformance validation"
+  ],
+  "stopConditions": [
+    "missing human decision",
+    "scope mismatch",
+    "stale or revoked decision",
+    "unsupported continuation extension"
+  ],
+  "expectedEvidence": [
+    "human decision",
+    "consumption receipt",
+    "agent report or stop response"
+  ],
+  "forbiddenEffects": [
+    "merge",
+    "deploy",
+    "provider_or_model_invocation",
+    "external_mutation",
+    "accept_risk"
+  ],
+  "boundaryStatement": "This packet is a non-authorizing projection of requested work. It does not launch or approve a successor."
+}

@@ -1,0 +1,29 @@
+{
+  "digest": {
+    "value": "ef00b748a395e9f55c950c0e0ce415eb044183767ea3207cd4186d58e17523f0",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.review-finding.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "summary": "A successor may continue only after a separate bounded human authority action is admitted.",
+  "packetId": "taskpkt_wits_01a07ca6_f17e_7915_8171_5e6c2c74a460",
+  "severity": "medium",
+  "findingId": "finding_wits_01a07ca6_f17e_7915_8171_5e6c2c74a460",
+  "recordKind": "hacp.v0_3_candidate.review_finding",
+  "evidenceRefs": [
+    "wits://product-decision-action/01a07ca6-f17e-7915-8171-5e6c2c74a460"
+  ],
+  "packetDigest": {
+    "value": "f7bbef605580b9e9bbc16eac5079b4001be9227d28ff7cca396c9d0dad28b8a2",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "residualRisk": "This candidate proof establishes local one-use continuation only; it does not prove external effects or standard maturity.",
+  "schemaVersion": "hacp-0.3-candidate",
+  "affectedSurfaces": [
+    "wits://case/b6f39923-586d-4885-8992-3ec58bcfb2af"
+  ],
+  "humanDecisionRequired": true,
+  "recommendedDisposition": "request_human_decision"
+}

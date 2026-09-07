@@ -3,12 +3,14 @@
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { createHash } from 'node:crypto';
-import { lstat, readFile, readdir, realpath } from 'node:fs/promises';
+import { constants as fsConstants } from 'node:fs';
+import { lstat, open, readFile, readdir, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
 import {
   diagnosticCodes,
+  validateSemantics,
   loadValidators,
   validateCorpus,
   validateInput
@@ -89,6 +91,46 @@ async function resolveExternalRecord(root, relativePath) {
   return resolved;
 }
 
+async function readOpenedRegularFile(root, file, label) {
+  let handle;
+  try {
+    handle = await open(file, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
+    const openedStat = await handle.stat();
+    if (!openedStat.isFile()) throw new Error(`EXTERNAL_PATH_NOT_REGULAR_FILE: ${label}`);
+    const resolvedRoot = await realpath(root);
+    const resolvedAfterOpen = await realpath(file);
+    if (!resolvedAfterOpen.startsWith(`${resolvedRoot}${path.sep}`)) {
+      throw new Error(`EXTERNAL_PATH_ESCAPE: ${label}`);
+    }
+    const pathStat = await lstat(file);
+    if (pathStat.isSymbolicLink() || pathStat.dev !== openedStat.dev || pathStat.ino !== openedStat.ino) {
+      throw new Error(`EXTERNAL_PATH_CHANGED_DURING_READ: ${label}`);
+    }
+    return await handle.readFile();
+  } finally {
+    await handle?.close();
+  }
+}
+
+async function readConfinedRegularFile(root, relativePath) {
+  const file = await resolveExternalRecord(root, relativePath);
+  return readOpenedRegularFile(root, file, relativePath);
+}
+
+async function assertExactExternalLayout(root) {
+  const rootEntries = await readdir(root, { withFileTypes: true });
+  const rootNames = rootEntries.map((entry) => entry.name).sort();
+  if (rootNames.join('|') !== 'external-bundle-manifest.json|records') {
+    throw new Error('EXTERNAL_ROOT_LAYOUT_INVALID');
+  }
+  const manifestEntry = rootEntries.find((entry) => entry.name === externalManifestName);
+  const recordsEntry = rootEntries.find((entry) => entry.name === 'records');
+  if (!manifestEntry?.isFile() || manifestEntry.isSymbolicLink()
+    || !recordsEntry?.isDirectory() || recordsEntry.isSymbolicLink()) {
+    throw new Error('EXTERNAL_ROOT_LAYOUT_INVALID');
+  }
+}
+
 async function listExternalJson(root) {
   const recordsRoot = path.join(root, 'records');
   const result = [];
@@ -99,6 +141,7 @@ async function listExternalJson(root) {
       if (entry.isSymbolicLink()) throw new Error(`EXTERNAL_PATH_SYMLINK: records/${childRelative}`);
       if (entry.isDirectory()) await walk(path.join(directory, entry.name), childRelative);
       else if (entry.isFile() && entry.name.endsWith('.json')) result.push(`records/${childRelative}`);
+      else throw new Error(`EXTERNAL_RECORDS_LAYOUT_INVALID: records/${childRelative}`);
     }
   }
   await walk(recordsRoot, '');
@@ -166,8 +209,7 @@ async function validateExternalManifest(manifest, root, canonicalManifestBytes) 
 async function loadExternalEntries(bundle, inventory, root) {
   const entries = [];
   for (const descriptor of bundle.records) {
-    const file = await resolveExternalRecord(root, descriptor.path);
-    const bytes = await readFile(file);
+    const bytes = await readConfinedRegularFile(root, descriptor.path);
     const inventoryItem = inventory.get(descriptor.path);
     if (sha256(bytes) !== inventoryItem.sha256) {
       throw new Error(`EXTERNAL_FILE_DIGEST_MISMATCH: ${descriptor.path}`);
@@ -181,23 +223,30 @@ async function loadExternalEntries(bundle, inventory, root) {
 async function validateExternalBundleRoot(root) {
   const resolvedRoot = await realpath(root);
   const manifestPath = path.join(resolvedRoot, externalManifestName);
-  if ((await lstat(manifestPath)).isSymbolicLink()) throw new Error('EXTERNAL_MANIFEST_SYMLINK');
+  await assertExactExternalLayout(resolvedRoot);
+  const manifestBytes = await readOpenedRegularFile(resolvedRoot, manifestPath, externalManifestName);
 
   const canonicalManifestBytes = await readFile(canonicalManifestPath);
   const canonicalManifest = JSON.parse(canonicalManifestBytes.toString('utf8'));
   const canonicalResult = await validateCorpus(canonicalManifest);
 
-  const manifest = await readJson(manifestPath);
+  const manifest = JSON.parse(manifestBytes.toString('utf8'));
   const inventory = await validateExternalManifest(manifest, resolvedRoot, canonicalManifestBytes);
   const validators = await loadValidators();
   const bundleResults = [];
+  const allEntriesByPath = new Map();
   for (const bundle of manifest.bundles) {
     const entries = await loadExternalEntries(bundle, inventory, resolvedRoot);
     const codes = diagnosticCodes(await validateInput(entries, validators, {}, bundle));
     if (codes.length > 0) {
       throw new Error(`EXTERNAL_BUNDLE_INVALID: ${bundle.id}:${JSON.stringify(codes)}`);
     }
+    for (const entry of entries) allEntriesByPath.set(entry.path, entry);
     bundleResults.push({ id: bundle.id, kind: bundle.kind, records: entries.length });
+  }
+  const crossBundleCodes = diagnosticCodes(validateSemantics([...allEntriesByPath.values()], {}, 'explicit'));
+  if (crossBundleCodes.includes('STOP_AFTER_WORK')) {
+    throw new Error('EXTERNAL_CROSS_BUNDLE_STOP_AFTER_WORK');
   }
 
   return {

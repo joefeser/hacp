@@ -9,6 +9,7 @@ import {
   safeRelativeRecordPath,
   validateExternalBundleRoot
 } from './validate-external-bundle.mjs';
+import { digestRecord } from './compute-vectors.mjs';
 
 const repoRoot = process.cwd();
 const fixtureRoot = path.join(repoRoot, 'schemas/v0.3-candidate/fixtures');
@@ -164,6 +165,10 @@ test('external admission rejects undeclared files and uncovered inventory', asyn
     await writeFile(path.join(root, 'records/extra.json'), '{}\n');
     await assert.rejects(() => validateExternalBundleRoot(root), /EXTERNAL_FILE_INVENTORY_MISMATCH/);
   });
+  await withExternalRoot(async ({ root }) => {
+    await writeFile(path.join(root, 'undeclared.json'), '{}\n');
+    await assert.rejects(() => validateExternalBundleRoot(root), /EXTERNAL_ROOT_LAYOUT_INVALID/);
+  });
   await withExternalRoot(async ({ root, manifest }) => {
     manifest.bundles[0].records[0].path = manifest.bundles[1].records[0].path;
     await writeManifest(root, manifest);
@@ -176,6 +181,35 @@ test('external stop branches must share exact antecedent paths', async () => {
     manifest.bundles[2].records[0].path = manifest.bundles[0].records[0].path;
     await writeManifest(root, manifest);
     await assert.rejects(() => validateExternalBundleRoot(root), /EXTERNAL_SHARED_ANTECEDENT_INVALID/);
+  });
+});
+
+test('external admission rejects contradictory start and no-start claims across bundles', async () => {
+  await withExternalRoot(async ({ root, manifest }) => {
+    const success = manifest.bundles[0];
+    const stopBundle = manifest.bundles[1];
+    const responseBundle = manifest.bundles[2];
+    const reportPath = success.records.find((item) => item.role === 'agent_report').path;
+    const stopPath = stopBundle.records.find((item) => item.role === 'stop_response').path;
+    const responsePath = responseBundle.records.find((item) => item.role === 'response_decision').path;
+    const report = JSON.parse(await readFile(path.join(root, reportPath), 'utf8'));
+    const stop = JSON.parse(await readFile(path.join(root, stopPath), 'utf8'));
+    stop.successorInvocationId = report.successorInvocationId;
+    stop.digest = digestRecord('stop-response', stop);
+    await writeFile(path.join(root, stopPath), `${JSON.stringify(stop, null, 2)}\n`);
+
+    const response = JSON.parse(await readFile(path.join(root, responsePath), 'utf8'));
+    response.decisionRequest.digest = structuredClone(stop.digest);
+    response.digest = digestRecord('human-decision', response);
+    await writeFile(path.join(root, responsePath), `${JSON.stringify(response, null, 2)}\n`);
+
+    for (const changedPath of [stopPath, responsePath]) {
+      manifest.fixtureInventory.find((item) => item.path === changedPath).sha256 = sha256(
+        await readFile(path.join(root, changedPath))
+      );
+    }
+    await writeManifest(root, manifest);
+    await assert.rejects(() => validateExternalBundleRoot(root), /EXTERNAL_CROSS_BUNDLE_STOP_AFTER_WORK/);
   });
 });
 

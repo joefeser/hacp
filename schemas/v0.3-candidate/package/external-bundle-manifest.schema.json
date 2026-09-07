@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/v0.3-candidate/package/external-bundle-manifest.schema.json",
+  "title": "HACP v0.3 Candidate External Bundle Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "candidateStatus",
+    "qualificationIntent",
+    "conformancePackage",
+    "producer",
+    "fixtureInventory",
+    "bundles"
+  ],
+  "properties": {
+    "schema": { "const": "hacp.v0_3_candidate.external_bundle_manifest.v1" },
+    "candidateStatus": { "const": true },
+    "qualificationIntent": { "const": "independent_production_plus_cross_validation" },
+    "conformancePackage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifestSha256", "schemaBaseUri", "recordSchemaSha256", "semanticValidatorSha256", "digestDomains"],
+      "properties": {
+        "manifestSha256": { "$ref": "#/$defs/sha256" },
+        "schemaBaseUri": { "const": "https://hacp.example/schemas/v0.3-candidate/" },
+        "recordSchemaSha256": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "common-defs.schema.json",
+            "task-packet.schema.json",
+            "review-finding.schema.json",
+            "human-decision.schema.json",
+            "consumption-receipt.schema.json",
+            "continuation-context.schema.json",
+            "agent-report.schema.json",
+            "stop-response.schema.json"
+          ],
+          "properties": {
+            "common-defs.schema.json": { "$ref": "#/$defs/sha256" },
+            "task-packet.schema.json": { "$ref": "#/$defs/sha256" },
+            "review-finding.schema.json": { "$ref": "#/$defs/sha256" },
+            "human-decision.schema.json": { "$ref": "#/$defs/sha256" },
+            "consumption-receipt.schema.json": { "$ref": "#/$defs/sha256" },
+            "continuation-context.schema.json": { "$ref": "#/$defs/sha256" },
+            "agent-report.schema.json": { "$ref": "#/$defs/sha256" },
+            "stop-response.schema.json": { "$ref": "#/$defs/sha256" }
+          }
+        },
+        "semanticValidatorSha256": { "$ref": "#/$defs/sha256" },
+        "digestDomains": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "prefixItems": [
+            { "const": "org.hacp.task-packet.v0.3-candidate" },
+            { "const": "org.hacp.human-decision.v0.3-candidate" },
+            { "const": "org.hacp.consumption-receipt.v0.3-candidate" },
+            { "const": "org.hacp.continuation-context.v0.3-candidate" },
+            { "const": "org.hacp.agent-report.v0.3-candidate" },
+            { "const": "org.hacp.review-finding.v0.3-candidate" },
+            { "const": "org.hacp.stop-response.v0.3-candidate" },
+            { "const": "org.hacp.successor-start-evidence.v0.3-candidate" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["implementationId", "sourceRepository", "sourceCommit", "generatedAt"],
+      "properties": {
+        "implementationId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$" },
+        "sourceRepository": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "sourceCommit": { "$ref": "#/$defs/commit" },
+        "generatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "fixtureInventory": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/inventoryEntry" }
+    },
+    "bundles": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "prefixItems": [
+        { "$ref": "#/$defs/successfulContinuationBundle" },
+        { "$ref": "#/$defs/preStartStopBundle" },
+        { "$ref": "#/$defs/stopDecisionResponseBundle" }
+      ],
+      "items": false
+    }
+  },
+  "$defs": {
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "fixturePath": { "type": "string", "pattern": "^records/[A-Za-z0-9._/-]+\\.json$" },
+    "schemaFile": {
+      "enum": [
+        "task-packet.schema.json",
+        "review-finding.schema.json",
+        "human-decision.schema.json",
+        "consumption-receipt.schema.json",
+        "continuation-context.schema.json",
+        "agent-report.schema.json",
+        "stop-response.schema.json"
+      ]
+    },
+    "role": {
+      "enum": [
+        "task_packet",
+        "decision_request",
+        "authority_basis_decision",
+        "consumption_receipt",
+        "continuation_context",
+        "agent_report",
+        "stop_response",
+        "response_decision"
+      ]
+    },
+    "inventoryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "schema", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/fixturePath" },
+        "schema": { "$ref": "#/$defs/schemaFile" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "rolePath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path"],
+      "properties": {
+        "role": { "$ref": "#/$defs/role" },
+        "path": { "$ref": "#/$defs/fixturePath" }
+      }
+    },
+    "taskPacketRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "task_packet" } } },
+    "decisionRequestRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "decision_request" } } },
+    "authorityBasisDecisionRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "authority_basis_decision" } } },
+    "consumptionReceiptRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "consumption_receipt" } } },
+    "continuationContextRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "continuation_context" } } },
+    "agentReportRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "agent_report" } } },
+    "stopResponseRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "stop_response" } } },
+    "responseDecisionRole": { "$ref": "#/$defs/rolePathBase", "type": "object", "properties": { "role": { "const": "response_decision" } } },
+    "rolePathBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "path"],
+      "properties": {
+        "role": { "$ref": "#/$defs/role" },
+        "path": { "$ref": "#/$defs/fixturePath" }
+      }
+    },
+    "successfulContinuationBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "successful_continuation" },
+        "kind": { "const": "successful_continuation" },
+        "records": {
+          "type": "array", "minItems": 6, "maxItems": 6,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/consumptionReceiptRole" },
+            { "$ref": "#/$defs/continuationContextRole" },
+            { "$ref": "#/$defs/agentReportRole" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "preStartStopBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "pre_start_stop" },
+        "kind": { "const": "pre_start_stop" },
+        "records": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/stopResponseRole" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "stopDecisionResponseBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "records"],
+      "properties": {
+        "id": { "const": "stop_decision_response" },
+        "kind": { "const": "stop_decision_response" },
+        "records": {
+          "type": "array", "minItems": 5, "maxItems": 5,
+          "prefixItems": [
+            { "$ref": "#/$defs/taskPacketRole" },
+            { "$ref": "#/$defs/decisionRequestRole" },
+            { "$ref": "#/$defs/authorityBasisDecisionRole" },
+            { "$ref": "#/$defs/stopResponseRole" },
+            { "$ref": "#/$defs/responseDecisionRole" }
+          ],
+          "items": false
+        }
+      }
+    }
+  }
+}

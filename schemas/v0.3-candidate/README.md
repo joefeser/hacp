@@ -107,6 +107,48 @@ The individual source-packet examples remain under
 but they are not one cross-record chain. The branch-scoped generated fixtures
 in this directory are the conformance corpus.
 
+## External producer admission
+
+Issue [#54](https://github.com/joefeser/hacp/issues/54) adds a separate,
+closed admission boundary for independently produced candidate bundles. It
+does not loosen the canonical v2 manifest or allow executable provider code.
+
+An external producer supplies a directory containing exactly:
+
+```text
+external-bundle-manifest.json
+records/
+  ... eleven declared JSON records ...
+```
+
+The manifest must validate against
+[`package/external-bundle-manifest.schema.json`](package/external-bundle-manifest.schema.json).
+It pins the canonical package manifest, all seven record schemas and their
+shared definitions, and the semantic validator by SHA-256, plus the exact
+schema base URI, ordered digest-domain set, producer identity and source
+revision, exactly eleven byte-digested records, and the three ordered bundle kinds. Record paths
+are root-relative data paths under `records/`; absolute paths, traversal,
+backslashes, symlinks, undeclared JSON files, unknown roles, and additional
+fields fail closed.
+
+Validate a producer bundle from the repository root:
+
+```bash
+npm run hacp:v03-external -- --root /absolute/path/to/bundle
+```
+
+The validator first revalidates the committed canonical package, including
+exact diagnostic-set comparison for all twenty-two negative cases. Only then
+does it validate the external manifest, byte digests, seven record schemas,
+three branch shapes, shared stop antecedents, and all cross-record rules,
+including `STOP_AFTER_WORK`. The JSON result preserves the producer's pinned
+provenance and candidate-only status.
+
+Passing this entry point is cross-validation evidence. It is not candidate
+promotion by itself, authority, approval, proof of independent production,
+proof of execution, or proof of exactly-once external effects. Qualification
+still requires owner reconciliation under issue #47.
+
 ## REVIEW-REQUIRED: candidate digest domains
 
 The following exact strings are proposed and deliberately **not finalized** by

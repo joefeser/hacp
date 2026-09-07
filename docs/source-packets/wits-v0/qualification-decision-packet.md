@@ -1,7 +1,7 @@
 # WITS v0.3 candidate qualification decision packet
 
-Status: prepared for Joe's decision, 2026-09-07. No decision, promotion,
-publication, or WITS specification exception is recorded by this packet.
+Status: Joe accepted the pinned WITS proof as Option 1 evidence on 2026-09-07.
+Domain approval, publication, and WITS Task 1.3f remain open.
 
 ## Pinned evidence
 
@@ -27,7 +27,8 @@ the receipt's validation result exactly.
 
 ## Decision 1: qualification evidence under #47
 
-Owner status: **pending**.
+Owner status: **approved by Joe Feser on 2026-09-07**, limited to accepting
+the pinned WITS proof as Option 1 evidence under #47.
 
 [Issue #47](https://github.com/joefeser/hacp/issues/47) selected independent
 production plus cross-validation as Option 1. WITS independently produces its
@@ -36,12 +37,27 @@ HACP imports the emitted data and validates it without importing WITS runtime
 code. WITS does not import who-decides runtime code. These are evidence for
 owner reconciliation of the qualification requirement, not automatic acceptance.
 
-The bounded decision is whether to accept this pinned WITS production and
-cross-validation result as Option 1 evidence, retaining all disclosed limits.
-Acceptance must not be represented as full release, distributed exactly-once
-execution, external-effect proof, or a finding that all WITS requirements pass.
-If evidence is insufficient, name the specific missing demonstration and leave
-qualification pending. The merged fixture PR itself is not this decision.
+The owner accepted this pinned WITS production and cross-validation result as
+Option 1 evidence, retaining all disclosed limits. Acceptance does not establish
+full release, distributed exactly-once execution, external-effect proof, or a
+finding that all WITS requirements pass. The merged fixture PR itself was not
+this decision.
+
+### Owner approval provenance
+
+Source: the active WITS coordination conversation on 2026-09-07, after the
+packet was prepared at HACP commit `440df9472df3e736c526629beb3174619187a619`.
+Codex asked:
+
+> Do you approve accepting the WITS proof as Option 1 evidence under #47?
+> Domain approval, publication, and Task 1.3f would remain open.
+
+Joe replied:
+
+> yes i approve
+
+This return applies to Decision 1 and the exact evidence refs above. It does
+not approve Decision 2, publication, closure of Task 1.3f, or merge of PR #57.
 
 ## Decision 2: exact candidate digest domains
 

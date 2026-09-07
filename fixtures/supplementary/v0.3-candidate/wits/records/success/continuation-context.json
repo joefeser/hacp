@@ -1,0 +1,36 @@
+{
+  "digest": {
+    "value": "5108f76e74fa6e9f1b929088f0daebfe9c1a48cadc6f92cba38545922b946f1b",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.continuation-context.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "decision": {
+    "id": "decision_wits_01a07ca6_ee6a_73a6_aa44_41f2e4298d05",
+    "digest": {
+      "value": "b7261e0f87fb97852bb5e1d4f8d9c6d89eaa049164626b79b00a3bed915325e9",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    }
+  },
+  "contextId": "context_wits_01a07ca6_ee9f_73d6_be33_eb8a3aa2e07a",
+  "recordKind": "hacp.v0_3_candidate.continuation_context",
+  "schemaVersion": "hacp-0.3-candidate",
+  "boundaryStatement": "Required candidate context only. It does not independently create authority or permit replay.",
+  "requiredExtension": {
+    "profileId": "hacp-accountable-continuation-v0.3-candidate",
+    "profileVersion": "hacp-0.3-candidate",
+    "extensionAwareProcessingRequired": true
+  },
+  "consumptionReceipt": {
+    "id": "receipt_wits_01a07ca6_ee9f_73d6_be33_eb8a3aa2e07a",
+    "digest": {
+      "value": "e7dfce443ebbc087b8d246bc2077b54ccee74fd39acc45d3fbc19020b830042f",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    }
+  },
+  "successorInvocationId": "invoke_wits_hacp_v03_success_001"
+}

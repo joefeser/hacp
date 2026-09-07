@@ -1,0 +1,173 @@
+{
+  "schema": "hacp.v0_3_candidate.external_bundle_manifest.v1",
+  "candidateStatus": true,
+  "qualificationIntent": "independent_production_plus_cross_validation",
+  "conformancePackage": {
+    "manifestSha256": "18bdd29c2e5347411a0598964224b8674bd0962628cffbc6bac2f0e107cb1d92",
+    "schemaBaseUri": "https://hacp.example/schemas/v0.3-candidate/",
+    "recordSchemaSha256": {
+      "common-defs.schema.json": "be18915465d8db45712a3f08f0cc2eac236565051b639dddaa243c9da36ed759",
+      "task-packet.schema.json": "9bc15332a03e71b9cb2594066928dd99c4c50477cf8004be301c0bc83c9267a7",
+      "review-finding.schema.json": "3e6ed24e06995e89cafa65140e80cb13f44c47dcbc80245711135aa1cffcb1ff",
+      "human-decision.schema.json": "fc5e254e848c2d7c87fb03fa42c45abf4f7b884e4de88c31666b15acf2298675",
+      "consumption-receipt.schema.json": "54a02f5ef6254a5ad001e0ffd214e1e97f5ec6dec455d497dbaae2bbdf1e7954",
+      "continuation-context.schema.json": "73b006a3edef340ffd61d08e3cbc59ac12eb29d8ad1c3e87965cb8dbadc41b29",
+      "agent-report.schema.json": "39344a10f31d5f9d200debe524277e2dcca59fc3cfcc2385913b54532a13f2db",
+      "stop-response.schema.json": "e820499cdd1d1658024d584e6b6178866ef2af7754b41f4cd385447661d33aaa"
+    },
+    "semanticValidatorSha256": "b6fccb52ea78af9b335c3702110a6c630f84d0a93f00548c1a0f30e4e7cf3b89",
+    "digestDomains": [
+      "org.hacp.task-packet.v0.3-candidate",
+      "org.hacp.human-decision.v0.3-candidate",
+      "org.hacp.consumption-receipt.v0.3-candidate",
+      "org.hacp.continuation-context.v0.3-candidate",
+      "org.hacp.agent-report.v0.3-candidate",
+      "org.hacp.review-finding.v0.3-candidate",
+      "org.hacp.stop-response.v0.3-candidate",
+      "org.hacp.successor-start-evidence.v0.3-candidate"
+    ]
+  },
+  "producer": {
+    "implementationId": "wits.hacp-v03-candidate-interworking-proof.v0",
+    "sourceRepository": "https://github.com/joefeser/what-is-the-spec",
+    "sourceCommit": "9fa658f7faf2522de6ea12408c784bb987223f00",
+    "generatedAt": "2026-09-07T16:15:15.047Z"
+  },
+  "fixtureInventory": [
+    {
+      "path": "records/success/task-packet.json",
+      "schema": "task-packet.schema.json",
+      "sha256": "c5d820713d2f4e4cd81fce3956e85680def283e4b958718ae916aeb0ac28fe53"
+    },
+    {
+      "path": "records/success/decision-request.json",
+      "schema": "review-finding.schema.json",
+      "sha256": "9a7063e937552e4695fb7e0fc24b8194cb4857f970318ae20b142c7f73b98ec9"
+    },
+    {
+      "path": "records/success/authority-basis-decision.json",
+      "schema": "human-decision.schema.json",
+      "sha256": "7ca5a11d5cc4623ac4d4d9f7319a2f73de0b50564b7f801988e9fc6c512cd55f"
+    },
+    {
+      "path": "records/success/consumption-receipt.json",
+      "schema": "consumption-receipt.schema.json",
+      "sha256": "c45b5b633bbdb8ba07b23b000baaeb5a77856921c28bd5d5378a65cb33d6e49c"
+    },
+    {
+      "path": "records/success/continuation-context.json",
+      "schema": "continuation-context.schema.json",
+      "sha256": "171199ceb043802233284da7d19e94717c9820ebcc5ef7e85fc46e058b2199f9"
+    },
+    {
+      "path": "records/success/agent-report.json",
+      "schema": "agent-report.schema.json",
+      "sha256": "564fc5e66e0850c6eca259034eab3800f23b1a4a0d41ba9d3c1bdec16313a7a7"
+    },
+    {
+      "path": "records/stop/task-packet.json",
+      "schema": "task-packet.schema.json",
+      "sha256": "7e86f3fd5b374abb62b2b24e50f22036bd3c554f3cc4fd712e1fb06baf052c3a"
+    },
+    {
+      "path": "records/stop/decision-request.json",
+      "schema": "review-finding.schema.json",
+      "sha256": "396c85250f8d789391ef22fe660565dbc9dadd237eba34e46c1cbd6c4710aa9c"
+    },
+    {
+      "path": "records/stop/authority-basis-decision.json",
+      "schema": "human-decision.schema.json",
+      "sha256": "a278bd06371904e296a998628ba0fa45e9b38e0bef5872eecb9a30ccfeb242b2"
+    },
+    {
+      "path": "records/stop/stop-response.json",
+      "schema": "stop-response.schema.json",
+      "sha256": "2c924128c6f2b388e42d5fb8e53e539762462f409cb5a90cbadb7e7174bf29fe"
+    },
+    {
+      "path": "records/stop/response-decision.json",
+      "schema": "human-decision.schema.json",
+      "sha256": "4501c44ce20d401bf57ffe5917d55e1c2040391402e08090e3e2c08f92a48622"
+    }
+  ],
+  "bundles": [
+    {
+      "id": "successful_continuation",
+      "kind": "successful_continuation",
+      "records": [
+        {
+          "role": "task_packet",
+          "path": "records/success/task-packet.json"
+        },
+        {
+          "role": "decision_request",
+          "path": "records/success/decision-request.json"
+        },
+        {
+          "role": "authority_basis_decision",
+          "path": "records/success/authority-basis-decision.json"
+        },
+        {
+          "role": "consumption_receipt",
+          "path": "records/success/consumption-receipt.json"
+        },
+        {
+          "role": "continuation_context",
+          "path": "records/success/continuation-context.json"
+        },
+        {
+          "role": "agent_report",
+          "path": "records/success/agent-report.json"
+        }
+      ]
+    },
+    {
+      "id": "pre_start_stop",
+      "kind": "pre_start_stop",
+      "records": [
+        {
+          "role": "task_packet",
+          "path": "records/stop/task-packet.json"
+        },
+        {
+          "role": "decision_request",
+          "path": "records/stop/decision-request.json"
+        },
+        {
+          "role": "authority_basis_decision",
+          "path": "records/stop/authority-basis-decision.json"
+        },
+        {
+          "role": "stop_response",
+          "path": "records/stop/stop-response.json"
+        }
+      ]
+    },
+    {
+      "id": "stop_decision_response",
+      "kind": "stop_decision_response",
+      "records": [
+        {
+          "role": "task_packet",
+          "path": "records/stop/task-packet.json"
+        },
+        {
+          "role": "decision_request",
+          "path": "records/stop/decision-request.json"
+        },
+        {
+          "role": "authority_basis_decision",
+          "path": "records/stop/authority-basis-decision.json"
+        },
+        {
+          "role": "stop_response",
+          "path": "records/stop/stop-response.json"
+        },
+        {
+          "role": "response_decision",
+          "path": "records/stop/response-decision.json"
+        }
+      ]
+    }
+  ]
+}

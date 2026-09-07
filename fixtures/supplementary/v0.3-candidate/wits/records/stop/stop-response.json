@@ -1,0 +1,23 @@
+{
+  "digest": {
+    "value": "749d402f6ed6cb02e2913f51c1a8e68b444f636c8d4e8d9aeafd666c733a3c9c",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.stop-response.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "stopId": "stop_wits_01a07ca6_f1fa_74d5_bf3c_279d125a04fa",
+  "packetId": "taskpkt_wits_01a07ca6_f17e_7915_8171_5e6c2c74a460",
+  "profileId": "hacp-accountable-continuation-v0.3-candidate",
+  "decisionId": "decision_wits_01a07ca6_f1e9_7c52_a75c_c3f4f2ad696c",
+  "recordKind": "hacp.v0_3_candidate.stop_response",
+  "stopReason": "STALE_PACKET",
+  "evidenceRefs": [
+    "evidence://wits/revocation-readback"
+  ],
+  "schemaVersion": "hacp-0.3-candidate",
+  "boundaryStatement": "This WITS record proves only a bounded pre-start rejection in the local candidate service.",
+  "minimalCorrection": "Return to the exact WITS authority gate with current evidence and a fresh bounded request.",
+  "whatDoesNotLineUp": "WITS verified candidate admission rejection: REVOKED_AUTHORITY.",
+  "successorWorkBegan": false,
+  "successorInvocationId": "invoke_wits_hacp_v03_stop_001"
+}

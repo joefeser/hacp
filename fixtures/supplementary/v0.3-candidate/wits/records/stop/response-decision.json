@@ -1,0 +1,55 @@
+{
+  "actor": {
+    "actorId": "human:synthetic-owner@wits.invalid",
+    "actorKind": "human",
+    "verificationSource": "authenticated_wits_case_principal"
+  },
+  "digest": {
+    "value": "06689b1364bbdcce2c712d4440428d24ffafc4a841e24bbf7630bd6d1824af08",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "decision": "defer",
+  "packetId": "taskpkt_wits_01a07ca6_f17e_7915_8171_5e6c2c74a460",
+  "createdAt": "2026-09-07T16:15:10.899Z",
+  "decisionId": "decision_wits_stop_response_01a07ca6_f233_7843_9d05_94747859461f",
+  "recordKind": "hacp.v0_3_candidate.human_decision",
+  "evidenceRefs": [
+    "wits://candidate-stop/01a07ca6-f1fa-73ed-907d-6fdb5d95a921"
+  ],
+  "packetDigest": {
+    "value": "f7bbef605580b9e9bbc16eac5079b4001be9227d28ff7cca396c9d0dad28b8a2",
+    "algorithm": "sha256",
+    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "canonicalization": "json-rfc8785-jcs"
+  },
+  "schemaVersion": "hacp-0.3-candidate",
+  "decisionReason": "Wait for a fresh authority action.",
+  "decisionRequest": {
+    "id": "stop_wits_01a07ca6_f1fa_74d5_bf3c_279d125a04fa",
+    "kind": "stop_response",
+    "digest": {
+      "value": "749d402f6ed6cb02e2913f51c1a8e68b444f636c8d4e8d9aeafd666c733a3c9c",
+      "algorithm": "sha256",
+      "digestDomain": "org.hacp.stop-response.v0.3-candidate",
+      "canonicalization": "json-rfc8785-jcs"
+    }
+  },
+  "deniedAuthority": [
+    "merge",
+    "deploy",
+    "provider_or_model_invocation",
+    "external_mutation",
+    "accept_risk"
+  ],
+  "boundaryStatement": "This non-approval response grants no successor authority. The schema-required scope is an unchanged historical context echo only.",
+  "authenticationContext": {
+    "authEventRef": "evidence://wits/synthetic-owner-session",
+    "interactionChannel": "web",
+    "secretMaterialPresent": false
+  },
+  "approvedSuccessorScope": [
+    "produce a public-safe stopped bundle"
+  ]
+}

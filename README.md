@@ -180,13 +180,14 @@ and matrix drift.
 ## Status
 
 HACP is not a standard yet. It is a working draft and candidate protocol based
-on practical implementation evidence. The v0.3 candidate encoding now has two
-bounded implementations: the local, synthetic who-decides proof and an
-independently produced WITS projection cross-validated by HACP. This is useful
-interworking evidence, not a claim of distributed execution, external effects,
-bidirectional production, or standard maturity. Vendor-neutrality remains a
-design goal and needs feedback from implementers who did not inherit the
-original project context.
+on practical implementation evidence. WITS independently produces the seven
+v0.3 candidate record kinds and HACP cross-validates that encoding. The pinned
+who-decides 44-case proof supplies separate bounded evidence for the underlying
+one-use continuation semantics; it does not produce or validate the v0.3 record
+encoding. Together these are useful candidate evidence, not a claim of
+distributed execution, external effects, bidirectional production, or standard
+maturity. Vendor-neutrality remains a design goal and needs feedback from
+implementers who did not inherit the original project context.
 
 This repository is intended for public review of the draft contracts. Do not
 describe an implementation as "HACP compliant" yet; use narrower labels such as

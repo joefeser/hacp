@@ -236,6 +236,7 @@ test('validates the independently regenerated WITS supplementary bundles', async
   assert.equal(result.candidateOnly, true);
   assert.equal(result.producer.sourceCommit, '48bac116b1077a81dc7adf8e34c78cc3da17c7b2');
   assert.equal(result.conformancePackage.canonicalNegativeCases, 22);
+  assert.equal(result.conformancePackage.diagnosticSetsComparedExactly, true);
   assert.deepEqual(result.bundles.map(({ id, records }) => ({ id, records })), [
     { id: 'successful_continuation', records: 6 },
     { id: 'pre_start_stop', records: 4 },

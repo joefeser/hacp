@@ -55,14 +55,14 @@
           "maxItems": 8,
           "uniqueItems": true,
           "prefixItems": [
-            { "const": "org.hacp.task-packet.v0.3-candidate" },
-            { "const": "org.hacp.human-decision.v0.3-candidate" },
-            { "const": "org.hacp.consumption-receipt.v0.3-candidate" },
-            { "const": "org.hacp.continuation-context.v0.3-candidate" },
-            { "const": "org.hacp.agent-report.v0.3-candidate" },
-            { "const": "org.hacp.review-finding.v0.3-candidate" },
-            { "const": "org.hacp.stop-response.v0.3-candidate" },
-            { "const": "org.hacp.successor-start-evidence.v0.3-candidate" }
+            { "const": "io.hacp.task-packet.v0.3-candidate" },
+            { "const": "io.hacp.human-decision.v0.3-candidate" },
+            { "const": "io.hacp.consumption-receipt.v0.3-candidate" },
+            { "const": "io.hacp.continuation-context.v0.3-candidate" },
+            { "const": "io.hacp.agent-report.v0.3-candidate" },
+            { "const": "io.hacp.review-finding.v0.3-candidate" },
+            { "const": "io.hacp.stop-response.v0.3-candidate" },
+            { "const": "io.hacp.successor-start-evidence.v0.3-candidate" }
           ],
           "items": false
         }

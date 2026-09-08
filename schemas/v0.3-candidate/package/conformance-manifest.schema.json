@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://hacp.example/schemas/v0.3-candidate/package/conformance-manifest.schema.json",
-  "title": "HACP v0.3 Candidate Conformance Manifest v2",
+  "title": "HACP v0.3 Candidate Conformance Manifest v3",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,7 +10,6 @@
     "sourcePacketCommit",
     "regenerationBaseCommit",
     "whoDecidesEvidence",
-    "reviewRequired",
     "ownerRulings",
     "nonChainInventory",
     "fixtureInventory",
@@ -18,7 +17,7 @@
     "expectedInvalid"
   ],
   "properties": {
-    "schema": { "const": "hacp.v0_3_candidate.conformance_manifest.v2" },
+    "schema": { "const": "hacp.v0_3_candidate.conformance_manifest.v3" },
     "candidateStatus": { "const": true },
     "sourcePacketCommit": { "$ref": "#/$defs/commit" },
     "regenerationBaseCommit": { "$ref": "#/$defs/commit" },
@@ -32,25 +31,37 @@
         "inspectedMainAtPreparation": { "$ref": "#/$defs/commit" }
       }
     },
-    "reviewRequired": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["digestDomains"],
-      "properties": {
-        "digestDomains": {
-          "type": "array",
-          "minItems": 8,
-          "maxItems": 8,
-          "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
-        }
-      }
-    },
     "ownerRulings": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["secondImplementationQualification"],
+      "required": ["digestDomains", "secondImplementationQualification"],
       "properties": {
+        "digestDomains": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["approvedBy", "approvedOn", "values"],
+          "properties": {
+            "approvedBy": { "const": "Joe Feser" },
+            "approvedOn": { "const": "2026-09-07" },
+            "values": {
+              "type": "array",
+              "minItems": 8,
+              "maxItems": 8,
+              "uniqueItems": true,
+              "prefixItems": [
+                { "const": "io.hacp.task-packet.v0.3-candidate" },
+                { "const": "io.hacp.human-decision.v0.3-candidate" },
+                { "const": "io.hacp.consumption-receipt.v0.3-candidate" },
+                { "const": "io.hacp.continuation-context.v0.3-candidate" },
+                { "const": "io.hacp.agent-report.v0.3-candidate" },
+                { "const": "io.hacp.review-finding.v0.3-candidate" },
+                { "const": "io.hacp.stop-response.v0.3-candidate" },
+                { "const": "io.hacp.successor-start-evidence.v0.3-candidate" }
+              ],
+              "items": false
+            }
+          }
+        },
         "secondImplementationQualification": {
           "type": "object",
           "additionalProperties": false,

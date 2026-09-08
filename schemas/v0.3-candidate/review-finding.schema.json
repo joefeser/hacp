@@ -13,7 +13,7 @@
     "packetDigest": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digest" },
-        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.task-packet.v0.3-candidate" } } }
+        { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.task-packet.v0.3-candidate" } } }
       ]
     },
     "severity": { "enum": ["blocker", "high", "medium", "low"] },
@@ -26,7 +26,7 @@
     "digest": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digest" },
-        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.review-finding.v0.3-candidate" } } }
+        { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.review-finding.v0.3-candidate" } } }
       ]
     }
   }

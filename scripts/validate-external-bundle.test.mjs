@@ -26,14 +26,14 @@ const schemaFiles = [
   'stop-response.schema.json'
 ];
 const digestDomains = [
-  'org.hacp.task-packet.v0.3-candidate',
-  'org.hacp.human-decision.v0.3-candidate',
-  'org.hacp.consumption-receipt.v0.3-candidate',
-  'org.hacp.continuation-context.v0.3-candidate',
-  'org.hacp.agent-report.v0.3-candidate',
-  'org.hacp.review-finding.v0.3-candidate',
-  'org.hacp.stop-response.v0.3-candidate',
-  'org.hacp.successor-start-evidence.v0.3-candidate'
+  'io.hacp.task-packet.v0.3-candidate',
+  'io.hacp.human-decision.v0.3-candidate',
+  'io.hacp.consumption-receipt.v0.3-candidate',
+  'io.hacp.continuation-context.v0.3-candidate',
+  'io.hacp.agent-report.v0.3-candidate',
+  'io.hacp.review-finding.v0.3-candidate',
+  'io.hacp.stop-response.v0.3-candidate',
+  'io.hacp.successor-start-evidence.v0.3-candidate'
 ];
 
 function sha256(bytes) {
@@ -228,17 +228,12 @@ test('external paths reject traversal, absolute paths, backslashes, and symlinks
   });
 });
 
-// This is independently emitted WITS evidence, not a copy of the canonical corpus.
-test('committed WITS supplementary bundles retain their merged-source provenance', async () => {
-  const result = await validateExternalBundleRoot(path.join(repoRoot, 'fixtures/supplementary/v0.3-candidate/wits'));
-  assert.equal(result.ok, true);
-  assert.equal(result.candidateOnly, true);
-  assert.equal(result.producer.sourceCommit, '9fa658f7faf2522de6ea12408c784bb987223f00');
-  assert.equal(result.conformancePackage.canonicalNegativeCases, 22);
-  assert.equal(result.conformancePackage.diagnosticSetsComparedExactly, true);
-  assert.deepEqual(result.bundles.map(({ kind, records }) => [kind, records]), [
-    ['successful_continuation', 6],
-    ['pre_start_stop', 4],
-    ['stop_decision_response', 5]
-  ]);
+// The prior WITS bundle remains historical evidence, but its exact package pins
+// must fail after the owner-approved digest namespace correction. A new WITS
+// producer run will replace this test only after independent regeneration.
+test('prior WITS supplementary bundle fails closed after the digest namespace correction', async () => {
+  await assert.rejects(
+    validateExternalBundleRoot(path.join(repoRoot, 'fixtures/supplementary/v0.3-candidate/wits')),
+    /EXTERNAL_MANIFEST_SCHEMA_INVALID/
+  );
 });

@@ -17,7 +17,7 @@
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
-    "digestDomain": "org.hacp.stop-response.v0.3-candidate",
-    "value": "0967c26f9577b911212deeaeefbc20190e86c65f8f10b82ad09f0ac75d62cfbe"
+    "digestDomain": "io.hacp.stop-response.v0.3-candidate",
+    "value": "88a5729153dc924dcb315dccd39ebc6dcc02d8088a2ede615e76973371392e2c"
   }
 }

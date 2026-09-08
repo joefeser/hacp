@@ -5,8 +5,8 @@
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
-    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
-    "value": "08d54c0aef3db9e919e99311dca85076fad63b0b98ea1cc0baf2dd9cedaa5923"
+    "digestDomain": "io.hacp.task-packet.v0.3-candidate",
+    "value": "037fb3a60da8eddd62df9dd3982e9e649c06961c4cef06d37927be099de8267e"
   },
   "sourceContext": {
     "humanRequest": "Review the returned finding and continue only if the owner approves the bounded follow-up.",

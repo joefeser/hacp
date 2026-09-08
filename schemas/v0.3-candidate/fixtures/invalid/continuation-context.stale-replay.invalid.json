@@ -12,7 +12,7 @@
     "digest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+      "digestDomain": "io.hacp.human-decision.v0.3-candidate",
       "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     }
   },
@@ -21,16 +21,16 @@
     "digest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
-      "value": "7e55396c6535614bb09c431cb34f26967ae7a5c8f75dc1718107bb68e35e81bd"
+      "digestDomain": "io.hacp.consumption-receipt.v0.3-candidate",
+      "value": "826e13a192113d89e805ecd906d004cbe55e018e55721871d8c95a8a8f3d5bc1"
     }
   },
   "successorInvocationId": "invoke_example_docs_worker_001",
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
-    "digestDomain": "org.hacp.continuation-context.v0.3-candidate",
-    "value": "eec3b1a91fc06c557548f45be13025e109ebed53140fb08cab2b8ccdf55f078d"
+    "digestDomain": "io.hacp.continuation-context.v0.3-candidate",
+    "value": "feaf9d074224a6e1555e3aa1e0c5cf8c6a08f8d9335ebd2cee93d42d7a6fb4b5"
   },
   "boundaryStatement": "Illustrative required input, not active authority. The consumer must authenticate the context integrity through its independently trusted human-approved profile; a self-supplied digest is insufficient. Revocation/current-status policy and external proof remain unresolved."
 }

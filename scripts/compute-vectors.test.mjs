@@ -33,9 +33,9 @@ async function rejectsManifest(edit, pattern) {
   await assert.rejects(() => validateManifest(cloneManifest(edit)), pattern);
 }
 
-test('manifest v2 preserves candidate status and owner-ruled qualification', async () => {
+test('manifest v3 preserves candidate status and owner rulings', async () => {
   await validateManifest(manifest);
-  assert.equal(manifest.schema, 'hacp.v0_3_candidate.conformance_manifest.v2');
+  assert.equal(manifest.schema, 'hacp.v0_3_candidate.conformance_manifest.v3');
   assert.equal(manifest.candidateStatus, true);
   assert.equal(manifest.nonChainInventory, true);
   assert.deepEqual(manifest.ownerRulings.secondImplementationQualification, {
@@ -43,7 +43,20 @@ test('manifest v2 preserves candidate status and owner-ruled qualification', asy
     candidatePromotion: 'independent_production_plus_cross_validation',
     fullRelease: 'bidirectional_production_and_consumption'
   });
-  assert.equal(Object.hasOwn(manifest.reviewRequired, 'qualificationRule'), false);
+  assert.deepEqual(manifest.ownerRulings.digestDomains, {
+    approvedBy: 'Joe Feser',
+    approvedOn: '2026-09-07',
+    values: [
+      'io.hacp.task-packet.v0.3-candidate',
+      'io.hacp.human-decision.v0.3-candidate',
+      'io.hacp.consumption-receipt.v0.3-candidate',
+      'io.hacp.continuation-context.v0.3-candidate',
+      'io.hacp.agent-report.v0.3-candidate',
+      'io.hacp.review-finding.v0.3-candidate',
+      'io.hacp.stop-response.v0.3-candidate',
+      'io.hacp.successor-start-evidence.v0.3-candidate'
+    ]
+  });
 });
 
 test('all three declared bundles validate independently', async () => {

@@ -6,16 +6,16 @@
   "digest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
-    "digestDomain": "org.hacp.agent-report.v0.3-candidate",
-    "value": "5461462ff45a8944f8c41201509a8341e432afddccb059a19c698273c0b0842f"
+    "digestDomain": "io.hacp.agent-report.v0.3-candidate",
+    "value": "7fe66632c832e981f1e8066375e97495790c64537e696734308d1a0cd054df20"
   },
   "continuationContext": {
     "id": "context_example_successor_001",
     "digest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.continuation-context.v0.3-candidate",
-      "value": "92dfe026bee268300467761ad158a672bd3012331c56799bef6effa666b97993"
+      "digestDomain": "io.hacp.continuation-context.v0.3-candidate",
+      "value": "004fdf803d6bfe61a18f71ae8f350013ae5232d866352ec83387d9ff6114d3e1"
     }
   },
   "packetId": "taskpkt_example_continue_review_001",
@@ -24,8 +24,8 @@
     "digest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.human-decision.v0.3-candidate",
-      "value": "fcdc44811249a82aa110a64b4a0100612bcf8f80fb45f63a1f0e000b4df2d45a"
+      "digestDomain": "io.hacp.human-decision.v0.3-candidate",
+      "value": "545b43ca3c706c47090d953189d984506e6009a5efe5cfe03400edc0abcc0e0b"
     }
   },
   "decisionRequest": {
@@ -34,16 +34,16 @@
     "digest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.review-finding.v0.3-candidate",
-      "value": "9109eca466f076597196f4a043c5b09dc5d657c5771d99530974f7b038f9e769"
+      "digestDomain": "io.hacp.review-finding.v0.3-candidate",
+      "value": "eb4f41e53bcbe6a6f8bada28db2b4397996c7b3e2dc4d9349e35d42c40f95c95"
     }
   },
   "consumptionReceiptId": "receipt_example_claim_successor_001",
   "consumptionReceiptDigest": {
     "algorithm": "sha256",
     "canonicalization": "json-rfc8785-jcs",
-    "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
-    "value": "7e55396c6535614bb09c431cb34f26967ae7a5c8f75dc1718107bb68e35e81bd"
+    "digestDomain": "io.hacp.consumption-receipt.v0.3-candidate",
+    "value": "826e13a192113d89e805ecd906d004cbe55e018e55721871d8c95a8a8f3d5bc1"
   },
   "successorInvocationId": "invoke_example_docs_worker_001",
   "startEvidence": {
@@ -52,16 +52,16 @@
     "digest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.successor-start-evidence.v0.3-candidate",
-      "value": "704d2d56a55e6c5bc697dfc5b1dbc107c1b182c90fe814e70041c9bb89a95a47"
+      "digestDomain": "io.hacp.successor-start-evidence.v0.3-candidate",
+      "value": "bacba077ab700bfd768918f7000d43c4a6b97ff325b78333da9e487e4fe0a06e"
     },
     "successorInvocationId": "invoke_unrelated_001",
     "consumptionReceiptId": "receipt_example_claim_successor_001",
     "consumptionReceiptDigest": {
       "algorithm": "sha256",
       "canonicalization": "json-rfc8785-jcs",
-      "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
-      "value": "7e55396c6535614bb09c431cb34f26967ae7a5c8f75dc1718107bb68e35e81bd"
+      "digestDomain": "io.hacp.consumption-receipt.v0.3-candidate",
+      "value": "826e13a192113d89e805ecd906d004cbe55e018e55721871d8c95a8a8f3d5bc1"
     },
     "acceptedClaimReadBackAt": "2026-09-03T18:05:01Z",
     "workStartedAt": "2026-09-03T18:05:02Z",

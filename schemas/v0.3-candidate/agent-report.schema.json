@@ -13,20 +13,20 @@
     "digest": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digest" },
-        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.agent-report.v0.3-candidate" } } }
+        { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.agent-report.v0.3-candidate" } } }
       ]
     },
     "continuationContext": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digestRef" },
-        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.continuation-context.v0.3-candidate" } } } } }
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.continuation-context.v0.3-candidate" } } } } }
       ]
     },
     "packetId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
     "decision": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digestRef" },
-        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.human-decision.v0.3-candidate" } } } } }
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.human-decision.v0.3-candidate" } } } } }
       ]
     },
     "decisionRequest": { "$ref": "common-defs.schema.json#/$defs/decisionRequestRef" },
@@ -34,7 +34,7 @@
     "consumptionReceiptDigest": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digest" },
-        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.consumption-receipt.v0.3-candidate" } } }
+        { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.consumption-receipt.v0.3-candidate" } } }
       ]
     },
     "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
@@ -48,7 +48,7 @@
         "digest": {
           "allOf": [
             { "$ref": "common-defs.schema.json#/$defs/digest" },
-            { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.successor-start-evidence.v0.3-candidate" } } }
+            { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.successor-start-evidence.v0.3-candidate" } } }
           ]
         },
         "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
@@ -56,7 +56,7 @@
         "consumptionReceiptDigest": {
           "allOf": [
             { "$ref": "common-defs.schema.json#/$defs/digest" },
-            { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.consumption-receipt.v0.3-candidate" } } }
+            { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.consumption-receipt.v0.3-candidate" } } }
           ]
         },
         "acceptedClaimReadBackAt": { "$ref": "common-defs.schema.json#/$defs/timestamp" },

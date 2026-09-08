@@ -1,5 +1,5 @@
 {
-  "schema": "hacp.v0_3_candidate.conformance_manifest.v2",
+  "schema": "hacp.v0_3_candidate.conformance_manifest.v3",
   "candidateStatus": true,
   "sourcePacketCommit": "db47da2118355683f34fd955083c2b3c38769fe4",
   "regenerationBaseCommit": "73056a53fd87ce20d6a40f8c2188d2fb0a07ce7f",
@@ -8,19 +8,21 @@
     "mergeCommit": "c6677da198c166079132ac2a23a39afeade26af3",
     "inspectedMainAtPreparation": "04a89f5509035b3299bb3786da1e9909a4e78dc0"
   },
-  "reviewRequired": {
-    "digestDomains": [
-      "org.hacp.task-packet.v0.3-candidate",
-      "org.hacp.human-decision.v0.3-candidate",
-      "org.hacp.consumption-receipt.v0.3-candidate",
-      "org.hacp.continuation-context.v0.3-candidate",
-      "org.hacp.agent-report.v0.3-candidate",
-      "org.hacp.review-finding.v0.3-candidate",
-      "org.hacp.stop-response.v0.3-candidate",
-      "org.hacp.successor-start-evidence.v0.3-candidate"
-    ]
-  },
   "ownerRulings": {
+    "digestDomains": {
+      "approvedBy": "Joe Feser",
+      "approvedOn": "2026-09-07",
+      "values": [
+        "io.hacp.task-packet.v0.3-candidate",
+        "io.hacp.human-decision.v0.3-candidate",
+        "io.hacp.consumption-receipt.v0.3-candidate",
+        "io.hacp.continuation-context.v0.3-candidate",
+        "io.hacp.agent-report.v0.3-candidate",
+        "io.hacp.review-finding.v0.3-candidate",
+        "io.hacp.stop-response.v0.3-candidate",
+        "io.hacp.successor-start-evidence.v0.3-candidate"
+      ]
+    },
     "secondImplementationQualification": {
       "sourceIssue": "https://github.com/joefeser/hacp/issues/47",
       "candidatePromotion": "independent_production_plus_cross_validation",
@@ -258,7 +260,7 @@
       "replaceRecordPath": "valid/success/consumption-receipt.valid.json",
       "context": {
         "revokedDecisionDigests": [
-          "fcdc44811249a82aa110a64b4a0100612bcf8f80fb45f63a1f0e000b4df2d45a"
+          "545b43ca3c706c47090d953189d984506e6009a5efe5cfe03400edc0abcc0e0b"
         ]
       }
     },

@@ -1,11 +1,11 @@
 {
   "digest": {
-    "value": "21cc7b195d12d4556c3756b186cbd520ea2964e7f58ebbc9c958c81c170974f9",
+    "value": "4a1b49eceb3f70a5c5b48819c8c536b79c22e161f5819eaf6be0bc49a03110b9",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "digestDomain": "io.hacp.task-packet.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
-  "packetId": "taskpkt_wits_01a07ca6_edb8_7b3e_8765_7833962903aa",
+  "packetId": "taskpkt_wits_01a07ef6_c6e4_7efb_b147_f1647b6070ed",
   "loopPolicy": {
     "mode": "single_pass",
     "ceiling": 0,
@@ -22,8 +22,8 @@
   "schemaVersion": "hacp-0.3-candidate",
   "sourceContext": {
     "sourceRefs": [
-      "wits://case/3348032a-cade-40e2-a167-69d1b2d5001e/product-decisions/01a07ca6-ed98-799c-94fd-5108d7ac4680",
-      "wits://product-decision-action/01a07ca6-edb8-7b3e-8765-7833962903aa"
+      "wits://case/1f922fd8-4b31-4221-bbf3-18457362461f/product-decisions/01a07ef6-c6ca-72a4-ae93-fcf80cf1bad3",
+      "wits://product-decision-action/01a07ef6-c6e4-7efb-b147-f1647b6070ed"
     ],
     "humanRequest": "May one public-safe conformance successor begin?"
   },

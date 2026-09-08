@@ -228,12 +228,17 @@ test('external paths reject traversal, absolute paths, backslashes, and symlinks
   });
 });
 
-// The prior WITS bundle remains historical evidence, but its exact package pins
-// must fail after the owner-approved digest namespace correction. A new WITS
-// producer run will replace this test only after independent regeneration.
-test('prior WITS supplementary bundle fails closed after the digest namespace correction', async () => {
-  await assert.rejects(
-    validateExternalBundleRoot(path.join(repoRoot, 'fixtures/supplementary/v0.3-candidate/wits')),
-    /EXTERNAL_MANIFEST_SCHEMA_INVALID/
+test('validates the independently regenerated WITS supplementary bundles', async () => {
+  const result = await validateExternalBundleRoot(
+    path.join(repoRoot, 'fixtures/supplementary/v0.3-candidate/wits'),
   );
+  assert.equal(result.ok, true);
+  assert.equal(result.candidateOnly, true);
+  assert.equal(result.producer.sourceCommit, '48bac116b1077a81dc7adf8e34c78cc3da17c7b2');
+  assert.equal(result.conformancePackage.canonicalNegativeCases, 22);
+  assert.deepEqual(result.bundles.map(({ id, records }) => ({ id, records })), [
+    { id: 'successful_continuation', records: 6 },
+    { id: 'pre_start_stop', records: 4 },
+    { id: 'stop_decision_response', records: 5 },
+  ]);
 });

@@ -1,7 +1,8 @@
 # WITS v0.3 candidate qualification decision packet
 
-Status: Joe accepted the pinned WITS proof as Option 1 evidence on 2026-09-07.
-Domain approval, publication, and WITS Task 1.3f remain open.
+Status: Joe accepted the pinned WITS proof as Option 1 evidence and approved
+the exact candidate digest domains and bounded candidate publication work on
+2026-09-07. WITS Task 1.3f remains open.
 
 ## Pinned evidence
 
@@ -11,6 +12,8 @@ Domain approval, publication, and WITS Task 1.3f remain open.
 | WITS handoff record, PR #1368 | `5402baf4ba851bf989d7253574af6695e05d02f0` |
 | HACP published external validator, PR #55 | `b6c6bf35640515045252803cfe49d75e223a12d9` |
 | HACP merged WITS fixtures, PR #56 | `5f65c7e439b9b636e1ac7fd6c2d2500762518380` |
+| Corrected HACP candidate package | `6393cd893296c7566059ca95347d82b9454fc2a7` |
+| Regenerated WITS producer, PR #1369 | `48bac116b1077a81dc7adf8e34c78cc3da17c7b2` |
 
 PRs [#56](https://github.com/joefeser/hacp/pull/56) and
 [WITS #1368](https://github.com/joefeser/what-is-the-spec/pull/1368) are merged.
@@ -61,23 +64,23 @@ not approve Decision 2, publication, closure of Task 1.3f, or merge of PR #57.
 
 ## Decision 2: exact candidate digest domains
 
-Owner status: **pending; normative approval not established by this packet**.
+Owner status: **approved by Joe Feser on 2026-09-07**.
 
 The published [candidate README](../../../schemas/v0.3-candidate/README.md)
 requires Joe's approval of the exact set before candidate publication:
 
-1. `org.hacp.task-packet.v0.3-candidate`
-2. `org.hacp.human-decision.v0.3-candidate`
-3. `org.hacp.consumption-receipt.v0.3-candidate`
-4. `org.hacp.continuation-context.v0.3-candidate`
-5. `org.hacp.agent-report.v0.3-candidate`
-6. `org.hacp.review-finding.v0.3-candidate`
-7. `org.hacp.stop-response.v0.3-candidate`
-8. `org.hacp.successor-start-evidence.v0.3-candidate` (supporting record)
+1. `io.hacp.task-packet.v0.3-candidate`
+2. `io.hacp.human-decision.v0.3-candidate`
+3. `io.hacp.consumption-receipt.v0.3-candidate`
+4. `io.hacp.continuation-context.v0.3-candidate`
+5. `io.hacp.agent-report.v0.3-candidate`
+6. `io.hacp.review-finding.v0.3-candidate`
+7. `io.hacp.stop-response.v0.3-candidate`
+8. `io.hacp.successor-start-evidence.v0.3-candidate` (supporting record)
 
-Approval must identify this exact set and its candidate scope. A changed string
-requires a contract change and regeneration of affected digests; this packet
-makes no such change. Qualification acceptance does not imply domain approval.
+The canonical package and the WITS producer were regenerated against this
+exact set. A future changed string remains a contract change requiring another
+versioned regeneration and owner disposition.
 
 ## WITS residual requiring separate disposition
 
@@ -88,9 +91,9 @@ from a prior post-lock database observation, then rechecks time and expiry in
 the final atomic CTE. The prior observation does not satisfy the final expiry
 predicate. The stronger common-time provenance assertion remains unproven.
 
-An Option 1 decision can record this limitation as part of the conformance
-evidence. It cannot silently amend WITS R4B, mark Task 1.3f complete, accept
-operational risk on Joe's behalf, or enable a runtime. Closing that task needs
+Joe accepts this mismatch only as a disclosed v0.3-candidate limitation. That
+acceptance does not amend WITS R4B, mark Task 1.3f complete, authorize runtime
+execution, or establish full-release conformance. Closing that task needs
 an explicit owner disposition and, if requirements or architecture change,
 Kiro-governed reconciliation with the required independent review. This packet
 does not propose or implement a replacement architecture.
@@ -98,15 +101,13 @@ does not propose or implement a replacement architecture.
 ## Publication and release gates still separate
 
 The [publication checklist](../../../PUBLICATION-CHECKLIST.md) requires two
-independent reviews against the same pinned v0.3 candidate package before
-publication readiness. This packet does not certify that gate: prior WITS spec
-reviews and a merged fixture PR are not evidence of two reviews of this exact
-merged package. It does not schedule another WITS spec review round.
-
-The checklist's owner-accepted external proofs and other publication items also
-retain their existing status. A later publication-readiness pass must bind each
-claimed gate to its own evidence and owner decisions; two approvals alone do
-not complete the checklist. There is no release or publication action here.
+independent reviews against the same pinned v0.3 candidate package. That gate
+is recorded in the
+[publication-readiness synthesis](../../v0.3-candidate-publication-readiness.md).
+Joe authorized the bounded HACP and WITS regeneration, repinning,
+documentation corrections, validation, and governed PRs needed to publish the
+candidate. The authorization does not permit runtime execution or promote the
+candidate to a standard or full release.
 
 Bidirectional production/consumption is the later full-release criterion under
 #47. [HACP #52](https://github.com/joefeser/hacp/issues/52), synthetic identity

@@ -131,11 +131,12 @@ Digest objects use `sha256` and the [HACP 0.2 canonicalization rules](../../hacp
 omit a record's own top-level `digest` when hashing its JCS representation;
 retain embedded reference digests, which bind their referenced records in their
 own domains. This applies also to the separately referenced start-evidence
-record, not to its display copy inside a report. The proposed
-`org.hacp.*.v0.3-candidate` domains remain REVIEW-REQUIRED: consumers must
-reject them unless an approved profile declares their coverage and
-interpretation. The executable package supplies reproducible computed
-candidate values without finalizing those domain strings as a standard.
+record, not to its display copy inside a report. This source packet originally
+proposed `org.hacp.*.v0.3-candidate` domains. That proposal is superseded by
+Joe Feser's 2026-09-07 approval of the exact `io.hacp.*.v0.3-candidate` set
+recorded in the executable package's v3 manifest. The approved strings remain
+candidate-scoped and do not become standard or full-release domains merely
+because they are reproducible.
 
 Accepting a consumption claim proves only that one successor invocation was
 admitted under the profile's concurrency rule. It does not prove provider

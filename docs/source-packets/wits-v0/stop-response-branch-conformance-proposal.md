@@ -267,8 +267,8 @@ The revised package must add committed or test-generated cases that prove:
   bundle-scoped tests; no helper may reconstruct the retired union implicitly.
 - The required negative evidence above passes with exact diagnostics.
 - `npm run hacp:v03-candidate` proves committed vectors are byte-reproducible.
-- Candidate status, non-final digest-domain status, split licensing, and the
-  Option 1 qualification rule remain unchanged.
+- Candidate status, candidate-scoped/non-standard digest-domain status, split
+  licensing, and the Option 1 qualification rule remain unchanged.
 
 The package README must also disclose that a stopped
 `successorInvocationId` is an assertion made by the stop record, not a positive

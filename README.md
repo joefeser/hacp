@@ -179,10 +179,14 @@ and matrix drift.
 
 ## Status
 
-HACP is not a standard yet. It is a working draft based on practical experience
-building and dogfooding one implementation. Vendor-neutrality is a design goal;
-achieving it requires independent implementations and feedback from tool owners
-who did not inherit the original implementation context.
+HACP is not a standard yet. It is a working draft and candidate protocol based
+on practical implementation evidence. The v0.3 candidate encoding now has two
+bounded implementations: the local, synthetic who-decides proof and an
+independently produced WITS projection cross-validated by HACP. This is useful
+interworking evidence, not a claim of distributed execution, external effects,
+bidirectional production, or standard maturity. Vendor-neutrality remains a
+design goal and needs feedback from implementers who did not inherit the
+original project context.
 
 This repository is intended for public review of the draft contracts. Do not
 describe an implementation as "HACP compliant" yet; use narrower labels such as
@@ -204,7 +208,8 @@ checked.
 ### Experimental Or Product-Proven But Not Standardized
 
 - product-specific UX/readback and governance workflows;
-- cross-vendor interoperability claims without independent implementations;
+- interoperability claims beyond the two bounded candidate implementations and
+  their published limitations;
 - any claim that schema validation alone proves operational safety;
 - any maturity framing that implies a finalized or ratified standard.
 

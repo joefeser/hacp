@@ -75,7 +75,7 @@ context. Missing-record cases are omission-only manifest instructions; they do
 not retain byte-identical files that would misleadingly appear to be invalid
 records. A receipt URI or self-asserted field does not prove revocation.
 
-The v2 manifest is validated before fixture content is trusted. Its
+The v3 manifest is validated before fixture content is trusted. Its
 `fixtureInventory` is a non-chain inventory, and `expectedValidBundles` is the
 only positive semantic input. Unknown manifest versions, unsafe paths,
 undeclared JSON fixtures, ambiguous negative selectors, unexpected roles, and
@@ -111,7 +111,7 @@ in this directory are the conformance corpus.
 
 Issue [#54](https://github.com/joefeser/hacp/issues/54) adds a separate,
 closed admission boundary for independently produced candidate bundles. It
-does not loosen the canonical v2 manifest or allow executable provider code.
+does not loosen the canonical v3 manifest or allow executable provider code.
 
 An external producer supplies a directory containing exactly:
 
@@ -203,3 +203,8 @@ not establish distributed trust, cross-store atomicity, provider effects, or
 exactly-once external effects. These schemas validate record shape; the corpus
 also validates a bounded set of cross-record relationships. Neither grants
 authority or executes work.
+
+Joe Feser accepted the pinned who-decides 44-case receipt-bound proof on
+2026-09-07 as the external proof required by the candidate publication
+checklist. That acceptance retains the proof's local, synthetic, closed-world,
+and no-external-effect limits; it is not full-release evidence.

@@ -1,15 +1,12 @@
 {
   "schemaId": "hacp.wits_supplementary_cross_validation_receipt.v1",
-  "recordedAt": "2026-09-07T16:16:32.359569+00:00",
-  "witsSourceCommit": "9fa658f7faf2522de6ea12408c784bb987223f00",
-  "witsPullRequest": "https://github.com/joefeser/what-is-the-spec/pull/1367",
-  "hacpValidatorCommit": "b6c6bf35640515045252803cfe49d75e223a12d9",
+  "recordedAt": "2026-09-08T03:06:36Z",
+  "witsSourceCommit": "48bac116b1077a81dc7adf8e34c78cc3da17c7b2",
+  "witsPullRequest": "https://github.com/joefeser/what-is-the-spec/pull/1369",
+  "hacpValidatorCommit": "6393cd893296c7566059ca95347d82b9454fc2a7",
   "bundleRoot": "fixtures/supplementary/v0.3-candidate/wits",
-  "externalManifestSha256": "44742d3b6a8700534b18884474bef09a2850bd15d837306a309feec077ca00d1",
-  "witsIntegrationTests": {
-    "passed": 8,
-    "failed": 0
-  },
+  "externalManifestSha256": "1a5f8171e075120341e3f5d39f75ba83e7ecc4ced01e7cef6e5a5db293a53465",
+  "witsIntegrationTests": { "passed": 8, "failed": 0 },
   "validationCommand": "node scripts/validate-external-bundle.mjs --root fixtures/supplementary/v0.3-candidate/wits",
   "validationResult": {
     "ok": true,
@@ -18,49 +15,38 @@
     "producer": {
       "implementationId": "wits.hacp-v03-candidate-interworking-proof.v0",
       "sourceRepository": "https://github.com/joefeser/what-is-the-spec",
-      "sourceCommit": "9fa658f7faf2522de6ea12408c784bb987223f00",
-      "generatedAt": "2026-09-07T16:15:15.047Z"
+      "sourceCommit": "48bac116b1077a81dc7adf8e34c78cc3da17c7b2",
+      "generatedAt": "2026-09-08T03:01:42.030Z"
     },
     "conformancePackage": {
-      "manifestSha256": "18bdd29c2e5347411a0598964224b8674bd0962628cffbc6bac2f0e107cb1d92",
+      "manifestSha256": "b794afa184761792d7a5c682ea8eed5a94f49d65289b429d747afc51d595d33c",
       "recordSchemaSha256": {
-        "common-defs.schema.json": "be18915465d8db45712a3f08f0cc2eac236565051b639dddaa243c9da36ed759",
-        "task-packet.schema.json": "9bc15332a03e71b9cb2594066928dd99c4c50477cf8004be301c0bc83c9267a7",
-        "review-finding.schema.json": "3e6ed24e06995e89cafa65140e80cb13f44c47dcbc80245711135aa1cffcb1ff",
-        "human-decision.schema.json": "fc5e254e848c2d7c87fb03fa42c45abf4f7b884e4de88c31666b15acf2298675",
-        "consumption-receipt.schema.json": "54a02f5ef6254a5ad001e0ffd214e1e97f5ec6dec455d497dbaae2bbdf1e7954",
-        "continuation-context.schema.json": "73b006a3edef340ffd61d08e3cbc59ac12eb29d8ad1c3e87965cb8dbadc41b29",
-        "agent-report.schema.json": "39344a10f31d5f9d200debe524277e2dcca59fc3cfcc2385913b54532a13f2db",
-        "stop-response.schema.json": "e820499cdd1d1658024d584e6b6178866ef2af7754b41f4cd385447661d33aaa"
+        "common-defs.schema.json": "702ce603cf2a3f5bde62296fde230f3a80545a8bcbb61acde853dff784804621",
+        "task-packet.schema.json": "9b7447bac08afcdb88ca5c275d1f897d6aff8a83f41e068bb79480f185da3dea",
+        "review-finding.schema.json": "d125d9278f752e8da50ec466cf0d8c8cea4600a84b304640307a236c9ff71918",
+        "human-decision.schema.json": "ff7dd8031589a91857a10b6b84d82ca6091b9040c17aab52c4002ebe103b5af0",
+        "consumption-receipt.schema.json": "f03c6a4169146def1e0194bb657f8c59bcd9659e1d8a2eb807399d982bc4c226",
+        "continuation-context.schema.json": "0a950f2c212f0c0b3340cb83e250f24d9dde8893f6aa2e8895d9712739a5c83a",
+        "agent-report.schema.json": "7a901c27e18e9992a4a69b0b1a4e9a73d20b6de4bd050ab9c43b176d32bd5599",
+        "stop-response.schema.json": "99dabeac273a0be54a8dbb5ffdb764d156d1af4622f0dd9402feaa81bfc4f972"
       },
-      "semanticValidatorSha256": "b6fccb52ea78af9b335c3702110a6c630f84d0a93f00548c1a0f30e4e7cf3b89",
+      "semanticValidatorSha256": "c858af0bdc6c017cbf3dcbccc1e32567b8500985c38aff27606d04d28a08c598",
       "canonicalNegativeCases": 22,
       "diagnosticSetsComparedExactly": true
     },
     "bundles": [
-      {
-        "id": "successful_continuation",
-        "kind": "successful_continuation",
-        "records": 6
-      },
-      {
-        "id": "pre_start_stop",
-        "kind": "pre_start_stop",
-        "records": 4
-      },
-      {
-        "id": "stop_decision_response",
-        "kind": "stop_decision_response",
-        "records": 5
-      }
+      { "id": "successful_continuation", "kind": "successful_continuation", "records": 6 },
+      { "id": "pre_start_stop", "kind": "pre_start_stop", "records": 4 },
+      { "id": "stop_decision_response", "kind": "stop_decision_response", "records": 5 }
     ]
   },
   "limitations": [
     "Synthetic local PostgreSQL proof; authentication references describe seeded test identities, not live external identity verification.",
-    "Candidate-only evidence; owner reconciliation under HACP #47 remains separate from conformance validation.",
+    "Candidate-only evidence; full-release qualification remains separate from conformance validation.",
     "No provider/model invocation, dispatch, deployment, or external-effect proof.",
     "WITS and HACP share canonicalize, so agreement retains common-mode JCS library risk.",
-    "Digest-bearing timestamps use the prior post-lock database observation; the final atomic CTE rechecks time and expiry. The stronger single-read provenance assertion remains unproven.",
-    "Fixture timestamps and UUIDs vary on fresh database generation; the committed manifest pins this run byte-for-byte."
+    "Digest-bearing timestamps use the prior post-lock database observation; the final atomic CTE rechecks time and expiry. WITS Task 1.3f and the stronger single-read provenance assertion remain open.",
+    "Fixture timestamps and UUIDs vary on fresh database generation; the committed manifest pins this run byte-for-byte.",
+    "The WITS repository may be private; the complete public-safe fixture bytes and this HACP-side validation receipt are public evidence."
   ]
 }

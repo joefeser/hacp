@@ -1,8 +1,8 @@
 {
   "claim": {
-    "claimId": "claim_wits_01a07ca6_ee9f_73d6_be33_eb8a3aa2e07a",
+    "claimId": "claim_wits_01a07ef6_c79c_7e65_9180_409d631fb27d",
     "claimant": "agent:wits-conformance@local",
-    "claimedAt": "2026-09-07T16:15:09.983Z",
+    "claimedAt": "2026-09-08T03:01:37.308Z",
     "permittedScope": [
       "produce seven public-safe candidate records",
       "run local conformance validation"
@@ -11,33 +11,33 @@
     "successorInvocationId": "invoke_wits_hacp_v03_success_001"
   },
   "digest": {
-    "value": "e7dfce443ebbc087b8d246bc2077b54ccee74fd39acc45d3fbc19020b830042f",
+    "value": "7ff4055a74cf3905acadddbeb46efd94ef259014da83ae791bf22968a94e122d",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.consumption-receipt.v0.3-candidate",
+    "digestDomain": "io.hacp.consumption-receipt.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
-  "receiptId": "receipt_wits_01a07ca6_ee9f_73d6_be33_eb8a3aa2e07a",
+  "receiptId": "receipt_wits_01a07ef6_c79c_7e65_9180_409d631fb27d",
   "admittedBy": "wits:native-candidate-admission",
-  "decisionId": "decision_wits_01a07ca6_ee6a_73a6_aa44_41f2e4298d05",
+  "decisionId": "decision_wits_01a07ef6_c769_77ed_8e3e_ee694f1a8054",
   "recordKind": "hacp.v0_3_candidate.consumption_receipt",
   "evidenceRefs": [
-    "wits://product-decision-action/01a07ca6-edb8-7b3e-8765-7833962903aa",
-    "wits://candidate-authority/01a07ca6-ee6a-73a6-aa44-41f2e4298d05"
+    "wits://product-decision-action/01a07ef6-c6e4-7efb-b147-f1647b6070ed",
+    "wits://candidate-authority/01a07ef6-c769-77ed-8e3e-ee694f1a8054"
   ],
   "schemaVersion": "hacp-0.3-candidate",
   "decisionDigest": {
-    "value": "b7261e0f87fb97852bb5e1d4f8d9c6d89eaa049164626b79b00a3bed915325e9",
+    "value": "c98d362964b87981a1e1e5a035f7484dc8d97d17472f89b1561af45bd2d3f879",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+    "digestDomain": "io.hacp.human-decision.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
   "decisionRequest": {
-    "id": "finding_wits_01a07ca6_edb8_7b3e_8765_7833962903aa",
+    "id": "finding_wits_01a07ef6_c6e4_7efb_b147_f1647b6070ed",
     "kind": "review_finding",
     "digest": {
-      "value": "9952f87b684f3e9c9a56e223c29a254cbd7f44185d2584c98b575d1c044096fa",
+      "value": "da8ee20af9c6c63c2a266ceef6ece477ea819572dca7e6bea0aa32e633550059",
       "algorithm": "sha256",
-      "digestDomain": "org.hacp.review-finding.v0.3-candidate",
+      "digestDomain": "io.hacp.review-finding.v0.3-candidate",
       "canonicalization": "json-rfc8785-jcs"
     }
   },
@@ -45,10 +45,10 @@
   "singleConsumerBasis": {
     "profileId": "hacp-accountable-continuation-v0.3-candidate",
     "idempotencyKey": "hacp-v03:consume:success",
-    "receiptExpiresAt": "2026-09-07T16:30:09.764Z",
+    "receiptExpiresAt": "2026-09-08T03:16:37.133Z",
     "trustedTimeSource": "wits-postgresql-clock-timestamp",
-    "receiptValidityRef": "wits://candidate-consumption/01a07ca6-ee9f-73d6-be33-eb8a3aa2e07a",
-    "decisionValidityRef": "wits://candidate-authority/01a07ca6-ee6a-73a6-aa44-41f2e4298d05",
+    "receiptValidityRef": "wits://candidate-consumption/01a07ef6-c79c-7e65-9180-409d631fb27d",
+    "decisionValidityRef": "wits://candidate-authority/01a07ef6-c769-77ed-8e3e-ee694f1a8054",
     "uniquenessRuleStatus": "requires_owner_approved_profile_definition"
   }
 }

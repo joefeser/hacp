@@ -19,10 +19,11 @@ Use this before making the repository public.
       record Joe's approval of every exact digest-domain string and the
       second-implementation qualification rule. The exact `io.hacp.*` domains
       and issue #47 Option 1 rule are recorded in the v3 manifest.
-- [ ] Require two independent reviews against the same pinned v0.3 candidate
-      package before treating its contracts as publication-ready. The earlier
-      reviews found the namespace defect before regeneration and therefore do
-      not satisfy this final-package gate. See
+- [x] Require two independent reviews against the same pinned v0.3 candidate
+      package before treating its contracts as publication-ready. Two reviewers
+      independently reviewed exact package pin
+      `a865b36b371f8f49033fb3b05ebbb1f28fabbaa0`; their synthesis and the bounded
+      documentation corrections are recorded in
       [the publication-readiness record](docs/v0.3-candidate-publication-readiness.md).
 - [ ] Confirm issue templates or discussion settings are ready for public
       review.

@@ -383,8 +383,10 @@ record is still required before marking work complete.
 ## Candidate Conformance Fixtures
 
 The executable candidate package promotes the seven example shapes into
-closed schemas and computed vectors. Its exact digest-domain identifiers
-remain an explicit owner review gate. Issue
+closed schemas and computed vectors. Joe approved its exact eight
+`io.hacp.*.v0.3-candidate` digest-domain identifiers on 2026-09-07 for this
+candidate package only; a changed identifier or full-release namespace remains
+a separate owner review gate. Issue
 [#47](https://github.com/joefeser/hacp/issues/47) records independent
 production plus cross-validation as the second-implementation criterion for
 candidate promotion; bidirectional production and consumption remains a

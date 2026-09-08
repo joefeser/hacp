@@ -8,25 +8,31 @@ the exact candidate digest domains and bounded candidate publication work on
 
 | Evidence | Exact ref |
 | --- | --- |
-| WITS implementation, PR #1367 | `9fa658f7faf2522de6ea12408c784bb987223f00` |
-| WITS handoff record, PR #1368 | `5402baf4ba851bf989d7253574af6695e05d02f0` |
-| HACP published external validator, PR #55 | `b6c6bf35640515045252803cfe49d75e223a12d9` |
-| HACP merged WITS fixtures, PR #56 | `5f65c7e439b9b636e1ac7fd6c2d2500762518380` |
-| Corrected HACP candidate package | `6393cd893296c7566059ca95347d82b9454fc2a7` |
+| Historical WITS implementation, PR #1367 | `9fa658f7faf2522de6ea12408c784bb987223f00` |
+| Historical WITS handoff record, PR #1368 | `5402baf4ba851bf989d7253574af6695e05d02f0` |
+| Historical HACP external validator, PR #55 | `b6c6bf35640515045252803cfe49d75e223a12d9` |
+| Historical HACP WITS-fixture merge, PR #56 | `5f65c7e439b9b636e1ac7fd6c2d2500762518380` |
+| Regenerated HACP candidate package | `6393cd893296c7566059ca95347d82b9454fc2a7` |
 | Regenerated WITS producer, PR #1369 | `48bac116b1077a81dc7adf8e34c78cc3da17c7b2` |
 
 PRs [#56](https://github.com/joefeser/hacp/pull/56) and
-[WITS #1368](https://github.com/joefeser/what-is-the-spec/pull/1368) are merged.
-The producer commit remains the implementation merge; the later documentation
-merge does not change the source of the fixture records.
+[WITS #1368](https://github.com/joefeser/what-is-the-spec/pull/1368) preserve
+the historical proof and approval context. The corrected domains required a
+new HACP package and a new WITS producer commit; those regenerated refs are the
+current candidate-publication evidence and do not retroactively change the
+refs Joe reviewed for the earlier Option 1 decision.
 
-From HACP's fixture merge, the published external validator accepts all three
-WITS bundles and compares the 22 canonical negative diagnostic sets exactly.
-The candidate test suite passes 43/43, including the committed WITS fixture
-check. The [receipt](supplementary-validation-receipt.json) and
-[reproduction note](supplementary-fixtures.md) preserve the original generation
-and HACP-side validation. A fresh validation of the merged fixtures reproduced
-the receipt's validation result exactly.
+The regenerated HACP validator accepts all three regenerated WITS bundles and
+compares the 22 canonical negative diagnostic sets exactly. The candidate test
+suite passes 43/43, including the committed WITS fixture check. HACP PR #68 is
+the publication vehicle for those corrected fixtures. WITS PR #1369 preserves
+the independently generated source and repin evidence, but its merge is not a
+prerequisite for validating the public fixture bytes committed in HACP. The
+[receipt](supplementary-validation-receipt.json) and
+[reproduction note](supplementary-fixtures.md) identify the regenerated WITS
+producer and corrected HACP validator explicitly. Fresh validation reproduced
+that corrected receipt exactly; the earlier fixture history remains available
+in the merged commits above.
 
 ## Decision 1: qualification evidence under #47
 
@@ -59,7 +65,7 @@ Joe replied:
 
 > yes i approve
 
-This return applies to Decision 1 and the exact evidence refs above. It does
+This return applies to Decision 1 and the four historical evidence refs above. It does
 not approve Decision 2, publication, closure of Task 1.3f, or merge of PR #57.
 
 ## Decision 2: exact candidate digest domains

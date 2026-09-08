@@ -54,7 +54,7 @@ the UTF-8 serialization of:
 
 Embedded reference digests remain present and therefore bind the exact records
 they reference. The start-evidence display record uses the same envelope rule
-with its separate proposed supporting domain.
+with its separate owner-approved supporting domain.
 
 ## Fixtures
 
@@ -169,9 +169,12 @@ Changing a domain changes every affected digest and is a contract change.
 
 Issue [#47](https://github.com/joefeser/hacp/issues/47) records the owner
 ruling for candidate promotion: a second implementation must independently
-produce candidate records and cross-validate them with who-decides against this
-conformance package, including its negative fixtures, without importing
-who-decides runtime code.
+produce candidate records and cross-validate them against this conformance
+package, including its negative fixtures, without importing the first
+implementation's runtime code. WITS supplies that independent v0.3 encoding
+production evidence and HACP validates it. The pinned who-decides proof is
+separate evidence for the candidate's one-use continuation semantics;
+who-decides does not produce or validate the v0.3 encoding.
 
 Bidirectional production and consumption with who-decides is reserved as a
 future full-release criterion. Passing this package alone is not a second

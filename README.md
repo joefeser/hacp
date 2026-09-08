@@ -392,8 +392,10 @@ executable candidate package:
   [schemas/v0.3-candidate/](schemas/v0.3-candidate/).
 
 Implementation-specific trial artefacts are not required to review this public
-draft. Future releases may add public evidence bundles, conformance test
-fixtures, and independent implementation reports.
+draft. The v0.3 candidate package includes bounded public evidence, conformance
+fixtures, and an independent-implementation report. Future work may add other
+implementations, distributed-effect evidence, and the bidirectional evidence
+required for full-release consideration.
 
 ## Reviewer Packet
 
@@ -488,8 +490,9 @@ and see [CONTRIBUTING.md](CONTRIBUTING.md) for contribution expectations.
 ## License
 
 See [LICENSE.md](LICENSE.md). The draft prose is offered under CC BY 4.0, and
-machine-readable artefacts, examples, and validation fixtures are offered under
-Apache-2.0 unless a file states otherwise.
+machine-readable artefacts, schemas, examples, validation fixtures, executable
+source code, and validation or generation scripts are offered under Apache-2.0
+unless a file states otherwise.
 
 ## Machine-Readable Draft Artefacts
 

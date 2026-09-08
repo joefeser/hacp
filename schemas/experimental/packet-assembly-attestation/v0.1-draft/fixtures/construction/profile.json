@@ -1,0 +1,7 @@
+{
+  "kind": "packet-assembly-construction-profile",
+  "id": "org.hacp.fixture.packet-assembly",
+  "version": "0.1-test",
+  "transformationPolicy": "select-declared-source-and-structure-bounded-fields",
+  "fixtureOnly": true
+}

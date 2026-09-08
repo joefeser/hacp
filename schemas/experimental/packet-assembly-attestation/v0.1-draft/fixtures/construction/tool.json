@@ -1,0 +1,6 @@
+{
+  "kind": "packet-assembly-tool-identity",
+  "id": "fixture-packet-builder",
+  "version": "1.0.0-test",
+  "fixtureOnly": true
+}

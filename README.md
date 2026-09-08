@@ -294,6 +294,7 @@ bugs, broken examples, or unclear conformance requirements.
 | [RFC-0007](rfcs/0007-audit-trail-and-evidence-set.md) | Audit Trail and Evidence Set | Draft |
 | [RFC-0008](rfcs/0008-transport-boundary.md) | Transport Boundary | Draft |
 | [RFC-0009](rfcs/0009-conformance-and-profiles.md) | Conformance and Profiles | Draft |
+| [RFC-0010](rfcs/0010-packet-assembly-attestation.md) | Packet Assembly Attestation | Experimental Draft |
 
 ## HACP 0.2 Draft Status
 
@@ -390,6 +391,11 @@ executable candidate package:
   [docs/source-packets/wits-v0/examples/](docs/source-packets/wits-v0/examples/).
 - closed candidate schemas and computed vectors in
   [schemas/v0.3-candidate/](schemas/v0.3-candidate/).
+
+Packet-construction provenance is explored separately in
+[RFC-0010](rfcs/0010-packet-assembly-attestation.md) and the
+[experimental packet-assembly-attestation package](schemas/experimental/packet-assembly-attestation/v0.1-draft/README.md).
+It does not modify or extend the published v0.3-candidate package.
 
 Implementation-specific trial artefacts are not required to review this public
 draft. The v0.3 candidate package includes bounded public evidence, conformance
@@ -530,6 +536,12 @@ v0.2 artefacts:
 - [schemas/human-decision-record.schema.json](schemas/human-decision-record.schema.json)
 - [fixtures/happy-path/](fixtures/happy-path/)
 - [fixtures/risk-cases/](fixtures/risk-cases/)
+
+experimental future record families:
+
+- [packet-assembly-attestation v0.1 draft](schemas/experimental/packet-assembly-attestation/v0.1-draft/README.md):
+  authenticated construction-claim shape, trust-bound validation harness, and
+  positive/negative fixtures. This is not part of HACP v0.3-candidate.
 
 ## Canonical Vocabulary Sources
 

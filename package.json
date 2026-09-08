@@ -7,7 +7,8 @@
     "hacp:doctor": "node scripts/hacp-doctor.mjs",
     "hacp:cli-bridge-examples": "node scripts/validate-cli-bridge-examples.mjs",
     "hacp:v03-candidate": "node scripts/compute-vectors.mjs --check && node --test scripts/compute-vectors.test.mjs scripts/validate-external-bundle.test.mjs",
-    "hacp:v03-external": "node scripts/validate-external-bundle.mjs"
+    "hacp:v03-external": "node scripts/validate-external-bundle.mjs",
+    "hacp:packet-assembly-attestation": "node scripts/validate-packet-assembly-attestation.mjs --check && node --test scripts/validate-packet-assembly-attestation.test.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",

@@ -30,6 +30,10 @@ Need to choose a concrete stop reason? See
   - `https://hacp.example/schemas/v0.2-draft/`
   - `https://hacp.example/schemas/v0.3-candidate/` for executable candidate
     interworking contracts; exact digest domains remain owner review gates.
+  - `https://hacp.example/schemas/experimental/packet-assembly-attestation/v0.1-draft/`
+    for the separate experimental construction-provenance record family. This
+    deliberately non-routable identifier does not imply publication by hacp.io;
+    use the repository copy of the schema.
 
 Versioning for future phases should preserve backward-readable draft history
 rather than rewriting old identifiers.
@@ -100,6 +104,20 @@ Validate the generated candidate corpus with:
 ```bash
 npm run hacp:v03-candidate
 ```
+
+### Experimental Packet Assembly Attestation
+
+- [record, fixtures, and explicit non-claims](experimental/packet-assembly-attestation/v0.1-draft/README.md)
+
+Validate the separate experimental package with:
+
+```bash
+npm run hacp:packet-assembly-attestation
+```
+
+This record family does not change or version-bump HACP v0.3-candidate. Its
+authenticated construction claim remains an attestation, not proof of correct
+assembly, approval, runtime admission, or execution.
 
 ## Evidence Field Compatibility
 

@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hacp.example/schemas/experimental/packet-assembly-attestation/v0.1-draft/packet-assembly-attestation.schema.json",
+  "title": "HACP Experimental Packet Assembly Attestation v0.1 Draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "recordKind",
+    "schemaVersion",
+    "attestationId",
+    "builder",
+    "packetBinding",
+    "sourceBindings",
+    "construction",
+    "constructedAt",
+    "declaredTransformations",
+    "limitations",
+    "claimDigest",
+    "cryptographicBinding",
+    "boundaryStatement"
+  ],
+  "properties": {
+    "recordKind": { "const": "hacp.experimental.packet_assembly_attestation" },
+    "schemaVersion": { "const": "hacp-packet-assembly-attestation-0.1-draft" },
+    "attestationId": { "$ref": "#/$defs/identifier" },
+    "builder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principalId", "authenticationMethod", "verificationProfileRef", "keyId"],
+      "properties": {
+        "principalId": { "$ref": "#/$defs/reference" },
+        "authenticationMethod": { "$ref": "#/$defs/identifier" },
+        "verificationProfileRef": { "$ref": "#/$defs/reference" },
+        "keyId": { "$ref": "#/$defs/reference" }
+      }
+    },
+    "packetBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packetId", "packetSchemaVersion", "packetDigest"],
+      "properties": {
+        "packetId": { "$ref": "#/$defs/identifier" },
+        "packetSchemaVersion": { "$ref": "#/$defs/identifier" },
+        "packetDigest": { "$ref": "#/$defs/recordDigest" }
+      }
+    },
+    "sourceBindings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sourceRef", "revision", "digest"],
+        "properties": {
+          "sourceRef": { "$ref": "#/$defs/reference" },
+          "revision": { "$ref": "#/$defs/identifier" },
+          "digest": { "$ref": "#/$defs/sourceDigest" }
+        }
+      }
+    },
+    "construction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "tool", "runtime"],
+      "properties": {
+        "profile": { "$ref": "#/$defs/versionedArtifact" },
+        "tool": { "$ref": "#/$defs/versionedArtifact" },
+        "runtime": { "$ref": "#/$defs/versionedArtifact" }
+      }
+    },
+    "constructedAt": { "type": "string", "format": "date-time" },
+    "declaredTransformations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["transformationId", "description", "inputRefs", "outputRefs"],
+        "properties": {
+          "transformationId": { "$ref": "#/$defs/identifier" },
+          "description": { "$ref": "#/$defs/text" },
+          "inputRefs": { "$ref": "#/$defs/stringSet" },
+          "outputRefs": { "$ref": "#/$defs/stringSet" }
+        }
+      }
+    },
+    "limitations": { "$ref": "#/$defs/stringSet" },
+    "claimDigest": {
+      "allOf": [
+        { "$ref": "#/$defs/recordDigest" },
+        {
+          "type": "object",
+          "properties": {
+            "digestDomain": { "const": "io.hacp.packet-assembly-attestation-claim.v0.1-draft" }
+          }
+        }
+      ]
+    },
+    "cryptographicBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scheme", "keyId", "signature"],
+      "properties": {
+        "scheme": { "const": "ed25519" },
+        "keyId": { "$ref": "#/$defs/reference" },
+        "signature": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}$"
+        }
+      }
+    },
+    "boundaryStatement": {
+      "const": "This attestation binds an authenticated builder claim under an independently selected verification profile. It does not prove correct construction, source authenticity, human approval, runtime admission, execution, completion, or external effects."
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^\\S(?:.*\\S)?$"
+    },
+    "reference": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^\\S(?:.*\\S)?$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "stringSet": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2048
+      }
+    },
+    "sourceDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "representation", "value"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "representation": { "enum": ["raw-bytes", "git-blob", "json-rfc8785-jcs"] },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "recordDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "digestDomain", "value"],
+      "properties": {
+        "algorithm": { "const": "sha256" },
+        "canonicalization": { "const": "json-rfc8785-jcs" },
+        "digestDomain": { "$ref": "#/$defs/identifier" },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "versionedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "artifactRef", "artifactDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "version": { "$ref": "#/$defs/identifier" },
+        "artifactRef": { "$ref": "#/$defs/reference" },
+        "artifactDigest": { "$ref": "#/$defs/sourceDigest" }
+      }
+    }
+  }
+}

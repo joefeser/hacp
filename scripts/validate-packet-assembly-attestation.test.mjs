@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { test } from 'node:test';
+import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import {
@@ -10,7 +11,7 @@ import {
   validateAttestation,
 } from './validate-packet-assembly-attestation.mjs';
 
-const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packageRoot = path.join(repoRoot, 'schemas/experimental/packet-assembly-attestation/v0.1-draft');
 const schema = JSON.parse(await readFile(
   path.join(packageRoot, 'packet-assembly-attestation.schema.json'),
@@ -22,11 +23,15 @@ const validateSchema = ajv.compile(schema);
 const corpus = await buildCorpus();
 const valid = corpus.files.get('valid/packet-assembly-attestation.valid.json');
 
-test('valid fixture authenticates the construction claim under supplied fixture trust', async () => {
-  assert.deepEqual(
-    await validateAttestation(valid, corpus.verificationContext, validateSchema),
-    [],
-  );
+test('valid fixtures authenticate every advertised content representation', async () => {
+  for (const item of corpus.manifest.expectedValid) {
+    const record = corpus.files.get(item.path);
+    assert.deepEqual(
+      await validateAttestation(record, corpus.verificationContext, validateSchema),
+      [],
+      item.path,
+    );
+  }
 });
 
 test('all negative fixtures fail with their exact declared diagnostic', async () => {

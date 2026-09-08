@@ -183,8 +183,9 @@ evidence.
 
 ## Conformance Evidence
 
-The experimental package includes a positive signed fixture and negative
-fixtures for source-revision substitution, packet-digest mismatch,
+The experimental package includes positive signed fixtures for raw-byte,
+Git-blob, and RFC 8785 canonical-JSON content digests, plus negative fixtures
+for source-revision substitution, packet-digest mismatch,
 self-asserted identity under an untrusted key, signature corruption, and
 post-signature claim mutation. The included keys and identities are synthetic,
 public test material and MUST NOT be trusted outside the fixture harness.

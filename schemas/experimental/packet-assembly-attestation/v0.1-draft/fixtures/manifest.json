@@ -9,6 +9,14 @@
     {
       "path": "valid/packet-assembly-attestation.valid.json",
       "expectedCodes": []
+    },
+    {
+      "path": "valid/packet-assembly-attestation.git-blob.valid.json",
+      "expectedCodes": []
+    },
+    {
+      "path": "valid/packet-assembly-attestation.json-rfc8785-jcs.valid.json",
+      "expectedCodes": []
     }
   ],
   "expectedInvalid": [

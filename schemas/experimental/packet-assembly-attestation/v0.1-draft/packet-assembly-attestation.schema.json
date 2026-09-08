@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://hacp.io/schemas/experimental/packet-assembly-attestation/v0.1-draft/packet-assembly-attestation.schema.json",
+  "$id": "https://hacp.example/schemas/experimental/packet-assembly-attestation/v0.1-draft/packet-assembly-attestation.schema.json",
   "title": "HACP Experimental Packet Assembly Attestation v0.1 Draft",
   "type": "object",
   "additionalProperties": false,

@@ -1,0 +1,94 @@
+{
+  "recordKind": "hacp.experimental.packet_assembly_attestation",
+  "schemaVersion": "hacp-packet-assembly-attestation-0.1-draft",
+  "attestationId": "assembly_attestation_fixture_git_blob",
+  "builder": {
+    "principalId": "principal://example.invalid/packet-builder",
+    "authenticationMethod": "profile_bound_ed25519_key",
+    "verificationProfileRef": "profile://example.invalid/packet-builder-test/v0.1",
+    "keyId": "key://example.invalid/packet-builder/fixture-ed25519-1"
+  },
+  "packetBinding": {
+    "packetId": "taskpkt_example_continue_review_001",
+    "packetSchemaVersion": "hacp-0.3-candidate",
+    "packetDigest": {
+      "algorithm": "sha256",
+      "canonicalization": "json-rfc8785-jcs",
+      "digestDomain": "io.hacp.task-packet.v0.3-candidate",
+      "value": "c330d201bd02c7176542740377ea5be9f9b0621b3ea67f7e8e520464a10d58a4"
+    }
+  },
+  "sourceBindings": [
+    {
+      "sourceRef": "repo://joefeser/hacp/schemas/v0.3-candidate/task-packet.schema.json",
+      "revision": "git:671791f3e7568a57b8e97bea5ac7f8c9e7e74b06",
+      "digest": {
+        "algorithm": "sha256",
+        "representation": "git-blob",
+        "value": "e122d39bcd7f5800b0828eebff9b2cc206b86f733ed06fdf24bd9481032a12cd"
+      }
+    }
+  ],
+  "construction": {
+    "profile": {
+      "id": "org.hacp.fixture.packet-assembly",
+      "version": "0.1-test",
+      "artifactRef": "fixture://packet-assembly/construction/profile.json",
+      "artifactDigest": {
+        "algorithm": "sha256",
+        "representation": "git-blob",
+        "value": "d4fde57820c1c491d89e1fd4832fa6f9c0ff38c733b037275801aec769e8af30"
+      }
+    },
+    "tool": {
+      "id": "fixture-packet-builder",
+      "version": "1.0.0-test",
+      "artifactRef": "fixture://packet-assembly/construction/tool.json",
+      "artifactDigest": {
+        "algorithm": "sha256",
+        "representation": "git-blob",
+        "value": "56b9239e86e3c18361a3f08b309ca2764d6f9c8ffd7e09584c61995a7004132d"
+      }
+    },
+    "runtime": {
+      "id": "nodejs-fixture-runtime",
+      "version": "24.14.0-test",
+      "artifactRef": "fixture://packet-assembly/construction/runtime.json",
+      "artifactDigest": {
+        "algorithm": "sha256",
+        "representation": "git-blob",
+        "value": "8d98009642a09a13df2e52574486cdaf90f7acb793f09a8be1e56f3770252a15"
+      }
+    }
+  },
+  "constructedAt": "2026-09-08T07:00:00Z",
+  "declaredTransformations": [
+    {
+      "transformationId": "select-and-structure-bounded-request",
+      "description": "Selected declared source material and structured it into the bounded task-packet fields.",
+      "inputRefs": [
+        "repo://joefeser/hacp/schemas/v0.3-candidate/task-packet.schema.json"
+      ],
+      "outputRefs": [
+        "packet-digest:c330d201bd02c7176542740377ea5be9f9b0621b3ea67f7e8e520464a10d58a4"
+      ]
+    }
+  ],
+  "limitations": [
+    "Fixture authentication uses a public test key and establishes no production trust.",
+    "The attestation does not prove source completeness, source authenticity, correct interpretation, or correct construction.",
+    "ConstructedAt is a signed declaration, not a trusted timestamp."
+  ],
+  "boundaryStatement": "This attestation binds an authenticated builder claim under an independently selected verification profile. It does not prove correct construction, source authenticity, human approval, runtime admission, execution, completion, or external effects.",
+  "claimDigest": {
+    "algorithm": "sha256",
+    "canonicalization": "json-rfc8785-jcs",
+    "digestDomain": "io.hacp.packet-assembly-attestation-claim.v0.1-draft",
+    "value": "64ecab944bb8930cf56a112a81a0d69cc7b07f05218f5b8782ebe1566b1a704f"
+  },
+  "cryptographicBinding": {
+    "scheme": "ed25519",
+    "keyId": "key://example.invalid/packet-builder/fixture-ed25519-1",
+    "signature": "6Vvi7t1H4K8oskBOH4rwVT5EUlX6MRVmxB6nG1v2sglkVvdaJc1_6_OS2il12o77ohFrGoUi1VxsCnIjghJiBw"
+  }
+}

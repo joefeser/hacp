@@ -60,20 +60,38 @@ function privateKeyFromSeed(seedHex) {
   });
 }
 
-function sourceDigest(bytes) {
+export function contentDigest(bytes, representation = 'raw-bytes') {
+  let digestInput;
+  if (representation === 'raw-bytes') {
+    digestInput = bytes;
+  } else if (representation === 'git-blob') {
+    digestInput = Buffer.concat([
+      Buffer.from(`blob ${bytes.length}\0`, 'utf8'),
+      bytes,
+    ]);
+  } else if (representation === 'json-rfc8785-jcs') {
+    const serialized = canonicalize(JSON.parse(bytes.toString('utf8')));
+    if (serialized === undefined) throw new Error('RFC 8785 content serialization failed.');
+    digestInput = Buffer.from(serialized, 'utf8');
+  } else {
+    throw new Error(`Unsupported digest representation: ${representation}`);
+  }
   return {
     algorithm: 'sha256',
-    representation: 'raw-bytes',
-    value: createHash('sha256').update(bytes).digest('hex'),
+    representation,
+    value: createHash('sha256').update(digestInput).digest('hex'),
   };
 }
 
-function declaredArtifact(descriptor, artifactRef) {
+function declaredArtifact(descriptor, artifactRef, representation = 'raw-bytes') {
   return {
     id: descriptor.id,
     version: descriptor.version,
     artifactRef,
-    artifactDigest: sourceDigest(Buffer.from(stableJson(descriptor), 'utf8')),
+    artifactDigest: contentDigest(
+      Buffer.from(stableJson(descriptor), 'utf8'),
+      representation,
+    ),
   };
 }
 
@@ -144,7 +162,7 @@ export async function buildCorpus() {
   const trustedPublicKey = createPublicKey(trustedPrivateKey).export({ format: 'jwk' });
   const subjectPacket = await readJson(subjectPacketPath);
   const sourceBytes = await readFile(sourceSchemaPath);
-  const resolvedSourceDigest = sourceDigest(sourceBytes);
+  const resolvedSourceDigest = contentDigest(sourceBytes);
 
   if (!equalDigest(subjectPacket.digest, candidatePacketDigest(subjectPacket))
     || subjectPacket.digest.value !== EXPECTED_PACKET_DIGEST) {
@@ -258,6 +276,22 @@ export async function buildCorpus() {
 
   const valid = finalizeAttestation(unsigned, trustedPrivateKey, TRUSTED_KEY_ID);
 
+  const validForRepresentation = (representation, suffix) => {
+    const variant = structuredClone(unsigned);
+    variant.attestationId = `assembly_attestation_fixture_${suffix}`;
+    variant.sourceBindings[0].digest = contentDigest(sourceBytes, representation);
+    for (const [kind, descriptor] of Object.entries(constructionDescriptors)) {
+      variant.construction[kind] = declaredArtifact(
+        descriptor,
+        constructionRefs[kind],
+        representation,
+      );
+    }
+    return finalizeAttestation(variant, trustedPrivateKey, TRUSTED_KEY_ID);
+  };
+  const validGitBlob = validForRepresentation('git-blob', 'git_blob');
+  const validCanonicalJson = validForRepresentation('json-rfc8785-jcs', 'canonical_json');
+
   const sourceSubstitution = structuredClone(valid);
   sourceSubstitution.sourceBindings[0].revision = 'git:0000000000000000000000000000000000000000';
   const sourceSubstitutionSigned = finalizeAttestation(
@@ -304,6 +338,8 @@ export async function buildCorpus() {
     ['construction/runtime.json', constructionDescriptors.runtime],
     ['verification-context.json', verificationContext],
     ['valid/packet-assembly-attestation.valid.json', valid],
+    ['valid/packet-assembly-attestation.git-blob.valid.json', validGitBlob],
+    ['valid/packet-assembly-attestation.json-rfc8785-jcs.valid.json', validCanonicalJson],
     ['invalid/source-revision-substitution.invalid.json', sourceSubstitutionSigned],
     ['invalid/packet-digest-mismatch.invalid.json', packetMismatchSigned],
     ['invalid/self-asserted-identity.invalid.json', selfAssertedIdentitySigned],
@@ -322,6 +358,14 @@ export async function buildCorpus() {
     expectedValid: [
       {
         path: 'valid/packet-assembly-attestation.valid.json',
+        expectedCodes: [],
+      },
+      {
+        path: 'valid/packet-assembly-attestation.git-blob.valid.json',
+        expectedCodes: [],
+      },
+      {
+        path: 'valid/packet-assembly-attestation.json-rfc8785-jcs.valid.json',
         expectedCodes: [],
       },
     ],
@@ -415,9 +459,16 @@ export async function validateAttestation(attestation, verificationContext, vali
     if (!resolution || resolution.revision !== source.revision) {
       return [diagnostic('SOURCE_REVISION_MISMATCH', 'Declared source revision does not match trusted resolution context.')];
     }
-    const resolvedDigest = sourceDigest(await readFile(path.join(repoRoot, resolution.path)));
+    let resolvedDigest;
+    try {
+      resolvedDigest = contentDigest(
+        await readFile(path.join(repoRoot, resolution.path)),
+        source.digest.representation,
+      );
+    } catch {
+      return [diagnostic('SOURCE_DIGEST_MISMATCH', 'Resolved source content cannot be represented as declared.')];
+    }
     if (source.digest.algorithm !== resolvedDigest.algorithm
-      || source.digest.representation !== resolvedDigest.representation
       || source.digest.value !== resolvedDigest.value) {
       return [diagnostic('SOURCE_DIGEST_MISMATCH', 'Resolved source bytes do not match the declared source digest.')];
     }
@@ -431,12 +482,20 @@ export async function validateAttestation(attestation, verificationContext, vali
       return [diagnostic('CONSTRUCTION_ARTIFACT_MISMATCH', `No trusted resolution exists for the declared ${kind} artifact.`)];
     }
     const descriptorBytes = await readFile(path.join(repoRoot, resolution.path));
-    const descriptor = JSON.parse(descriptorBytes);
-    const resolvedDigest = sourceDigest(descriptorBytes);
+    let descriptor;
+    let resolvedDigest;
+    try {
+      descriptor = JSON.parse(descriptorBytes);
+      resolvedDigest = contentDigest(
+        descriptorBytes,
+        artifact.artifactDigest.representation,
+      );
+    } catch {
+      return [diagnostic('CONSTRUCTION_ARTIFACT_MISMATCH', `Resolved ${kind} artifact cannot be represented as declared.`)];
+    }
     if (descriptor.id !== artifact.id
       || descriptor.version !== artifact.version
       || artifact.artifactDigest.algorithm !== resolvedDigest.algorithm
-      || artifact.artifactDigest.representation !== resolvedDigest.representation
       || artifact.artifactDigest.value !== resolvedDigest.value) {
       return [diagnostic('CONSTRUCTION_ARTIFACT_MISMATCH', `Declared ${kind} identity does not match resolved artifact bytes.`)];
     }

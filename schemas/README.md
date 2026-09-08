@@ -30,8 +30,10 @@ Need to choose a concrete stop reason? See
   - `https://hacp.example/schemas/v0.2-draft/`
   - `https://hacp.example/schemas/v0.3-candidate/` for executable candidate
     interworking contracts; exact digest domains remain owner review gates.
-  - `https://hacp.io/schemas/experimental/packet-assembly-attestation/v0.1-draft/`
-    for the separate experimental construction-provenance record family.
+  - `https://hacp.example/schemas/experimental/packet-assembly-attestation/v0.1-draft/`
+    for the separate experimental construction-provenance record family. This
+    deliberately non-routable identifier does not imply publication by hacp.io;
+    use the repository copy of the schema.
 
 Versioning for future phases should preserve backward-readable draft history
 rather than rewriting old identifiers.

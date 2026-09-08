@@ -24,8 +24,10 @@ npm run hacp:packet-assembly-attestation
 
 The validator checks the closed schema, RFC 8785 claim digest, Ed25519 fixture
 signature, independently supplied synthetic trust binding, exact packet
-binding, and source revision/digest resolution. All fixture identities and keys
-are public test material with no production authority.
+binding, and source revision/digest resolution. Positive fixtures exercise
+raw-byte, Git-blob, and RFC 8785 canonical-JSON representations for both source
+and construction-artifact digests. All fixture identities and keys are public
+test material with no production authority.
 
 ## Files
 
@@ -35,7 +37,8 @@ are public test material with no production authority.
   builder trust and source-resolution context for the harness.
 - `fixtures/construction/`: exact synthetic profile, tool, and runtime identity
   descriptors bound by the valid attestation.
-- `fixtures/valid/`: one authenticated construction claim.
+- `fixtures/valid/`: authenticated construction claims covering every declared
+  content-digest representation.
 - `fixtures/invalid/`: source substitution, packet mismatch, self-asserted
   identity, signature corruption, changed-claim, and construction-artifact
   mismatch cases.

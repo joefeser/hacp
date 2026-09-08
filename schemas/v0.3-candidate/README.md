@@ -54,7 +54,7 @@ the UTF-8 serialization of:
 
 Embedded reference digests remain present and therefore bind the exact records
 they reference. The start-evidence display record uses the same envelope rule
-with its separate proposed supporting domain.
+with its separate owner-approved supporting domain.
 
 ## Fixtures
 
@@ -75,7 +75,7 @@ context. Missing-record cases are omission-only manifest instructions; they do
 not retain byte-identical files that would misleadingly appear to be invalid
 records. A receipt URI or self-asserted field does not prove revocation.
 
-The v2 manifest is validated before fixture content is trusted. Its
+The v3 manifest is validated before fixture content is trusted. Its
 `fixtureInventory` is a non-chain inventory, and `expectedValidBundles` is the
 only positive semantic input. Unknown manifest versions, unsafe paths,
 undeclared JSON fixtures, ambiguous negative selectors, unexpected roles, and
@@ -111,7 +111,7 @@ in this directory are the conformance corpus.
 
 Issue [#54](https://github.com/joefeser/hacp/issues/54) adds a separate,
 closed admission boundary for independently produced candidate bundles. It
-does not loosen the canonical v2 manifest or allow executable provider code.
+does not loosen the canonical v3 manifest or allow executable provider code.
 
 An external producer supplies a directory containing exactly:
 
@@ -149,30 +149,32 @@ promotion by itself, authority, approval, proof of independent production,
 proof of execution, or proof of exactly-once external effects. Qualification
 still requires owner reconciliation under issue #47.
 
-## REVIEW-REQUIRED: candidate digest domains
+## Owner-approved candidate digest domains
 
-The following exact strings are proposed and deliberately **not finalized** by
-this implementation PR:
+Joe Feser approved the following exact candidate-scoped strings on 2026-09-07.
+They use the reverse-DNS form of the project-controlled `hacp.io` domain:
 
-- `org.hacp.task-packet.v0.3-candidate`
-- `org.hacp.human-decision.v0.3-candidate`
-- `org.hacp.consumption-receipt.v0.3-candidate`
-- `org.hacp.continuation-context.v0.3-candidate`
-- `org.hacp.agent-report.v0.3-candidate`
-- `org.hacp.review-finding.v0.3-candidate`
-- `org.hacp.stop-response.v0.3-candidate`
-- supporting record: `org.hacp.successor-start-evidence.v0.3-candidate`
+- `io.hacp.task-packet.v0.3-candidate`
+- `io.hacp.human-decision.v0.3-candidate`
+- `io.hacp.consumption-receipt.v0.3-candidate`
+- `io.hacp.continuation-context.v0.3-candidate`
+- `io.hacp.agent-report.v0.3-candidate`
+- `io.hacp.review-finding.v0.3-candidate`
+- `io.hacp.stop-response.v0.3-candidate`
+- supporting record: `io.hacp.successor-start-evidence.v0.3-candidate`
 
-Joe must approve the exact normative domain set before candidate publication.
 Changing a domain changes every affected digest and is a contract change.
 
 ## Owner-Ruled Second-Implementation Qualification
 
 Issue [#47](https://github.com/joefeser/hacp/issues/47) records the owner
 ruling for candidate promotion: a second implementation must independently
-produce candidate records and cross-validate them with who-decides against this
-conformance package, including its negative fixtures, without importing
-who-decides runtime code.
+produce candidate records and cross-validate them against this conformance
+package, including its negative fixtures, without importing the first
+implementation's runtime code. WITS supplies that independent v0.3 encoding
+production evidence and HACP validates it. The pinned who-decides proof is
+separate evidence for the candidate's one-use continuation semantics;
+who-decides does not produce or validate the v0.3 encoding.
 
 Bidirectional production and consumption with who-decides is reserved as a
 future full-release criterion. Passing this package alone is not a second
@@ -204,3 +206,8 @@ not establish distributed trust, cross-store atomicity, provider effects, or
 exactly-once external effects. These schemas validate record shape; the corpus
 also validates a bounded set of cross-record relationships. Neither grants
 authority or executes work.
+
+Joe Feser accepted the pinned who-decides 44-case receipt-bound proof on
+2026-09-07 as the external proof required by the candidate publication
+checklist. That acceptance retains the proof's local, synthetic, closed-world,
+and no-external-effect limits; it is not full-release evidence.

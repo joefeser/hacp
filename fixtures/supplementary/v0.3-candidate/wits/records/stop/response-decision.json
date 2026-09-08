@@ -5,34 +5,34 @@
     "verificationSource": "authenticated_wits_case_principal"
   },
   "digest": {
-    "value": "06689b1364bbdcce2c712d4440428d24ffafc4a841e24bbf7630bd6d1824af08",
+    "value": "ddff864d858330ee74879e168f1c5d521cbf3cc4cdc11893dc23928ed9438a95",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+    "digestDomain": "io.hacp.human-decision.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
   "decision": "defer",
-  "packetId": "taskpkt_wits_01a07ca6_f17e_7915_8171_5e6c2c74a460",
-  "createdAt": "2026-09-07T16:15:10.899Z",
-  "decisionId": "decision_wits_stop_response_01a07ca6_f233_7843_9d05_94747859461f",
+  "packetId": "taskpkt_wits_01a07ef6_ca37_71eb_baef_9a23af371b20",
+  "createdAt": "2026-09-08T03:01:38.141Z",
+  "decisionId": "decision_wits_stop_response_01a07ef6_cadd_7645_bba4_f59b2a3817be",
   "recordKind": "hacp.v0_3_candidate.human_decision",
   "evidenceRefs": [
-    "wits://candidate-stop/01a07ca6-f1fa-73ed-907d-6fdb5d95a921"
+    "wits://candidate-stop/01a07ef6-caa9-774f-a850-6cfbf2232ad3"
   ],
   "packetDigest": {
-    "value": "f7bbef605580b9e9bbc16eac5079b4001be9227d28ff7cca396c9d0dad28b8a2",
+    "value": "29e597dd82fb7a3316ce99ccc61596abfeae6b4bec959034b21a6e3aa9706794",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "digestDomain": "io.hacp.task-packet.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
   "schemaVersion": "hacp-0.3-candidate",
   "decisionReason": "Wait for a fresh authority action.",
   "decisionRequest": {
-    "id": "stop_wits_01a07ca6_f1fa_74d5_bf3c_279d125a04fa",
+    "id": "stop_wits_01a07ef6_caa9_7c00_915a_8680dbf683a2",
     "kind": "stop_response",
     "digest": {
-      "value": "749d402f6ed6cb02e2913f51c1a8e68b444f636c8d4e8d9aeafd666c733a3c9c",
+      "value": "2644163b5a576bd67c5861f42a2f58c601d94d374f84eef831bd6546b75852dd",
       "algorithm": "sha256",
-      "digestDomain": "org.hacp.stop-response.v0.3-candidate",
+      "digestDomain": "io.hacp.stop-response.v0.3-candidate",
       "canonicalization": "json-rfc8785-jcs"
     }
   },

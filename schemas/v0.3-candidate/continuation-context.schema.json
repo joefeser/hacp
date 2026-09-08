@@ -22,20 +22,20 @@
     "decision": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digestRef" },
-        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.human-decision.v0.3-candidate" } } } } }
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.human-decision.v0.3-candidate" } } } } }
       ]
     },
     "consumptionReceipt": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digestRef" },
-        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.consumption-receipt.v0.3-candidate" } } } } }
+        { "type": "object", "properties": { "digest": { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.consumption-receipt.v0.3-candidate" } } } } }
       ]
     },
     "successorInvocationId": { "$ref": "common-defs.schema.json#/$defs/identifier" },
     "digest": {
       "allOf": [
         { "$ref": "common-defs.schema.json#/$defs/digest" },
-        { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.continuation-context.v0.3-candidate" } } }
+        { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.continuation-context.v0.3-candidate" } } }
       ]
     },
     "boundaryStatement": { "$ref": "common-defs.schema.json#/$defs/text" }

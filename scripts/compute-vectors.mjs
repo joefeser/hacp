@@ -30,14 +30,14 @@ const recordKinds = Object.freeze([
 ]);
 
 const domains = Object.freeze({
-  'task-packet': 'org.hacp.task-packet.v0.3-candidate',
-  'human-decision': 'org.hacp.human-decision.v0.3-candidate',
-  'consumption-receipt': 'org.hacp.consumption-receipt.v0.3-candidate',
-  'continuation-context': 'org.hacp.continuation-context.v0.3-candidate',
-  'agent-report': 'org.hacp.agent-report.v0.3-candidate',
-  'review-finding': 'org.hacp.review-finding.v0.3-candidate',
-  'stop-response': 'org.hacp.stop-response.v0.3-candidate',
-  'successor-start-evidence': 'org.hacp.successor-start-evidence.v0.3-candidate'
+  'task-packet': 'io.hacp.task-packet.v0.3-candidate',
+  'human-decision': 'io.hacp.human-decision.v0.3-candidate',
+  'consumption-receipt': 'io.hacp.consumption-receipt.v0.3-candidate',
+  'continuation-context': 'io.hacp.continuation-context.v0.3-candidate',
+  'agent-report': 'io.hacp.agent-report.v0.3-candidate',
+  'review-finding': 'io.hacp.review-finding.v0.3-candidate',
+  'stop-response': 'io.hacp.stop-response.v0.3-candidate',
+  'successor-start-evidence': 'io.hacp.successor-start-evidence.v0.3-candidate'
 });
 
 const kindFromRecord = Object.freeze({
@@ -256,7 +256,7 @@ async function buildConformancePackage() {
   const invalidRecords = buildInvalidFixtures(success, stop);
   const expectedInvalid = buildInvalidManifest(success, stop, invalidRecords, bundles);
   const manifest = {
-    schema: 'hacp.v0_3_candidate.conformance_manifest.v2',
+    schema: 'hacp.v0_3_candidate.conformance_manifest.v3',
     candidateStatus: true,
     sourcePacketCommit: 'db47da2118355683f34fd955083c2b3c38769fe4',
     regenerationBaseCommit: '73056a53fd87ce20d6a40f8c2188d2fb0a07ce7f',
@@ -265,8 +265,12 @@ async function buildConformancePackage() {
       mergeCommit: 'c6677da198c166079132ac2a23a39afeade26af3',
       inspectedMainAtPreparation: '04a89f5509035b3299bb3786da1e9909a4e78dc0'
     },
-    reviewRequired: { digestDomains: Object.values(domains) },
     ownerRulings: {
+      digestDomains: {
+        approvedBy: 'Joe Feser',
+        approvedOn: '2026-09-07',
+        values: Object.values(domains)
+      },
       secondImplementationQualification: {
         sourceIssue: 'https://github.com/joefeser/hacp/issues/47',
         candidatePromotion: 'independent_production_plus_cross_validation',
@@ -1052,8 +1056,7 @@ async function validateCorpus(manifest) {
     digestAlgorithm: 'sha256',
     canonicalization: 'RFC 8785 JCS',
     candidateOnly: true,
-    reviewRequired: ['digest domains'],
-    ownerRuled: ['second-implementation qualification']
+    ownerRuled: ['digest domains', 'second-implementation qualification']
   };
 }
 

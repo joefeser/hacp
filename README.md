@@ -179,10 +179,15 @@ and matrix drift.
 
 ## Status
 
-HACP is not a standard yet. It is a working draft based on practical experience
-building and dogfooding one implementation. Vendor-neutrality is a design goal;
-achieving it requires independent implementations and feedback from tool owners
-who did not inherit the original implementation context.
+HACP is not a standard yet. It is a working draft and candidate protocol based
+on practical implementation evidence. WITS independently produces the seven
+v0.3 candidate record kinds and HACP cross-validates that encoding. The pinned
+who-decides 44-case proof supplies separate bounded evidence for the underlying
+one-use continuation semantics; it does not produce or validate the v0.3 record
+encoding. Together these are useful candidate evidence, not a claim of
+distributed execution, external effects, bidirectional production, or standard
+maturity. Vendor-neutrality remains a design goal and needs feedback from
+implementers who did not inherit the original project context.
 
 This repository is intended for public review of the draft contracts. Do not
 describe an implementation as "HACP compliant" yet; use narrower labels such as
@@ -204,7 +209,8 @@ checked.
 ### Experimental Or Product-Proven But Not Standardized
 
 - product-specific UX/readback and governance workflows;
-- cross-vendor interoperability claims without independent implementations;
+- interoperability claims beyond the two bounded candidate implementations and
+  their published limitations;
 - any claim that schema validation alone proves operational safety;
 - any maturity framing that implies a finalized or ratified standard.
 
@@ -386,8 +392,10 @@ executable candidate package:
   [schemas/v0.3-candidate/](schemas/v0.3-candidate/).
 
 Implementation-specific trial artefacts are not required to review this public
-draft. Future releases may add public evidence bundles, conformance test
-fixtures, and independent implementation reports.
+draft. The v0.3 candidate package includes bounded public evidence, conformance
+fixtures, and an independent-implementation report. Future work may add other
+implementations, distributed-effect evidence, and the bidirectional evidence
+required for full-release consideration.
 
 ## Reviewer Packet
 
@@ -482,8 +490,9 @@ and see [CONTRIBUTING.md](CONTRIBUTING.md) for contribution expectations.
 ## License
 
 See [LICENSE.md](LICENSE.md). The draft prose is offered under CC BY 4.0, and
-machine-readable artefacts, examples, and validation fixtures are offered under
-Apache-2.0 unless a file states otherwise.
+machine-readable artefacts, schemas, examples, validation fixtures, executable
+source code, and validation or generation scripts are offered under Apache-2.0
+unless a file states otherwise.
 
 ## Machine-Readable Draft Artefacts
 

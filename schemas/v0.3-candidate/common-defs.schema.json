@@ -42,14 +42,14 @@
         "canonicalization": { "const": "json-rfc8785-jcs" },
         "digestDomain": {
           "enum": [
-            "org.hacp.task-packet.v0.3-candidate",
-            "org.hacp.human-decision.v0.3-candidate",
-            "org.hacp.consumption-receipt.v0.3-candidate",
-            "org.hacp.continuation-context.v0.3-candidate",
-            "org.hacp.agent-report.v0.3-candidate",
-            "org.hacp.review-finding.v0.3-candidate",
-            "org.hacp.stop-response.v0.3-candidate",
-            "org.hacp.successor-start-evidence.v0.3-candidate"
+            "io.hacp.task-packet.v0.3-candidate",
+            "io.hacp.human-decision.v0.3-candidate",
+            "io.hacp.consumption-receipt.v0.3-candidate",
+            "io.hacp.continuation-context.v0.3-candidate",
+            "io.hacp.agent-report.v0.3-candidate",
+            "io.hacp.review-finding.v0.3-candidate",
+            "io.hacp.stop-response.v0.3-candidate",
+            "io.hacp.successor-start-evidence.v0.3-candidate"
           ]
         },
         "value": {
@@ -83,7 +83,7 @@
             "digest": {
               "allOf": [
                 { "$ref": "#/$defs/digest" },
-                { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.review-finding.v0.3-candidate" } } }
+                { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.review-finding.v0.3-candidate" } } }
               ]
             }
           }
@@ -94,7 +94,7 @@
             "digest": {
               "allOf": [
                 { "$ref": "#/$defs/digest" },
-                { "type": "object", "properties": { "digestDomain": { "const": "org.hacp.stop-response.v0.3-candidate" } } }
+                { "type": "object", "properties": { "digestDomain": { "const": "io.hacp.stop-response.v0.3-candidate" } } }
               ]
             }
           }

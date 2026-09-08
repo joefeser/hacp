@@ -1,14 +1,14 @@
 {
   "digest": {
-    "value": "749d402f6ed6cb02e2913f51c1a8e68b444f636c8d4e8d9aeafd666c733a3c9c",
+    "value": "2644163b5a576bd67c5861f42a2f58c601d94d374f84eef831bd6546b75852dd",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.stop-response.v0.3-candidate",
+    "digestDomain": "io.hacp.stop-response.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
-  "stopId": "stop_wits_01a07ca6_f1fa_74d5_bf3c_279d125a04fa",
-  "packetId": "taskpkt_wits_01a07ca6_f17e_7915_8171_5e6c2c74a460",
+  "stopId": "stop_wits_01a07ef6_caa9_7c00_915a_8680dbf683a2",
+  "packetId": "taskpkt_wits_01a07ef6_ca37_71eb_baef_9a23af371b20",
   "profileId": "hacp-accountable-continuation-v0.3-candidate",
-  "decisionId": "decision_wits_01a07ca6_f1e9_7c52_a75c_c3f4f2ad696c",
+  "decisionId": "decision_wits_01a07ef6_ca9a_70c2_98df_a396cab43c51",
   "recordKind": "hacp.v0_3_candidate.stop_response",
   "stopReason": "STALE_PACKET",
   "evidenceRefs": [

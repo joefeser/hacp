@@ -1,7 +1,7 @@
 # WITS candidate supplementary fixtures
 
-These eleven records were emitted by the merged WITS implementation at
-`9fa658f7faf2522de6ea12408c784bb987223f00` ([WITS #1367](https://github.com/joefeser/what-is-the-spec/pull/1367)).
+These eleven records were emitted by the regenerated WITS implementation at
+`48bac116b1077a81dc7adf8e34c78cc3da17c7b2` ([WITS #1369](https://github.com/joefeser/what-is-the-spec/pull/1369)).
 They form three branch bundles: successful continuation (6 records), pre-start
 stop (4), and stop with a distinct non-authorizing human response (5). The stop
 branches share their four antecedents. They were generated through WITS's native
@@ -11,8 +11,10 @@ without importing who-decides runtime code.
 The [external manifest](../../../fixtures/supplementary/v0.3-candidate/wits/external-bundle-manifest.json)
 pins the exact bytes and HACP package. The [validation receipt](supplementary-validation-receipt.json)
 records the HACP-side result, source pin, manifest digest, and limitations.
-HACP's validator at `b6c6bf35640515045252803cfe49d75e223a12d9` accepted all three
+HACP's validator at `6393cd893296c7566059ca95347d82b9454fc2a7` accepted all three
 bundles after comparing the complete 22-case canonical negative corpus exactly.
+The WITS repository and PR may require access; the complete public-safe emitted
+bytes and their HACP-side validation evidence are retained in this public repo.
 
 From the HACP repository root:
 
@@ -30,7 +32,7 @@ implementation remain the published package.
 
 The WITS integration suite at the source pin generated these files with
 `RUN_HACP_V03_CANDIDATE_INTEGRATION=true`,
-`HACP_V03_CANDIDATE_SOURCE_COMMIT=9fa658f7faf2522de6ea12408c784bb987223f00`, and
+`HACP_V03_CANDIDATE_SOURCE_COMMIT=48bac116b1077a81dc7adf8e34c78cc3da17c7b2`, and
 `HACP_V03_CANDIDATE_CANARY_OUTPUT` pointing at an empty output directory. Run
 `npx vitest run -c vitest.integration.config.ts tests/integration/hacp-v03-candidate-interworking.integration.test.ts`
 with `TEST_DATABASE_URL` set to a disposable local test database: the suite resets
@@ -48,7 +50,9 @@ common-mode library risk. WITS Task 1.3f remains open: digest-bearing records us
 an immediately prior post-lock database time, while the final atomic CTE rechecks
 time and expiry; single-read timestamp provenance is unproven.
 
-This is evidence for owner reconciliation under [HACP #47](https://github.com/joefeser/hacp/issues/47),
-not candidate promotion or full-release qualification. Bidirectional production
-and consumption remains a separate future gate. [HACP #52](https://github.com/joefeser/hacp/issues/52)
-and non-final digest domains retain their existing status.
+Joe accepted the pinned who-decides 44-case proof and this regenerated WITS
+production/cross-validation evidence for candidate publication under
+[HACP #47](https://github.com/joefeser/hacp/issues/47). This is not full-release
+qualification. Bidirectional production and consumption remains a separate
+future gate, and [HACP #52](https://github.com/joefeser/hacp/issues/52) retains
+its existing status.

@@ -5,34 +5,34 @@
     "verificationSource": "authenticated_wits_case_principal"
   },
   "digest": {
-    "value": "b7261e0f87fb97852bb5e1d4f8d9c6d89eaa049164626b79b00a3bed915325e9",
+    "value": "c98d362964b87981a1e1e5a035f7484dc8d97d17472f89b1561af45bd2d3f879",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.human-decision.v0.3-candidate",
+    "digestDomain": "io.hacp.human-decision.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
   "decision": "approve_bounded_successor",
-  "packetId": "taskpkt_wits_01a07ca6_edb8_7b3e_8765_7833962903aa",
-  "createdAt": "2026-09-07T16:15:09.930Z",
-  "decisionId": "decision_wits_01a07ca6_ee6a_73a6_aa44_41f2e4298d05",
+  "packetId": "taskpkt_wits_01a07ef6_c6e4_7efb_b147_f1647b6070ed",
+  "createdAt": "2026-09-08T03:01:37.257Z",
+  "decisionId": "decision_wits_01a07ef6_c769_77ed_8e3e_ee694f1a8054",
   "recordKind": "hacp.v0_3_candidate.human_decision",
   "evidenceRefs": [
-    "wits://product-decision-action/01a07ca6-edb8-7b3e-8765-7833962903aa"
+    "wits://product-decision-action/01a07ef6-c6e4-7efb-b147-f1647b6070ed"
   ],
   "packetDigest": {
-    "value": "21cc7b195d12d4556c3756b186cbd520ea2964e7f58ebbc9c958c81c170974f9",
+    "value": "4a1b49eceb3f70a5c5b48819c8c536b79c22e161f5819eaf6be0bc49a03110b9",
     "algorithm": "sha256",
-    "digestDomain": "org.hacp.task-packet.v0.3-candidate",
+    "digestDomain": "io.hacp.task-packet.v0.3-candidate",
     "canonicalization": "json-rfc8785-jcs"
   },
   "schemaVersion": "hacp-0.3-candidate",
   "decisionReason": "The owner approved this exact bounded one-use successor scope.",
   "decisionRequest": {
-    "id": "finding_wits_01a07ca6_edb8_7b3e_8765_7833962903aa",
+    "id": "finding_wits_01a07ef6_c6e4_7efb_b147_f1647b6070ed",
     "kind": "review_finding",
     "digest": {
-      "value": "9952f87b684f3e9c9a56e223c29a254cbd7f44185d2584c98b575d1c044096fa",
+      "value": "da8ee20af9c6c63c2a266ceef6ece477ea819572dca7e6bea0aa32e633550059",
       "algorithm": "sha256",
-      "digestDomain": "org.hacp.review-finding.v0.3-candidate",
+      "digestDomain": "io.hacp.review-finding.v0.3-candidate",
       "canonicalization": "json-rfc8785-jcs"
     }
   },

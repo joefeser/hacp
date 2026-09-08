@@ -3,91 +3,91 @@
   "candidateStatus": true,
   "qualificationIntent": "independent_production_plus_cross_validation",
   "conformancePackage": {
-    "manifestSha256": "18bdd29c2e5347411a0598964224b8674bd0962628cffbc6bac2f0e107cb1d92",
+    "manifestSha256": "b794afa184761792d7a5c682ea8eed5a94f49d65289b429d747afc51d595d33c",
     "schemaBaseUri": "https://hacp.example/schemas/v0.3-candidate/",
     "recordSchemaSha256": {
-      "common-defs.schema.json": "be18915465d8db45712a3f08f0cc2eac236565051b639dddaa243c9da36ed759",
-      "task-packet.schema.json": "9bc15332a03e71b9cb2594066928dd99c4c50477cf8004be301c0bc83c9267a7",
-      "review-finding.schema.json": "3e6ed24e06995e89cafa65140e80cb13f44c47dcbc80245711135aa1cffcb1ff",
-      "human-decision.schema.json": "fc5e254e848c2d7c87fb03fa42c45abf4f7b884e4de88c31666b15acf2298675",
-      "consumption-receipt.schema.json": "54a02f5ef6254a5ad001e0ffd214e1e97f5ec6dec455d497dbaae2bbdf1e7954",
-      "continuation-context.schema.json": "73b006a3edef340ffd61d08e3cbc59ac12eb29d8ad1c3e87965cb8dbadc41b29",
-      "agent-report.schema.json": "39344a10f31d5f9d200debe524277e2dcca59fc3cfcc2385913b54532a13f2db",
-      "stop-response.schema.json": "e820499cdd1d1658024d584e6b6178866ef2af7754b41f4cd385447661d33aaa"
+      "common-defs.schema.json": "702ce603cf2a3f5bde62296fde230f3a80545a8bcbb61acde853dff784804621",
+      "task-packet.schema.json": "9b7447bac08afcdb88ca5c275d1f897d6aff8a83f41e068bb79480f185da3dea",
+      "review-finding.schema.json": "d125d9278f752e8da50ec466cf0d8c8cea4600a84b304640307a236c9ff71918",
+      "human-decision.schema.json": "ff7dd8031589a91857a10b6b84d82ca6091b9040c17aab52c4002ebe103b5af0",
+      "consumption-receipt.schema.json": "f03c6a4169146def1e0194bb657f8c59bcd9659e1d8a2eb807399d982bc4c226",
+      "continuation-context.schema.json": "0a950f2c212f0c0b3340cb83e250f24d9dde8893f6aa2e8895d9712739a5c83a",
+      "agent-report.schema.json": "7a901c27e18e9992a4a69b0b1a4e9a73d20b6de4bd050ab9c43b176d32bd5599",
+      "stop-response.schema.json": "99dabeac273a0be54a8dbb5ffdb764d156d1af4622f0dd9402feaa81bfc4f972"
     },
-    "semanticValidatorSha256": "b6fccb52ea78af9b335c3702110a6c630f84d0a93f00548c1a0f30e4e7cf3b89",
+    "semanticValidatorSha256": "c858af0bdc6c017cbf3dcbccc1e32567b8500985c38aff27606d04d28a08c598",
     "digestDomains": [
-      "org.hacp.task-packet.v0.3-candidate",
-      "org.hacp.human-decision.v0.3-candidate",
-      "org.hacp.consumption-receipt.v0.3-candidate",
-      "org.hacp.continuation-context.v0.3-candidate",
-      "org.hacp.agent-report.v0.3-candidate",
-      "org.hacp.review-finding.v0.3-candidate",
-      "org.hacp.stop-response.v0.3-candidate",
-      "org.hacp.successor-start-evidence.v0.3-candidate"
+      "io.hacp.task-packet.v0.3-candidate",
+      "io.hacp.human-decision.v0.3-candidate",
+      "io.hacp.consumption-receipt.v0.3-candidate",
+      "io.hacp.continuation-context.v0.3-candidate",
+      "io.hacp.agent-report.v0.3-candidate",
+      "io.hacp.review-finding.v0.3-candidate",
+      "io.hacp.stop-response.v0.3-candidate",
+      "io.hacp.successor-start-evidence.v0.3-candidate"
     ]
   },
   "producer": {
     "implementationId": "wits.hacp-v03-candidate-interworking-proof.v0",
     "sourceRepository": "https://github.com/joefeser/what-is-the-spec",
-    "sourceCommit": "9fa658f7faf2522de6ea12408c784bb987223f00",
-    "generatedAt": "2026-09-07T16:15:15.047Z"
+    "sourceCommit": "48bac116b1077a81dc7adf8e34c78cc3da17c7b2",
+    "generatedAt": "2026-09-08T03:01:42.030Z"
   },
   "fixtureInventory": [
     {
       "path": "records/success/task-packet.json",
       "schema": "task-packet.schema.json",
-      "sha256": "c5d820713d2f4e4cd81fce3956e85680def283e4b958718ae916aeb0ac28fe53"
+      "sha256": "cec64bab912f1881cf2b653843804c3f63ffcc6135217bad4aea0cfa9e2e7098"
     },
     {
       "path": "records/success/decision-request.json",
       "schema": "review-finding.schema.json",
-      "sha256": "9a7063e937552e4695fb7e0fc24b8194cb4857f970318ae20b142c7f73b98ec9"
+      "sha256": "270f7ac26660c49c247e5d4af2c83e4c70ea3ae63816f9c75f43c605b1864b8e"
     },
     {
       "path": "records/success/authority-basis-decision.json",
       "schema": "human-decision.schema.json",
-      "sha256": "7ca5a11d5cc4623ac4d4d9f7319a2f73de0b50564b7f801988e9fc6c512cd55f"
+      "sha256": "d7237564d16245048287517673e87c929a88ddfcf56b2e3ce1831dd06fe5252d"
     },
     {
       "path": "records/success/consumption-receipt.json",
       "schema": "consumption-receipt.schema.json",
-      "sha256": "c45b5b633bbdb8ba07b23b000baaeb5a77856921c28bd5d5378a65cb33d6e49c"
+      "sha256": "f84749ac953164b5335add6add06211fc5613ac2355ba5acbb0393ba688fd10f"
     },
     {
       "path": "records/success/continuation-context.json",
       "schema": "continuation-context.schema.json",
-      "sha256": "171199ceb043802233284da7d19e94717c9820ebcc5ef7e85fc46e058b2199f9"
+      "sha256": "4380cff013702870c412df0e4184d025a3780541a3bd1715c814ed8b9ce7ffcf"
     },
     {
       "path": "records/success/agent-report.json",
       "schema": "agent-report.schema.json",
-      "sha256": "564fc5e66e0850c6eca259034eab3800f23b1a4a0d41ba9d3c1bdec16313a7a7"
+      "sha256": "b08c3377ddfbf4c2806ece51178b125b638c196e231940a9ec96f6bf5a123e31"
     },
     {
       "path": "records/stop/task-packet.json",
       "schema": "task-packet.schema.json",
-      "sha256": "7e86f3fd5b374abb62b2b24e50f22036bd3c554f3cc4fd712e1fb06baf052c3a"
+      "sha256": "3dd8e92131daac2d043faf38881526ebf6c6d451b9a5ceaf23ceb0c2d849c874"
     },
     {
       "path": "records/stop/decision-request.json",
       "schema": "review-finding.schema.json",
-      "sha256": "396c85250f8d789391ef22fe660565dbc9dadd237eba34e46c1cbd6c4710aa9c"
+      "sha256": "06836a60619cc9342208a87c6bb276e86f143f7ccd38b25f5261864be5865ebe"
     },
     {
       "path": "records/stop/authority-basis-decision.json",
       "schema": "human-decision.schema.json",
-      "sha256": "a278bd06371904e296a998628ba0fa45e9b38e0bef5872eecb9a30ccfeb242b2"
+      "sha256": "b0b8b5bafb3119fd75d3fec978d2adf1ddb42008febd103e766c4c6620c5fa92"
     },
     {
       "path": "records/stop/stop-response.json",
       "schema": "stop-response.schema.json",
-      "sha256": "2c924128c6f2b388e42d5fb8e53e539762462f409cb5a90cbadb7e7174bf29fe"
+      "sha256": "ea4bbb58a989017d0d5a23a40ae35d25f3780c0b39c24f86cace6188b3949e7d"
     },
     {
       "path": "records/stop/response-decision.json",
       "schema": "human-decision.schema.json",
-      "sha256": "4501c44ce20d401bf57ffe5917d55e1c2040391402e08090e3e2c08f92a48622"
+      "sha256": "2493bf81d9166e931e5849726e4514c1307c638c73a7e54eebc773dc75e5571e"
     }
   ],
   "bundles": [

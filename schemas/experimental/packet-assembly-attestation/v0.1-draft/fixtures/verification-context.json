@@ -1,0 +1,46 @@
+{
+  "schema": "hacp.packet_assembly_attestation.fixture_verification_context.v1",
+  "fixtureOnly": true,
+  "profileRef": "profile://example.invalid/packet-builder-test/v0.1",
+  "trustedBuilders": [
+    {
+      "principalId": "principal://example.invalid/packet-builder",
+      "authenticationMethod": "profile_bound_ed25519_key",
+      "keyId": "key://example.invalid/packet-builder/fixture-ed25519-1",
+      "publicKeyJwk": {
+        "crv": "Ed25519",
+        "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+        "kty": "OKP"
+      },
+      "status": "active"
+    }
+  ],
+  "subjectPacket": {
+    "path": "schemas/v0.3-candidate/fixtures/valid/success/task-packet.valid.json"
+  },
+  "sourceResolutions": [
+    {
+      "sourceRef": "repo://joefeser/hacp/schemas/v0.3-candidate/task-packet.schema.json",
+      "revision": "git:671791f3e7568a57b8e97bea5ac7f8c9e7e74b06",
+      "path": "schemas/v0.3-candidate/task-packet.schema.json"
+    }
+  ],
+  "constructionArtifactResolutions": [
+    {
+      "kind": "profile",
+      "artifactRef": "fixture://packet-assembly/construction/profile.json",
+      "path": "schemas/experimental/packet-assembly-attestation/v0.1-draft/fixtures/construction/profile.json"
+    },
+    {
+      "kind": "tool",
+      "artifactRef": "fixture://packet-assembly/construction/tool.json",
+      "path": "schemas/experimental/packet-assembly-attestation/v0.1-draft/fixtures/construction/tool.json"
+    },
+    {
+      "kind": "runtime",
+      "artifactRef": "fixture://packet-assembly/construction/runtime.json",
+      "path": "schemas/experimental/packet-assembly-attestation/v0.1-draft/fixtures/construction/runtime.json"
+    }
+  ],
+  "boundaryStatement": "Synthetic fixture trust only. This context authenticates no production builder, source, approval, runtime admission, executor, or external effect."
+}

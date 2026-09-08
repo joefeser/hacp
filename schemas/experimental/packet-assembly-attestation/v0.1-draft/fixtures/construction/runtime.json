@@ -1,0 +1,6 @@
+{
+  "kind": "packet-assembly-runtime-identity",
+  "id": "nodejs-fixture-runtime",
+  "version": "24.14.0-test",
+  "fixtureOnly": true
+}

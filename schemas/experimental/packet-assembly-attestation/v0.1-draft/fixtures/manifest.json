@@ -1,0 +1,53 @@
+{
+  "schema": "hacp.packet_assembly_attestation.conformance_manifest.v1",
+  "status": "experimental_draft",
+  "sourceIssue": "https://github.com/joefeser/hacp/issues/69",
+  "hacpEvidenceBase": "671791f3e7568a57b8e97bea5ac7f8c9e7e74b06",
+  "candidatePackageModified": false,
+  "verificationContext": "verification-context.json",
+  "expectedValid": [
+    {
+      "path": "valid/packet-assembly-attestation.valid.json",
+      "expectedCodes": []
+    }
+  ],
+  "expectedInvalid": [
+    {
+      "path": "invalid/source-revision-substitution.invalid.json",
+      "expectedCodes": [
+        "SOURCE_REVISION_MISMATCH"
+      ]
+    },
+    {
+      "path": "invalid/packet-digest-mismatch.invalid.json",
+      "expectedCodes": [
+        "PACKET_DIGEST_MISMATCH"
+      ]
+    },
+    {
+      "path": "invalid/self-asserted-identity.invalid.json",
+      "expectedCodes": [
+        "UNTRUSTED_BUILDER_PRINCIPAL"
+      ]
+    },
+    {
+      "path": "invalid/signature-mismatch.invalid.json",
+      "expectedCodes": [
+        "SIGNATURE_INVALID"
+      ]
+    },
+    {
+      "path": "invalid/changed-claim.invalid.json",
+      "expectedCodes": [
+        "CLAIM_DIGEST_MISMATCH"
+      ]
+    },
+    {
+      "path": "invalid/construction-artifact-mismatch.invalid.json",
+      "expectedCodes": [
+        "CONSTRUCTION_ARTIFACT_MISMATCH"
+      ]
+    }
+  ],
+  "boundaryStatement": "Passing these fixtures proves bounded harness behavior only. It does not authenticate a production builder or prove correct packet construction."
+}
